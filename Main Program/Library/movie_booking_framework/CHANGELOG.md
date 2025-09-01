@@ -23,3 +23,7 @@
 - write_movie_seats_csv(...) now includes error reporting for when the movie code does not exist.
 ### Fixed
 - Fixed an issue where the number of columns would gradually decrease each time write_movie_seats_csv was used to overwrite the file.
+## [1.13.1] - 2025-09-02
+### Changed
+- Added comments to __movie_seats_framework__.py for improved readability.
+- Renamed write_update_movie_seats_csv(...) to update_movie_seats_csv(...) to better reflect its function.
