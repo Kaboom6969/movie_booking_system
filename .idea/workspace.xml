@@ -4,12 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0ea8b363-fbeb-45e9-9d45-12a8498462b3" name="Changes" comment="FrameWork Version 1.1">
+    <list default="true" id="0ea8b363-fbeb-45e9-9d45-12a8498462b3" name="Changes" comment="FrameWork Version 1.11">
+      <change afterPath="$PROJECT_DIR$/Main Program/Library/movie_booking_framework/movie_list_framework_package/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Main Program/Library/movie_booking_framework/movie_list_framework_package/__movie_list_framework__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Main Program/Library/movie_booking_framework/movie_list_framework_package/movie_list.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Main Program/Library/movie_booking_framework/movie_seats_framework_package/__init__.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Main Program/Library/MovieBooking/__movie_list_framework__.py" beforeDir="false" afterPath="$PROJECT_DIR$/Main Program/Library/movie_booking_framework/__movie_list_framework__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Main Program/Library/MovieBooking/__movie_seats_framework__.py" beforeDir="false" afterPath="$PROJECT_DIR$/Main Program/Library/movie_booking_framework/__movie_seats_framework__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Main Program/Library/MovieBooking/movie_seat.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Main Program/Library/movie_booking_framework/movie_seat.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Main Program/Library/MovieBooking/movie_seat_backup.csv.temp" beforeDir="false" afterPath="$PROJECT_DIR$/Main Program/Library/movie_booking_framework/movie_seat_backup.csv.temp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Main Program/Library/movie_booking_framework/__movie_list_framework__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Main Program/Library/movie_booking_framework/__movie_seats_framework__.py" beforeDir="false" afterPath="$PROJECT_DIR$/Main Program/Library/movie_booking_framework/movie_seats_framework_package/__movie_seats_framework__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Main Program/Library/movie_booking_framework/movie_seat.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Main Program/Library/movie_booking_framework/movie_seats_framework_package/movie_seat.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Main Program/Library/movie_booking_framework/movie_seat_backup.csv.temp" beforeDir="false" afterPath="$PROJECT_DIR$/Main Program/Library/movie_booking_framework/movie_seats_framework_package/movie_seat_backup.csv.temp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,6 +28,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
@@ -50,13 +59,20 @@
   "keyToString": {
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "Python.__movie_framework__.executor": "Run",
+    "Python.__movie_list_framework__.executor": "Run",
     "Python.__movie_seats_framework__.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "master"
+    "git-widget-placeholder": "Test"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\leezh\PycharmProjects\movie_booking_system\Main Program\Library\movie_booking_framework\Movie_seats_framework" />
+      <recent name="C:\Users\leezh\PycharmProjects\movie_booking_system\Main Program\Library\movie_booking_framework\Movie_list_framework" />
+    </key>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -96,7 +112,15 @@
       <option name="project" value="LOCAL" />
       <updated>1756408843848</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="FrameWork Version 1.11">
+      <option name="closed" value="true" />
+      <created>1756727601682</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1756727601682</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -114,6 +138,7 @@
     <MESSAGE value="Testing Commit" />
     <MESSAGE value="FrameWork Version 1.0" />
     <MESSAGE value="FrameWork Version 1.1" />
-    <option name="LAST_COMMIT_MESSAGE" value="FrameWork Version 1.1" />
+    <MESSAGE value="FrameWork Version 1.11" />
+    <option name="LAST_COMMIT_MESSAGE" value="FrameWork Version 1.11" />
   </component>
 </project>

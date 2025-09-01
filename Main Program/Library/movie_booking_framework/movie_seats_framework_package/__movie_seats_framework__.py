@@ -1,7 +1,7 @@
 import csv #From python standard library
 
 #读取csv档案到某一个二维数组（自己决定）用来把储存的座位表拉出来处理
-def read_movie_seats_list_csv (movie_seats_csv : csv,movie_seat_list :list,movie_code : str) -> None:
+def read_movie_seats_csv (movie_seats_csv : csv,movie_seat :list,movie_code : str) -> None:
     list_found = False
     start_status = False
     try:
@@ -16,10 +16,14 @@ def read_movie_seats_list_csv (movie_seats_csv : csv,movie_seat_list :list,movie
                     start_status = True
                     continue
                 if row[0] == "END" and list_found:
-                    start_status = False
                     break
                 if start_status and list_found:
-                    movie_seat_list.append(row[1:])
+                    movie_seat.append(row[1:])
+            if list_found and start_status == False:
+                raise IndexError("Your Movie Seat List is Empty! Found the movie code but START is not Found!")
+            elif list_found == False:
+                raise IndexError("Your Movie Seat List is Empty! Cannot Found the movie code!")
+
     except FileNotFoundError:
         raise FileNotFoundError (f"File not found!\nYour file name is {movie_seats_csv}.\nPlease Check The Name!")
 
@@ -30,7 +34,7 @@ def _overwrite_file (overwrited_file : csv,original_file : csv) -> None:
             for row in oni_file_reader:
                 overwrited_file_writer.writerow(row)
 
-def write_movie_seats_list_csv (movie_seats_csv : csv, movie_seat_list : list, movie_code : str) -> None:
+def write_movie_seats_list_csv (movie_seats_csv : csv, movie_seat: list, movie_code : str) -> None:
     with open(movie_seats_csv, 'r', newline='') as movie_seats_r, open(f"{movie_seats_csv}.temp","w", newline='') as movie_seats_w:
             movie_seat_writer = csv.writer(movie_seats_w)
             movie_seat_reader = csv.reader(movie_seats_r)
@@ -42,7 +46,7 @@ def write_movie_seats_list_csv (movie_seats_csv : csv, movie_seat_list : list, m
                     start_status = False
                     list_found = False
                 if list_found and start_status:
-                    movie_seat_writer.writerow(["",*movie_seat_list[count][1:]])
+                    movie_seat_writer.writerow(["",*movie_seat[count][1:]])
                     count += 1
                     continue
                 if row and row[0] == movie_code:
@@ -93,10 +97,10 @@ def print_movie_seats_list_as_emojis (movie_seat_list : list) -> None:
 if __name__ == '__main__':
     movie_seats_list_global : list = []
     try:
-        read_movie_seats_list_csv (movie_seats_csv="movie_seat.csv",movie_seat_list=movie_seats_list_global,movie_code="002")
+        read_movie_seats_csv (movie_seats_csv="movie_seat.csv",movie_seat=movie_seats_list_global,movie_code="002")
         fill_movie_seats_list (movie_seat_list=movie_seats_list_global, fill_number=1)
         # backup_file(original_file="movie_seat.csv",new_file="movie_seat_backup.csv.temp")
-        write_movie_seats_list_csv(movie_seats_csv="movie_seat.csv",movie_seat_list= movie_seats_list_global,movie_code="002")
+        write_movie_seats_list_csv(movie_seats_csv="movie_seat.csv",movie_seat= movie_seats_list_global,movie_code="002")
         # modify_movie_seat(movie_seat_list=movie_seat_list_global, x_axis = 1,y_axis =2,target_number = -1)
         # print_movie_seats_list(movie_seat_list= movie_seat_list_global)
         # print_movie_seats_list_as_emojis(movie_seat_list= movie_seats_list_global)
