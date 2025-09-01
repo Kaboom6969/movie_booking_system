@@ -4,12 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0ea8b363-fbeb-45e9-9d45-12a8498462b3" name="Changes" comment="FrameWork Version 1.0">
-      <change afterPath="$PROJECT_DIR$/Main Program/Library/MovieBooking/__movie_list_framework__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Main Program/Library/MovieBooking/movie_seat_backup.csv.temp" afterDir="false" />
+    <list default="true" id="0ea8b363-fbeb-45e9-9d45-12a8498462b3" name="Changes" comment="FrameWork Version 1.1">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Main Program/Library/MovieBooking/__movie_framework__.py" beforeDir="false" afterPath="$PROJECT_DIR$/Main Program/Library/MovieBooking/__movie_seats_framework__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Main Program/Library/MovieBooking/movie_seat.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Main Program/Library/MovieBooking/movie_seat.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Main Program/Library/MovieBooking/__movie_list_framework__.py" beforeDir="false" afterPath="$PROJECT_DIR$/Main Program/Library/movie_booking_framework/__movie_list_framework__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Main Program/Library/MovieBooking/__movie_seats_framework__.py" beforeDir="false" afterPath="$PROJECT_DIR$/Main Program/Library/movie_booking_framework/__movie_seats_framework__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Main Program/Library/MovieBooking/movie_seat.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Main Program/Library/movie_booking_framework/movie_seat.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Main Program/Library/MovieBooking/movie_seat_backup.csv.temp" beforeDir="false" afterPath="$PROJECT_DIR$/Main Program/Library/movie_booking_framework/movie_seat_backup.csv.temp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -88,7 +88,15 @@
       <option name="project" value="LOCAL" />
       <updated>1756401262505</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="FrameWork Version 1.1">
+      <option name="closed" value="true" />
+      <created>1756408843848</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1756408843848</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -105,6 +113,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Testing Commit" />
     <MESSAGE value="FrameWork Version 1.0" />
-    <option name="LAST_COMMIT_MESSAGE" value="FrameWork Version 1.0" />
+    <MESSAGE value="FrameWork Version 1.1" />
+    <option name="LAST_COMMIT_MESSAGE" value="FrameWork Version 1.1" />
   </component>
 </project>
