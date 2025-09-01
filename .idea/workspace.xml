@@ -6,6 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="0ea8b363-fbeb-45e9-9d45-12a8498462b3" name="Changes" comment="Login FrameWork Version 1.0.0">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Main Program/Library/movie_booking_framework/CHANGELOG.md" beforeDir="false" afterPath="$PROJECT_DIR$/Main Program/Library/movie_booking_framework/CHANGELOG.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Main Program/Library/movie_booking_framework/movie_list_framework_package/__movie_list_framework__.py" beforeDir="false" afterPath="$PROJECT_DIR$/Main Program/Library/movie_booking_framework/movie_list_framework_package/__movie_list_framework__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Main Program/Library/movie_booking_framework/movie_seats_framework_package/__movie_seats_framework__.py" beforeDir="false" afterPath="$PROJECT_DIR$/Main Program/Library/movie_booking_framework/movie_seats_framework_package/__movie_seats_framework__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Main Program/Library/movie_booking_framework/movie_seats_framework_package/movie_seat.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Main Program/Library/movie_booking_framework/movie_seats_framework_package/movie_seat.csv" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
