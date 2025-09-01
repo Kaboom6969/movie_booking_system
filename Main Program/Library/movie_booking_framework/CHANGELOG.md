@@ -26,4 +26,4 @@
 ## [1.13.1] - 2025-09-02
 ### Changed
 - Added comments to __movie_seats_framework__.py for improved readability.
-- Renamed write_update_movie_seats_csv(...) to update_movie_seats_csv(...) to better reflect its function.
+- Renamed write_movie_seats_csv(...) to update_movie_seats_csv(...) to better reflect its function.

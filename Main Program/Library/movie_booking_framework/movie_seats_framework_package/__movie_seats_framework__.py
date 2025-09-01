@@ -1,6 +1,6 @@
 import csv #From python standard library
 import os #From python standard library
-from itertools import count
+
 
 
 #Read seat data for a specific movie from a CSV file into a 2D list
@@ -143,9 +143,9 @@ if __name__ == '__main__':
     fill_movie_seats_list (movie_seat_list=movie_seats_list_global, fill_number=1)
     print (movie_seats_list_global)
     update_movie_seats_csv(movie_seats_csv="movie_seat.csv",movie_seat= movie_seats_list_global,movie_code="002")
-    add_movie_seats_csv(movie_seat_csv= "movie_seat.csv", movie_seat= movie_seats_list_global, movie_code="004")
-        # modify_movie_seat(movie_seat_list=movie_seat_list_global, x_axis = 1,y_axis =2,target_number = -1)
-        # print_movie_seats_list(movie_seat_list= movie_seat_list_global)
-        # print_movie_seats_list_as_emojis(movie_seat_list= movie_seats_list_global)
+    #add_movie_seats_csv(movie_seat_csv= "movie_seat.csv", movie_seat= movie_seats_list_global, movie_code="004")
+    # modify_movie_seat(movie_seat_list=movie_seat_list_global, x_axis = 1,y_axis =2,target_number = -1)
+    # print_movie_seats_list(movie_seat_list= movie_seat_list_global)
+    # print_movie_seats_list_as_emojis(movie_seat_list= movie_seats_list_global)
 
 
