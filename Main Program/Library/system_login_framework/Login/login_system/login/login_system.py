@@ -1,6 +1,7 @@
 import random
 from operator import truediv
 
+
 number = 0
 count_lower = 0
 count_upper = 0
@@ -8,10 +9,9 @@ count_number = 0
 
 
 def get_content(path):
-    file = open(path, 'r')
-    content = file.read().strip()
-    file.close()
-    return content
+    with open( path, 'r') as file:
+        content = file.read().strip()
+        return content
 
 
 def get_data(path):
@@ -113,9 +113,9 @@ def check_data(path, name_or_id, password):
             return False
 
 
-def check_password(password):
-    if len(password) < 5:
-        print('password must long than 4')
+def check_password(password, num):
+    if len(password) < num:
+        # print('password must longer than ' + str(num))
         return False
     else:
         for char in password:
@@ -161,22 +161,28 @@ def check_user_name(new_name, path):
 
 def register(path):
     while True:
-        new_name = input('new name:')
-        flag = check_user_name(new_name, path)
-        if flag:
-            break
-        else:
-            print('username exist, please try again')
+        try:
+            new_name = input('new name:')
+            flag = check_user_name(new_name, path)
+            if flag:
+                break
+            else:
+                raise ValueError('username exist, please try again')
+        except ValueError as e:
+            print(e)
 
     while True:
-        print("password must include one uppercase letter, one lowercase letter, one number and length > 5")
-        new_password = input("input password\n")
-        flag = check_password(new_password)
-        if flag:
-            print("register success")
-            break
-        else:
-            print("fail, please try again")
+        try:
+            print("password must include one uppercase letter, one lowercase letter, one number and length > 5")
+            new_password = input("input password\n")
+            flag = check_password(new_password, 5)
+            if flag:
+                print("register success")
+                break
+            else:
+                raise ValueError("fail, please try again")
+        except ValueError as e:
+            print(e)
     latest_id = generate_ID(path, 'C')
     new_id = int(latest_id) + 1
     write_data(path, new_id, new_name, new_password)
@@ -189,13 +195,16 @@ def login(path):
         password = input('password:')
 
         while True:
-            verification_code = generate_verification_code()
-            print('verification code: ' + verification_code)
-            input_verification_code = input('please enter verification Code:')
-            if input_verification_code != verification_code:
-                print('verification code error, please try again')
-            else:
-                break
+            try:
+                verification_code = generate_verification_code()
+                print('verification code: ' + verification_code)
+                input_verification_code = input('please enter verification Code:')
+                if input_verification_code != verification_code:
+                    raise ValueError('verification code error, please try again')
+                else:
+                    break
+            except ValueError as e:
+                print(e)
         flag = check_data(path, name_or_id, password)
         if flag:
             print('login success')
@@ -205,50 +214,70 @@ def login(path):
             return False
 
 
-def role():
+def user_input_role():
+    print("Ticketing Clerk(1), Cinema manager(2), Technician(3), Customer(4)")
     while True:
-        print("Ticketing Clerk, Cinema manager, Technician, Customer")
-        role = input("please input your role\n")
-        if role == 'Customer'.casefold():
-            while True:
-                choice = input("login or register\n")
-                if choice == 'login'.casefold():
-                    flag = login("customer.csv")
+        try:
+            role = int(input("please input your role by number\n"))
+            if role in (1, 2, 3, 4):
+                return role
+            else:
+                raise ValueError("invalid number, please try again")
+
+        except ValueError as e:
+            print(e)
+
+
+def role(customer_data, clerk_data, manager_data, technician_data):
+    role_num = user_input_role()
+    if role_num == 4:
+        while True:
+            try:
+                choice = int(input("please input login(1) or register(2) by number\n"))
+                if choice == 1:
+                    flag = login(customer_data)
                     if flag:
                         print('customer function')
                     break
-                elif choice == 'register'.casefold():
-                    register("customer.csv")
+                elif choice == 2:
+                    register(customer_data)
                     print('customer register success')
                     break
                 else:
-                    print("please input login or register")
-            break
+                    raise ValueError("invalid number, please try again")
+            except ValueError as e:
+                print(e)
 
-        elif role == 'Ticketing Clerk'.casefold():
-            flag = login("clerk.csv")
-            if flag:
-                print("clerk function")
-            break
 
-        elif role == 'Cinema Manager'.casefold():
-            flag = login("manager.csv")
-            if flag:
-                print("manager function")
-            break
+    elif role_num == 1:
+        flag = login(clerk_data)
+        if flag:
+            print("clerk function")
 
-        elif role == 'Technician'.casefold():
-            flag = login("technician.csv")
-            if flag:
-                print("technician function")
-            break
-        else:
-            print("invalid role, please try again")
+
+    elif role_num == 2:
+        flag = login(manager_data)
+        if flag:
+            print("manager function")
+
+
+    elif role_num == 3:
+        flag = login(technician_data)
+        if flag:
+            print("technician function")
+
+    else:
+        print("invalid number, please try again")
 
 
 def main():
-    role()
+    role(customer_data='customer.csv', clerk_data='clerk.csv', manager_data='manager.csv',
+         technician_data='technician.csv')
 
 
 if __name__ == '__main__':
-    main()
+    while True:
+        try:
+            main()
+        except ValueError as e:
+            print(e)
