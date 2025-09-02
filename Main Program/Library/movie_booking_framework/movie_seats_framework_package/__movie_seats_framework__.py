@@ -1,5 +1,6 @@
 import csv #From python standard library
-import os #From python standard library
+import warnings #From python standard library
+
 
 
 
@@ -58,8 +59,7 @@ def update_movie_seats_csv (movie_seats_csv : csv, movie_seat: list, movie_code 
                 if row and row[0] == movie_code:                                #Found movie_code
                     list_found = True
                     list_found_all_times = True
-                if list_found and row and row[0] == "START":                    #Found START marker
-                    start_status = True
+                if list_found and row and row[0] == "START": start_status = True#Writing...
                 movie_seat_writer.writerow(row)             #Copy other rows to temporary file
             if list_found_all_times == False:               #Movie_code not found
                 raise ValueError("Movie Code Does Not Exist! You Should Use add_movie_seats_csv function")
@@ -68,7 +68,8 @@ def update_movie_seats_csv (movie_seats_csv : csv, movie_seat: list, movie_code 
 
 #Add a new seat table for a movie_code to the CSV file
 def add_movie_seats_csv (movie_seat_csv : csv, movie_seat : list, movie_code : str) -> None:
-    with open(movie_seat_csv,'r',newline= '') as ms_csv_r ,open(f"{movie_seat_csv}.temp","w", newline='') as ms_csv_w:
+    with (open(movie_seat_csv,'r',newline= '') as ms_csv_r ,
+          open(f"{movie_seat_csv}.temp","w", newline='') as ms_csv_w):
         movie_seat_reader = csv.reader(ms_csv_r)    #Create reader for CSV file
         movie_seat_writer = csv.writer(ms_csv_w)    #Create writer for temporary file
         for row in movie_seat_reader:       #Copy existing content
@@ -89,6 +90,39 @@ def add_movie_seats_csv (movie_seat_csv : csv, movie_seat : list, movie_code : s
         movie_seat_writer.writerow(end_header)              #Write END row
 
     _overwrite_file(overwrited_file= "movie_seat.csv", original_file= f"{movie_seat_csv}.temp")     #Overwrite original file
+
+def delete_movie_seats_csv (movie_seat_csv : csv, movie_code : str) -> None:
+    try:
+        with (open(movie_seat_csv,'r',newline = '') as ms_csv_r ,
+        open(f"{movie_seat_csv}.temp","w", newline='') as ms_csv_w):
+            movie_seat_reader = csv.reader(ms_csv_r)
+            movie_seat_writer = csv.writer(ms_csv_w)
+            list_found_all_times = False
+            list_found = False
+            end_status = False
+            delete_count = 0
+            for row in movie_seat_reader:
+                if row and row[0] == movie_code:
+                    list_found = True
+                    list_found_all_times = True
+                    continue
+                elif list_found and row and row[0] == "END":
+                    end_status = True
+                    list_found = False
+                    delete_count += 1
+                    continue
+                elif list_found: continue
+                movie_seat_writer.writerow(row)
+            if list_found_all_times == False:
+                raise KeyError(f"Cannot Find The Movie Code! Movie Code : {movie_code}")
+            if delete_count > 1:
+                warnings.warn(f"delete_movie_seats_csv function delete {delete_count} times.")
+
+        _overwrite_file(overwrited_file=movie_seat_csv, original_file=f"{movie_seat_csv}.temp")
+
+    except FileNotFoundError as e:
+        raise FileNotFoundError(f"Cannot Find File {movie_seat_csv}!")
+
 
 #Generate a header row for CSV (e.g., movie_code, START, END)
 def _header_create (header_text : str , movie_seats_length : int , append_thing :str) -> list:
@@ -139,13 +173,14 @@ def print_movie_seats_list_as_emojis (movie_seat_list : list) -> None:
 #作为library时不会被启用，仅有亲自运行此文件才会运行（用来测试用）
 if __name__ == '__main__':
     movie_seats_list_global : list = []
-    read_movie_seats_csv (movie_seats_csv="movie_seat.csv",movie_seat=movie_seats_list_global,movie_code="002")
-    fill_movie_seats_list (movie_seat_list=movie_seats_list_global, fill_number=1)
-    print (movie_seats_list_global)
-    update_movie_seats_csv(movie_seats_csv="movie_seat.csv",movie_seat= movie_seats_list_global,movie_code="002")
-    #add_movie_seats_csv(movie_seat_csv= "movie_seat.csv", movie_seat= movie_seats_list_global, movie_code="004")
+    #read_movie_seats_csv (movie_seats_csv="movie_seat.csv",movie_seat=movie_seats_list_global,movie_code="002")
+    #fill_movie_seats_list (movie_seat_list=movie_seats_list_global, fill_number=1)
+    #print (movie_seats_list_global)
+    #update_movie_seats_csv(movie_seats_csv="movie_seat.csv",movie_seat= movie_seats_list_global,movie_code="002")
+    #add_movie_seats_csv(movie_seat_csv= "movie_seat.csv", movie_seat= movie_seats_l-ist_global, movie_code="004")
     # modify_movie_seat(movie_seat_list=movie_seat_list_global, x_axis = 1,y_axis =2,target_number = -1)
     # print_movie_seats_list(movie_seat_list= movie_seat_list_global)
     # print_movie_seats_list_as_emojis(movie_seat_list= movie_seats_list_global)
+    #delete_movie_seats_csv(movie_seat_csv="movie_seat.csv", movie_code="002")
 
 
