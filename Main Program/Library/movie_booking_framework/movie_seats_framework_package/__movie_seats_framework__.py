@@ -5,7 +5,7 @@ import warnings #From python standard library
 
 
 #Read seat data for a specific movie from a CSV file into a 2D list
-def read_movie_seats_csv (movie_seats_csv : csv,movie_seat :list,movie_code : str) -> None:
+def read_movie_seats_csv (movie_seats_csv : str,movie_seat :list,movie_code : str) -> None:
     try:
         _movie_seats_valid_check(movie_seat_list=movie_seat)
     except ValueError as e:
@@ -36,7 +36,7 @@ def read_movie_seats_csv (movie_seats_csv : csv,movie_seat :list,movie_code : st
         raise FileNotFoundError (f"File not found!\nYour file name is {movie_seats_csv}.\nPlease Check The Name!")
 
 #Overwrite target file with contents of a temporary file
-def _overwrite_file (overwrited_file : csv,original_file : csv) -> None:
+def _overwrite_file (overwrited_file : str,original_file : str) -> None:
         with open(original_file, 'r', newline='') as ori_file_r, open(overwrited_file, 'w', newline='') as overwrited_file_w:
             oni_file_reader = csv.reader(ori_file_r)                #Create reader for source file
             overwrited_file_writer = csv.writer(overwrited_file_w)  #Create writer for target file
@@ -44,7 +44,7 @@ def _overwrite_file (overwrited_file : csv,original_file : csv) -> None:
                 overwrited_file_writer.writerow(row)
 
 #Update seat data for a specific movie_code in the CSV file
-def update_movie_seats_csv (movie_seats_csv : csv, movie_seat: list, movie_code : str) -> None:
+def update_movie_seats_csv (movie_seats_csv : str, movie_seat: list, movie_code : str) -> None:
     try:
         _movie_seats_valid_check(movie_seat_list=movie_seat)
     except ValueError as e:
@@ -94,7 +94,7 @@ def update_movie_seats_csv (movie_seats_csv : csv, movie_seat: list, movie_code 
     _overwrite_file(overwrited_file = movie_seats_csv, original_file = f"{movie_seats_csv}.temp")   #Overwrite original file
 
 #Add a new seat table for a movie_code to the CSV file
-def add_movie_seats_csv (movie_seats_csv : csv, movie_seat : list, movie_code : str) -> None:
+def add_movie_seats_csv (movie_seats_csv : str, movie_seat : list, movie_code : str) -> None:
     try:
         _movie_seats_valid_check(movie_seat_list=movie_seat)
     except ValueError as e:
@@ -123,7 +123,7 @@ def add_movie_seats_csv (movie_seats_csv : csv, movie_seat : list, movie_code : 
 
     _overwrite_file(overwrited_file= movie_seats_csv, original_file= f"{movie_seats_csv}.temp")     #Overwrite original file
 
-def delete_movie_seats_csv (movie_seat_csv : csv, movie_code : str) -> None:
+def delete_movie_seats_csv (movie_seat_csv : str, movie_code : str) -> None:
     try:
         with (open(movie_seat_csv,'r',newline = '') as ms_csv_r ,
         open(f"{movie_seat_csv}.temp","w", newline='') as ms_csv_w):

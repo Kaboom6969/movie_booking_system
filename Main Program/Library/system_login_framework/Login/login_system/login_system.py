@@ -1,4 +1,6 @@
+import csv
 import random
+import csv
 from operator import truediv
 
 
@@ -9,8 +11,8 @@ count_number = 0
 
 
 def get_content(path):
-    with open( path, 'r') as file:
-        content = file.read().strip()
+    with open( path, 'r',newline= '') as role_file:
+        content = role_file.read().strip()
         return content
 
 

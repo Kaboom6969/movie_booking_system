@@ -17,7 +17,7 @@
 ## [1.13.0] - 2025-09-02
 ### Added
 - Added `add_movie_seats_csv`, which now allows you to directly append to the movie seat list. (`write_movie_seats_csv` overwrites the file).
-- Added `create_headers`, a private function for generating the header data (such as movie codes, START, and END) for the CSV file. This function is not intended for external use.
+- Added `header_create`, a private function for generating the header data (such as movie codes, START, and END) for the CSV file. This function is not intended for external use.
 ### Changed
 - Renamed `write_movie_seats_list_csv` to `write_movie_seats_csv` for clarity and to avoid confusion.
 - `write_movie_seats_csv` now includes error reporting for when the movie code does not exist.
