@@ -6,7 +6,7 @@ import os #From python standard library
 #Read seat data for a specific movie from a CSV file into a 2D list
 def read_movie_seats_csv (movie_seats_csv : csv,movie_seat :list,movie_code : str) -> None:
     list_found = False      #Flag to track if movie_code is found
-    start_status = False    #Flag to track if in seat data section (between START and END)
+    start_status = False    #Flag tso track if in seat data section (between START and END)
     try:
         with open(movie_seats_csv, 'r', newline='') as ms_csv_r:
             movie_seat_reader = csv.reader(ms_csv_r)
