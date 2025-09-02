@@ -27,7 +27,7 @@
 ### Changed
 - Added comments to __movie_seats_framework__.py for improved readability.
 - Renamed `write_movie_seats_csv` to `update_movie_seats_csv` to better reflect its function.
-## [1.14.0] - 2025-09-02
+## [1.14.0] - 2025-09-03
 ### Added
 - Added the `delete_movie_seats_csv` function, which now allows you to delete the seat list for a specific movie code (with error checking).
 - Added `generate_movie_seats`, allowing you to create a seat table of any size!
