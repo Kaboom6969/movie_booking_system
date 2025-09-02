@@ -4,11 +4,32 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0ea8b363-fbeb-45e9-9d45-12a8498462b3" name="Changes" comment="Seat &amp; List FrameWork Version 1.14.0 b&#10;-Yup Just change the date from CHANGELOG.md.">
+    <list default="true" id="0ea8b363-fbeb-45e9-9d45-12a8498462b3" name="Changes" comment="Login FramWork Version 1.1.0 b&#10;-Refactored some of the code.">
+      <change afterPath="$PROJECT_DIR$/main_program/Data/MOVIE_SEATS_TEST.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/main_program/Data/movie_seat.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/main_program/Library/movie_booking_framework/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/main_program/Library/movie_booking_operation/user_operation.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Main Program/Library/movie_booking_framework/movie_seats_framework_package/movie_seat.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Main Program/Library/movie_booking_framework/movie_seats_framework_package/movie_seat.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Main Program/Library/system_login_framework/Login/login_system/customer.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Main Program/Library/system_login_framework/Login/login_system/customer.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Main Program/Library/system_login_framework/Login/login_system/login_system.py" beforeDir="false" afterPath="$PROJECT_DIR$/Main Program/Library/system_login_framework/Login/login_system/login_system.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Main Program/Library/movie_booking_framework/CHANGELOG.md" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/Library/movie_booking_framework/CHANGELOG.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Main Program/Library/movie_booking_framework/movie_list_framework_package/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/Library/movie_booking_operation/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Main Program/Library/movie_booking_framework/movie_list_framework_package/__movie_list_framework__.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/Library/movie_booking_framework/_movie_list_framework_.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Main Program/Library/movie_booking_framework/movie_list_framework_package/movie_list.csv" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/Data/movie_list.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Main Program/Library/movie_booking_framework/movie_seats_framework_package/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Main Program/Library/movie_booking_framework/movie_seats_framework_package/__movie_seats_framework__.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/Library/movie_booking_framework/_movie_seats_framework_.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Main Program/Library/movie_booking_framework/movie_seats_framework_package/movie_seat.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Main Program/Library/movie_booking_framework/movie_seats_framework_package/movie_seat_backup.csv.temp" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/Data/movie_seat_backup.csv.temp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Main Program/Library/system_login_framework/CHANGELOG.md" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/Library/system_login_framework/CHANGELOG.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Main Program/Library/system_login_framework/Login/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/Library/system_login_framework/Login/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Main Program/Library/system_login_framework/Login/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/Library/system_login_framework/Login/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Main Program/Library/system_login_framework/Login/.idea/login.iml" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/Library/system_login_framework/Login/.idea/login.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Main Program/Library/system_login_framework/Login/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/Library/system_login_framework/Login/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Main Program/Library/system_login_framework/Login/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/Library/system_login_framework/Login/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Main Program/Library/system_login_framework/Login/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/Library/system_login_framework/Login/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Main Program/Library/system_login_framework/Login/login_system/clerk.csv" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/Library/system_login_framework/Login/login_system/clerk.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Main Program/Library/system_login_framework/Login/login_system/customer.csv" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/Library/system_login_framework/Login/login_system/customer.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Main Program/Library/system_login_framework/Login/login_system/login_system.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/Library/system_login_framework/Login/login_system/login_system.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Main Program/Library/system_login_framework/Login/login_system/manager.csv" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/Library/system_login_framework/Login/login_system/manager.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Main Program/Library/system_login_framework/Login/login_system/technician.csv" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/Library/system_login_framework/Login/login_system/technician.csv" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,7 +77,9 @@
     "Python.__movie_framework__.executor": "Run",
     "Python.__movie_list_framework__.executor": "Run",
     "Python.__movie_seats_framework__.executor": "Run",
+    "Python._movie_seats_framework_.executor": "Run",
     "Python.login_system.executor": "Run",
+    "Python.user_operation.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager": "true",
     "RunOnceActivity.git.unshallow": "true",
@@ -69,10 +92,11 @@
       <recent name="C:\Users\leezh\PycharmProjects\movie_booking_system\Main Program\Library\system_login_framework\Login\login_system" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\leezh\PycharmProjects\movie_booking_system\Main Program\Library\system_login_framework\Login\login_system" />
+      <recent name="C:\Users\leezh\PycharmProjects\movie_booking_system\main_program\Data" />
       <recent name="C:\Users\leezh\PycharmProjects\movie_booking_system\Main Program\Library\movie_booking_framework" />
+      <recent name="C:\Users\leezh\PycharmProjects\movie_booking_system\Main Program\Library\movie_booking_framework\movie_seats_framework_package" />
+      <recent name="C:\Users\leezh\PycharmProjects\movie_booking_system\Main Program\Library\system_login_framework\Login\login_system" />
       <recent name="C:\Users\leezh\PycharmProjects\movie_booking_system\Main Program\Library\movie_booking_framework\Movie_seats_framework" />
-      <recent name="C:\Users\leezh\PycharmProjects\movie_booking_system\Main Program\Library\movie_booking_framework\Movie_list_framework" />
     </key>
   </component>
   <component name="SharedIndexes">
@@ -210,7 +234,23 @@
       <option name="project" value="LOCAL" />
       <updated>1756838615255</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="Login FramWork Version 1.1.0 b&#10;-Refactored some of the code.">
+      <option name="closed" value="true" />
+      <created>1756841021429</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1756841021429</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Login FramWork Version 1.1.0 b&#10;-Refactored some of the code.">
+      <option name="closed" value="true" />
+      <created>1756841043936</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1756841043936</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -238,7 +278,8 @@
     <MESSAGE value="Seat &amp; List FrameWork Version 1.14.0&#10;-Changed the type hint for function parameters from csv to str.&#10;-Fix the name error of the CHANGELOG.md" />
     <MESSAGE value="Login FramWork Version 1.1.0 a&#10;-Refactored `check_password` to be more modular and to raise an error when an invalid password is detected, instead of returning False." />
     <MESSAGE value="Seat &amp; List FrameWork Version 1.14.0 b&#10;-Yup Just change the date from CHANGELOG.md." />
-    <option name="LAST_COMMIT_MESSAGE" value="Seat &amp; List FrameWork Version 1.14.0 b&#10;-Yup Just change the date from CHANGELOG.md." />
+    <MESSAGE value="Login FramWork Version 1.1.0 b&#10;-Refactored some of the code." />
+    <option name="LAST_COMMIT_MESSAGE" value="Login FramWork Version 1.1.0 b&#10;-Refactored some of the code." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

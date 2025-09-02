@@ -1,19 +1,17 @@
 import csv #From python standard library
 import warnings #From python standard library
+import os #From python standard library
 
 
 
 
 #Read seat data for a specific movie from a CSV file into a 2D list
-def read_movie_seats_csv (movie_seats_csv : str,movie_seat :list,movie_code : str) -> None:
-    try:
-        _movie_seats_valid_check(movie_seat_list=movie_seat)
-    except ValueError as e:
-        raise ValueError (f"Read Movie Seats Failed! Movie Seat List ERROR! {e}")
+def read_movie_seats_csv (movie_seats_csv : str, movie_seats :list, movie_code : str) -> None:
     list_found = False      #Flag to track if movie_code is found
     start_status = False    #Flag tso track if in seat data section (between START and END)
     try:
-        with open(movie_seats_csv, 'r', newline='') as ms_csv_r:
+        movie_seats_csv_path = get_path(movie_seats_csv)
+        with open (movie_seats_csv_path, 'r', newline='') as ms_csv_r:
             movie_seat_reader = csv.reader(ms_csv_r)
             next(movie_seat_reader)         #Skip header row (movie_code,y0,y1,...)
             for row in movie_seat_reader:
@@ -26,7 +24,7 @@ def read_movie_seats_csv (movie_seats_csv : str,movie_seat :list,movie_code : st
                 if row[0] == "END" and list_found:      #Found END marker, stop reading
                     break
                 if start_status and list_found:         #Reading...
-                    movie_seat.append(row[1:])          #Append seat data (skip first column)
+                    movie_seats.append(row[1:])          #Append seat data (skip first column)
             if list_found and start_status == False:    #Found movie_code but no START (usually file writing error)
                 raise IndexError("Your Movie Seat List is Empty! Found the movie code but START is not Found!")
             elif list_found == False:                   #Movie_code not found
@@ -36,20 +34,23 @@ def read_movie_seats_csv (movie_seats_csv : str,movie_seat :list,movie_code : st
         raise FileNotFoundError (f"File not found!\nYour file name is {movie_seats_csv}.\nPlease Check The Name!")
 
 #Overwrite target file with contents of a temporary file
-def _overwrite_file (overwrited_file : str,original_file : str) -> None:
-        with open(original_file, 'r', newline='') as ori_file_r, open(overwrited_file, 'w', newline='') as overwrited_file_w:
+def _overwrite_file (overwrited_file_csv : str, original_file_csv : str) -> None:
+        overwrited_file_csv_path = get_path(overwrited_file_csv)
+        original_file_csv_path = get_path(original_file_csv)
+        with open(original_file_csv_path, 'r', newline='') as ori_file_r, open(overwrited_file_csv_path, 'w', newline='') as overwrited_file_w:
             oni_file_reader = csv.reader(ori_file_r)                #Create reader for source file
             overwrited_file_writer = csv.writer(overwrited_file_w)  #Create writer for target file
             for row in oni_file_reader:                             #Copy each row
                 overwrited_file_writer.writerow(row)
 
 #Update seat data for a specific movie_code in the CSV file
-def update_movie_seats_csv (movie_seats_csv : str, movie_seat: list, movie_code : str) -> None:
+def update_movie_seats_csv (movie_seats_csv : str, movie_seats: list, movie_code : str) -> None:
     try:
-        _movie_seats_valid_check(movie_seat_list=movie_seat)
+        _movie_seats_valid_check(movie_seats_list=movie_seats)
     except ValueError as e:
         raise ValueError(f"Update Movie Seats Failed! Movie Seat List ERROR! {e}")
-    with open(movie_seats_csv, 'r', newline='') as ms_csv_r, open(f"{movie_seats_csv}.temp","w", newline='') as ms_csv_w:
+    movie_seats_csv_path = get_path(movie_seats_csv)
+    with open(movie_seats_csv_path, 'r', newline='') as ms_csv_r, open(f"{movie_seats_csv}.temp","w", newline='') as ms_csv_w:
             movie_seats_writer = csv.writer(ms_csv_w)        #Create writer for temporary file
             movie_seats_reader = csv.reader(ms_csv_r)        #Create reader for CSV file
             list_found_all_times = False                    #Track if movie_code was ever found
@@ -61,21 +62,21 @@ def update_movie_seats_csv (movie_seats_csv : str, movie_seat: list, movie_code 
                 if row and row[0] == movie_code:                                #Found movie_code
                     list_found = True
                     list_found_all_times = True
-                    movie_code_header : list = _header_create(header_text=movie_code,movie_seats_length= len(movie_seat[0]),append_thing= "")
+                    movie_code_header : list = _header_create(header_text=movie_code,movie_seats_length= len(movie_seats[0]),append_thing= "")
                     movie_seats_writer.writerow(movie_code_header)
                     continue
 
                 if list_found and row and row[0] == "START":
                     start_status = True
-                    start_header : list = _header_create(header_text="START",movie_seats_length= len(movie_seat[0]) + 1, append_thing= "-2")
+                    start_header : list = _header_create(header_text="START",movie_seats_length= len(movie_seats[0]) + 1, append_thing= "-2")
                     movie_seats_writer.writerow(start_header)
 
                 if start_status:
 
-                    for i in range(0,len(movie_seat)):
-                        movie_seats_writer.writerow(["",*movie_seat[i][0:]])     #Write row with empty first column
+                    for i in range(0,len(movie_seats)):
+                        movie_seats_writer.writerow(["",*movie_seats[i][0:]])     #Write row with empty first column
 
-                    end_header : list = _header_create(header_text="END",movie_seats_length= len(movie_seat[0]) + 1,append_thing= "-2")
+                    end_header : list = _header_create(header_text="END",movie_seats_length= len(movie_seats[0]) + 1,append_thing= "-2")
                     movie_seats_writer.writerow(end_header)
                     start_status = False
                     skip_status = True
@@ -91,16 +92,16 @@ def update_movie_seats_csv (movie_seats_csv : str, movie_seat: list, movie_code 
             if list_found_all_times == False:               #Movie_code not found
                 raise ValueError("Movie Code Does Not Exist! You Should Use add_movie_seats_csv function")
 
-    _overwrite_file(overwrited_file = movie_seats_csv, original_file = f"{movie_seats_csv}.temp")   #Overwrite original file
+    _overwrite_file(overwrited_file_csv= movie_seats_csv_path, original_file_csv=f"{movie_seats_csv}.temp")   #Overwrite original file
 
 #Add a new seat table for a movie_code to the CSV file
-def add_movie_seats_csv (movie_seats_csv : str, movie_seat : list, movie_code : str) -> None:
+def add_movie_seats_csv (movie_seats_csv : str, movie_seats : list, movie_code : str) -> None:
     try:
-        _movie_seats_valid_check(movie_seat_list=movie_seat)
+        _movie_seats_valid_check(movie_seats_list=movie_seats)
     except ValueError as e:
         raise ValueError (f"Add Movie Seats Failed! Movie Seat List ERROR! {e}")
-
-    with (open(movie_seats_csv,'r',newline= '') as ms_csv_r ,
+    movie_seats_csv_path = get_path(movie_seats_csv)
+    with (open(movie_seats_csv_path,'r',newline= '') as ms_csv_r ,
           open(f"{movie_seats_csv}.temp","w", newline='') as ms_csv_w):
         movie_seat_reader = csv.reader(ms_csv_r)    #Create reader for CSV file
         movie_seat_writer = csv.writer(ms_csv_w)    #Create writer for temporary file
@@ -112,21 +113,23 @@ def add_movie_seats_csv (movie_seats_csv : str, movie_seat : list, movie_code : 
             except ValueError as e:
                 raise e
         #Create headers for movie_code, START, and END rows
-        movie_code_header : list = _header_create(header_text = movie_code , movie_seats_length= len(movie_seat[0]) + 1, append_thing= "")
-        start_header : list = _header_create(header_text = "START" , movie_seats_length = len(movie_seat[0]) + 1 , append_thing= "-2")
+        movie_code_header : list = _header_create(header_text = movie_code, movie_seats_length=len(movie_seats[0]) + 1, append_thing="")
+        start_header : list = _header_create(header_text = "START", movie_seats_length =len(movie_seats[0]) + 1, append_thing="-2")
         movie_seat_writer.writerow(movie_code_header)       #Write movie_code row
         movie_seat_writer.writerow(start_header)            #Write START row
-        for row in movie_seat:                              #Write seat data
+        for row in movie_seats:                              #Write seat data
             movie_seat_writer.writerow(["",*row])           #Add empty first column [""...
-        end_header : list = _header_create(header_text = "END" , movie_seats_length = len(movie_seat[0]) + 1 , append_thing= "-2")
+        end_header : list = _header_create(header_text = "END", movie_seats_length =len(movie_seats[0]) + 1, append_thing="-2")
         movie_seat_writer.writerow(end_header)              #Write END row
 
-    _overwrite_file(overwrited_file= movie_seats_csv, original_file= f"{movie_seats_csv}.temp")     #Overwrite original file
+    _overwrite_file(overwrited_file_csv= movie_seats_csv_path, original_file_csv=f"{movie_seats_csv}.temp")     #Overwrite original file
 
-def delete_movie_seats_csv (movie_seat_csv : str, movie_code : str) -> None:
+#大量问题，需要大量优化，目前正在测试阶段
+def delete_movie_seats_csv (movie_seats_csv : str, movie_code : str) -> None:
     try:
-        with (open(movie_seat_csv,'r',newline = '') as ms_csv_r ,
-        open(f"{movie_seat_csv}.temp","w", newline='') as ms_csv_w):
+        movie_seats_csv_path = get_path(movie_seats_csv)
+        with (open(movie_seats_csv_path, 'r', newline ='') as ms_csv_r ,
+              open(f"{movie_seats_csv}.temp", "w", newline='') as ms_csv_w):
             movie_seat_reader = csv.reader(ms_csv_r)
             movie_seat_writer = csv.writer(ms_csv_w)
             list_found_all_times = False
@@ -147,11 +150,10 @@ def delete_movie_seats_csv (movie_seat_csv : str, movie_code : str) -> None:
                 raise KeyError(f"Cannot Find The Movie Code! Movie Code : {movie_code}")
             if delete_count > 1:
                 warnings.warn(f"delete_movie_seats_csv function delete {delete_count} times.")
-
-        _overwrite_file(overwrited_file=movie_seat_csv, original_file=f"{movie_seat_csv}.temp")
+        _overwrite_file(overwrited_file_csv=movie_seats_csv_path, original_file_csv=f"{movie_seats_csv}.temp")
 
     except FileNotFoundError as e:
-        raise FileNotFoundError(f"Cannot Find File {movie_seat_csv}!")
+        raise FileNotFoundError(f"Cannot Find File {movie_seats_csv}!")
 
 def generate_movie_seats (x_axis : int, y_axis : int, fill_number : int) -> list:
     if x_axis > 11:
@@ -163,14 +165,14 @@ def generate_movie_seats (x_axis : int, y_axis : int, fill_number : int) -> list
             seat_list_temp[i].append(str(fill_number))
     return seat_list_temp
 
-def _movie_seats_valid_check (movie_seat_list : list) -> None:
+def _movie_seats_valid_check (movie_seats_list : list) -> None:
     try:
-        if not movie_seat_list:
+        if not movie_seats_list:
             raise ValueError("Movie Seat List is Empty!")
-        if not all(isinstance(row, list) for row in movie_seat_list):
+        if not all(isinstance(row, list) for row in movie_seats_list):
             raise ValueError("Movie Seat List is not 2D List!")
         valid_movie_state : list = ["0","1","-1"]
-        for i, row in enumerate(movie_seat_list):    # Iterate through rows
+        for i, row in enumerate(movie_seats_list):    # Iterate through rows
             if not row:                              # Check for empty row
                 raise ValueError(f"Row {i + 1} is empty")
             for j, state in enumerate(row):  # Iterate through columns
@@ -192,7 +194,7 @@ def _header_create (header_text : str , movie_seats_length : int , append_thing 
 #Fill all seats in the seat list with a specified value
 def fill_movie_seats_list (movie_seat_list : list, fill_number : int) -> None:
     try:
-        _movie_seats_valid_check(movie_seat_list=movie_seat_list)
+        _movie_seats_valid_check(movie_seats_list=movie_seat_list)
     except ValueError as e:
         raise ValueError (f"Fill Movie Seats Failed! Movie Seat List ERROR! {e}")
     for i in range (0,len(movie_seat_list)):
@@ -200,9 +202,9 @@ def fill_movie_seats_list (movie_seat_list : list, fill_number : int) -> None:
             movie_seat_list[i][j] = str(fill_number)
 
 #Modify the state of a specific seat
-def modify_movie_seat(movie_seat_list: list, x_axis: int, y_axis: int, target_number: int) -> None:
+def modify_movie_seats_list(movie_seat_list: list, x_axis: int, y_axis: int, target_number: int) -> None:
     try:
-        _movie_seats_valid_check(movie_seat_list=movie_seat_list)
+        _movie_seats_valid_check(movie_seats_list=movie_seat_list)
     except ValueError as e:
         raise ValueError (f"Modify Movie Seats Failed! Movie Seat List ERROR! {e}")
 
@@ -214,26 +216,33 @@ def modify_movie_seat(movie_seat_list: list, x_axis: int, y_axis: int, target_nu
         raise IndexError(f"y_axis should be between 1 and {len(movie_seat_list)}\nYour y_axis is {y_axis}")
     movie_seat_list[len(movie_seat_list) - y_axis][x_axis - 1] = str(target_number)     #Modify specified seat
 
-
-
+###########################################################################################################################
+def get_path(file) -> str:
+    if os.path.isabs(file):
+        warnings.warn("Path Is Using in get_path Function! (Should be file)")
+        return file
+    base_directory = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
+    movie_code_csv_path = os.path.join(base_directory, 'main_program', 'Data', file)
+    return movie_code_csv_path
+###########################################################################################################################
 #Print seat list as text
-def print_movie_seat (movie_seat_list : list) -> None:
+def print_movie_seat (movie_seats : list) -> None:
     try:
-        _movie_seats_valid_check(movie_seat_list=movie_seat_list)
+        _movie_seats_valid_check(movie_seats_list=movie_seats)
     except ValueError as e:
         raise ValueError (f"Print Movie Seats Failed! Movie Seat List ERROR! {e}")
-    for main_list in movie_seat_list:
+    for main_list in movie_seats:
         print()
         for second_list in main_list:
             print(second_list,end= " ")
 
 #Print seat list as emojis
-def print_movie_seat_as_emojis (movie_seat_list : list) -> None:
+def print_movie_seat_as_emojis (movie_seats : list) -> None:
     try:
-        _movie_seats_valid_check(movie_seat_list=movie_seat_list)
+        _movie_seats_valid_check(movie_seats_list=movie_seats)
     except ValueError as e:
         raise ValueError (f"Print Movie Seats Failed (Emoji)! Movie Seat List ERROR! {e}")
-    for main_list in movie_seat_list:
+    for main_list in movie_seats:
         print()
         for second_list in main_list:
             if second_list == "0":
@@ -246,16 +255,16 @@ def print_movie_seat_as_emojis (movie_seat_list : list) -> None:
 
 #作为library时不会被启用，仅有亲自运行此文件才会运行（用来测试用）
 if __name__ == '__main__':
-    movie_seats_list_global : list = generate_movie_seats(x_axis =11, y_axis =9, fill_number =1)
-    print(movie_seats_list_global)
+    movie_seats_list_global : list = [] #generate_movie_seats(x_axis =11, y_axis =9, fill_number =1)
+    #print(movie_seats_list_global)
     #print_movie_seats_list_as_emojis(movie_seat_list=movie_seats_list_global)
-    #read_movie_seats_csv (movie_seats_csv="movie_seat.csv",movie_seat=movie_seats_list_global,movie_code="002")
+    #read_movie_seats_csv (movie_seats_csv="movie_seat.csv",movie_seats=movie_seats_list_global,movie_code="002")
     #fill_movie_seats_list (movie_seat_list=movie_seats_list_global, fill_number=1)
     #print (movie_seats_list_global)
     #update_movie_seats_csv(movie_seats_csv="movie_seat.csv",movie_seat= movie_seats_list_global,movie_code="002")
-    update_movie_seats_csv(movie_seats_csv= "movie_seat.csv", movie_seat= movie_seats_list_global, movie_code="002")
+    #update_movie_seats_csv(movie_seats_csv= "movie_seat.csv", movie_seats= movie_seats_list_global, movie_code="002")
     # modify_movie_seat(movie_seat_list=movie_seat_list_global, x_axis = 1,y_axis =2,target_number = -1)
     # print_movie_seats_list(movie_seat_list= movie_seat_list_global)
-    #delete_movie_seats_csv(movie_seat_csv="movie_seat.csv", movie_code="002")
+    delete_movie_seats_csv(movie_seats_csv="movie_seat.csv", movie_code="002")
 
 
