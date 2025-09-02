@@ -4,18 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0ea8b363-fbeb-45e9-9d45-12a8498462b3" name="Changes" comment="Seat &amp; List FrameWork Verion 1.13.1">
+    <list default="true" id="0ea8b363-fbeb-45e9-9d45-12a8498462b3" name="Changes" comment="Seat &amp; List FrameWork Version 1.14.0&#10;-Changed the type hint for function parameters from csv to str.&#10;-Fix the name error of the CHANGELOG.md">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Main Program/Library/movie_booking_framework/CHANGELOG.md" beforeDir="false" afterPath="$PROJECT_DIR$/Main Program/Library/movie_booking_framework/CHANGELOG.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Main Program/Library/movie_booking_framework/movie_seats_framework_package/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/Main Program/Library/movie_booking_framework/movie_seats_framework_package/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Main Program/Library/movie_booking_framework/movie_seats_framework_package/__movie_seats_framework__.py" beforeDir="false" afterPath="$PROJECT_DIR$/Main Program/Library/movie_booking_framework/movie_seats_framework_package/__movie_seats_framework__.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Main Program/Library/movie_booking_framework/movie_seats_framework_package/movie_seat.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Main Program/Library/movie_booking_framework/movie_seats_framework_package/movie_seat.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Main Program/Library/system_login_framework/Login/clerk.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Main Program/Library/system_login_framework/Login/login_system/clerk.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Main Program/Library/system_login_framework/Login/customer.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Main Program/Library/system_login_framework/Login/login_system/customer.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Main Program/Library/system_login_framework/Login/login_system/login/login_system.py" beforeDir="false" afterPath="$PROJECT_DIR$/Main Program/Library/system_login_framework/Login/login_system/login_system.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Main Program/Library/system_login_framework/Login/login_system/main.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Main Program/Library/system_login_framework/Login/manager.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Main Program/Library/system_login_framework/Login/login_system/manager.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Main Program/Library/system_login_framework/Login/technician.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Main Program/Library/system_login_framework/Login/login_system/technician.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Main Program/Library/system_login_framework/Login/login_system/login_system.py" beforeDir="false" afterPath="$PROJECT_DIR$/Main Program/Library/system_login_framework/Login/login_system/login_system.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -185,7 +177,23 @@
       <option name="project" value="LOCAL" />
       <updated>1756747398817</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Seat &amp; List FrameWork Version 1.14.0">
+      <option name="closed" value="true" />
+      <created>1756833400713</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1756833400713</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Seat &amp; List FrameWork Version 1.14.0&#10;-Changed the type hint for function parameters from csv to str.&#10;-Fix the name error of the CHANGELOG.md">
+      <option name="closed" value="true" />
+      <created>1756835559088</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1756835559088</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -209,7 +217,9 @@
     <MESSAGE value="Login FrameWork Version 1.0.0" />
     <MESSAGE value="Seat &amp; List FrameWork Verion 1.13.0" />
     <MESSAGE value="Seat &amp; List FrameWork Verion 1.13.1" />
-    <option name="LAST_COMMIT_MESSAGE" value="Seat &amp; List FrameWork Verion 1.13.1" />
+    <MESSAGE value="Seat &amp; List FrameWork Version 1.14.0" />
+    <MESSAGE value="Seat &amp; List FrameWork Version 1.14.0&#10;-Changed the type hint for function parameters from csv to str.&#10;-Fix the name error of the CHANGELOG.md" />
+    <option name="LAST_COMMIT_MESSAGE" value="Seat &amp; List FrameWork Version 1.14.0&#10;-Changed the type hint for function parameters from csv to str.&#10;-Fix the name error of the CHANGELOG.md" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

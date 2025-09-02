@@ -117,14 +117,21 @@ def check_data(path, name_or_id, password):
 
 def check_password(password, num):
     if len(password) < num:
-        # print('password must longer than ' + str(num))
-        return False
-    else:
-        for char in password:
-            require(char)
-            if count_upper >= 1 and count_lower >= 1 and count_number >= 1:
-                return True
-        return False
+        raise ValueError(f"Password length must not be less than {num}")
+    has_lower, has_upper, has_alpha, has_number, has_special_char = False,False,False,False,False
+    special_char_list = ["!","@","#","$","%","^","&","*"]
+    for char in password:
+        if char.isdigit(): has_number = True
+        if char.isupper(): has_upper = True
+        if char.islower(): has_lower = True
+        if char.isalpha(): has_alpha = True
+        if char in special_char_list: has_special_char = True
+        if char == " ": raise ValueError("Password should not contain space!")
+    if not has_alpha: raise ValueError("Password should contain at least one alpha!")
+    if not has_number: raise ValueError("Password should contain at least one number!")
+    if not has_upper: raise ValueError("Password should contain at least one uppercase letter!")
+    if not has_lower: raise ValueError("Password should contain at least one lowercase letter!")
+    if not has_special_char: raise ValueError("Password should contain at least one special character!")
 
 
 def require(char):
@@ -278,8 +285,9 @@ def main():
 
 
 if __name__ == '__main__':
-    while True:
-        try:
-            main()
-        except ValueError as e:
-            print(e)
+    # while True:
+    #     try:
+    #         main()
+    #     except ValueError as e:
+    #         print(e)
+
