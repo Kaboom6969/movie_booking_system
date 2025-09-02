@@ -5,7 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0ea8b363-fbeb-45e9-9d45-12a8498462b3" name="Changes" comment="Seat &amp; List FrameWork Verion 1.13.1">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Main Program/Library/movie_booking_framework/CHANGELOG.md" beforeDir="false" afterPath="$PROJECT_DIR$/Main Program/Library/movie_booking_framework/CHANGELOG.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Main Program/Library/movie_booking_framework/movie_seats_framework_package/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/Main Program/Library/movie_booking_framework/movie_seats_framework_package/__init__.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Main Program/Library/movie_booking_framework/movie_seats_framework_package/__movie_seats_framework__.py" beforeDir="false" afterPath="$PROJECT_DIR$/Main Program/Library/movie_booking_framework/movie_seats_framework_package/__movie_seats_framework__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Main Program/Library/movie_booking_framework/movie_seats_framework_package/movie_seat.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Main Program/Library/movie_booking_framework/movie_seats_framework_package/movie_seat.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Main Program/Library/system_login_framework/Login/clerk.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Main Program/Library/system_login_framework/Login/login_system/clerk.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Main Program/Library/system_login_framework/Login/customer.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Main Program/Library/system_login_framework/Login/login_system/customer.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Main Program/Library/system_login_framework/Login/login_system/login/login_system.py" beforeDir="false" afterPath="$PROJECT_DIR$/Main Program/Library/system_login_framework/Login/login_system/login_system.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Main Program/Library/system_login_framework/Login/login_system/main.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Main Program/Library/system_login_framework/Login/manager.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Main Program/Library/system_login_framework/Login/login_system/manager.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Main Program/Library/system_login_framework/Login/technician.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Main Program/Library/system_login_framework/Login/login_system/technician.csv" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,14 +63,20 @@
     "Python.__movie_framework__.executor": "Run",
     "Python.__movie_list_framework__.executor": "Run",
     "Python.__movie_seats_framework__.executor": "Run",
+    "Python.login_system.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "test"
+    "git-widget-placeholder": "test",
+    "last_opened_file_path": "C:/Users/leezh/PycharmProjects/movie_booking_system/Main Program/Library/system_login_framework/Login/login_system"
   }
 }]]></component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\leezh\PycharmProjects\movie_booking_system\Main Program\Library\system_login_framework\Login\login_system" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\leezh\PycharmProjects\movie_booking_system\Main Program\Library\system_login_framework\Login\login_system" />
       <recent name="C:\Users\leezh\PycharmProjects\movie_booking_system\Main Program\Library\movie_booking_framework" />
       <recent name="C:\Users\leezh\PycharmProjects\movie_booking_system\Main Program\Library\movie_booking_framework\Movie_seats_framework" />
       <recent name="C:\Users\leezh\PycharmProjects\movie_booking_system\Main Program\Library\movie_booking_framework\Movie_list_framework" />
@@ -161,7 +177,15 @@
       <option name="project" value="LOCAL" />
       <updated>1756746777415</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Seat &amp; List FrameWork Verion 1.13.1">
+      <option name="closed" value="true" />
+      <created>1756747398817</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1756747398817</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -186,5 +210,16 @@
     <MESSAGE value="Seat &amp; List FrameWork Verion 1.13.0" />
     <MESSAGE value="Seat &amp; List FrameWork Verion 1.13.1" />
     <option name="LAST_COMMIT_MESSAGE" value="Seat &amp; List FrameWork Verion 1.13.1" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <default-breakpoints>
+        <breakpoint type="python-exception">
+          <properties notifyOnTerminate="true" exception="BaseException">
+            <option name="notifyOnTerminate" value="true" />
+          </properties>
+        </breakpoint>
+      </default-breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
