@@ -31,7 +31,7 @@ def get_data(path):
     return final_data
 
 
-def generate_verification_code():
+def generate_verification_code() -> str:
     lower_list = []
     upper_list = []
     number_list = []
@@ -164,34 +164,29 @@ def check_user_name(new_name, path):
     for i in range(1, len(final_data), +3):
         # i = name
         if new_name == final_data[i]:
-            return False
-    return True
+            raise ValueError("Username exist!")
 
 
 def register(path):
     while True:
         try:
-            new_name = input('new name:')
-            flag = check_user_name(new_name, path)
-            if flag:
-                break
-            else:
-                raise ValueError('username exist, please try again')
+            new_name = input("Please enter your name:")
+            check_user_name(new_name, path)
+            break
         except ValueError as e:
             print(e)
 
+
+    print("password must include one uppercase letter, one lowercase letter, one number and length > 5")
     while True:
         try:
-            print("password must include one uppercase letter, one lowercase letter, one number and length > 5")
             new_password = input("input password\n")
-            flag = check_password(new_password, 5)
-            if flag:
-                print("register success")
-                break
-            else:
-                raise ValueError("fail, please try again")
+            check_password(new_password, 5)
+            print("register success")
+            break
         except ValueError as e:
             print(e)
+
     latest_id = generate_ID(path, 'C')
     new_id = int(latest_id) + 1
     write_data(path, new_id, new_name, new_password)
@@ -200,7 +195,7 @@ def register(path):
 def login(path):
     while True:
         print('please login')
-        name_or_id = input('name or UserID:')
+        user_id = input('UserID:')
         password = input('password:')
 
         while True:
@@ -214,7 +209,7 @@ def login(path):
                     break
             except ValueError as e:
                 print(e)
-        flag = check_data(path, name_or_id, password)
+        flag = check_data(path, user_id, password)
         if flag:
             print('login success')
             return True
@@ -285,9 +280,9 @@ def main():
 
 
 if __name__ == '__main__':
-    # while True:
-    #     try:
-    #         main()
-    #     except ValueError as e:
-    #         print(e)
+    while True:
+         try:
+             main()
+         except ValueError as e:
+             print(e)
 
