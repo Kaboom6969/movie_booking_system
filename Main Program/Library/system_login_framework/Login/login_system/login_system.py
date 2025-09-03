@@ -4,22 +4,23 @@ import os
 import csv
 from operator import truediv
 
-
 number = 0
 count_lower = 0
 count_upper = 0
 count_number = 0
 
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
 
 def get_content(path):
     if not os.path.exists(path):
-        with open(path,'w') as f:
+        with open(path, 'w') as f:
             pass
             return ''
     else:
-     with open( path, 'r',newline= '') as role_file:
-         content = role_file.read().strip()
-         return content
+        with open(path, 'r', newline='') as role_file:
+            content = role_file.read().strip()
+            return content
 
 
 def get_data(path):
@@ -62,7 +63,7 @@ def write_data(path, user_id, name, password):
 
 def generate_ID(path, prefix):
     if not os.path.exists(path):
-        with open(path,'w') as f:
+        with open(path, 'w') as f:
             pass
             return '000'
     f = open(path, 'r')
@@ -128,8 +129,8 @@ def check_data(path, name_or_id, password):
 def check_password(password, num):
     if len(password) < num:
         raise ValueError(f"Password length must not be less than {num}")
-    has_lower, has_upper, has_alpha, has_number, has_special_char = False,False,False,False,False
-    special_char_list = ["!","@","#","$","%","^","&","*"]
+    has_lower, has_upper, has_alpha, has_number, has_special_char = False, False, False, False, False
+    special_char_list = ["!", "@", "#", "$", "%", "^", "&", "*"]
     for char in password:
         if char.isdigit(): has_number = True
         if char.isupper(): has_upper = True
@@ -185,7 +186,6 @@ def register(path):
             break
         except ValueError as e:
             print(e)
-
 
     print("password must include one uppercase letter, one lowercase letter, one number and length > 5")
     while True:
@@ -285,14 +285,13 @@ def role(customer_data, clerk_data, manager_data, technician_data):
 
 
 def main():
-    role(customer_data='customer.csv', clerk_data='clerk.csv', manager_data='manager.csv',
-         technician_data='technician.csv')
+    role(customer_data=os.path.join(BASE_DIR, 'customer.csv'), clerk_data=os.path.join(BASE_DIR, 'clerk.csv'),
+         manager_data=os.path.join(BASE_DIR, 'manager.csv'), technician_data=os.path.join(BASE_DIR, 'technician.csv'))
 
 
 if __name__ == '__main__':
     while True:
-         try:
-             main()
-         except ValueError as e:
-             print(e)
-
+        try:
+            main()
+        except ValueError as e:
+            print(e)
