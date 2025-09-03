@@ -1,5 +1,6 @@
 import csv
 import random
+import os
 import csv
 from operator import truediv
 
@@ -11,9 +12,14 @@ count_number = 0
 
 
 def get_content(path):
-    with open( path, 'r',newline= '') as role_file:
-        content = role_file.read().strip()
-        return content
+    if not os.path.exists(path):
+        with open(path,'w') as f:
+            pass
+            return ''
+    else:
+     with open( path, 'r',newline= '') as role_file:
+         content = role_file.read().strip()
+         return content
 
 
 def get_data(path):
@@ -55,6 +61,10 @@ def write_data(path, user_id, name, password):
 
 
 def generate_ID(path, prefix):
+    if not os.path.exists(path):
+        with open(path,'w') as f:
+            pass
+            return '000'
     f = open(path, 'r')
     content = f.read().strip()
     f.close()
