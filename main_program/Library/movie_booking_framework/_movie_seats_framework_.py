@@ -2,15 +2,14 @@ import csv #From python standard library
 import warnings #From python standard library
 import os #From python standard library
 
-
-
+TARGET_DIRECTORY = "Data"
 
 #Read seat data for a specific movie from a CSV file into a 2D list
 def read_movie_seats_csv (movie_seats_csv : str, movie_seats :list, movie_code : str) -> None:
     list_found = False      #Flag to track if movie_code is found
     start_status = False    #Flag tso track if in seat data section (between START and END)
     try:
-        movie_seats_csv_path = get_path(movie_seats_csv)
+        movie_seats_csv_path = _get_path(movie_seats_csv)
         with open (movie_seats_csv_path, 'r', newline='') as ms_csv_r:
             movie_seat_reader = csv.reader(ms_csv_r)
             next(movie_seat_reader)         #Skip header row (movie_code,y0,y1,...)
@@ -35,13 +34,16 @@ def read_movie_seats_csv (movie_seats_csv : str, movie_seats :list, movie_code :
 
 #Overwrite target file with contents of a temporary file
 def _overwrite_file (overwrited_file_csv : str, original_file_csv : str) -> None:
-        overwrited_file_csv_path = get_path(overwrited_file_csv)
-        original_file_csv_path = get_path(original_file_csv)
-        with open(original_file_csv_path, 'r', newline='') as ori_file_r, open(overwrited_file_csv_path, 'w', newline='') as overwrited_file_w:
-            oni_file_reader = csv.reader(ori_file_r)                #Create reader for source file
-            overwrited_file_writer = csv.writer(overwrited_file_w)  #Create writer for target file
-            for row in oni_file_reader:                             #Copy each row
-                overwrited_file_writer.writerow(row)
+        try:
+            overwrited_file_csv_path = _get_path(overwrited_file_csv)
+            original_file_csv_path = _get_path(original_file_csv)
+            with open(original_file_csv_path, 'r', newline='') as ori_file_r, open(overwrited_file_csv_path, 'w', newline='') as overwrited_file_w:
+                ori_file_reader = csv.reader(ori_file_r)                #Create reader for source file
+                overwrited_file_writer = csv.writer(overwrited_file_w)  #Create writer for target file
+                for row in ori_file_reader:                             #Copy each row
+                    overwrited_file_writer.writerow(row)
+        except FileNotFoundError:
+            raise FileNotFoundError(f"OVERWRITE FILE FAILED! NO FILE FOUND! OVERWRITED FILE:{overwrited_file_csv}\nORIGINAL FILE:{original_file_csv}")
 
 #Update seat data for a specific movie_code in the CSV file
 def update_movie_seats_csv (movie_seats_csv : str, movie_seats: list, movie_code : str) -> None:
@@ -49,7 +51,7 @@ def update_movie_seats_csv (movie_seats_csv : str, movie_seats: list, movie_code
         _movie_seats_valid_check(movie_seats_list=movie_seats)
     except ValueError as e:
         raise ValueError(f"Update Movie Seats Failed! Movie Seat List ERROR! {e}")
-    movie_seats_csv_path = get_path(movie_seats_csv)
+    movie_seats_csv_path = _get_path(movie_seats_csv)
     with open(movie_seats_csv_path, 'r', newline='') as ms_csv_r, open(f"{movie_seats_csv}.temp","w", newline='') as ms_csv_w:
             movie_seats_writer = csv.writer(ms_csv_w)        #Create writer for temporary file
             movie_seats_reader = csv.reader(ms_csv_r)        #Create reader for CSV file
@@ -100,7 +102,7 @@ def add_movie_seats_csv (movie_seats_csv : str, movie_seats : list, movie_code :
         _movie_seats_valid_check(movie_seats_list=movie_seats)
     except ValueError as e:
         raise ValueError (f"Add Movie Seats Failed! Movie Seat List ERROR! {e}")
-    movie_seats_csv_path = get_path(movie_seats_csv)
+    movie_seats_csv_path = _get_path(movie_seats_csv)
     with (open(movie_seats_csv_path,'r',newline= '') as ms_csv_r ,
           open(f"{movie_seats_csv}.temp","w", newline='') as ms_csv_w):
         movie_seat_reader = csv.reader(ms_csv_r)    #Create reader for CSV file
@@ -127,9 +129,10 @@ def add_movie_seats_csv (movie_seats_csv : str, movie_seats : list, movie_code :
 #大量问题，需要大量优化，目前正在测试阶段
 def delete_movie_seats_csv (movie_seats_csv : str, movie_code : str) -> None:
     try:
-        movie_seats_csv_path = get_path(movie_seats_csv)
+        movie_seats_csv_path = _get_path(movie_seats_csv)
+        movie_seats_csv_TEMP_path = os.path.dirname(movie_seats_csv_path)
         with (open(movie_seats_csv_path, 'r', newline ='') as ms_csv_r ,
-              open(f"{movie_seats_csv}.temp", "w", newline='') as ms_csv_w):
+              open(os.path.join(movie_seats_csv_TEMP_path,f"{movie_seats_csv}.temp"), "w", newline='') as ms_csv_w):
             movie_seat_reader = csv.reader(ms_csv_r)
             movie_seat_writer = csv.writer(ms_csv_w)
             list_found_all_times = False
@@ -150,10 +153,10 @@ def delete_movie_seats_csv (movie_seats_csv : str, movie_code : str) -> None:
                 raise KeyError(f"Cannot Find The Movie Code! Movie Code : {movie_code}")
             if delete_count > 1:
                 warnings.warn(f"delete_movie_seats_csv function delete {delete_count} times.")
-        _overwrite_file(overwrited_file_csv=movie_seats_csv_path, original_file_csv=f"{movie_seats_csv}.temp")
+        _overwrite_file(overwrited_file_csv=movie_seats_csv, original_file_csv=f"{movie_seats_csv}.temp")
 
     except FileNotFoundError as e:
-        raise FileNotFoundError(f"Cannot Find File {movie_seats_csv}!")
+        raise e
 
 def generate_movie_seats (x_axis : int, y_axis : int, fill_number : int) -> list:
     if x_axis > 11:
@@ -216,13 +219,23 @@ def modify_movie_seats_list(movie_seat_list: list, x_axis: int, y_axis: int, tar
         raise IndexError(f"y_axis should be between 1 and {len(movie_seat_list)}\nYour y_axis is {y_axis}")
     movie_seat_list[len(movie_seat_list) - y_axis][x_axis - 1] = str(target_number)     #Modify specified seat
 
-###########################################################################################################################
-def get_path(file) -> str:
+##########################################################################################################################
+def _find_project_root(target_directory : str) -> str:
+    current_directory = os.path.dirname(os.path.abspath(__file__))
+    while True:
+        if target_directory in os.listdir(current_directory):
+            return os.path.join(current_directory, target_directory)
+        parent_directory = os.path.dirname(current_directory)
+        if parent_directory == current_directory:
+            raise FileNotFoundError(f"Cannot Find File!")
+        current_directory = parent_directory
+
+def _get_path(file) -> str:
     if os.path.isabs(file):
         warnings.warn("Path Is Using in get_path Function! (Should be file)")
         return file
-    base_directory = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
-    movie_code_csv_path = os.path.join(base_directory, 'main_program', 'Data', file)
+    base_directory = _find_project_root(target_directory= TARGET_DIRECTORY)
+    movie_code_csv_path = os.path.join(base_directory, file)
     return movie_code_csv_path
 ###########################################################################################################################
 #Print seat list as text

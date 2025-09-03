@@ -36,3 +36,10 @@
 - Partially refactored `update_movie_seats_csv` to support updating the CSV file with seat tables of any size! (Previously, the function only supported updates with seat lists matching the size of the existing CSV seat table.)
 - Integrated `movie_seats_valid_check` with `ValueError` propagation in `read_movie_seats_csv`, `update_movie_seats_csv`, `add_movie_seats_csv`, `fill_movie_seats_list`, and `modify_movie_seat` to enhance input validation and error reporting.
 - Improved data integrity for movie seat operations by ensuring invalid seat states are caught before CSV file modifications.
+## [1.15.0] -2025-09-03
+### Added
+- Added a `get_path` function to improve file handling; file locations are now determined by a global constant at the top of the file, so files aren't restricted to the local directory.
+- Added a `find_project_root` function to locate the target directory.
+### Changed
+- Updated the file-finding method in the `delete_movie_seats_csv` function for greater flexibility. (Other functions are being updated progressively.)
+- Moved the location of some packages.
