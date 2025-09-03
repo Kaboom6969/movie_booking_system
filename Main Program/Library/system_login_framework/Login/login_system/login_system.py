@@ -4,12 +4,7 @@ import os
 import csv
 from operator import truediv
 
-number = 0
-count_lower = 0
-count_upper = 0
-count_number = 0
 
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 
 def get_content(path):
@@ -356,6 +351,12 @@ def main():
 
 
 if __name__ == '__main__':
+    number = 0
+    count_lower = 0
+    count_upper = 0
+    count_number = 0
+
+    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
     while True:
         try:
             main()
