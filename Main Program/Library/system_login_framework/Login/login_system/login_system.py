@@ -13,6 +13,10 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 
 def get_content(path):
+    """
+    Read file content if exists.
+    If file does not exist, create an empty file and return ''
+    """
     if not os.path.exists(path):
         with open(path, 'w') as f:
             pass
@@ -24,6 +28,11 @@ def get_content(path):
 
 
 def get_data(path):
+    """
+    Read data from file and split into flat list.
+    Example file content: 'C001,name,1\nC002,name,2'
+    Returns: ['C001','name','1','C002','name','2']
+    """
     # record ['C001,name,1', 'C002,name,2', 'C003,name,3']
     content = get_content(path)
     file_data = content.split('\n')
@@ -39,6 +48,10 @@ def get_data(path):
 
 
 def generate_verification_code() -> str:
+    """
+    Generate a random verification code (1 lowercase, 1 uppercase, 1 digit)
+    Example: aB5
+    """
     lower_list = []
     upper_list = []
     number_list = []
@@ -56,12 +69,20 @@ def generate_verification_code() -> str:
 
 
 def write_data(path, user_id, name, password):
+    """
+    Append new user record to CSV file.
+    Format: C001,Name,password
+    """
     file = open(path, 'a')
     file.write(f"C{user_id:03d},{name},{password}\n")
     file.close()
 
 
 def generate_ID(path, prefix):
+    """
+    Generate the next user ID based on the last one stored in file.
+    Example: if last ID is C005, next will be C006.
+    """
     if not os.path.exists(path):
         with open(path, 'w') as f:
             pass
@@ -86,6 +107,10 @@ def generate_ID(path, prefix):
 
 
 def check_identity(path, name_or_id, input_password):
+    """
+    Check if username/ID and password match.
+    Return role string if valid, otherwise None.
+    """
     content = get_content(path)
     if content == '':
         return False
@@ -107,6 +132,10 @@ def check_identity(path, name_or_id, input_password):
 
 
 def check_data(path, name_or_id, password):
+    """
+    Check if given user ID or username matches password in file.
+    Return True/False.
+    """
     content = get_content(path)
     if content == '':
         return False
@@ -127,6 +156,12 @@ def check_data(path, name_or_id, password):
 
 
 def check_password(password, num):
+    """
+    Validate password with rules:
+    - Minimum length
+    - At least 1 lowercase, 1 uppercase, 1 number, 1 special char
+    - No spaces
+    """
     if len(password) < num:
         raise ValueError(f"Password length must not be less than {num}")
     has_lower, has_upper, has_alpha, has_number, has_special_char = False, False, False, False, False
@@ -146,6 +181,10 @@ def check_password(password, num):
 
 
 def require(char):
+    """
+    Helper function: count type of character (lower/upper/number)
+    Updates global counters.
+    """
     global count_lower, count_number, count_upper
     lower_list = []
     upper_list = []
@@ -171,6 +210,10 @@ def require(char):
 
 
 def check_user_name(new_name, path):
+    """
+    Check if username already exists in file.
+    Raise error if duplicate.
+    """
     final_data = get_data(path)
     for i in range(1, len(final_data), +3):
         # i = name
@@ -179,6 +222,12 @@ def check_user_name(new_name, path):
 
 
 def register(path):
+    """
+    Register new customer user.
+    - Input username (must be unique)
+    - Input password (must follow rules)
+    - Generate new user ID and save to file
+    """
     while True:
         try:
             new_name = input("Please enter your name:")
@@ -187,7 +236,7 @@ def register(path):
         except ValueError as e:
             print(e)
 
-    print("password must include one uppercase letter, one lowercase letter, one number and length > 5")
+    print("password must include one uppercase letter, one lowercase letter, one number, one special character and length > 5")
     while True:
         try:
             new_password = input("input password\n")
@@ -203,6 +252,12 @@ def register(path):
 
 
 def login(path):
+    """
+    User login process:
+    - Input ID and password
+    - Input verification code
+    - Check credentials
+    """
     while True:
         print('please login')
         user_id = input('UserID:')
@@ -229,6 +284,10 @@ def login(path):
 
 
 def user_input_role():
+    """
+    Let user choose role by number.
+    1 = Clerk, 2 = Manager, 3 = Technician, 4 = Customer
+    """
     print("Ticketing Clerk(1), Cinema manager(2), Technician(3), Customer(4)")
     while True:
         try:
@@ -243,6 +302,10 @@ def user_input_role():
 
 
 def role(customer_data, clerk_data, manager_data, technician_data):
+    """
+    Main role dispatcher.
+    Different role leads to different login/register logic.
+    """
     role_num = user_input_role()
     if role_num == 4:
         while True:
@@ -285,6 +348,9 @@ def role(customer_data, clerk_data, manager_data, technician_data):
 
 
 def main():
+    """
+    Entry point: assign file paths for different roles.
+    """
     role(customer_data=os.path.join(BASE_DIR, 'customer.csv'), clerk_data=os.path.join(BASE_DIR, 'clerk.csv'),
          manager_data=os.path.join(BASE_DIR, 'manager.csv'), technician_data=os.path.join(BASE_DIR, 'technician.csv'))
 
