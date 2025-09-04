@@ -1,6 +1,6 @@
 import csv
 import os
-from _movie_seats_framework_ import _get_path,_overwrite_file
+from movie_seats_framework import _get_path,_overwrite_file
 def read_movie_list_csv (movie_list_csv : str,movie_list : list,movie_code : str = "all") ->None:
     try:
         movie_list_csv_path = _get_path(movie_list_csv)
@@ -40,7 +40,8 @@ def update_movie_list_csv (movie_list_csv : str,movie_list : list,movie_code : s
                     if csv_row[0] == list_row[0]:
                         movie_list_writer.writerow(list_row)
                         continue
-                movie_list_writer.writerow(csv_row)
+                    movie_list_writer.writerow(csv_row)
+    _overwrite_file(overwrited_file_csv=movie_list_csv, original_file_csv=f"{movie_list_csv}.temp")
 
 
 
@@ -50,7 +51,8 @@ if __name__ == '__main__':
     try:
         movie_list_global : list = []
         read_movie_list_csv(movie_list_csv= "movie_list.csv", movie_list= movie_list_global, movie_code="002")
-        print(movie_list_global)
+        # print(movie_list_global)
+        update_movie_list_csv(movie_list_csv= "movie_list_2_test.csv", movie_list= movie_list_global)
 
     except ValueError as e:
         print(e)

@@ -117,21 +117,23 @@ def add_movie_seats_csv (movie_seats_csv : str, movie_seats : list, movie_code :
                     if row and row[0] == movie_code:    #Check if movie_code already exists
                         raise ValueError ("Movie Code Already Exists! You Should Use write_movie_seats_csv function!")
         #Create headers for movie_code, START, and END rows
-        movie_code_header : list = _header_create(header_text = movie_code, movie_seats_length=len(movie_seats[0]) + 1, append_thing="")
-        start_header : list = _header_create(header_text = "START", movie_seats_length =len(movie_seats[0]) + 1, append_thing="-2")
-        movie_seat_writer.writerow(movie_code_header)       #Write movie_code row
-        movie_seat_writer.writerow(start_header)            #Write START row
-        for row in movie_seats:                              #Write seat data
-            movie_seat_writer.writerow(["",*row])           #Add empty first column [""...
-        end_header : list = _header_create(header_text = "END", movie_seats_length =len(movie_seats[0]) + 1, append_thing="-2")
-        movie_seat_writer.writerow(end_header)              #Write END row
+            movie_code_header : list = _header_create(header_text = movie_code, movie_seats_length=len(movie_seats[0]) + 1, append_thing="")
+            start_header : list = _header_create(header_text = "START", movie_seats_length =len(movie_seats[0]) + 1, append_thing="-2")
+            movie_seat_writer.writerow(movie_code_header)       #Write movie_code row
+            movie_seat_writer.writerow(start_header)            #Write START row
+            for row in movie_seats:                              #Write seat data
+                movie_seat_writer.writerow(["",*row])           #Add empty first column [""...
+            end_header : list = _header_create(header_text = "END", movie_seats_length =len(movie_seats[0]) + 1, append_thing="-2")
+            movie_seat_writer.writerow(end_header)              #Write END row
 
-        _overwrite_file(overwrited_file_csv= movie_seats_csv_path, original_file_csv=f"{movie_seats_csv}.temp")     #Overwrite original file
+        _overwrite_file(overwrited_file_csv= movie_seats_csv, original_file_csv=f"{movie_seats_csv}.temp")     #Overwrite original file
     except ValueError as e:
         raise ValueError(f"Add Movie Seats Failed!\n{e}")
     except FileNotFoundError as e:
         raise FileNotFoundError(f"Update Movie Seats Failed!\nCannot Find the File!\n"
                                     f"File name: {movie_seats_csv}\nFile path: {movie_seats_csv_path})")
+    except Exception as e:
+        raise Exception(f"Add Movie Seats Failed\nUnknown Error!\n{e}")
 
 #大量问题，需要大量优化，目前正在测试阶段
 def delete_movie_seats_csv (movie_seats_csv : str, movie_code : str) -> None:
@@ -339,13 +341,14 @@ def print_movie_seat_as_emojis (movie_seats : list) -> None:
 
 #作为library时不会被启用，仅有亲自运行此文件才会运行（用来测试用）
 if __name__ == '__main__':
-    movie_seats_list_global : list = [] #generate_movie_seats(x_axis =11, y_axis =9, fill_number =1)
+    movie_seats_list_global : list = generate_movie_seats(x_axis =11, y_axis =9, fill_number =1)
+    #add_movie_seats_csv(movie_seats_csv = "movie_seat.csv",movie_seats= movie_seats_list_global,movie_code = "003")
     #print(movie_seats_list_global)
     #print_movie_seats_list_as_emojis(movie_seat_list=movie_seats_list_global)
     #read_movie_seats_csv (movie_seats_csv="movie_seat.csv",movie_seats=movie_seats_list_global,movie_code="002")
     #fill_movie_seats_list (movie_seat_list=movie_seats_list_global, fill_number=1)
     #print (movie_seats_list_global)
-    #update_movie_seats_csv(movie_seats_csv="movie_seat.csv",movie_seat= movie_seats_list_global,movie_code="002")
+    #update_movie_seats_csv(movie_seats_csv="movie_seat.csv",movie_seats= movie_seats_list_global,movie_code="002")
     #update_movie_seats_csv(movie_seats_csv= "movie_seat.csv", movie_seats= movie_seats_list_global, movie_code="002")
     # modify_movie_seat(movie_seat_list=movie_seat_list_global, x_axis = 1,y_axis =2,target_number = -1)
     # print_movie_seats_list(movie_seat_list= movie_seat_list_global)
