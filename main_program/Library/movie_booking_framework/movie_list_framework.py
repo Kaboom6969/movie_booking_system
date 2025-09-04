@@ -1,5 +1,5 @@
 import csv
-from ..movie_seats_list_framework_package import __movie_seats_framework__
+import movie_seats_framework
 
 def read_movie_list_csv (movie_list_csv : csv,movie_list : list,movie_code : str) ->None:
     try:
