@@ -43,3 +43,6 @@
 ### Changed
 - Updated the file-finding method in the `delete_movie_seats_csv` function for greater flexibility. (Other functions are being updated progressively.)
 - Moved the location of some packages.
+## [1.15.1] -2025-09-04
+### Changed
+- Updated all the file-finding method in the fucntion in `_movie_seats_framework_`.

@@ -52,7 +52,9 @@ def update_movie_seats_csv (movie_seats_csv : str, movie_seats: list, movie_code
     except ValueError as e:
         raise ValueError(f"Update Movie Seats Failed! Movie Seat List ERROR! {e}")
     movie_seats_csv_path = _get_path(movie_seats_csv)
-    with open(movie_seats_csv_path, 'r', newline='') as ms_csv_r, open(f"{movie_seats_csv}.temp","w", newline='') as ms_csv_w:
+    movie_seats_csv_temp_path = os.path.dirname(movie_seats_csv_path)
+    with (open(movie_seats_csv_path, 'r', newline='') as ms_csv_r,
+          open(os.path.join(movie_seats_csv_temp_path, f"{movie_seats_csv}.temp"), "w", newline='') as ms_csv_w):
             movie_seats_writer = csv.writer(ms_csv_w)        #Create writer for temporary file
             movie_seats_reader = csv.reader(ms_csv_r)        #Create reader for CSV file
             list_found_all_times = False                    #Track if movie_code was ever found
@@ -103,8 +105,9 @@ def add_movie_seats_csv (movie_seats_csv : str, movie_seats : list, movie_code :
     except ValueError as e:
         raise ValueError (f"Add Movie Seats Failed! Movie Seat List ERROR! {e}")
     movie_seats_csv_path = _get_path(movie_seats_csv)
-    with (open(movie_seats_csv_path,'r',newline= '') as ms_csv_r ,
-          open(f"{movie_seats_csv}.temp","w", newline='') as ms_csv_w):
+    movie_seats_csv_temp_path = os.path.dirname(movie_seats_csv_path)
+    with (open(movie_seats_csv_path, 'r', newline='') as ms_csv_r,
+          open(os.path.join(movie_seats_csv_temp_path, f"{movie_seats_csv}.temp"), "w", newline='') as ms_csv_w):
         movie_seat_reader = csv.reader(ms_csv_r)    #Create reader for CSV file
         movie_seat_writer = csv.writer(ms_csv_w)    #Create writer for temporary file
         for row in movie_seat_reader:       #Copy existing content
@@ -130,9 +133,9 @@ def add_movie_seats_csv (movie_seats_csv : str, movie_seats : list, movie_code :
 def delete_movie_seats_csv (movie_seats_csv : str, movie_code : str) -> None:
     try:
         movie_seats_csv_path = _get_path(movie_seats_csv)
-        movie_seats_csv_TEMP_path = os.path.dirname(movie_seats_csv_path)
+        movie_seats_csv_temp_path = os.path.dirname(movie_seats_csv_path)
         with (open(movie_seats_csv_path, 'r', newline ='') as ms_csv_r ,
-              open(os.path.join(movie_seats_csv_TEMP_path,f"{movie_seats_csv}.temp"), "w", newline='') as ms_csv_w):
+              open(os.path.join(movie_seats_csv_temp_path,f"{movie_seats_csv}.temp"), "w", newline='') as ms_csv_w):
             movie_seat_reader = csv.reader(ms_csv_r)
             movie_seat_writer = csv.writer(ms_csv_w)
             list_found_all_times = False
