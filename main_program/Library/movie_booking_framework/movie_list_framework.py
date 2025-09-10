@@ -1,6 +1,8 @@
 import csv
 import os
+import re
 from movie_seats_framework import _get_path,_overwrite_file
+
 def read_movie_list_csv (movie_list_csv : str,movie_list : list,movie_code : str = "all") ->None:
     try:
         movie_list_csv_path = _get_path(movie_list_csv)
@@ -34,14 +36,32 @@ def update_movie_list_csv (movie_list_csv : str,movie_list : list,movie_code : s
           open(os.path.join(movie_list_csv_temp_path,f"{movie_list_csv}.temp"),'w',newline= '') as mvl_csv_w):
         movie_list_reader = csv.reader(mvl_csv_r)
         movie_list_writer = csv.writer(mvl_csv_w)
+        movie_list_dictionary = {row[0] : row for row in movie_list}
         if movie_code == "all":
-            for csv_row in movie_list_reader:
-                for list_row in movie_list:
-                    if csv_row[0] == list_row[0]:
-                        movie_list_writer.writerow(list_row)
+            movie_list_writer.writerow(next(movie_list_reader))
+            for row in movie_list_reader:
+                if row[0] in movie_list_dictionary:
+                    movie_list_writer.writerow(movie_list_dictionary[row[0]])
+                    del movie_list_dictionary[row[0]]
+                    continue
+                movie_list_writer.writerow(row)
+        elif not re.fullmatch(pattern= r"\d{3}",text= movie_code):
+            raise ValueError("Movie code must be a three-digit number!")
+        else:
+            try:
+                movie_list_writer.writerow(next(movie_list_reader))
+                movie_list_specify : list  = movie_list_dictionary[movie_code]
+                for row in movie_list_reader:
+                    if row[0] == movie_list_specify[0]:
+                        movie_list_writer.writerow(movie_list_specify)
                         continue
-                    movie_list_writer.writerow(csv_row)
+                    movie_list_writer.writerow(row)
+            except KeyError:
+                raise IndexError("Movie Code is not in the list!")
+
     _overwrite_file(overwrited_file_csv=movie_list_csv, original_file_csv=f"{movie_list_csv}.temp")
+
+#def add_movie_list_csv (movie_list_csv : str,movie_list :list) -> None:
 
 
 
