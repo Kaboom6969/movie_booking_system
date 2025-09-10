@@ -5,8 +5,6 @@ import csv
 from operator import truediv
 
 
-
-
 def get_content(path):
     """
     Read file content if exists.
