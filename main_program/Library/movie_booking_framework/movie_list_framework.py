@@ -72,7 +72,7 @@ def add_movie_list_csv (movie_list_csv : str,movie_list : list,movie_code : str)
         code_list_matcher = 0
         for row in movie_list_dict:
             if row == movie_code:
-                if code_list_matcher == 0:movie_list_for_add.append(row)
+                if code_list_matcher == 0:movie_list_for_add.append(movie_list_dict[row])
                 code_list_matcher += 1
         if code_list_matcher == 0: raise ValueError(f"Movie Code is not matched in {movie_list}!")
         if code_list_matcher > 1: warnings.warn(f"More than 2 Movie Code Founded in {movie_list}! System will use the First one")
@@ -86,14 +86,14 @@ def add_movie_list_csv (movie_list_csv : str,movie_list : list,movie_code : str)
                 movie_list_writer.writerow(row)
                 if row[0] == movie_code:
                     raise ValueError(f"Movie Code Repeat! You Should Use update_movie_list_csv function!")
-            movie_list_writer.writerow(movie_list_for_add)
+            movie_list_writer.writerows(movie_list_for_add)
 
     except FileNotFoundError as e:
-        raise f"ADD MOVIE FAILED! ERROR:{e}"
+        raise FileNotFoundError(f"ADD MOVIE FAILED! ERROR:{e}")
     except ValueError as e:
-        raise f"ADD MOVIE FAILED! ERROR:{e}"
+        raise ValueError(f"ADD MOVIE FAILED! ERROR:{e}")
     except Exception as e:
-        raise f"ADD MOVIE FAILED! UNKNOWN ERROR:{e}"
+        raise Exception(f"ADD MOVIE FAILED! UNKNOWN ERROR:{e}")
 
 
 
