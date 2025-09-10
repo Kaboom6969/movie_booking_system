@@ -1,2 +1,0 @@
-from __movie_seats_framework__ import (read_movie_seats_csv, write_movie_seats_list_csv, fill_movie_seats_list,
-                                       modify_movie_seat, print_movie_seats_list, print_movie_seat_as_emojis)
