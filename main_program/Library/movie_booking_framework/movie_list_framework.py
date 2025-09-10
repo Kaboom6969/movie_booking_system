@@ -1,6 +1,7 @@
 import csv
 import os
 import re
+import warnings
 from movie_seats_framework import _get_path,_overwrite_file
 
 def read_movie_list_csv (movie_list_csv : str,movie_list : list,movie_code : str = "all") ->None:
@@ -36,13 +37,13 @@ def update_movie_list_csv (movie_list_csv : str,movie_list : list,movie_code : s
           open(os.path.join(movie_list_csv_temp_path,f"{movie_list_csv}.temp"),'w',newline= '') as mvl_csv_w):
         movie_list_reader = csv.reader(mvl_csv_r)
         movie_list_writer = csv.writer(mvl_csv_w)
-        movie_list_dictionary = {row[0] : row for row in movie_list}
+        movie_list_dict : dict = {row[0] : row for row in movie_list}
         if movie_code == "all":
             movie_list_writer.writerow(next(movie_list_reader))
             for row in movie_list_reader:
-                if row[0] in movie_list_dictionary:
-                    movie_list_writer.writerow(movie_list_dictionary[row[0]])
-                    del movie_list_dictionary[row[0]]
+                if row[0] in movie_list_dict:
+                    movie_list_writer.writerow(movie_list_dict[row[0]])
+                    del movie_list_dict[row[0]]
                     continue
                 movie_list_writer.writerow(row)
         elif not re.fullmatch(pattern= r"\d{3}",text= movie_code):
@@ -50,7 +51,7 @@ def update_movie_list_csv (movie_list_csv : str,movie_list : list,movie_code : s
         else:
             try:
                 movie_list_writer.writerow(next(movie_list_reader))
-                movie_list_specify : list  = movie_list_dictionary[movie_code]
+                movie_list_specify : list  = movie_list_dict[movie_code]
                 for row in movie_list_reader:
                     if row[0] == movie_list_specify[0]:
                         movie_list_writer.writerow(movie_list_specify)
@@ -61,7 +62,40 @@ def update_movie_list_csv (movie_list_csv : str,movie_list : list,movie_code : s
 
     _overwrite_file(overwrited_file_csv=movie_list_csv, original_file_csv=f"{movie_list_csv}.temp")
 
-#def add_movie_list_csv (movie_list_csv : str,movie_list :list) -> None:
+def add_movie_list_csv (movie_list_csv : str,movie_list : list,movie_code : str) -> None:
+    try:
+        if movie_code == "all": raise ValueError("'all' isn't supported in this function!")
+        if not re.fullmatch(pattern=r"\d{3}", string=movie_code):
+            raise ValueError(f"Movie code ({movie_code} must be a 3 digits number!")
+        movie_list_dict : dict = {row[0]:row for row in movie_list}
+        movie_list_for_add : list =[]
+        code_list_matcher = 0
+        for row in movie_list_dict:
+            if row == movie_code:
+                if code_list_matcher == 0:movie_list_for_add.append(row)
+                code_list_matcher += 1
+        if code_list_matcher == 0: raise ValueError(f"Movie Code is not matched in {movie_list}!")
+        if code_list_matcher > 1: warnings.warn(f"More than 2 Movie Code Founded in {movie_list}! System will use the First one")
+        movie_list_csv_path: str = _get_path(movie_list_csv)
+        movie_list_csv_temp_path : str = os.path.dirname(movie_list_csv_path)
+        with (open(movie_list_csv_path , 'r' , newline= '') as mvl_csv_r,
+              open(os.path.join(movie_list_csv_temp_path,f"{movie_list_csv}.temp"),'w',newline= '') as mvl_csv_w):
+            movie_list_reader = csv.reader(mvl_csv_r)
+            movie_list_writer = csv.writer(mvl_csv_w)
+            for row in movie_list_reader:
+                movie_list_writer.writerow(row)
+                if row[0] == movie_code:
+                    raise ValueError(f"Movie Code Repeat! You Should Use update_movie_list_csv function!")
+            movie_list_writer.writerow(movie_list_for_add)
+
+    except FileNotFoundError as e:
+        raise f"ADD MOVIE FAILED! ERROR:{e}"
+    except ValueError as e:
+        raise f"ADD MOVIE FAILED! ERROR:{e}"
+    except Exception as e:
+        raise f"ADD MOVIE FAILED! UNKNOWN ERROR:{e}"
+
+
 
 
 
