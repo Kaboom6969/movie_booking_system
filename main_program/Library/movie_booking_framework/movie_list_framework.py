@@ -2,7 +2,7 @@ import csv
 import os
 import re
 import warnings
-from movie_seats_framework import _get_path,_overwrite_file
+from movie_seats_framework import _get_path,_overwrite_file,parse_csv_line
 
 def read_movie_list_csv (movie_list_csv : str,movie_list : list,movie_code : str = "all") ->None:
     try:
@@ -94,6 +94,29 @@ def add_movie_list_csv (movie_list_csv : str,movie_list : list,movie_code : str)
         raise ValueError(f"ADD MOVIE FAILED! ERROR:{e}")
     except Exception as e:
         raise Exception(f"ADD MOVIE FAILED! UNKNOWN ERROR:{e}")
+
+def delete_movie_list_csv (movie_list_csv : str,movie_code : str) -> None:
+    if not re.fullmatch(pattern=r"\d{3}", string=movie_code):
+        raise ValueError(f"Movie code ({movie_code} must be a 3 digits number!")
+    movie_list_csv_path = _get_path(movie_list_csv)
+    movie_list_csv_temp_path = os.path.dirname(movie_list_csv_path)
+    with (open(movie_list_csv_path,'r') as mvl_csv_r,
+          open(os.path.join(movie_list_csv_temp_path,f"{movie_list_csv}.temp"),'w') as mvl_csv_w):
+        code_csv_matcher = 0
+        for line in mvl_csv_r:
+            if not line.strip(): continue
+            row = parse_csv_line(line)
+            if row[0] == movie_code:
+                code_csv_matcher += 1
+            else:
+                mvl_csv_w.write(line)
+        if code_csv_matcher == 0:
+            raise ValueError(f"Didn't find the movie code:{movie_code} in {movie_list_csv}!")
+        if code_csv_matcher > 1:
+            warnings.warn(f"Found more than 2 movie code:{movie_code} in {movie_list_csv},system will delete all!")
+    _overwrite_file(overwrited_file_csv=movie_list_csv, original_file_csv=f"{movie_list_csv}.temp")
+
+
 
 
 

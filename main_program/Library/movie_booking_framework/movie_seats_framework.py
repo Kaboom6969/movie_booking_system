@@ -246,8 +246,11 @@ def _movie_seats_csv_valid_check (movie_seats_csv : str) -> None:
     except FileNotFoundError as e:
         raise FileNotFoundError(f"File '{movie_seats_csv}' not found!File path:{movie_seats_csv_path}")
 ############################################################################################################################################################
+
 def parse_csv_line(line: str) -> list:
     return line.strip().split(',')
+def format_csv_line(data_list: list) -> str:
+    return ','.join(map(str, data_list)) + '\n'
 
 
 
