@@ -66,8 +66,6 @@ def update_movie_list_csv (movie_list_csv : str,movie_list : list,movie_code : s
 def add_movie_list_csv (movie_list_csv : str,movie_list : list,movie_code : str) -> None:
     try:
         if movie_code == "all": raise ValueError("'all' isn't supported in this function!")
-        if not re.fullmatch(pattern=r"\d{3}", string=movie_code):
-            raise ValueError(f"Movie code ({movie_code} must be a 3 digits number!")
         movie_list_dict : dict = {row[0]:row for row in movie_list}
         movie_list_for_add : list =[]
         code_list_matcher = 0
@@ -97,8 +95,6 @@ def add_movie_list_csv (movie_list_csv : str,movie_list : list,movie_code : str)
         raise Exception(f"ADD MOVIE FAILED! UNKNOWN ERROR:{e}")
 
 def delete_movie_list_csv (movie_list_csv : str,movie_code : str) -> None:
-    if not re.fullmatch(pattern=r"\d{3}", string=movie_code):
-        raise ValueError(f"Movie code ({movie_code} must be a 3 digits number!")
     movie_list_csv_path = _get_path(movie_list_csv)
     movie_list_csv_temp_path = os.path.dirname(movie_list_csv_path)
     with (open(movie_list_csv_path,'r') as mvl_csv_r,
