@@ -245,6 +245,23 @@ def register(path):
     new_id = int(latest_id) + 1
     write_data(path, new_id, new_name, new_password)
 
+def get_id(path, name_or_id):
+    """
+    Check if username/ID and password match.
+    Return role string if valid, otherwise None.
+    """
+    content = get_content(path)
+    if content == '':
+        return False
+    else:
+        file_data = content.split('\n')
+        for record in file_data:
+            # record ['C001,name,password','C002,name,password']
+            user_id, name, password = record.split(',')
+            if (user_id == name_or_id) or (name == name_or_id):
+                return user_id
+        return None
+
 
 def login(path):
     """
@@ -272,10 +289,11 @@ def login(path):
         flag = check_data(path, user_id, password)
         if flag:
             print('login success')
-            return True
+            user_real_id = get_id(path, user_id)
+            return user_real_id
         else:
             print('login failed')
-            return False
+            return None
 
 
 def user_input_role():
@@ -307,8 +325,9 @@ def role(customer_data, clerk_data, manager_data, technician_data):
             try:
                 choice = int(input("please input login(1) or register(2) by number\n"))
                 if choice == 1:
-                    flag = login(customer_data)
-                    if flag:
+                    user_id = login(customer_data)
+                    if user_id is not None:
+                        print(user_id)
                         print('customer function')
                     break
                 elif choice == 2:
@@ -322,20 +341,20 @@ def role(customer_data, clerk_data, manager_data, technician_data):
 
 
     elif role_num == 1:
-        flag = login(clerk_data)
-        if flag:
+        user_id = login(clerk_data)
+        if user_id is not None:
             clerk()
 
 
     elif role_num == 2:
-        flag = login(manager_data)
-        if flag:
+        user_id = login(clerk_data)
+        if user_id is not None:
             print("manager function")
 
 
     elif role_num == 3:
-        flag = login(technician_data)
-        if flag:
+        user_id = login(clerk_data)
+        if user_id is not None:
             print("technician function")
 
     else:

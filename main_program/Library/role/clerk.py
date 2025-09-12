@@ -21,18 +21,34 @@ def clerk():
 
     movie_seat_list = []
     read_movie_seats_csv(movie_seats_csv="movie_seat.csv", movie_seats=movie_seat_list, movie_code='001')
-    print_movie_seat_as_emojis(movie_seat_list)
-    print("please enter your choice:")
+
+    x_axis = True
+    y_axis = True
     while True:
-        choice  = input("booking(1), cancel or modify booking(2), check movie seats(3), print receipt(4), quit(5)")
+        print("\nplease enter your choice:")
+        choice = input("\nbooking(1), cancel or modify booking(2), check movie seats(3), print receipt(4), quit(5)\n")
         if choice == "1":
-            row = int(input("\nPlease enter the row number: "))
-            seat = int(input("Please enter the seat number: "))
-            if seat < 1 or seat > len(movie_seat_list[0]):      #Validate x_axis
-                print(f"seat should be between 1 and {len(movie_seat_list[0])}\nYour seat is {seat}")
-            if row < 1 or row > len(movie_seat_list):         #Validate y_axis
-                print(f"row should be between 1 and {len(movie_seat_list)}\nYour row is {row}")
-            modify_movie_seats_list(movie_seats_list, seat, row, 1)
+            while True:
+                print_movie_seat_as_emojis(movie_seat_list)
+                print(f"\nrow should be between 1 and {len(movie_seat_list)}")
+                row = int(input("Please enter the row number: "))
+                print(f"\ncolumn should be between 1 and {len(movie_seat_list[0])}")
+                column = int(input("Please enter the column number: "))
+                if column < 1 or column > len(movie_seat_list[0]):  # Validate x_axis
+                    print(f"column should be between 1 and {len(movie_seat_list[0])}\nYour column is {column}")
+                    x_axis = False
+                if row < 1 or row > len(movie_seat_list):  # Validate y_axis
+                    print(f"row should be between 1 and {len(movie_seat_list)}\nYour row is {row}")
+                    y_axis = False
+                if x_axis and y_axis:
+                    if movie_seat_list[len(movie_seat_list) - row][column - 1] == '-1':
+                        print("Invalid seat, please try again")
+                    elif movie_seat_list[len(movie_seat_list) - row][column - 1] == '1':
+                        print("This seat is already taken. Please enter another one")
+                    else:
+                        modify_movie_seats_list(movie_seat_list, column, row, 1)
+                        break
+
         elif choice == "2":
             print("cancel")
         elif choice == "3":
@@ -41,8 +57,6 @@ def clerk():
             print("receipt")
         elif choice == "5":
             break
-    print_movie_seat_as_emojis(movie_seats_list)
-
 
 
 # 取消或修改booking
