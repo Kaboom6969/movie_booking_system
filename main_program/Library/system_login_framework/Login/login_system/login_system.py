@@ -4,7 +4,7 @@ import os
 import csv
 from operator import truediv
 
-from movie_booking_system.main_program.Library.system_login_framework.Login.role.clerk import clerk
+
 
 
 
@@ -325,7 +325,7 @@ def role(customer_data, clerk_data, manager_data, technician_data):
     elif role_num == 1:
         flag = login(clerk_data)
         if flag:
-            clerk()
+            print("clerk function")
 
 
     elif role_num == 2:
