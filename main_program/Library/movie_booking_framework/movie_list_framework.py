@@ -14,14 +14,12 @@ def read_movie_list_csv (movie_list_csv : str,movie_list : list,movie_code : str
             if movie_code == "all":
                 for row in movie_list_reader:
                     movie_list.append(row)
-                if movie_code == []:
+                if movie_code == "":
                     raise ValueError("Movie Not Found! Please Check Your File!")
             else:
                 list_found = False
                 for row in movie_list_reader:
-                    if row[0] == movie_code and list_found == True:
-                        raise ValueError("Movie Code Repeat! Please Check Your File!")
-                    elif row[0] == movie_code:
+                    if row[0] == movie_code:
                         list_found = True
                         movie_list.append(row)
                 if list_found == False:
