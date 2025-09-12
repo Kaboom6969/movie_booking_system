@@ -6,31 +6,38 @@ import re #From python standard library
 TARGET_DIRECTORY = "Data"
 
 #Read seat data for a specific movie from a CSV file into a 2D list
-def read_movie_seats_csv (movie_seats_csv : str, movie_seats :list, movie_code : str) -> None:
-    list_found = False      #Flag to track if movie_code is found
-    start_status = False    #Flag tso track if in seat data section (between START and END)
+def read_movie_seats_csv(movie_seats_csv: str, movie_seats: list, movie_code: str) -> None:
+    list_found = False
+    start_status = False
     try:
-        _movie_seats_csv_valid_check(movie_seats_csv= movie_seats_csv)
+        _movie_seats_csv_valid_check(movie_seats_csv=movie_seats_csv)
     except ValueError as e:
         raise e
     try:
         movie_seats_csv_path = _get_path(movie_seats_csv)
-        with open (movie_seats_csv_path, 'r', newline='') as ms_csv_r:
-            movie_seat_reader = csv.reader(ms_csv_r)
-            next(movie_seat_reader)         #Skip header row (movie_code,y0,y1,...)
-            for row in movie_seat_reader:
-                if row[0] == movie_code:    #Found matching movie_code
+        with open(movie_seats_csv_path, 'r') as ms_csv_r:
+            next(ms_csv_r)
+            for line in ms_csv_r:
+                if not line.strip(): continue
+                row = parse_csv_line(line)
+
+                if row[0] == movie_code:
                     list_found = True
                     continue
-                if row[0] == "START" and list_found:    #Found START marker, start reading
+                if row[0] == "START" and list_found:
                     start_status = True
                     continue
-                if row[0] == "END" and list_found:      #Found END marker, stop reading
+                if row[0] == "END" and list_found:
                     break
-                if start_status and list_found:         #Reading...
-                    movie_seats.append(row[1:])          #Append seat data (skip first column)
-            if list_found == False:                   #Movie_code not found
+                if start_status and list_found:
+                    movie_seats.append(row[1:])
+            if list_found == False:
                 raise IndexError("Your Movie Seat List is Empty! Cannot Found the movie code!")
+
+    except FileNotFoundError:
+        raise FileNotFoundError(f"File not found!\nYour file name is {movie_seats_csv}.\nPlease Check The Name!")
+    except IndexError as e:
+        raise e
 
     except FileNotFoundError:
         raise FileNotFoundError (f"File not found!\nYour file name is {movie_seats_csv}.\nPlease Check The Name!")
@@ -135,7 +142,7 @@ def add_movie_seats_csv (movie_seats_csv : str, movie_seats : list, movie_code :
     except Exception as e:
         raise Exception(f"Add Movie Seats Failed\nUnknown Error!\n{e}")
 
-#大量问题，需要大量优化，目前正在测试阶段
+
 def delete_movie_seats_csv (movie_seats_csv : str, movie_code : str) -> None:
     try:
         _movie_seats_csv_valid_check(movie_seats_csv)
@@ -238,7 +245,12 @@ def _movie_seats_csv_valid_check (movie_seats_csv : str) -> None:
         raise e
     except FileNotFoundError as e:
         raise FileNotFoundError(f"File '{movie_seats_csv}' not found!File path:{movie_seats_csv_path}")
+############################################################################################################################################################
 
+def parse_csv_line(line: str) -> list:
+    return line.strip().split(',')
+def format_csv_line(data_list: list) -> str:
+    return ','.join(map(str, data_list)) + '\n'
 
 
 
@@ -341,11 +353,11 @@ def print_movie_seat_as_emojis (movie_seats : list) -> None:
 
 #作为library时不会被启用，仅有亲自运行此文件才会运行（用来测试用）
 if __name__ == '__main__':
-    movie_seats_list_global : list = generate_movie_seats(x_axis =11, y_axis =9, fill_number =1)
+    movie_seats_list_global : list = [] #generate_movie_seats(x_axis =11, y_axis =9, fill_number =1)
     #add_movie_seats_csv(movie_seats_csv = "movie_seat.csv",movie_seats= movie_seats_list_global,movie_code = "003")
     #print(movie_seats_list_global)
-    #print_movie_seats_list_as_emojis(movie_seat_list=movie_seats_list_global)
-    #read_movie_seats_csv (movie_seats_csv="movie_seat.csv",movie_seats=movie_seats_list_global,movie_code="002")
+    read_movie_seats_csv (movie_seats_csv="movie_seat.csv",movie_seats=movie_seats_list_global,movie_code="001")
+    print_movie_seat_as_emojis(movie_seats=movie_seats_list_global)
     #fill_movie_seats_list (movie_seat_list=movie_seats_list_global, fill_number=1)
     #print (movie_seats_list_global)
     #update_movie_seats_csv(movie_seats_csv="movie_seat.csv",movie_seats= movie_seats_list_global,movie_code="002")
