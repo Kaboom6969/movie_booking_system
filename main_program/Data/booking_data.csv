@@ -1,2 +1,3 @@
 Customer_code,movie_code,booking_date,booking_status(1：booking 2:alr buy)
 C001,001,2025/8/13,1
+C001,002,2025/8/13,1
