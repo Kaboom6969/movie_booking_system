@@ -9,3 +9,8 @@
 ## [1.0.0] - 2025-09-13
 ### Added
 - added `check_ticket_bought` function (still in test)
+## [1.0.1] - 2025-09-13
+### Added
+- added `booking_to_movie_print` function
+### Changed
+- now `check_ticket_bought` is ok to use
