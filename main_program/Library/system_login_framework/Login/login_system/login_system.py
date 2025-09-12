@@ -4,9 +4,7 @@ import os
 import csv
 from operator import truediv
 
-
-
-
+from movie_booking_system.main_program.Library.role.clerk import clerk
 
 def get_content(path):
     """
@@ -232,7 +230,8 @@ def register(path):
         except ValueError as e:
             print(e)
 
-    print("password must include one uppercase letter, one lowercase letter, one number, one special character and length > 5")
+    print(
+        "password must include one uppercase letter, one lowercase letter, one number, one special character and length > 5")
     while True:
         try:
             new_password = input("input password\n")
@@ -325,7 +324,7 @@ def role(customer_data, clerk_data, manager_data, technician_data):
     elif role_num == 1:
         flag = login(clerk_data)
         if flag:
-            print("clerk function")
+            clerk()
 
 
     elif role_num == 2:

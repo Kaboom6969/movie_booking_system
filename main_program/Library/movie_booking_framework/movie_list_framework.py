@@ -2,7 +2,8 @@ import csv
 import os
 import re
 import warnings
-from movie_seats_framework import _get_path,_overwrite_file,parse_csv_line
+from movie_booking_system.main_program.Library.movie_booking_framework.movie_seats_framework import _get_path,_overwrite_file,parse_csv_line
+
 
 def read_movie_list_csv (movie_list_csv : str,movie_list : list,movie_code : str = "all") ->None:
     try:
@@ -126,7 +127,7 @@ def delete_movie_list_csv (movie_list_csv : str,movie_code : str) -> None:
 
 if __name__ == '__main__':
     try:
-        movie_list_global : list = []
+        movie_list_global: list = []
         read_movie_list_csv(movie_list_csv= "movie_list.csv", movie_list= movie_list_global, movie_code="002")
         # print(movie_list_global)
         update_movie_list_csv(movie_list_csv= "movie_list_2_test.csv", movie_list= movie_list_global)
