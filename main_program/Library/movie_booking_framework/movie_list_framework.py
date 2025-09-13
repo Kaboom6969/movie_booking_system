@@ -120,17 +120,7 @@ def delete_movie_list_csv (movie_list_csv : str,movie_code : str,code_location :
 
 
 if __name__ == '__main__':
-    try:
-        movie_list_global: list = []
-        read_movie_list_csv(movie_list_csv= "movie_list.csv", movie_list= movie_list_global, movie_code="002")
-        # print(movie_list_global)
-        update_movie_list_csv(movie_list_csv= "movie_list_2_test.csv", movie_list= movie_list_global)
-
-    except ValueError as e:
-        print(e)
-    except FileNotFoundError as e:
-        print(e)
-
+    pass
 
 
 

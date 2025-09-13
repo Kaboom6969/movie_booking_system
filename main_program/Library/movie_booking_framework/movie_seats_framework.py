@@ -241,6 +241,13 @@ def _movie_seats_csv_valid_check (movie_seats_csv : str) -> None:
         raise e
     except FileNotFoundError as e:
         raise FileNotFoundError(f"File '{movie_seats_csv}' not found!File path:{movie_seats_csv_path}")
+
+def get_capacity(movie_list : list) -> int:
+    capacity = 0
+    for row in movie_list:
+        for element in row:
+            if element == "0" : capacity += 1
+    return capacity
 ############################################################################################################################################################
 
 def parse_csv_line(line: str) -> list:
@@ -351,7 +358,6 @@ def print_movie_seat_as_emojis (movie_seats : list,x_pointer : int = -1,y_pointe
         movie_seats_temp = _y_location_add(movie_seats= movie_seats_temp,y_pointer= y_pointer)
         movie_seats_temp = _x_location_add(movie_seats= movie_seats_temp,x_pointer= x_pointer)
     for index,main_list in enumerate(movie_seats_temp):
-        print()
         for second_list in main_list:
             if second_list == "0":
                 print("🈳",end=" ")
@@ -365,6 +371,7 @@ def print_movie_seat_as_emojis (movie_seats : list,x_pointer : int = -1,y_pointe
                 print("⬆️",end=" ")
             elif second_list == "4":
                 print("⬅️",end=" ")
+        print()
 
 
 
@@ -401,17 +408,5 @@ def _y_location_add(movie_seats : list,y_pointer : int) -> list:
 
     #作为library时不会被启用，仅有亲自运行此文件才会运行（用来测试用）
 if __name__ == '__main__':
-    # movie_seats_list_global : list = generate_movie_seats(x_axis =11, y_axis =9, fill_number =1)
-    # #add_movie_seats_csv(movie_seats_csv = "test_seat.csv",movie_seats= movie_seats_list_global,movie_code = "004")
-    # #print(movie_seats_list_global)
-    # read_movie_seats_csv (movie_seats_csv="test_seat.csv",movie_seats=movie_seats_list_global,movie_code="001")
-    # print_movie_seat_as_emojis(movie_seats=movie_seats_list_global)
-    # #fill_movie_seats_list (movie_seat_list=movie_seats_list_global, fill_number=1)
-    # #print (movie_seats_list_global)
-    # update_movie_seats_csv(movie_seats_csv="test_seat.csv",movie_seats= movie_seats_list_global,movie_code="002")
-    # #update_movie_seats_csv(movie_seats_csv= "movie_seat.csv", movie_seats= movie_seats_list_global, movie_code="002")
-    # # modify_movie_seat(movie_seat_list=movie_seat_list_global, x_axis = 1,y_axis =2,target_number = -1)
-    # # print_movie_seats_list(movie_seat_list= movie_seat_list_global)
-    # #delete_movie_seats_csv(movie_seats_csv="movie_seat.csv", movie_code="002")
-    print()
+    pass
 
