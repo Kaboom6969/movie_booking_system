@@ -103,7 +103,7 @@ def update_movie_seats_csv (movie_seats_csv : str, movie_seats: list, movie_code
     except ValueError as e:
         raise ValueError(f"Update Movie Seats Failed!\n{e}")
 
-    _overwrite_file(overwrited_file_csv= movie_seats_csv_path, original_file_csv=f"{movie_seats_csv}.temp")   #Overwrite original file
+    _overwrite_file(overwrited_file_csv= movie_seats_csv, original_file_csv=f"{movie_seats_csv}.temp")   #Overwrite original file
 
 #Add a new seat table for a movie_code to the CSV file
 def add_movie_seats_csv (movie_seats_csv : str, movie_seats : list, movie_code : str) -> None:
