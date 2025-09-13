@@ -5,20 +5,24 @@ import warnings
 from movie_booking_system.main_program.Library.movie_booking_framework.movie_seats_framework import _get_path,_overwrite_file,parse_csv_line
 
 
-def read_movie_list_csv (movie_list_csv : str,movie_list : list,movie_code : str = "all",movie_mode : bool = True, code_location : int = 0) ->None:
+def read_movie_list_csv(movie_list_csv: str, movie_list: list, movie_code: str = "all", movie_mode: bool = True,
+                        code_location: int = 0) -> None:
     try:
         movie_list_csv_path = _get_path(movie_list_csv)
-        with open(movie_list_csv_path , 'r' , newline= '') as mv_csvfile:
-            movie_list_reader = csv.reader(mv_csvfile)
-            next(movie_list_reader)
+        with open(movie_list_csv_path, 'r') as mv_csvfile:
+            next(mv_csvfile)
             if movie_code == "all":
-                for row in movie_list_reader:
+                for line in mv_csvfile:
+                    if not line.strip(): continue
+                    row = parse_csv_line(line)
                     movie_list.append(row)
                 if movie_code == []:
                     raise ValueError("Movie Not Found! Please Check Your File!")
             else:
                 list_found = False
-                for row in movie_list_reader:
+                for line in mv_csvfile:
+                    if not line.strip(): continue
+                    row = parse_csv_line(line)
                     if row[code_location] == movie_code and list_found == True and movie_mode == True:
                         raise ValueError("Movie Code Repeat! Please Check Your File!")
                     elif row[code_location] == movie_code:
@@ -26,7 +30,7 @@ def read_movie_list_csv (movie_list_csv : str,movie_list : list,movie_code : str
                         movie_list.append(row)
                 if list_found == False:
                     raise ValueError("Movie Code Not Found! Please Check Your File!")
-    except  FileNotFoundError:
+    except FileNotFoundError:
         raise FileNotFoundError(f"File Not Found!\nYour File Name is {movie_list_csv}.\nPLease Check Your File! ")
     except ValueError as e:
         raise e
