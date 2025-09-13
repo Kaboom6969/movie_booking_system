@@ -375,5 +375,5 @@ if __name__ == '__main__':
     # # modify_movie_seat(movie_seat_list=movie_seat_list_global, x_axis = 1,y_axis =2,target_number = -1)
     # # print_movie_seats_list(movie_seat_list= movie_seat_list_global)
     # #delete_movie_seats_csv(movie_seats_csv="movie_seat.csv", movie_code="002")
-    #
+    print()
 

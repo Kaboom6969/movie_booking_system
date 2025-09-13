@@ -2,10 +2,12 @@
 
 ## Clerk
 ### Added
-## [1.1.0] - 2025-09-13
+## [1.1.0] - 2025-09-12
 - Initial booking system (basic version, still needs improvement).
-## [1.1.0] - 2025-09-14
+## [1.1.0] - 2025-09-13
 - added some booking system data.
+## [1.1.0] - 2025-09-13
+- added column `booking_id` 
 
 ## Customer
 ## [1.0.0] - 2025-09-13
