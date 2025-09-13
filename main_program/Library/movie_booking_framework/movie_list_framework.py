@@ -35,34 +35,41 @@ def read_movie_list_csv(movie_list_csv: str, movie_list: list, movie_code: str =
     except ValueError as e:
         raise e
 
-def update_movie_list_csv (movie_list_csv : str,movie_list : list,movie_code : str = "all",code_location : int = 0) ->None:
+
+def update_movie_list_csv(movie_list_csv: str, movie_list: list, movie_code: str = "all",
+                          code_location: int = 0) -> None:
     movie_list_csv_path = _get_path(movie_list_csv)
     movie_list_csv_temp_path = os.path.dirname(movie_list_csv_path)
-    with (open(movie_list_csv_path , 'r' , newline= '') as mvl_csv_r,
-          open(os.path.join(movie_list_csv_temp_path,f"{movie_list_csv}.temp"),'w',newline= '') as mvl_csv_w):
-        movie_list_reader = csv.reader(mvl_csv_r)
-        movie_list_writer = csv.writer(mvl_csv_w)
-        movie_list_dict : dict = {row[code_location] : row for row in movie_list}
-        if movie_code == "all":
-            movie_list_writer.writerow(next(movie_list_reader))
-            for row in movie_list_reader:
-                if row[code_location] in movie_list_dict:
-                    movie_list_writer.writerow(movie_list_dict[row[code_location]])
-                    del movie_list_dict[row[code_location]]
-                    continue
-                movie_list_writer.writerow(row)
-        else:
-            try:
-                movie_list_writer.writerow(next(movie_list_reader))
-                movie_list_specify : list  = movie_list_dict[movie_code]
-                for row in movie_list_reader:
-                    if row[code_location] == movie_list_specify[code_location]:
-                        movie_list_writer.writerow(movie_list_specify)
-                        continue
-                    movie_list_writer.writerow(row)
-            except KeyError:
-                raise IndexError("Movie Code is not in the list!")
 
+    try:
+        with open(movie_list_csv_path, 'r') as mvl_csv_r,
+                open(os.path.join(movie_list_csv_temp_path, f"{movie_list_csv}.temp"), 'w') as mvl_csv_w:
+            movie_list_dict: dict = {row[code_location]: row for row in movie_list}
+            header_line = next(mvl_csv_r)
+            mvl_csv_w.write(header_line)
+            if movie_code == "all":
+                for line in mvl_csv_r:
+                    if not line.strip(): continue
+                    row = parse_csv_line(line)
+                    if row[code_location] in movie_list_dict:
+                        line_to_write = format_csv_line(movie_list_dict[row[code_location]])
+                        mvl_csv_w.write(line_to_write)
+                        del movie_list_dict[row[code_location]]
+                    else:
+                        mvl_csv_w.write(line)
+            else:
+                try:
+                    movie_list_specify: list = movie_list_dict[movie_code]
+                    for line in mvl_csv_r:
+                        if not line.strip(): continue
+                        row = parse_csv_line(line)
+                        if row[code_location] == movie_list_specify[code_location]:
+                            line_to_write = format_csv_line(movie_list_specify)
+                            mvl_csv_w.write(line_to_write)
+                        else:
+                            mvl_csv_w.write(line)
+                except KeyError:
+                    raise IndexError("Movie Code is not in the list!")
     _overwrite_file(overwrited_file_csv=movie_list_csv, original_file_csv=f"{movie_list_csv}.temp")
 
 def add_movie_list_csv (movie_list_csv : str,movie_list : list,movie_code : str,code_location : int = 0) -> None:
