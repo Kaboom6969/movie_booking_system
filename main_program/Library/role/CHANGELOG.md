@@ -9,7 +9,6 @@
 ## [1.1.0] - 2025-09-13
 - added column `booking_id` 
 
-
 ## Customer
 ## [1.0.0] - 2025-09-13
 ### Added
