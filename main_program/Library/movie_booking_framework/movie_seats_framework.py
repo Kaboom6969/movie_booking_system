@@ -90,6 +90,7 @@ def update_movie_seats_csv (movie_seats_csv : str, movie_seats: list, movie_code
 
                     if list_found and row and row[0] == "END":     #Found END marker
                         skip_status = False
+                        list_found = False
                         continue
                     elif skip_status:
                         continue
