@@ -31,16 +31,11 @@ def read_movie_seats_csv(movie_seats_csv: str, movie_seats: list, movie_code: st
                     break
                 if start_status and list_found:
                     movie_seats.append(row[1:])
-            if list_found == False:
+            if not list_found:
                 raise IndexError("Your Movie Seat List is Empty! Cannot Found the movie code!")
 
     except FileNotFoundError:
         raise FileNotFoundError(f"File not found!\nYour file name is {movie_seats_csv}.\nPlease Check The Name!")
-    except IndexError as e:
-        raise e
-
-    except FileNotFoundError:
-        raise FileNotFoundError (f"File not found!\nYour file name is {movie_seats_csv}.\nPlease Check The Name!")
     except IndexError as e:
         raise e
 
@@ -346,12 +341,16 @@ def print_movie_seat (movie_seats : list) -> None:
             print(second_list,end= " ")
 
 #Print seat list as emojis
-def print_movie_seat_as_emojis (movie_seats : list) -> None:
+def print_movie_seat_as_emojis (movie_seats : list,x_pointer : int = -1,y_pointer : int = -1) -> None:
     try:
         _movie_seats_valid_check(movie_seats_list=movie_seats)
     except ValueError as e:
         raise ValueError (f"Print Movie Seats Failed (Emoji)! Movie Seat List ERROR! {e}")
-    for main_list in movie_seats:
+    movie_seats_temp = [row[:] for row in movie_seats]
+    if x_pointer > 0 and y_pointer > 0:
+        movie_seats_temp = _y_location_add(movie_seats= movie_seats_temp,y_pointer= y_pointer)
+        movie_seats_temp = _x_location_add(movie_seats= movie_seats_temp,x_pointer= x_pointer)
+    for index,main_list in enumerate(movie_seats_temp):
         print()
         for second_list in main_list:
             if second_list == "0":
@@ -360,9 +359,47 @@ def print_movie_seat_as_emojis (movie_seats : list) -> None:
                 print("👨",end=" ")
             elif second_list == "-1":
                 print("❌",end=" ")
+            elif second_list == "2":
+                print("　",end="　")
+            elif second_list == "3":
+                print("⬆️",end=" ")
+            elif second_list == "4":
+                print("⬅️",end=" ")
 
 
-#作为library时不会被启用，仅有亲自运行此文件才会运行（用来测试用）
+
+
+def _x_location_add(movie_seats : list,x_pointer : int) -> list:
+    movie_seats_with_x_location : list = movie_seats
+    x_location_head : list = []
+    x_location_body : list = []
+    for index in range(len(movie_seats[0])):
+        if index == x_pointer - 1:
+            x_location_head.append("3")
+        else:
+            x_location_head.append("2")
+    movie_seats_with_x_location.append(x_location_head)
+    return movie_seats_with_x_location
+
+def _y_location_add(movie_seats : list,y_pointer : int) -> list:
+    movie_seats_with_y_location : list = []
+    for index,row in enumerate(movie_seats):
+        row_as_list = list(row)
+        if (len(movie_seats) - index) == y_pointer:
+            row_as_list.extend(["4"])
+            movie_seats_with_y_location.append(row_as_list)
+        else:
+            row_as_list.extend(["2"])
+            movie_seats_with_y_location.append(row_as_list)
+    return movie_seats_with_y_location
+
+######################################################################################################################
+
+
+
+
+
+    #作为library时不会被启用，仅有亲自运行此文件才会运行（用来测试用）
 if __name__ == '__main__':
     # movie_seats_list_global : list = generate_movie_seats(x_axis =11, y_axis =9, fill_number =1)
     # #add_movie_seats_csv(movie_seats_csv = "test_seat.csv",movie_seats= movie_seats_list_global,movie_code = "004")
