@@ -4,7 +4,7 @@ import os
 import csv
 from operator import truediv
 
-from movie_booking_system.main_program.Library.role.clerk import clerk
+from movie_booking_system.main_program.Library.role.clerk import *
 
 def get_content(path):
     """

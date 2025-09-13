@@ -1,6 +1,31 @@
 from movie_booking_system.main_program.Library.movie_booking_framework.movie_list_framework import read_movie_list_csv
 from movie_booking_system.main_program.Library.movie_booking_framework.movie_seats_framework import *
+from movie_booking_system.main_program.Library.system_login_framework.Login.login_system.login_system import *
+import os
+from datetime import datetime
 
+
+
+def get_customer_csv_path():
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    customer_path = os.path.normpath(os.path.join(base_dir, "..", "system_login_framework/Login/login_system/customer.csv"))
+    return customer_path
+
+def get_Data_Directory_path(path):
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    movie_seat_path = os.path.normpath(os.path.join(base_dir, "..", "..", "Data/" + path))
+    return movie_seat_path
+
+def write_booking_data(path,data):
+    with open(path,'a',newline= '') as f:
+        writer = csv.writer(f)
+        writer.writerows(data)
+
+
+def read_booking_data(path):
+    with open(path, 'r') as f:
+        reader = csv.reader(f)
+        print(list(reader))
 
 def clerk():
     # 订票
@@ -9,10 +34,10 @@ def clerk():
     while True:
         print(movie_list)
         # 输入代码
-        movie_code = input("please enter your movie code: ")
+        input_movie_code = input("please enter your movie code: \n")
         flag = False
         for movie in movie_list:
-            if movie[0] == movie_code:
+            if movie[0] == input_movie_code:
                 flag = True
         if flag:
             break
@@ -20,15 +45,15 @@ def clerk():
             print("please enter valid movie code")
 
     movie_seat_list = []
-    read_movie_seats_csv(movie_seats_csv="movie_seat.csv", movie_seats=movie_seat_list, movie_code='001')
+    read_movie_seats_csv(movie_seats_csv="movie_seat.csv", movie_seats=movie_seat_list, movie_code=input_movie_code)
 
-    x_axis = True
-    y_axis = True
     while True:
         print("\nplease enter your choice:")
         choice = input("\nbooking(1), cancel or modify booking(2), check movie seats(3), print receipt(4), quit(5)\n")
         if choice == "1":
             while True:
+                x_axis = True
+                y_axis = True
                 print_movie_seat_as_emojis(movie_seat_list)
                 print(f"\nrow should be between 1 and {len(movie_seat_list)}")
                 row = int(input("Please enter the row number: "))
@@ -46,7 +71,19 @@ def clerk():
                     elif movie_seat_list[len(movie_seat_list) - row][column - 1] == '1':
                         print("This seat is already taken. Please enter another one")
                     else:
-                        modify_movie_seats_list(movie_seat_list, column, row, 1)
+                        customer_csv_path = get_customer_csv_path()
+                        customer_id = login(customer_csv_path)
+                        if customer_id is not None:
+                            today = datetime.today().strftime('%Y/%m/%d')
+                            print("Purchased successfully")
+                            modify_movie_seats_list(movie_seat_list, column, row, 1)
+                            update_movie_seats_csv(movie_seats_csv="movie_seat.csv",movie_seats=movie_seat_list,movie_code=input_movie_code)
+                            booking_data_csv_path = get_Data_Directory_path("booking_data.csv")
+                            data_row = [[customer_id,input_movie_code,today,2]]
+                            write_booking_data(booking_data_csv_path,data_row)
+
+                        else:
+                            print("login failed please try again")
                         break
 
         elif choice == "2":
@@ -65,6 +102,8 @@ def clerk():
 
 def main():
     clerk()
+
+
 
 
 if __name__ == '__main__':
