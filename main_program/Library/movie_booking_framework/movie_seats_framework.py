@@ -379,10 +379,12 @@ def print_movie_seat_as_emojis (movie_seats : list,x_pointer : int = -1,y_pointe
 
 
 def _x_location_add(movie_seats : list,x_pointer : int) -> list:
+    max_width = x_range_calculate(movie_seats)[1]
+    if x_pointer > max_width:
+        raise IndexError(f"{x_pointer} is out of range of {movie_seats}!")
     movie_seats_with_x_location : list = movie_seats
     x_location_head : list = []
-    x_location_body : list = []
-    for index in range(len(movie_seats[0])):
+    for index in range(max_width):
         if index == x_pointer - 1:
             x_location_head.append("3")
         else:
@@ -391,6 +393,8 @@ def _x_location_add(movie_seats : list,x_pointer : int) -> list:
     return movie_seats_with_x_location
 
 def _y_location_add(movie_seats : list,y_pointer : int) -> list:
+    if y_pointer > y_range_calculate(movie_seats)[1]:
+        raise IndexError(f"{y_pointer} is out of range of {movie_seats}!")
     movie_seats_with_y_location : list = []
     for index,row in enumerate(movie_seats):
         row_as_list = list(row)
