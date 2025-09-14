@@ -242,9 +242,10 @@ def _movie_seats_csv_valid_check (movie_seats_csv : str) -> None:
     except FileNotFoundError as e:
         raise FileNotFoundError(f"File '{movie_seats_csv}' not found!File path:{movie_seats_csv_path}")
 
-def get_capacity(movie_list : list) -> int:
+def get_capacity(movie_seats : list) -> int:
+    _movie_seats_valid_check(movie_seats_list= movie_seats)
     capacity = 0
-    for row in movie_list:
+    for row in movie_seats:
         for element in row:
             if element == "0" : capacity += 1
     return capacity
