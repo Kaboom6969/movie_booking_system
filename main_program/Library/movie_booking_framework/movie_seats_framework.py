@@ -241,7 +241,7 @@ def _movie_seats_csv_valid_check (movie_seats_csv : str) -> None:
         raise e
     except FileNotFoundError as e:
         raise FileNotFoundError(f"File '{movie_seats_csv}' not found!File path:{movie_seats_csv_path}")
-
+##############################################################################################################################################################
 def get_capacity(movie_seats : list) -> int:
     _movie_seats_valid_check(movie_seats_list= movie_seats)
     capacity = 0
@@ -249,6 +249,22 @@ def get_capacity(movie_seats : list) -> int:
         for element in row:
             if element == "0" : capacity += 1
     return capacity
+
+def movie_seats_pointer_valid_check(movie_seats : list,x_pointer : int,y_pointer : int) -> bool:
+    try:
+        if not movie_seats: raise ValueError(f"{movie_seats} is empty!")
+        point_value : str = movie_seats[len(movie_seats) - y_pointer][x_pointer - 1]
+        return True
+    except IndexError:
+        return False
+    except ValueError as e:
+        raise e
+
+def movie_seats_specify_value(movie_seats : list,x_axis : int,y_axis : int) -> str:
+    if not movie_seats_pointer_valid_check(movie_seats= movie_seats,x_pointer= x_axis,y_pointer= y_axis):
+        raise IndexError(f"x_axis:{x_axis} or y_axis:{y_axis} is out of range of {movie_seats}!")
+    return movie_seats[len(movie_seats) - y_axis][x_axis - 1]
+
 ############################################################################################################################################################
 
 def parse_csv_line(line: str) -> list:
@@ -374,9 +390,6 @@ def print_movie_seat_as_emojis (movie_seats : list,x_pointer : int = -1,y_pointe
             elif second_list == "4":
                 print("⬅️",end=" ")
         print()
-
-
-
 
 def _x_location_add(movie_seats : list,x_pointer : int) -> list:
     max_width = x_range_calculate(movie_seats)[1]
