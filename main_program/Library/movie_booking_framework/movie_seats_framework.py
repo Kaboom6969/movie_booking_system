@@ -355,8 +355,9 @@ def print_movie_seat_as_emojis (movie_seats : list,x_pointer : int = -1,y_pointe
     except ValueError as e:
         raise ValueError (f"Print Movie Seats Failed (Emoji)! Movie Seat List ERROR! {e}")
     movie_seats_temp = [row[:] for row in movie_seats]
-    if x_pointer > 0 and y_pointer > 0:
+    if y_pointer > 0:
         movie_seats_temp = _y_location_add(movie_seats= movie_seats_temp,y_pointer= y_pointer)
+    if x_pointer > 0:
         movie_seats_temp = _x_location_add(movie_seats= movie_seats_temp,x_pointer= x_pointer)
     for index,main_list in enumerate(movie_seats_temp):
         for second_list in main_list:
