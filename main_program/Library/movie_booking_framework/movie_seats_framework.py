@@ -404,8 +404,28 @@ def _y_location_add(movie_seats : list,y_pointer : int) -> list:
 
 ######################################################################################################################
 
+def x_range_calculate(movie_seats : list) -> list:
+    x_max = len(find_longest_list(nested_list= movie_seats))
+    x_min = 1
+    return [x_min,x_max]
 
+def y_range_calculate(movie_seats : list) -> list:
+    if not movie_seats: raise ValueError(f"{movie_seats} is empty!")
+    y_max = len(movie_seats)
+    y_min = 1
+    return [y_min,y_max]
 
+def find_longest_list(nested_list : list) -> list:
+    if not nested_list: raise ValueError(f"{nested_list} is empty!")
+    longest_list : list = []
+    largest_element_count : int = 0
+    for row in nested_list:
+        element_count : int = len(row)
+        if element_count > largest_element_count:
+            largest_element_count = element_count
+            longest_list = row
+    return longest_list
+############################################################################################################################
 
 
     #作为library时不会被启用，仅有亲自运行此文件才会运行（用来测试用）
