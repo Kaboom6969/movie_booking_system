@@ -41,71 +41,62 @@ def code_range_create(code_list : list,code_location : int) -> list:
         code_range_list.append(row[code_location])
     return code_range_list
 
-def book_movie(movie_code : str,movie_seats_csv : str) -> None:
+def book_movie_operation(movie_code : str,movie_seats_csv : str) -> None:
+    try:
+        movie_seats = movie_list_to_movie_seats_print(movie_code=movie_code, movie_seats_csv=movie_seats_csv)
+        x_range = x_range_calculate(movie_seats=movie_seats)
+        y_range = y_range_calculate(movie_seats=movie_seats)
+        first_attempt = True
+        try_again = False
+        while first_attempt or try_again:
+            first_attempt = False
+            x_pointer = book_movie_input(range_list= x_range,name_in_input= "Column")
+            movie_list_to_movie_seats_print(movie_code=movie_code, movie_seats_csv=movie_seats_csv, x_pointer=x_pointer)
+            y_pointer = book_movie_input(range_list= y_range,name_in_input= "Row")
+            movie_list_to_movie_seats_print(movie_code=movie_code, movie_seats_csv=movie_seats_csv, x_pointer=x_pointer,y_pointer=y_pointer)
+            seats_value = movie_seats_specify_value(movie_seats=movie_seats, x_axis=x_pointer, y_axis=y_pointer)
+            booking_status =book_movie_buy(movie_seats_csv= movie_seats_csv,movie_code= movie_code,
+                       movie_seats= movie_seats,x_axis= x_pointer,y_axis= y_pointer,seats_value= seats_value)
+            if not booking_status: try_again = True
+            else: try_again = False
+
+    except Exception as e:
+        raise Exception(f"UNKNOWN ERROR,ERROR:{e}")
+
+def book_movie_input(range_list : list,name_in_input : str) -> int:
     while True:
         try:
-            movie_seats : list = movie_list_to_movie_seats_print(movie_code= movie_code,movie_seats_csv= movie_seats_csv)
-            x_range : list = x_range_calculate(movie_seats= movie_seats)
-            y_range : list = y_range_calculate(movie_seats= movie_seats)
-        except Exception as e:
-            raise Exception(f"BOOK MOVIE FAILED!ERROR:{e}\nTHIS IS PROGRAM BUG!\nPLEASE CHECK THE PROGRAM!")
+            pointer : int = int(input(f"Please enter the {name_in_input} number ({range_list[0]} to {range_list[1]}): "))
+            if pointer > range_list[1] or pointer < range_list[0]:
+                raise IndexError(f"{name_in_input} Should be in {range_list[0]} to {range_list[1]}!")
+            return pointer
+        except ValueError:
+            print(f"{name_in_input} must be a number!")
+            pointer = 0
+        except IndexError as e:
+            print(e)
+            pointer = 0
 
-        while True:
-            try:
-                while True:
-                    try:
-                        x_pointer = int(input(f"Please enter the column number (x_axis:{x_range[0]} to {x_range[1]}): "))
-                    except ValueError as e:
-                        raise ValueError("Column number should be a number!")
-                    except IndexError as e:
-                        raise IndexError(f"Column number should be in the range({x_range[0]} - {x_range[1]})")
 
-                    movie_list_to_movie_seats_print(movie_code=movie_code, movie_seats_csv=movie_seats_csv,x_pointer=x_pointer)
-                    break
+def book_movie_buy(movie_seats_csv : str,movie_code : str,movie_seats : list,x_axis : int,y_axis : int,seats_value : str) -> bool:
+    if seats_value == "0":
+        user_input = str(input("This seat is available. Are you (S)ure to book? or (C)ancel? "))
+        if user_input.lower() == 's':
+            modify_movie_seats_list(movie_seat_list=movie_seats, x_axis=x_axis, y_axis=y_axis,target_number=1)
+            update_movie_seats_csv(movie_seats_csv=movie_seats_csv, movie_seats=movie_seats, movie_code=movie_code)
+            print("Booking successful!")
+            return True
+        elif user_input.lower() == 'c':
+            print("Booking cancelled.")
+            return False
+        else: raise ValueError("Please Enter S(s) or C(c)")
+    elif seats_value == "1":
+        print("This seat is already booked. Please choose another one.")
+        return False
+    else:
+        print("This is an invalid seat (e.g., an aisle). Please choose another one.")
+        return False
 
-                while True:
-                    try:
-                        y_pointer = int(input(f"Please enter the row number (y_axis:{y_range[0]} to {y_range[1]}:"))
-                    except ValueError as e:
-                        raise ValueError("Row number should be a number!")
-                    except IndexError as e:
-                        raise IndexError(f"Row number should be in the range({y_range[0]} - {y_range[1]}")
-
-                    movie_list_to_movie_seats_print(movie_code=movie_code, movie_seats_csv=movie_seats_csv, x_pointer= x_pointer, y_pointer= y_pointer)
-                    break
-
-            seats_value = movie_seats_specify_value(movie_seats=movie_seats, x_axis=x_pointer, y_axis=y_pointer)
-            if seats_value in "1": raise ValueError("seats_booked")
-            elif seats_value in "-1": raise ValueError("seats_not_exixts")
-            break
-
-        except ValueError as e:
-            if "seat_booked" in e:
-                print("This seat is already been booked,Please enter the axis again!")
-            if "seats_not_exixts" in e:
-                print("This seat is not exists,Please enter the axis again!")
-
-        while True:
-            try:
-                if seats_value in "0":
-                    while True:
-                        try:
-                            user_input = str(input("Are You (S)ure? OR (C)ancel it ?"))
-                            if user_input.lower() not in "s" and user_input.lower() not in "c":
-                                raise ValueError("user_input value error")
-                            break
-                        except ValueError as e:
-                            print("The command must be S(s) or C(c)!")
-
-                if user_input.lower() in "s":
-                    modify_movie_seats_list(movie_seat_list= movie_seats,x_axis= x_pointer,y_axis= y_pointer,target_number= 1)
-                    update_movie_seats_csv(movie_seats_csv= movie_seats_csv,movie_seats= movie_seats,movie_code= movie_code)
-                    quit = True
-                    break
-                elif user_input.lower() in "c":
-                    break
-        if quit == True:
-            break
 
 
 

@@ -29,3 +29,13 @@
 ### Changed
 - **Refactored `booking_to_movie_print`**: The function has been renamed to `booking_to_movie_list_print`, and its core printing logic was moved to the new `movie_list_print_with_format` function for a cleaner code structure.
 - **Updated `check_ticket_bought`**: The function can now handle the new `booking_data.csv` format which includes a `Booking ID`, by using the `code_location=1` parameter to correctly locate the `customer_code`.
+
+### Special
+- Just let you guys see how Spaghetti Code looks like (in `book_movie`) (in 1.1.0 a)
+
+## [1.2.0] - 2025-09-15
+### Changed
+- **Refactored the booking process**: The monolithic booking function has been broken down into three smaller, single-responsibility functions (`book_movie_operation`, `book_movie_input`, `book_movie_buy`). This greatly improves code readability, maintainability, and reusability.
+  - `book_movie_operation` now acts as a high-level coordinator for the booking flow.
+  - `book_movie_input` is now a reusable utility that handles robust user input and validation for coordinates.
+  - `book_movie_buy` now encapsulates all logic related to confirming and finalizing the purchase.
