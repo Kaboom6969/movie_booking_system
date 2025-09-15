@@ -31,9 +31,9 @@
 - - added column `Seat(x-axis,y-axis)` 
 ## [1.1.0] - 2025-09-15
 ### Added
-- delete_user_booking_data
+- `delete_user_booking_data`
 - New function to delete a booking row from booking_data.csv by booking_id.
-- get_user_booking_axis_and_booking_id
+- `get_user_booking_axis_and_booking_id`
 - New function to return (column, row, booking_id) based on user input, removing the need for global variables.
 ### Change
 - modify_booking_data
