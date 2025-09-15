@@ -1,4 +1,4 @@
-movie_code,movie_name,cinema_number,movie_time_start,movie_time_end
-001,Joker,cinema001,18:00,21:00
-002,Joker2,cinema002,19:00,22:00
-003,Superman,cinema003,20:00,22:00
+movie_code,movie_name,cinema_number,movie_time_start,movie_time_end,price
+001,Joker,cinema001,18:00,21:00,20
+002,Joker2,cinema002,19:00,22:00,30
+003,Superman,cinema003,20:00,22:00,30
