@@ -389,6 +389,8 @@ def print_movie_seat_as_emojis (movie_seats : list,x_pointer : int = -1,y_pointe
                 print("⬆️",end=" ")
             elif second_list == "4":
                 print("⬅️",end=" ")
+            elif second_list == "5":
+                print("🎯",end=" ")
         print()
 
 def _x_location_add(movie_seats : list,x_pointer : int) -> list:
