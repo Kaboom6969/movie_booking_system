@@ -1,2 +1,3 @@
 Book ID,User ID,Movie Code,Date,(1:booking 2:paid)
 B001,C001,001,2025/09/13,2
+B002,C001,001,2025/09/15,2

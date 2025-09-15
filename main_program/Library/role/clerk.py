@@ -78,40 +78,40 @@ def clerk():
             choice = input("\nbooking(1), cancel or modify booking(2), check movie seats(3), print receipt(4), quit(5)\n")
             if choice == "1":
                 while True:
-                    x_axis = True
-                    y_axis = True
                     print_movie_seat_as_emojis(movie_seat_list)
                     print(f"\nrow should be between 1 and {len(movie_seat_list)}")
                     row = int(input("Please enter the row number: "))
                     print(f"\ncolumn should be between 1 and {len(movie_seat_list[0])}")
                     column = int(input("Please enter the column number: "))
-                    if column < 1 or column > len(movie_seat_list[0]):  # Validate x_axis
-                        print(f"column should be between 1 and {len(movie_seat_list[0])}\nYour column is {column}")
-                        x_axis = False
-                    if row < 1 or row > len(movie_seat_list):  # Validate y_axis
-                        print(f"row should be between 1 and {len(movie_seat_list)}\nYour row is {row}")
-                        y_axis = False
-                    if x_axis and y_axis:
-                        if movie_seat_list[len(movie_seat_list) - row][column - 1] == '-1':
-                            print("Invalid seat, please try again")
-                        elif movie_seat_list[len(movie_seat_list) - row][column - 1] == '1':
-                            print("This seat is already taken. Please enter another one")
-                        else:
-                            customer_csv_path = get_customer_csv_path()
-                            customer_id = login(customer_csv_path)
-                            if customer_id is not None:
-                                today = datetime.today().strftime('%Y/%m/%d')
-                                print("Purchased successfully")
-                                modify_movie_seats_list(movie_seat_list, column, row, 1)
-                                update_movie_seats_csv(movie_seats_csv="movie_seat.csv", movie_seats=movie_seat_list,movie_code=input_movie_code)
-                                booking_data_csv_path = get_Data_Directory_path("booking_data.csv")
-                                booking_id = generate_booking_id(booking_data_csv_path)
-                                data_row = [[booking_id, customer_id, input_movie_code, today, 2]]
-                                write_booking_data(booking_data_csv_path, data_row)
-                                break
-                            else:
-                                print("login failed please try again")
+                    if not movie_seats_pointer_valid_check(movie_seat_list,column,row):
+                        print(f"Invalid seat, please try again")
+                        continue
+                    try:
+                        seat_value = movie_seats_specify_value(movie_seat_list, column, row)
+                        print(seat_value)
+                    except IndexError as e:
+                        continue
+                    if seat_value == '-1':
+                        print("Invalid seat, please try again")
+                    elif seat_value == '1':
+                        print("This seat is already taken. Please enter another one")
+                    else:
+                        customer_csv_path = get_customer_csv_path()
+                        customer_id = login(customer_csv_path)
+                        if customer_id is not None:
+                            today = datetime.today().strftime('%Y/%m/%d')
+                            print("Purchased successfully")
+                            modify_movie_seats_list(movie_seat_list, column, row, 1)
+                            update_movie_seats_csv(movie_seats_csv="movie_seat.csv", movie_seats=movie_seat_list,
+                                                   movie_code=input_movie_code)
+                            booking_data_csv_path = get_Data_Directory_path("booking_data.csv")
+                            booking_id = generate_booking_id(booking_data_csv_path)
+                            data_row = [[booking_id, customer_id, input_movie_code, today, 2]]
+                            write_booking_data(booking_data_csv_path, data_row)
                             break
+                        else:
+                            print("login failed please try again")
+                        break
                 break
 
             elif choice == "2":
@@ -120,6 +120,8 @@ def clerk():
                 break
             elif choice == "3":
                 print_movie_seat_as_emojis(movie_seat_list)
+                capacity = get_capacity(movie_seat_list)
+                print(f"\n This movie seat capacity is {capacity}")
                 break
             elif choice == "4":
                 print("receipt")
