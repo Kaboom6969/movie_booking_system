@@ -127,10 +127,8 @@ def delete_movie_list_csv (movie_list_csv : str,movie_code : str,code_location :
 
 
 
-def get_biggest_number_of_code (movie_list_csv : str, code_location : int = 0, number_of_prefix : int = 1, prefix_got_digit : bool = False) -> int:
+def get_biggest_number_of_code (movie_list : list, code_location : int, number_of_prefix : int, prefix_got_digit : bool = False) -> int:
     try:
-        movie_list : list = []
-        read_movie_list_csv(movie_list_csv= movie_list_csv,movie_list= movie_list,code_location= code_location)
         code_number_list : list =[]
         prefix_list : list =[]
         for row in movie_list:
