@@ -98,6 +98,13 @@ def book_movie_buy(movie_seats_csv : str,movie_code : str,movie_seats : list,x_a
         return False
 
 
+def generate_code_id (movie_list : list,prefix_generate : str,code_location,number_of_prefix : int,prefix_got_digit : bool,code_id_digit_count : int) -> str:
+    code_number = get_biggest_number_of_code(movie_list= movie_list,code_location= code_location,
+                               number_of_prefix= number_of_prefix,prefix_got_digit= prefix_got_digit) + 1
+    code_id = (prefix_generate + str(code_number).zfill(code_id_digit_count))
+    return code_id
+
+
 
 
 
