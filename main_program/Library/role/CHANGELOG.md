@@ -82,3 +82,4 @@
   - `book_movie_operation` now acts as a high-level coordinator for the booking flow.
   - `book_movie_input` is now a reusable utility that handles robust user input and validation for coordinates.
   - `book_movie_buy` now encapsulates all logic related to confirming and finalizing the purchase.
+
