@@ -1,4 +1,6 @@
 Book ID,User ID,Movie Code,Date,(1:booking 2:paid),seat(x_axis),seat(y_axis),Source
-B004,C001,002,2025/09/15,2,4,3,Online
-B005,C001,002,2025/09/15,2,8,4,Clerk
 B006,C001,003,2025/09/15,2,3,3,Online
+B007,K001,003,2025/09/15,2,4,3,Clerk
+B010,K001,002,2025/09/16,2,3,3,Clerk
+B011,K001,001,2025/09/16,2,9,3,Clerk
+B013,K001,001,2025/09/16,2,6,2,Clerk
