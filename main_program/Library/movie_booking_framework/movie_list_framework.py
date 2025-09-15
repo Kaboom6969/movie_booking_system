@@ -15,20 +15,20 @@ def read_movie_list_csv(movie_list_csv: str, movie_list: list, movie_code: str =
                     if not line.strip(): continue
                     row = parse_csv_line(line)
                     movie_list.append(row)
-                if movie_code == []:
-                    raise ValueError("Movie Not Found! Please Check Your File!")
+                if not movie_code:
+                    raise ValueError("Code is empty! Please Check Your movie_code parameter!")
             else:
                 list_found = False
                 for line in mv_csvfile:
                     if not line.strip(): continue
                     row = parse_csv_line(line)
                     if row[code_location] == movie_code and list_found == True and movie_mode == True:
-                        raise ValueError("Movie Code Repeat! Please Check Your File!")
+                        raise ValueError("Code Repeat! Please Check Your File!")
                     elif row[code_location] == movie_code:
                         list_found = True
                         movie_list.append(row)
                 if list_found == False:
-                    raise ValueError("Movie Code Not Found! Please Check Your File!")
+                    raise ValueError("Code Not Found! Please Check Your File!")
     except FileNotFoundError:
         raise FileNotFoundError(f"File Not Found!\nYour File Name is {movie_list_csv}.\nPLease Check Your File! ")
     except ValueError as e:
@@ -126,6 +126,52 @@ def delete_movie_list_csv (movie_list_csv : str,movie_code : str,code_location :
     _overwrite_file(overwrited_file_csv=movie_list_csv, original_file_csv=f"{movie_list_csv}.temp")
 
 
+
+def get_biggest_number_of_code (movie_list_csv : str, code_location : int = 0, number_of_prefix : int = 1, prefix_got_digit : bool = False) -> int:
+    try:
+        movie_list : list = []
+        read_movie_list_csv(movie_list_csv= movie_list_csv,movie_list= movie_list,code_location= code_location)
+        code_number_list : list =[]
+        prefix_list : list =[]
+        for row in movie_list:
+            code_number_list.append(row[code_location][number_of_prefix:])
+            prefix_list.append(row[code_location][0:number_of_prefix])
+        if prefix_got_digit:
+            pass
+        elif _detect_got_digit(prefix_list= prefix_list) :
+            raise ValueError(f"The prefix:{prefix_list} got number! "
+                             f"if you except the prefix is contain number,SET prefix_got_digit to True!")
+        number_list = _list_str_number_to_int_number(str_number_list= code_number_list)
+        biggest_number = _get_biggest_number_of_list(number_list= number_list)
+        return biggest_number
+    except Exception as e:
+        raise Exception(f"GET BIGGEST NUMBER OF CODE FAILED. ERROR: {str(e)}")
+
+
+def _get_biggest_number_of_list (number_list : list) -> int:
+    biggest_number : int = 0
+    try:
+        for row in number_list:
+            if row > biggest_number:
+                biggest_number = row
+        return biggest_number
+    except ValueError:
+        raise ValueError(f"The number_list:{number_list} is not int type list!")
+
+def _list_str_number_to_int_number (str_number_list : list) -> list:
+    int_list : list =[]
+    try:
+        for number in str_number_list:
+            int_list.append(int(number))
+        return int_list
+    except ValueError:
+        raise ValueError(f"The list : {str_number_list} is contain string!,_list_str_to_int function is just convert ‘1’ to 1")
+
+def _detect_got_digit(prefix_list : list) -> bool:
+    for row in prefix_list:
+        if row.isdigit():
+            return True
+    return False
 
 
 
