@@ -44,6 +44,7 @@
 - Added quit option (choice == 3).
 - Placeholder for modify booking feature (choice == 2).
 - Explicitly converts column and row to integers before modifying seat data to prevent type errors. 
+  - Add column `Source`
 ### Fixed
 - Fixed a bug in modify_booking_data where column / row were strings, causing TypeError.
 
