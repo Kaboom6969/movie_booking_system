@@ -29,6 +29,23 @@
 - Prevented crashes when parsing booking IDs with unexpected values.
 ### Added 
 - - added column `Seat(x-axis,y-axis)` 
+## [1.1.0] - 2025-09-15
+### Added
+- delete_user_booking_data
+- New function to delete a booking row from booking_data.csv by booking_id.
+- get_user_booking_axis_and_booking_id
+- New function to return (column, row, booking_id) based on user input, removing the need for global variables.
+### Change
+- modify_booking_data
+- Added cancel booking feature (choice == 1):
+- Frees the seat (modify_movie_seats_list → 0).
+- Updates seat CSV file.
+- Deletes the corresponding booking record.
+- Added quit option (choice == 3).
+- Placeholder for modify booking feature (choice == 2).
+- Explicitly converts column and row to integers before modifying seat data to prevent type errors. 
+### Fixed
+- Fixed a bug in modify_booking_data where column / row were strings, causing TypeError.
 
 ### Fixed
 - Prevented invalid seat access by centralizing validation logic
