@@ -13,6 +13,21 @@
 - Refactored seat booking flow to use `movie_seats_pointer_valid_check` for coordinate validation
 - Removed manual row/column boundary checks for cleaner logic
 - Simplified seat validation process with `movie_seats_specify_value`
+## [1.1.0] - 2025-09-15
+### Added
+- `get_user_choice()` function for robust menu input handling.
+- `select_movie()` function to validate and select movies cleanly.
+- `checking_movie()` function to display seat map and capacity.
+### Changed
+- Refactored `clerk()` by extracting sub-functions for better readability and maintainability.
+- Updated `generate_booking_id()` logic:
+  - Fixed issue where booking IDs could increment incorrectly by +N.
+  - Now starts from `B001` when no bookings exist.
+  - Handles empty rows and invalid IDs gracefully.
+### Fixed
+- Improved error handling for invalid seat input and out-of-range choices.
+- Prevented crashes when parsing booking IDs with unexpected values.
+
 ### Fixed
 - Prevented invalid seat access by centralizing validation logic
 - Reduced redundant error handling and unnecessary global variable usage
