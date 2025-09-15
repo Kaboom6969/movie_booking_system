@@ -27,6 +27,8 @@
 ### Fixed
 - Improved error handling for invalid seat input and out-of-range choices.
 - Prevented crashes when parsing booking IDs with unexpected values.
+### Added 
+- - added column `Seat(x-axis,y-axis)` 
 
 ### Fixed
 - Prevented invalid seat access by centralizing validation logic
