@@ -8,6 +8,14 @@
 - added some booking system data.
 ## [1.1.0] - 2025-09-13
 - added column `booking_id` 
+## [1.1.0] - 2025-09-15
+### Changed
+- Refactored seat booking flow to use `movie_seats_pointer_valid_check` for coordinate validation
+- Removed manual row/column boundary checks for cleaner logic
+- Simplified seat validation process with `movie_seats_specify_value`
+### Fixed
+- Prevented invalid seat access by centralizing validation logic
+- Reduced redundant error handling and unnecessary global variable usage
 
 ## Customer
 ## [1.0.0] - 2025-09-13
