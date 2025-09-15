@@ -47,6 +47,13 @@
   - Add column `Source`
 ### Fixed
 - Fixed a bug in modify_booking_data where column / row were strings, causing TypeError.
+## [1.1.0] - 2025-09-16
+### Added
+- `check_booking_full`
+- New function to check movie_seat is full or not
+- `check_booking_data`
+- New function to check booking_data.csv exist or hot
+
 
 ### Fixed
 - Prevented invalid seat access by centralizing validation logic

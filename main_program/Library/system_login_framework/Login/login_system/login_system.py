@@ -343,7 +343,7 @@ def role(customer_data, clerk_data, manager_data, technician_data):
     elif role_num == 1:
         user_id = login(clerk_data)
         if user_id is not None:
-            clerk()
+            clerk(user_id)
 
 
     elif role_num == 2:
