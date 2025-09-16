@@ -4,12 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0ea8b363-fbeb-45e9-9d45-12a8498462b3" name="Changes" comment="FUCKING TESTING VERSION (1000 BUGS)">
-      <change afterPath="$PROJECT_DIR$/main_program/Data/movie_list_2_test.csv" afterDir="false" />
+    <list default="true" id="0ea8b363-fbeb-45e9-9d45-12a8498462b3" name="Changes" comment="-just template of movie_seats">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main_program/Data/booking_data.csv" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/Data/booking_data.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main_program/Data/movie_seat.csv" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/Data/movie_seat.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main_program/Library/movie_booking_framework/movie_list_framework.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/Library/movie_booking_framework/movie_list_framework.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main_program/Data/movie_seats_template.csv" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/Data/template_seats.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main_program/Library/movie_booking_framework/CHANGELOG.md" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/Library/movie_booking_framework/CHANGELOG.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main_program/Library/movie_booking_framework/movie_seats_framework.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/Library/movie_booking_framework/movie_seats_framework.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main_program/Library/role/customer.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/Library/role/customer.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,6 +60,7 @@
     "Python.__movie_list_framework__.executor": "Run",
     "Python.__movie_seats_framework__.executor": "Run",
     "Python._movie_seats_framework_.executor": "Run",
+    "Python.customer.executor": "Run",
     "Python.login_system.executor": "Run",
     "Python.main_program.Library.movie_booking_operation.user_operation.executor": "Run",
     "Python.movie_booking_system.main_program.Library.movie_booking_operation.user_operation.executor": "Run",
@@ -69,7 +72,9 @@
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager": "true",
     "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "test",
-    "last_opened_file_path": "C:/Users/leezh/PycharmProjects/movie_booking_system/Main Program/Library/system_login_framework/Login/login_system"
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "C:/Users/leezh/PycharmProjects/movie_booking_system/Main Program/Library/system_login_framework/Login/login_system",
+    "settings.editor.selected.configurable": "inlay.hints"
   }
 }]]></component>
   <component name="RecentsManager">
@@ -243,7 +248,63 @@
       <option name="project" value="LOCAL" />
       <updated>1756847730742</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="Seat &amp; List FrameWork Version 1.15.2 a&#10;-Improved some of the functionality in update_movie_list_csv (work in progress).">
+      <option name="closed" value="true" />
+      <created>1757003858033</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1757003858033</updated>
+    </task>
+    <task id="LOCAL-00020" summary="- add date column for movie_list.csv">
+      <option name="closed" value="true" />
+      <created>1758037538825</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1758037538825</updated>
+    </task>
+    <task id="LOCAL-00021" summary="- change the name `Date` to `booking_date`">
+      <option name="closed" value="true" />
+      <created>1758037848633</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1758037848633</updated>
+    </task>
+    <task id="LOCAL-00022" summary="Customer Version 1.2.0 b&#10;- now `book_movie_operation` will add the booking record to booking_data.csv&#10;-  Added `_booking_data_create` function">
+      <option name="closed" value="true" />
+      <created>1758042770994</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1758042770994</updated>
+    </task>
+    <task id="LOCAL-00023" summary="-just change the import location&#10;-change the parameter (movie_list -&gt; code_list) in `get_biggest_number_of_code`">
+      <option name="closed" value="true" />
+      <created>1758042828003</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1758042828003</updated>
+    </task>
+    <task id="LOCAL-00024" summary="Seat &amp; List FrameWork Version 1.15.3 a&#10;- change `_movie_seats_csv_valid_check`'s re.fullmatch to re.match">
+      <option name="closed" value="true" />
+      <created>1758044996875</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1758044996875</updated>
+    </task>
+    <task id="LOCAL-00025" summary="-just template of movie_seats">
+      <option name="closed" value="true" />
+      <created>1758045037199</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1758045037199</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -273,27 +334,17 @@
     <MESSAGE value="Seat &amp; List FrameWork Version 1.14.0 b&#10;-Yup Just change the date from CHANGELOG.md." />
     <MESSAGE value="Login FramWork Version 1.1.0 b&#10;-Refactored some of the code." />
     <MESSAGE value="FUCKING TESTING VERSION (1000 BUGS)" />
-    <option name="LAST_COMMIT_MESSAGE" value="FUCKING TESTING VERSION (1000 BUGS)" />
+    <MESSAGE value="Seat &amp; List FrameWork Version 1.15.2 a&#10;-Improved some of the functionality in update_movie_list_csv (work in progress)." />
+    <MESSAGE value="- add date column for movie_list.csv" />
+    <MESSAGE value="- change the name `Date` to `booking_date`" />
+    <MESSAGE value="Customer Version 1.2.0 b&#10;- now `book_movie_operation` will add the booking record to booking_data.csv&#10;-  Added `_booking_data_create` function" />
+    <MESSAGE value="-just change the import location&#10;-change the parameter (movie_list -&gt; code_list) in `get_biggest_number_of_code`" />
+    <MESSAGE value="Seat &amp; List FrameWork Version 1.15.3 a&#10;- change `_movie_seats_csv_valid_check`'s re.fullmatch to re.match" />
+    <MESSAGE value="-just template of movie_seats" />
+    <option name="LAST_COMMIT_MESSAGE" value="-just template of movie_seats" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/main_program/Library/movie_booking_framework/movie_list_framework.py</url>
-          <line>51</line>
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/main_program/Library/movie_booking_framework/movie_seats_framework.py</url>
-          <line>343</line>
-          <option name="timeStamp" value="8" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/main_program/Library/movie_booking_framework/movie_list_framework.py</url>
-          <line>43</line>
-          <option name="timeStamp" value="9" />
-        </line-breakpoint>
-      </breakpoints>
       <default-breakpoints>
         <breakpoint type="python-exception">
           <properties notifyOnTerminate="true" exception="BaseException">

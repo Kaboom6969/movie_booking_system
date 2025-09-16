@@ -153,21 +153,8 @@ def check_all_movie_list(movie_list_csv : str,movie_seats_csv : str) -> list:
 
 
 
+
 #JUST TEST
 if __name__ == '__main__':
-    try:
-        code_range : list =check_all_movie_list("movie_list.csv","movie_seat.csv")
-        # bought_movie : list = check_ticket_bought(customer_code = "C001",booking_data_csv = "booking_data.csv", movie_list_csv = "movie_list.csv")
-        code = str(input("Please enter the movie code that you want to check"))
-        # booking_to_movie_list_print(movie_code_list = bought_movie, movie_code = code, movie_list_csv ="movie_list.csv")
-        user_command = str(input("Please Enter Your Command\n(C)heck Seat\t(Q)uit\n"))
-        if 'c' in user_command.lower():
-            movie_list_to_movie_seats_print(movie_code= code,movie_seats_csv= "movie_seat.csv")
-            user_command = str(input("Do You Want To Book?(Y/N)"))
-            if 'y' in user_command.lower():
-                book_movie_operation(movie_code= code,movie_seats_csv= "movie_seat.csv",booking_data_csv= "booking_data.csv",user_id= "C001")
-            else:
-                print("quit")
-    except IndexError:
-        print("Please enter the movie code in the range!")
+   link_seats(movie_seats_csv= "movie_seat.csv",booking_data_csv= "booking_data.csv",template_seats_csv= "template_seats.csv")
 
