@@ -1,5 +1,6 @@
-from movie_booking_system.main_program.Library.movie_booking_framework.movie_seats_framework import *
-from movie_booking_system.main_program.Library.movie_booking_framework.movie_list_framework import *
+from main_program.Library.movie_booking_framework.movie_list_framework import *
+from main_program.Library.movie_booking_framework.movie_seats_framework import *
+import datetime
 
 DEFAULT_WIDTH = 20
 
@@ -41,7 +42,7 @@ def code_range_create(code_list : list,code_location : int) -> list:
         code_range_list.append(row[code_location])
     return code_range_list
 
-def book_movie_operation(movie_code : str,movie_seats_csv : str) -> None:
+def book_movie_operation(movie_code : str,movie_seats_csv : str,booking_data_csv : str,user_id : str) -> None:
     try:
         movie_seats = movie_list_to_movie_seats_print(movie_code=movie_code, movie_seats_csv=movie_seats_csv)
         x_range = x_range_calculate(movie_seats=movie_seats)
@@ -57,6 +58,16 @@ def book_movie_operation(movie_code : str,movie_seats_csv : str) -> None:
             seats_value = movie_seats_specify_value(movie_seats=movie_seats, x_axis=x_pointer, y_axis=y_pointer)
             booking_status =book_movie_buy(movie_seats_csv= movie_seats_csv,movie_code= movie_code,
                        movie_seats= movie_seats,x_axis= x_pointer,y_axis= y_pointer,seats_value= seats_value)
+            if booking_status:
+                booking_list : list = []
+                read_movie_list_csv(movie_list_csv=booking_data_csv,movie_list= booking_list)
+                book_id : str = generate_code_id(code_list= booking_list,prefix_generate= "B",code_location= 0,number_of_prefix= 1,prefix_got_digit= False,code_id_digit_count= 3)
+                booking_data_list = _booking_data_create(book_id= book_id,user_id= user_id,movie_code= movie_code
+                                                         ,booking_date= datetime.datetime.now().strftime('%Y/%m/%d')
+                                                         ,booking_or_pay= "1",x_seat= str(x_pointer)
+                                                         ,y_seat= str(y_pointer),source= "online")
+                add_movie_list_csv(movie_list_csv= booking_data_csv,movie_list= booking_data_list,movie_code= book_id)
+
             if not booking_status: try_again = True
             else: try_again = False
 
@@ -98,13 +109,27 @@ def book_movie_buy(movie_seats_csv : str,movie_code : str,movie_seats : list,x_a
         return False
 
 
-def generate_code_id (movie_list : list,prefix_generate : str,code_location,number_of_prefix : int,prefix_got_digit : bool,code_id_digit_count : int) -> str:
-    code_number = get_biggest_number_of_code(movie_list= movie_list,code_location= code_location,
-                               number_of_prefix= number_of_prefix,prefix_got_digit= prefix_got_digit) + 1
+def generate_code_id (code_list : list, prefix_generate : str, code_location : int, number_of_prefix : int
+                      , prefix_got_digit : bool, code_id_digit_count : int) -> str:
+
+    code_number = get_biggest_number_of_code(code_list= code_list, code_location= code_location,
+                                             number_of_prefix= number_of_prefix, prefix_got_digit= prefix_got_digit) + 1
     code_id = (prefix_generate + str(code_number).zfill(code_id_digit_count))
     return code_id
 
 
+def _booking_data_create (book_id : str,user_id : str,movie_code : str,booking_date : str
+                         ,booking_or_pay : str,x_seat : str, y_seat : str,source : str) -> list:
+    booking_data_list : list = []
+    booking_data_list.append(book_id)
+    booking_data_list.append(user_id)
+    booking_data_list.append(movie_code)
+    booking_data_list.append(booking_date)
+    booking_data_list.append(booking_or_pay)
+    booking_data_list.append(x_seat)
+    booking_data_list.append(y_seat)
+    booking_data_list.append(source)
+    return [booking_data_list]
 
 
 
@@ -135,9 +160,14 @@ if __name__ == '__main__':
         # bought_movie : list = check_ticket_bought(customer_code = "C001",booking_data_csv = "booking_data.csv", movie_list_csv = "movie_list.csv")
         code = str(input("Please enter the movie code that you want to check"))
         # booking_to_movie_list_print(movie_code_list = bought_movie, movie_code = code, movie_list_csv ="movie_list.csv")
-        # user_command = str(input("Please Enter Your Command\n(C)heck Seat\t(Q)uit\n"))
-        # if 'c' in user_command.lower():
-        movie_list_to_movie_seats_print(movie_code= code,movie_seats_csv= "movie_seat.csv")
+        user_command = str(input("Please Enter Your Command\n(C)heck Seat\t(Q)uit\n"))
+        if 'c' in user_command.lower():
+            movie_list_to_movie_seats_print(movie_code= code,movie_seats_csv= "movie_seat.csv")
+            user_command = str(input("Do You Want To Book?(Y/N)"))
+            if 'y' in user_command.lower():
+                book_movie_operation(movie_code= code,movie_seats_csv= "movie_seat.csv",booking_data_csv= "booking_data.csv",user_id= "C001")
+            else:
+                print("quit")
     except IndexError:
         print("Please enter the movie code in the range!")
 
