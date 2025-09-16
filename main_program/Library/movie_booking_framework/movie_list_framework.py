@@ -1,7 +1,7 @@
 import os
 import re
 import warnings
-from movie_booking_system.main_program.Library.movie_booking_framework.movie_seats_framework import _get_path,_overwrite_file,parse_csv_line,format_csv_line
+from main_program.Library.movie_booking_framework.movie_seats_framework import _get_path,_overwrite_file,parse_csv_line,format_csv_line
 
 
 def read_movie_list_csv(movie_list_csv: str, movie_list: list, movie_code: str = "all", movie_mode: bool = True,
@@ -127,11 +127,11 @@ def delete_movie_list_csv (movie_list_csv : str,movie_code : str,code_location :
 
 
 
-def get_biggest_number_of_code (movie_list : list, code_location : int, number_of_prefix : int, prefix_got_digit : bool = False) -> int:
+def get_biggest_number_of_code (code_list : list, code_location : int, number_of_prefix : int, prefix_got_digit : bool = False) -> int:
     try:
         code_number_list : list =[]
         prefix_list : list =[]
-        for row in movie_list:
+        for row in code_list:
             code_number_list.append(row[code_location][number_of_prefix:])
             prefix_list.append(row[code_location][0:number_of_prefix])
         if prefix_got_digit:
