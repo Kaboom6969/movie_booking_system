@@ -216,7 +216,7 @@ def _movie_seats_csv_valid_check (movie_seats_csv : str) -> None:
             for row in movie_seats_reader:
                 line_count += 1
                 if not row: raise ValueError(f"GOT BLANK IN THE FILE!\nFile name:{movie_seats_csv}\nFile path:{movie_seats_csv_path}\nLine:{line_count}")
-                if re.fullmatch(pattern = r"\d{3}",string = row[0]):
+                if re.match(pattern = r"\d{3}",string = row[0]):
                     MOVIE_CODE_status = True
                 if row[0] == "START": START_status = True
                 if row[0] == "END": END_status = True
@@ -449,5 +449,8 @@ def find_longest_list(nested_list : list) -> list:
 
     #作为library时不会被启用，仅有亲自运行此文件才会运行（用来测试用）
 if __name__ == '__main__':
-    pass
+    movie_seats : list = []
+    read_movie_seats_csv(movie_seats_csv= "movie_seat.csv",movie_seats= movie_seats,movie_code="001")
+    fill_movie_seats_list(movie_seat_list= movie_seats,fill_number= 0)
+    update_movie_seats_csv(movie_seats_csv="movie_seat.csv",movie_seats= movie_seats,movie_code="001")
 
