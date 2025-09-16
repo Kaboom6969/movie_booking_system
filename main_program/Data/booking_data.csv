@@ -1,4 +1,4 @@
-Book ID,User ID,Movie Code,Date,(1:booking 2:paid),seat(x_axis),seat(y_axis),Source
+Book ID,User ID,Movie Code,booking_date,(1:booking 2:paid),seat(x_axis),seat(y_axis),Source
 B006,C001,003,2025/09/15,2,3,3,Online
 B007,K001,003,2025/09/15,2,4,3,Clerk
 B010,K001,002,2025/09/16,2,3,3,Clerk
