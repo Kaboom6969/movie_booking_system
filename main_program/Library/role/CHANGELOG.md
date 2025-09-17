@@ -57,6 +57,10 @@
 ### Changed
 - Replaced manual seat update (`modify_movie_seats_list` + `update_movie_seats_csv`)
   with `link_seats` to ensure seat and booking data synchronization.
+## [1.1.1] - 2025-09-17
+### Added
+- Implemented booking cancellation feature (users can cancel an existing booking).
+- Implemented booking modification feature (users can change their booked seat).
 
 
 ### Fixed
