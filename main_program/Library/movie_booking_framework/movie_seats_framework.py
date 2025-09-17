@@ -1,7 +1,7 @@
 
 import re #From python standard library
-from framework_utils import *
-from valid_checker import movie_seats_valid_check,movie_seats_csv_valid_check,movie_seats_pointer_valid_check
+from .framework_utils import *
+from .valid_checker import movie_seats_valid_check,movie_seats_csv_valid_check,movie_seats_pointer_valid_check
 
 
 
@@ -249,6 +249,16 @@ def modify_movie_seats_list(movie_seat_list: list, x_axis: int, y_axis: int, tar
         raise IndexError(f"y_axis should be between 1 and {len(movie_seat_list)}\nYour y_axis is {y_axis}")
     movie_seat_list[len(movie_seat_list) - y_axis][x_axis - 1] = str(target_number)     #Modify specified seat
 
+def x_range_calculate(movie_seats : list) -> list:
+    x_max = len(_find_longest_list(nested_list= movie_seats))
+    x_min = 1
+    return [x_min,x_max]
+
+def y_range_calculate(movie_seats : list) -> list:
+    if not movie_seats: raise ValueError(f"{movie_seats} is empty!")
+    y_max = len(movie_seats)
+    y_min = 1
+    return [y_min,y_max]
 
 def _find_longest_list(nested_list : list) -> list:
     if not nested_list: raise ValueError(f"{nested_list} is empty!")

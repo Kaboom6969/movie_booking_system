@@ -4,16 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0ea8b363-fbeb-45e9-9d45-12a8498462b3" name="Changes" comment="Seat &amp; List FrameWork Version 1.16.0&#10;- the biggest update ever in this framework!&#10;- see the changelog!">
-      <change afterPath="$PROJECT_DIR$/main_program/Library/movie_booking_framework/cinema_services.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/main_program/Library/movie_booking_framework/framework_utils.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/main_program/Library/movie_booking_framework/id_generator.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/main_program/Library/movie_booking_framework/seat_visualizer.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/main_program/Library/movie_booking_framework/valid_checker.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main_program/Library/movie_booking_framework/movie_list_framework.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/Library/movie_booking_framework/movie_list_framework.py" afterDir="false" />
+    <list default="true" id="0ea8b363-fbeb-45e9-9d45-12a8498462b3" name="Changes" comment="Seat &amp; List FrameWork Version 1.16.1&#10;- split the framework">
       <change beforePath="$PROJECT_DIR$/main_program/Library/movie_booking_framework/movie_seats_framework.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/Library/movie_booking_framework/movie_seats_framework.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main_program/Library/role/customer.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/Library/role/customer.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main_program/Library/movie_booking_framework/seat_visualizer.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/Library/movie_booking_framework/seat_visualizer.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -314,7 +307,15 @@
       <option name="project" value="LOCAL" />
       <updated>1758050850246</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="Seat &amp; List FrameWork Version 1.16.1&#10;- split the framework">
+      <option name="closed" value="true" />
+      <created>1758107452060</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1758107452060</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -352,7 +353,8 @@
     <MESSAGE value="Seat &amp; List FrameWork Version 1.15.3 a&#10;- change `_movie_seats_csv_valid_check`'s re.fullmatch to re.match" />
     <MESSAGE value="-just template of movie_seats" />
     <MESSAGE value="Seat &amp; List FrameWork Version 1.16.0&#10;- the biggest update ever in this framework!&#10;- see the changelog!" />
-    <option name="LAST_COMMIT_MESSAGE" value="Seat &amp; List FrameWork Version 1.16.0&#10;- the biggest update ever in this framework!&#10;- see the changelog!" />
+    <MESSAGE value="Seat &amp; List FrameWork Version 1.16.1&#10;- split the framework" />
+    <option name="LAST_COMMIT_MESSAGE" value="Seat &amp; List FrameWork Version 1.16.1&#10;- split the framework" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

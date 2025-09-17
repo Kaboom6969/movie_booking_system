@@ -1,4 +1,4 @@
-from valid_checker import *
+from .valid_checker import *
 
 def print_movie_seat (movie_seats : list) -> None:
     try:
@@ -67,13 +67,4 @@ def _y_location_add(movie_seats : list,y_pointer : int) -> list:
             movie_seats_with_y_location.append(row_as_list)
     return movie_seats_with_y_location
 
-def x_range_calculate(movie_seats : list) -> list:
-    x_max = len(_find_longest_list(nested_list= movie_seats))
-    x_min = 1
-    return [x_min,x_max]
 
-def y_range_calculate(movie_seats : list) -> list:
-    if not movie_seats: raise ValueError(f"{movie_seats} is empty!")
-    y_max = len(movie_seats)
-    y_min = 1
-    return [y_min,y_max]

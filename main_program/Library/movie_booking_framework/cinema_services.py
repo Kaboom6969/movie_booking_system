@@ -1,6 +1,6 @@
-from movie_seats_framework import *
-from movie_list_framework import *
-from valid_checker import movie_seats_csv_valid_check
+from .movie_seats_framework import *
+from .movie_list_framework import *
+from .valid_checker import movie_seats_csv_valid_check
 
 def link_seats (movie_seats_csv : str, booking_data_csv : str,template_seats_csv : str,book_movie_code_location : int = 2, book_x_seats_location : int = 5, book_y_seats_location : int = 6) -> None:
     booking_data_list : list = []
