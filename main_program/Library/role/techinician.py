@@ -1,6 +1,6 @@
 import csv
 import os
-
+from main_program.Library.movie_booking_framework.framework_utils import get_path
 
 def find_file(start_path, target_file):
     for root, dirs, files in os.walk(start_path):
@@ -9,9 +9,8 @@ def find_file(start_path, target_file):
     return None
 
 
-def view_upcoming_movies():
-    project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', '..'))
-    csv_path = find_file(project_root, 'movie_list.csv')
+def view_upcoming_movies(file_name : str):
+    csv_path = get_path(file_name)
 
     if csv_path:
         try:
@@ -48,9 +47,9 @@ def report_issue():
         print("invalid issue type")
 
 
-def check_equipment_status():
-    csv_path = os.path.join(os.path.dirname(__file__), 'technicians.csv')
-    if os.path.exists(csv_path):
+def check_equipment_status(file_name):
+    csv_path = get_path(file_name)
+    try:
         with open(csv_path, 'r') as f:
             reader = csv.DictReader(f)
             print("Equipment Status:")
@@ -61,8 +60,8 @@ def check_equipment_status():
                 projector = status_map.get(row['projector_status'], 'unknown')
                 print(
                     f"Tech: {row['tech_code']}, Movie: {row['movie_code']}, aircond: {aircond}, speaker: {speaker}, projector: {projector}")
-    else:
-        print("technicians.csv file not found")
+    except FileNotFoundError:
+        raise FileNotFoundError(f"File:{file_name} not found")
 
 
 def update_equipment_status(movie_code, aircond_status, speaker_status, projector_status):
@@ -90,7 +89,7 @@ def update_equipment_status(movie_code, aircond_status, speaker_status, projecto
 
 
 if __name__ == "__main__":
-    # view_upcoming_movies()
-    check_equipment_status()
+    view_upcoming_movies("technicians.csv")
+    check_equipment_status("technicians.csv")
     # update_equipment_status('001', 1, 0, 2)
     # report_issue()
