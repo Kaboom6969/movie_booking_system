@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0ea8b363-fbeb-45e9-9d45-12a8498462b3" name="Changes" comment="Seat &amp; List FrameWork Version 1.16.1&#10;- now the circular import bug fix">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="0ea8b363-fbeb-45e9-9d45-12a8498462b3" name="Changes" comment="Seat &amp; List FrameWork Version 1.16.1 a&#10;- fix the bug that `_x_location_add` and  `_y_location_add` is not defined" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -322,7 +320,15 @@
       <option name="project" value="LOCAL" />
       <updated>1758108345514</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="Seat &amp; List FrameWork Version 1.16.1 a&#10;- fix the bug that `_x_location_add` and  `_y_location_add` is not defined">
+      <option name="closed" value="true" />
+      <created>1758119219670</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1758119219670</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -337,7 +343,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Testing Commit" />
     <MESSAGE value="FrameWork Version 1.0" />
     <MESSAGE value="FrameWork Version 1.1" />
     <MESSAGE value="FrameWork Version 1.11" />
@@ -362,7 +367,8 @@
     <MESSAGE value="Seat &amp; List FrameWork Version 1.16.0&#10;- the biggest update ever in this framework!&#10;- see the changelog!" />
     <MESSAGE value="Seat &amp; List FrameWork Version 1.16.1&#10;- split the framework" />
     <MESSAGE value="Seat &amp; List FrameWork Version 1.16.1&#10;- now the circular import bug fix" />
-    <option name="LAST_COMMIT_MESSAGE" value="Seat &amp; List FrameWork Version 1.16.1&#10;- now the circular import bug fix" />
+    <MESSAGE value="Seat &amp; List FrameWork Version 1.16.1 a&#10;- fix the bug that `_x_location_add` and  `_y_location_add` is not defined" />
+    <option name="LAST_COMMIT_MESSAGE" value="Seat &amp; List FrameWork Version 1.16.1 a&#10;- fix the bug that `_x_location_add` and  `_y_location_add` is not defined" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

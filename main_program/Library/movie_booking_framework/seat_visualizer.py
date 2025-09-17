@@ -1,5 +1,5 @@
 from .valid_checker import *
-from movie_seats_framework import find_longest_list
+from .movie_seats_framework import find_longest_list
 def print_movie_seat (movie_seats : list) -> None:
     try:
         movie_seats_valid_check(movie_seats_list=movie_seats)
