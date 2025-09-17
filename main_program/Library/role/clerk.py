@@ -121,16 +121,22 @@ def select_seat(movie_seat_list):
             try:
                 print(f"\nrow should be between 1 and {len(movie_seat_list)}")
                 row = int(input("Please enter the row number: "))  # y_axis
-                print_movie_seat_as_emojis(movie_seat_list, -1, row)
-                break
+                if row < 1 or row > len(movie_seat_list):
+                    print("Please enter a valid row number")
+                else:
+                    print_movie_seat_as_emojis(movie_seat_list, -1, row)
+                    break
             except ValueError as e:
                 print(e)
         while True:
             try:
                 print(f"\ncolumn should be between 1 and {len(movie_seat_list[0])}")
-                column = int(input("Please enter the column number: "))  # x_axis
-                print_movie_seat_as_emojis(movie_seat_list, column, row)
-                break
+                column = int(input("Please enter the column number: "))
+                if column < 1 or column > len(movie_seat_list):
+                    print("Please enter a valid row number")    # x_axis
+                else:
+                    print_movie_seat_as_emojis(movie_seat_list, column, row)
+                    break
             except ValueError as e:
                 print(e)
 
