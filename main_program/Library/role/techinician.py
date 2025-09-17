@@ -32,9 +32,9 @@ def report_issue():
     try:
         status = int(status_input)
         if status not in [0, 1, 2]:
-            raise ValueError
-    except ValueError:
-        print("invalid input")
+            raise ValueError (f"Status: {status} should be 0 or 1 or 2")
+    except ValueError as e:
+        print(f"Invalid Input,{e}")
         return
 
     if issue_type == "aircond":
