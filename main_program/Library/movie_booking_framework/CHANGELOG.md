@@ -68,5 +68,43 @@
 - now this framework will delete the temp file by itself(if it is not temp file, it will warn and don't delete
 
 ## [1.15.2] -2025-09-14
+### Added
+- Add `get_capacity` function to get capacity (a version)
+- Added `x_range_calculate` function (h version)
+- Added `y_range_calculate` function (h version)
+- Added `find_longest_list` function (h version)
+- Added `movie_seats_pointer_valid_check` function (j version)
+- Added `movie_seats_specify_value` function (j version)
+- Just add the 🎯 for ` print_movie_seat_as_emojis` (k version)
 ### Changed
-- Now The `print_movie_seat_as_emojis` function can draw pointer!
+- Remove csv library from `movie_list_framework.py` (e version)
+- Now The `print_movie_seat_as_emojis` function can draw pointer! (first version)
+- Now `read_movie_list_csv` function didn't need the csv library (b version)
+- Now `update_movie_list_csv` function didn't need the csv library (c version)
+- Now `add_movie_list_csv` function didn't need the csv library (d version)
+- Refactor pointer logic in `print_movie_seat_as_emojis` to be independent,now you can draw x_pointer or y_pointer alone! (g version)
+
+### Fixed
+- Add valid check for `get_capacity` (f version)
+- Add boundary checks and align jagged arrays (though theoretically shouldn't exist) (i version)
+
+## [1.15.3] -2025-09-16
+### Added
+- Add `get_biggest_number_of_code` function,now you can find the biggest number of the code_list! (first version)
+- Add `_get_biggest_number_of_list` function (first version)
+- Add `_list_str_number_to_int_number` function (first version)
+- Add `_detect_got_digit` function (first version)
+
+### Changed
+- Now `get_biggest_number_of_code` will not read the csv file (and csv file is not parameter anymore),it will receive the parameter list (a version)
+- change `_movie_seats_csv_valid_check`'s re.fullmatch to re.match (a version)
+
+## [1.16.0] - 2025-09-17
+### Added
+- **Added High-Level API `link_seats`**: This new top-level function automates the entire business logic of synchronizing booking records with the seat map. It first initializes all movie seats from templates and then updates them to a "booked" state (`1`) based on the data in `booking_data.csv`.
+- **Added `movie_seats_csv_whole_init` and `movie_seats_init` functions**: These functions work together to initialize or reset all seat maps in `movie_seat.csv` according to their corresponding templates from `template_seats.csv`.
+- **Added `get_movie_code_x_y_value_list` utility function**: A helper function to safely extract and parse `movie_code`, `x_axis`, and `y_axis` from a single booking data row.
+- **Added `skip_valid_check` parameter**: Introduced an optional `skip_valid_check` boolean parameter to major functions (`read`, `update`, `add`, `delete`) to bypass CSV validation for improved performance in controlled scenarios.
+### Changed
+- **Cross-Framework Integration**: The framework now imports and utilizes `read_movie_list_csv` from `movie_list_framework` to handle booking data, demonstrating enhanced modular collaboration.
+- **Improved Error Handling**: The `link_seats` function now includes validation to prevent booking on an unavailable seat (state `-1`), raising a `ValueError` for data integrity.
