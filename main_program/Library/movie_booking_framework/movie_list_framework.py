@@ -1,13 +1,10 @@
-import os
-import re
-import warnings
-from movie_booking_system.main_program.Library.movie_booking_framework.movie_seats_framework import  _get_path,_overwrite_file,parse_csv_line,format_csv_line
+from framework_utils import *
 
 
 def read_movie_list_csv(movie_list_csv: str, movie_list: list, movie_code: str = "all", movie_mode: bool = True,
                         code_location: int = 0) -> None:
     try:
-        movie_list_csv_path = _get_path(movie_list_csv)
+        movie_list_csv_path = get_path(movie_list_csv)
         with open(movie_list_csv_path, 'r') as mv_csvfile:
             next(mv_csvfile)
             if movie_code == "all":
@@ -37,7 +34,7 @@ def read_movie_list_csv(movie_list_csv: str, movie_list: list, movie_code: str =
 
 def update_movie_list_csv(movie_list_csv: str, movie_list: list, movie_code: str = "all",
                           code_location: int = 0) -> None:
-    movie_list_csv_path = _get_path(movie_list_csv)
+    movie_list_csv_path = get_path(movie_list_csv)
     movie_list_csv_temp_path = os.path.dirname(movie_list_csv_path)
 
     try:
@@ -71,7 +68,7 @@ def update_movie_list_csv(movie_list_csv: str, movie_list: list, movie_code: str
                     raise IndexError("Movie Code is not in the list!")
     except Exception as e:
         raise Exception(f"UPDATE LIST ERROR!ERROR:{e}")
-    _overwrite_file(overwrited_file_csv=movie_list_csv, original_file_csv=f"{movie_list_csv}.temp")
+    overwrite_file(overwrited_file_csv=movie_list_csv, original_file_csv=f"{movie_list_csv}.temp")
 
 def add_movie_list_csv(movie_list_csv: str, movie_list: list, movie_code: str, code_location: int = 0) -> None:
     try:
@@ -85,7 +82,7 @@ def add_movie_list_csv(movie_list_csv: str, movie_list: list, movie_code: str, c
                 code_list_matcher += 1
         if code_list_matcher == 0: raise ValueError(f"Movie Code is not matched in {movie_list}!")
         if code_list_matcher > 1: warnings.warn(f"More than 2 Movie Code Founded in {movie_list}! System will use the First one")
-        movie_list_csv_path: str = _get_path(movie_list_csv)
+        movie_list_csv_path: str = get_path(movie_list_csv)
         movie_list_csv_temp_path: str = os.path.dirname(movie_list_csv_path)
         with (open(movie_list_csv_path, 'r') as mvl_csv_r,
                 open(os.path.join(movie_list_csv_temp_path, f"{movie_list_csv}.temp"), 'w') as mvl_csv_w):
@@ -104,10 +101,10 @@ def add_movie_list_csv(movie_list_csv: str, movie_list: list, movie_code: str, c
         raise ValueError(f"ADD MOVIE FAILED! ERROR:{e}")
     except Exception as e:
         raise Exception(f"ADD MOVIE FAILED! UNKNOWN ERROR:{e}")
-    _overwrite_file(overwrited_file_csv=movie_list_csv, original_file_csv=f"{movie_list_csv}.temp")
+    overwrite_file(overwrited_file_csv=movie_list_csv, original_file_csv=f"{movie_list_csv}.temp")
 
 def delete_movie_list_csv (movie_list_csv : str,movie_code : str,code_location : int = 0) -> None:
-    movie_list_csv_path = _get_path(movie_list_csv)
+    movie_list_csv_path = get_path(movie_list_csv)
     movie_list_csv_temp_path = os.path.dirname(movie_list_csv_path)
     with (open(movie_list_csv_path,'r') as mvl_csv_r,
           open(os.path.join(movie_list_csv_temp_path,f"{movie_list_csv}.temp"),'w') as mvl_csv_w):
@@ -123,53 +120,10 @@ def delete_movie_list_csv (movie_list_csv : str,movie_code : str,code_location :
             raise ValueError(f"Didn't find the movie code:{movie_code} in {movie_list_csv}!")
         if code_csv_matcher > 1:
             warnings.warn(f"Found more than 2 movie code:{movie_code} in {movie_list_csv},system will delete all!")
-    _overwrite_file(overwrited_file_csv=movie_list_csv, original_file_csv=f"{movie_list_csv}.temp")
+    overwrite_file(overwrited_file_csv=movie_list_csv, original_file_csv=f"{movie_list_csv}.temp")
 
 
 
-def get_biggest_number_of_code (code_list : list, code_location : int, number_of_prefix : int, prefix_got_digit : bool = False) -> int:
-    try:
-        code_number_list : list =[]
-        prefix_list : list =[]
-        for row in code_list:
-            code_number_list.append(row[code_location][number_of_prefix:])
-            prefix_list.append(row[code_location][0:number_of_prefix])
-        if prefix_got_digit:
-            pass
-        elif _detect_got_digit(prefix_list= prefix_list) :
-            raise ValueError(f"The prefix:{prefix_list} got number! "
-                             f"if you except the prefix is contain number,SET prefix_got_digit to True!")
-        number_list = _list_str_number_to_int_number(str_number_list= code_number_list)
-        biggest_number = _get_biggest_number_of_list(number_list= number_list)
-        return biggest_number
-    except Exception as e:
-        raise Exception(f"GET BIGGEST NUMBER OF CODE FAILED. ERROR: {str(e)}")
-
-
-def _get_biggest_number_of_list (number_list : list) -> int:
-    biggest_number : int = 0
-    try:
-        for row in number_list:
-            if row > biggest_number:
-                biggest_number = row
-        return biggest_number
-    except ValueError:
-        raise ValueError(f"The number_list:{number_list} is not int type list!")
-
-def _list_str_number_to_int_number (str_number_list : list) -> list:
-    int_list : list =[]
-    try:
-        for number in str_number_list:
-            int_list.append(int(number))
-        return int_list
-    except ValueError:
-        raise ValueError(f"The list : {str_number_list} is contain string!,_list_str_to_int function is just convert ‘1’ to 1")
-
-def _detect_got_digit(prefix_list : list) -> bool:
-    for row in prefix_list:
-        if row.isdigit():
-            return True
-    return False
 
 
 

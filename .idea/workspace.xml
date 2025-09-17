@@ -4,12 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0ea8b363-fbeb-45e9-9d45-12a8498462b3" name="Changes" comment="-just template of movie_seats">
+    <list default="true" id="0ea8b363-fbeb-45e9-9d45-12a8498462b3" name="Changes" comment="Seat &amp; List FrameWork Version 1.16.0&#10;- the biggest update ever in this framework!&#10;- see the changelog!">
+      <change afterPath="$PROJECT_DIR$/main_program/Library/movie_booking_framework/cinema_services.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/main_program/Library/movie_booking_framework/framework_utils.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/main_program/Library/movie_booking_framework/id_generator.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/main_program/Library/movie_booking_framework/seat_visualizer.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/main_program/Library/movie_booking_framework/valid_checker.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main_program/Data/booking_data.csv" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/Data/booking_data.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main_program/Data/movie_seat.csv" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/Data/movie_seat.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main_program/Data/movie_seats_template.csv" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/Data/template_seats.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main_program/Library/movie_booking_framework/CHANGELOG.md" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/Library/movie_booking_framework/CHANGELOG.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main_program/Library/movie_booking_framework/movie_list_framework.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/Library/movie_booking_framework/movie_list_framework.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main_program/Library/movie_booking_framework/movie_seats_framework.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/Library/movie_booking_framework/movie_seats_framework.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main_program/Library/role/customer.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/Library/role/customer.py" afterDir="false" />
     </list>
@@ -53,30 +55,30 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "Python.__movie_framework__.executor": "Run",
-    "Python.__movie_list_framework__.executor": "Run",
-    "Python.__movie_seats_framework__.executor": "Run",
-    "Python._movie_seats_framework_.executor": "Run",
-    "Python.customer.executor": "Run",
-    "Python.login_system.executor": "Run",
-    "Python.main_program.Library.movie_booking_operation.user_operation.executor": "Run",
-    "Python.movie_booking_system.main_program.Library.movie_booking_operation.user_operation.executor": "Run",
-    "Python.movie_list_framework.executor": "Run",
-    "Python.movie_list_test.executor": "Debug",
-    "Python.movie_seats_framework.executor": "Run",
-    "Python.user_operation.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "test",
-    "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "C:/Users/leezh/PycharmProjects/movie_booking_system/Main Program/Library/system_login_framework/Login/login_system",
-    "settings.editor.selected.configurable": "inlay.hints"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;Python.__movie_framework__.executor&quot;: &quot;Run&quot;,
+    &quot;Python.__movie_list_framework__.executor&quot;: &quot;Run&quot;,
+    &quot;Python.__movie_seats_framework__.executor&quot;: &quot;Run&quot;,
+    &quot;Python._movie_seats_framework_.executor&quot;: &quot;Run&quot;,
+    &quot;Python.customer.executor&quot;: &quot;Run&quot;,
+    &quot;Python.login_system.executor&quot;: &quot;Run&quot;,
+    &quot;Python.main_program.Library.movie_booking_operation.user_operation.executor&quot;: &quot;Run&quot;,
+    &quot;Python.movie_booking_system.main_program.Library.movie_booking_operation.user_operation.executor&quot;: &quot;Run&quot;,
+    &quot;Python.movie_list_framework.executor&quot;: &quot;Run&quot;,
+    &quot;Python.movie_list_test.executor&quot;: &quot;Debug&quot;,
+    &quot;Python.movie_seats_framework.executor&quot;: &quot;Run&quot;,
+    &quot;Python.user_operation.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;test&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/leezh/PycharmProjects/movie_booking_system/Main Program/Library/system_login_framework/Login/login_system&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;inlay.hints&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\leezh\PycharmProjects\movie_booking_system\Main Program\Library\system_login_framework\Login\login_system" />
@@ -304,7 +306,15 @@
       <option name="project" value="LOCAL" />
       <updated>1758045037199</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="Seat &amp; List FrameWork Version 1.16.0&#10;- the biggest update ever in this framework!&#10;- see the changelog!">
+      <option name="closed" value="true" />
+      <created>1758050850246</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1758050850246</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -341,7 +351,8 @@
     <MESSAGE value="-just change the import location&#10;-change the parameter (movie_list -&gt; code_list) in `get_biggest_number_of_code`" />
     <MESSAGE value="Seat &amp; List FrameWork Version 1.15.3 a&#10;- change `_movie_seats_csv_valid_check`'s re.fullmatch to re.match" />
     <MESSAGE value="-just template of movie_seats" />
-    <option name="LAST_COMMIT_MESSAGE" value="-just template of movie_seats" />
+    <MESSAGE value="Seat &amp; List FrameWork Version 1.16.0&#10;- the biggest update ever in this framework!&#10;- see the changelog!" />
+    <option name="LAST_COMMIT_MESSAGE" value="Seat &amp; List FrameWork Version 1.16.0&#10;- the biggest update ever in this framework!&#10;- see the changelog!" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
