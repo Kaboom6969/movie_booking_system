@@ -1,6 +1,7 @@
 import csv
 import os
 from main_program.Library.movie_booking_framework.framework_utils import get_path
+from main_program.Library.movie_booking_framework.movie_list_framework import *
 
 def find_file(start_path, target_file):
     for root, dirs, files in os.walk(start_path):
@@ -8,21 +9,13 @@ def find_file(start_path, target_file):
             return os.path.join(root, target_file)
     return None
 
-
-def view_upcoming_movies(file_name : str):
-    csv_path = get_path(file_name)
-
-    if csv_path:
-        try:
-            with open(csv_path, mode='r') as file:
-                reader = csv.DictReader(file)
-                print("Upcoming Movie:")
-                for row in reader:
-                    print(f"Movie Code: {row['movie_code']}")
-        except Exception as e:
-            print(f"Read CSV File Error: {e}")
-    else:
-        print("CSV file not found")
+#这个是利用movie_booking框架的例子，（请将后续的函数都修改至适配此框架）
+def view_upcoming_movies(file_name : str,movie_code_column_location : int = 1):
+    movie_list : list = []
+    read_movie_list_csv (movie_list_csv= file_name,movie_list= movie_list,code_location= 0)
+    print("Upcoming Movie:")
+    for row in movie_list:
+        print(f"Movie Code: {row[movie_code_column_location]}")
 
 
 def report_issue():
