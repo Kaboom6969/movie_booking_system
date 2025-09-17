@@ -523,4 +523,3 @@ if __name__ == '__main__':
     read_movie_seats_csv(movie_seats_csv= "movie_seat.csv",movie_seats= movie_seats,movie_code="001")
     fill_movie_seats_list(movie_seat_list= movie_seats,fill_number= 0)
     update_movie_seats_csv(movie_seats_csv="movie_seat.csv",movie_seats= movie_seats,movie_code="001")
-
