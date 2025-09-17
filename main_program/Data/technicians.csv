@@ -1,0 +1,4 @@
+tech_code,movie_code,aircond_status,speaker_status,projector_status
+TC001,001,2,0,0
+TC002,002,0,0,0
+TC003,003,0,0,0
