@@ -1,10 +1,15 @@
 from logging import raiseExceptions
 
-from movie_booking_system.main_program.Library.movie_booking_framework.movie_list_framework import read_movie_list_csv
-from movie_booking_system.main_program.Library.movie_booking_framework.movie_seats_framework import *
-from movie_booking_system.main_program.Library.system_login_framework.Login.login_system.login_system import *
+
 import os
 from datetime import datetime
+from movie_booking_system.main_program.Library.movie_booking_framework.movie_list_framework import *
+from movie_booking_system.main_program.Library.movie_booking_framework.movie_seats_framework import *
+from movie_booking_system.main_program.Library.movie_booking_framework.seat_visualizer import *
+from movie_booking_system.main_program.Library.movie_booking_framework.cinema_services import *
+from movie_booking_system.main_program.Library.movie_booking_framework.framework_utils import *
+from movie_booking_system.main_program.Library.movie_booking_framework.valid_checker import *
+from movie_booking_system.main_program.Library.movie_booking_framework.id_generator import *
 
 
 def get_customer_csv_path():
@@ -106,7 +111,7 @@ def check_booking_full(movie_seat_list):
     return False
 
 
-def handle_booking(movie_seat_csv, booking_data_csv,template_seats_csv,movie_seat_list, input_movie_code, user_id):
+def handle_booking(movie_seats_csv, booking_data_csv, template_seats_csv, movie_seat_list, input_movie_code, user_id):
     booking_full = check_booking_full(movie_seat_list)
     if booking_full:
         print("booking is full")
@@ -135,7 +140,6 @@ def handle_booking(movie_seat_csv, booking_data_csv,template_seats_csv,movie_sea
             continue
         try:
             seat_value = movie_seats_specify_value(movie_seat_list, column, row)
-            print(seat_value)
         except IndexError as e:
             print(e)
             continue
@@ -152,13 +156,18 @@ def handle_booking(movie_seat_csv, booking_data_csv,template_seats_csv,movie_sea
             booking_id = generate_booking_id(booking_data_csv)
             data_row = [[booking_id, user_id, input_movie_code, today, 2, column, row, 'Clerk']]
             write_booking_data(booking_data_csv_path, data_row)
-            link_seats(movie_seats_csv=movie_seat_csv, booking_data_csv=booking_data_csv,
+            link_seats(movie_seats_csv=movie_seats_csv, booking_data_csv=booking_data_csv,
                        template_seats_csv=template_seats_csv)
-            print_movie_seat_as_emojis(movie_seat_list, column, row)
+            movie_seat_list.clear()
+            read_movie_seats_csv(movie_seats_csv=movie_seats_csv, movie_seats=movie_seat_list,
+                                 movie_code=input_movie_code)
+            print_movie_seat_as_emojis(movie_seat_list)
             break
 
 
-def checking_movie(movie_seat_list):
+def checking_movie(movie_seats_csv:str,movie_seat_list:list,input_movie_code:str):
+    movie_seat_list.clear()
+    read_movie_seats_csv(movie_seats_csv=movie_seats_csv, movie_seats=movie_seat_list, movie_code=input_movie_code)
     print_movie_seat_as_emojis(movie_seat_list)
     capacity = get_capacity(movie_seat_list)
     print(f"\n This movie seat capacity is {capacity}")
@@ -234,8 +243,15 @@ def check_booking_data(booking_data_csv, input_movie_code):
         else:
             return True
 
+def modify_booking_data(booking_data_csv, booking_id):
+    with open(booking_data_csv, 'r', newline='') as f:
+        reader = csv.reader(f)
+        for i in reader:
+            print(i)
 
-def modify_booking_data(booking_data_csv, input_movie_code, movie_seat_list, movie_seats_csv, user_id):
+
+
+def modify_booking(movie_seats_csv, booking_data_csv, template_seats_csv, movie_seat_list, input_movie_code, user_id):
     booking_data_exist = check_booking_data(booking_data_csv, input_movie_code)
     if booking_data_exist:
         while True:
@@ -245,13 +261,12 @@ def modify_booking_data(booking_data_csv, input_movie_code, movie_seat_list, mov
             choice = get_modify_choice()
             # cancel booking(1), modify booking(2), quit(3)
             if choice == 1:
-                modify_movie_seats_list(movie_seat_list, int(column), int(row), 0)
-                update_movie_seats_csv(movie_seats_csv=movie_seats_csv, movie_seats=movie_seat_list,
-                                       movie_code=input_movie_code)
                 delete_user_booking_data(booking_data_csv_path, booking_id)
+                link_seats(movie_seats_csv=movie_seats_csv, booking_data_csv=booking_data_csv,
+                           template_seats_csv=template_seats_csv)
                 break
             elif choice == 2:
-                handle_booking(movie_seat_csv=movie_seats_csv, booking_data_csv=booking_data_csv,
+                handle_booking(movie_seats_csv=movie_seats_csv, booking_data_csv=booking_data_csv,template_seats_csv=template_seats_csv,
                                movie_seat_list=movie_seat_list, input_movie_code=input_movie_code, user_id=user_id)
                 modify_movie_seats_list(movie_seat_list, int(column), int(row), 1)
                 update_movie_seats_csv(movie_seats_csv=movie_seats_csv, movie_seats=movie_seat_list,
@@ -281,17 +296,18 @@ def clerk(user_id):
         while True:
             choice = get_user_choice()
             if choice == 1:
-                handle_booking(movie_seat_csv="movie_seat.csv", booking_data_csv="booking_data.csv",
+                handle_booking(movie_seats_csv="movie_seat.csv", booking_data_csv="booking_data.csv",
                                template_seats_csv="template_seats.csv",
                                movie_seat_list=movie_seat_list, input_movie_code=input_movie_code, user_id=user_id)
 
             elif choice == 2:
-                modify_booking_data(booking_data_csv="booking_data.csv", input_movie_code=input_movie_code,
-                                    movie_seat_list=movie_seat_list, movie_seats_csv="movie_seat.csv", user_id=user_id)
+                modify_booking(movie_seats_csv="movie_seat.csv", booking_data_csv="booking_data.csv",
+                                    template_seats_csv="template_seats.csv",
+                                    movie_seat_list=movie_seat_list, input_movie_code=input_movie_code, user_id=user_id)
                 link_seats(movie_seats_csv="movie_seat.csv", booking_data_csv="booking_data.csv",
                            template_seats_csv="template_seats.csv")
             elif choice == 3:
-                checking_movie(movie_seat_list)
+                checking_movie(movie_seats_csv="movie_seat.csv", movie_seat_list=movie_seat_list, input_movie_code=input_movie_code)
             elif choice == 4:
                 print("receipt")
             elif choice == 5:
@@ -304,6 +320,8 @@ def clerk(user_id):
 
 def main():
     clerk(user_id='K001')
+    #path = get_Data_Directory_path("booking_data.csv")
+    #modify_booking_data(booking_data_csv=path,booking_id="")
 
 
 if __name__ == '__main__':

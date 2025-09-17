@@ -53,6 +53,10 @@
 - New function to check movie_seat is full or not
 - `check_booking_data`
 - New function to check booking_data.csv exist or hot
+## [1.1.0] - 2025-09-17
+### Changed
+- Replaced manual seat update (`modify_movie_seats_list` + `update_movie_seats_csv`)
+  with `link_seats` to ensure seat and booking data synchronization.
 
 
 ### Fixed
