@@ -124,7 +124,7 @@ def add_movie_seats_csv (movie_seats_csv : str, movie_seats : list, movie_code :
                     if row and row[0] == "CODE" and row[1] == movie_code:    #Check if movie_code already exists
                         raise ValueError ("Movie Code Already Exists! You Should Use update_movie_seats_csv function!")
         #Create headers for CODE, START, and END rows
-            longest_row_length = len(_find_longest_list(movie_seats))
+            longest_row_length = len(find_longest_list(movie_seats))
             code_header : list = _header_create(header_text = "CODE", movie_seats_length= longest_row_length + 1, append_thing="")
             code_header[1] = movie_code
             code_header[2] = template_code
@@ -249,18 +249,8 @@ def modify_movie_seats_list(movie_seat_list: list, x_axis: int, y_axis: int, tar
         raise IndexError(f"y_axis should be between 1 and {len(movie_seat_list)}\nYour y_axis is {y_axis}")
     movie_seat_list[len(movie_seat_list) - y_axis][x_axis - 1] = str(target_number)     #Modify specified seat
 
-def x_range_calculate(movie_seats : list) -> list:
-    x_max = len(_find_longest_list(nested_list= movie_seats))
-    x_min = 1
-    return [x_min,x_max]
 
-def y_range_calculate(movie_seats : list) -> list:
-    if not movie_seats: raise ValueError(f"{movie_seats} is empty!")
-    y_max = len(movie_seats)
-    y_min = 1
-    return [y_min,y_max]
-
-def _find_longest_list(nested_list : list) -> list:
+def find_longest_list(nested_list : list) -> list:
     if not nested_list: raise ValueError(f"{nested_list} is empty!")
     longest_list : list = []
     largest_element_count : int = 0
