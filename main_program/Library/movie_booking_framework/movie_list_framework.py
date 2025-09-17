@@ -1,7 +1,7 @@
 import os
 import re
 import warnings
-from main_program.Library.movie_booking_framework.movie_seats_framework import _get_path,_overwrite_file,parse_csv_line,format_csv_line
+from movie_booking_system.main_program.Library.movie_booking_framework.movie_seats_framework import  _get_path,_overwrite_file,parse_csv_line,format_csv_line
 
 
 def read_movie_list_csv(movie_list_csv: str, movie_list: list, movie_code: str = "all", movie_mode: bool = True,

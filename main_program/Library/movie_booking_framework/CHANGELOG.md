@@ -108,3 +108,6 @@
 ### Changed
 - **Cross-Framework Integration**: The framework now imports and utilizes `read_movie_list_csv` from `movie_list_framework` to handle booking data, demonstrating enhanced modular collaboration.
 - **Improved Error Handling**: The `link_seats` function now includes validation to prevent booking on an unavailable seat (state `-1`), raising a `ValueError` for data integrity.
+
+### Fixed
+- **Fixed circular import `read_movie_list_csv` import from movie_seats_framework.py

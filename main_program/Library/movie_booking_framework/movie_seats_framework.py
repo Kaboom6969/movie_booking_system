@@ -2,7 +2,7 @@ import csv #From python standard library
 import warnings #From python standard library
 import os #From python standard library
 import re #From python standard library
-from movie_list_framework import read_movie_list_csv
+
 
 TARGET_DIRECTORY = "Data"
 
@@ -497,7 +497,8 @@ def find_longest_list(nested_list : list) -> list:
 ############################################################################################################################
 #higher level fucntion
 def link_seats (movie_seats_csv : str, booking_data_csv : str,template_seats_csv : str,book_movie_code_location : int = 2, book_x_seats_location : int = 5, book_y_seats_location : int = 6) -> None:
-
+    from movie_booking_system.main_program.Library.movie_booking_framework.movie_list_framework import \
+        read_movie_list_csv
     booking_data_list : list = []
     movie_seats_csv_whole_init(movie_seats_csv= movie_seats_csv,template_seats_csv= template_seats_csv)
     read_movie_list_csv(movie_list_csv= booking_data_csv,movie_list=booking_data_list)
