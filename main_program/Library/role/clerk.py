@@ -3,13 +3,13 @@ from logging import raiseExceptions
 
 import os
 from datetime import datetime
-from movie_booking_system.main_program.Library.movie_booking_framework.movie_list_framework import *
-from movie_booking_system.main_program.Library.movie_booking_framework.movie_seats_framework import *
-from movie_booking_system.main_program.Library.movie_booking_framework.seat_visualizer import *
-from movie_booking_system.main_program.Library.movie_booking_framework.cinema_services import *
-from movie_booking_system.main_program.Library.movie_booking_framework.framework_utils import *
-from movie_booking_system.main_program.Library.movie_booking_framework.valid_checker import *
-from movie_booking_system.main_program.Library.movie_booking_framework.id_generator import *
+from ....main_program.Library.movie_booking_framework.movie_list_framework import *
+from ....main_program.Library.movie_booking_framework.movie_seats_framework import *
+from ....main_program.Library.movie_booking_framework.seat_visualizer import *
+from ....main_program.Library.movie_booking_framework.cinema_services import *
+from ....main_program.Library.movie_booking_framework.framework_utils import *
+from ....main_program.Library.movie_booking_framework.valid_checker import *
+from ....main_program.Library.movie_booking_framework.id_generator import *
 
 
 def get_customer_csv_path():
