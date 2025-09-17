@@ -1,6 +1,6 @@
-from main_program.Library.movie_booking_framework.seat_visualizer import *
-from main_program.Library.movie_booking_framework.id_generator import *
-from main_program.Library.movie_booking_framework.cinema_services import *
+from ....main_program.Library.movie_booking_framework.seat_visualizer import *
+from ....main_program.Library.movie_booking_framework.id_generator import *
+from ....main_program.Library.movie_booking_framework.cinema_services import *
 import datetime
 
 DEFAULT_WIDTH = 20
