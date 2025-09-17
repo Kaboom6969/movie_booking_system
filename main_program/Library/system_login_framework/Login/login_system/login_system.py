@@ -6,6 +6,11 @@ from operator import truediv
 
 from movie_booking_system.main_program.Library.role.clerk import *
 
+def get_data_directory(path):
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    normpath = os.path.normpath(os.path.join(base_dir, "..", "..", "..","..", "Data",path))
+    return normpath
+
 def get_content(path):
     """
     Read file content if exists.
@@ -365,8 +370,15 @@ def main():
     """
     Entry point: assign file paths for different roles.
     """
-    role(customer_data=os.path.join(BASE_DIR, 'customer.csv'), clerk_data=os.path.join(BASE_DIR, 'clerk.csv'),
-         manager_data=os.path.join(BASE_DIR, 'manager.csv'), technician_data=os.path.join(BASE_DIR, 'technician.csv'))
+    customer_csv = get_data_directory('customer.csv')
+    clerk_csv = get_data_directory('clerk.csv')
+    manager_csv = get_data_directory('manager.csv')
+    technician_csv = get_data_directory('technician.csv')
+
+    role(customer_data=customer_csv, clerk_data=clerk_csv,
+         manager_data= manager_csv, technician_data=technician_csv)
+
+
 
 
 if __name__ == '__main__':
@@ -374,10 +386,9 @@ if __name__ == '__main__':
     count_lower = 0
     count_upper = 0
     count_number = 0
-
-    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
     while True:
         try:
             main()
+            pass
         except ValueError as e:
             print(e)
