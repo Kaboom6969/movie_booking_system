@@ -1,6 +1,5 @@
 import os
 import warnings
-import csv
 
 TARGET_DIRECTORY = "Data"
 def parse_csv_line(line: str) -> list:

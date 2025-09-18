@@ -111,3 +111,21 @@
 
 ### Fixed
 - **Fixed circular import `read_movie_list_csv` import from movie_seats_framework.py
+
+## [1.16.1] - 2025-09-18
+### Added
+- add `generate_code_id` from `customer.py`! (d version)
+### Change
+- split the framework (from 2 files to 7 files)
+- it is time to remove all csv library from this system! (in progress) (c version)
+- now `read_movie_list_csv` can choose want to read header or not (d version)
+- now `add_movie_seats_csv` is not depend on csv library
+- now `update_movie_seats_csv` is not depend on csv library
+- now `delete_movie_seats_csv` is not depend on csv library
+### Fixed
+- now the circular import bug fix (a version)
+- fix the bug that `_x_location_add` and  `_y_location_add` is not defined (b version)
+
+## [1.16.2] - 20205-09-18
+### Change
+- now the whole `movie_booking_framework` is not depend on csv library!
