@@ -1,5 +1,3 @@
-
-import re #From python standard library
 from .framework_utils import *
 from .valid_checker import movie_seats_valid_check,movie_seats_csv_valid_check,movie_seats_pointer_valid_check
 
