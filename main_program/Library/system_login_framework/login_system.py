@@ -175,11 +175,11 @@ def check_password(password, num):
     if not has_special_char: raise ValueError("Password should contain at least one special character!")
 
 
-def require(char):
-    """
+"""def require(char):
+    
     Helper function: count type of character (lower/upper/number)
     Updates global counters.
-    """
+    
     global count_lower, count_number, count_upper
     lower_list = []
     upper_list = []
@@ -201,7 +201,7 @@ def require(char):
         count_number += 1
         return True
     else:
-        return False
+        return False"""
 
 
 def check_user_name(new_name, path):
@@ -376,10 +376,6 @@ def main():
 
 
 if __name__ == '__main__':
-    number = 0
-    count_lower = 0
-    count_upper = 0
-    count_number = 0
     while True:
         try:
             main()
