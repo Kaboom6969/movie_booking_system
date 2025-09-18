@@ -7,7 +7,7 @@ def parse_csv_line(line: str) -> list:
     return line.strip().split(',')
 
 def format_csv_line(data_list: list) -> str:
-    return ','.join(map(str, data_list)) + '\n'
+    return ','.join(map(str,data_list)) +'\n'
 
 def overwrite_file(overwrited_file_csv: str, original_file_csv: str, delete_after_overwrite: bool = True) -> None:
     try:
