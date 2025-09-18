@@ -7,7 +7,7 @@ def parse_csv_line(line: str) -> list:
     return line.strip().split(',')
 
 def format_csv_line(data_list: list) -> str:
-    return ','.join(map(str, data_list)) + '\n'
+    return ','.join(map(str,data_list)) +'\n'
 
 def overwrite_file(overwrited_file_csv: str, original_file_csv: str, delete_after_overwrite: bool = True) -> None:
     try:
@@ -15,10 +15,8 @@ def overwrite_file(overwrited_file_csv: str, original_file_csv: str, delete_afte
         original_file_csv_path = get_path(original_file_csv)
         with open(original_file_csv_path, 'r', newline='') as ori_file_r, open(overwrited_file_csv_path, 'w',
                                                                                newline='') as overwrited_file_w:
-            ori_file_reader = csv.reader(ori_file_r)  # Create reader for source file
-            overwrited_file_writer = csv.writer(overwrited_file_w)  # Create writer for target file
-            for row in ori_file_reader:  # Copy each row
-                overwrited_file_writer.writerow(row)
+            for line in ori_file_r:
+                overwrited_file_w.write(line)
     except FileNotFoundError:
         raise FileNotFoundError(
             f"OVERWRITE FILE FAILED! NO FILE FOUND! OVERWRITED FILE:{overwrited_file_csv}\nORIGINAL FILE:{original_file_csv}")

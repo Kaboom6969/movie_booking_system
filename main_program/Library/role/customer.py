@@ -107,14 +107,6 @@ def book_movie_buy(seats_value : str)-> bool:
         return False
 
 
-def generate_code_id (code_list : list, prefix_generate : str, code_location : int, number_of_prefix : int
-                      , prefix_got_digit : bool, code_id_digit_count : int) -> str:
-
-    code_number = get_biggest_number_of_code(code_list= code_list, code_location= code_location,
-                                             number_of_prefix= number_of_prefix, prefix_got_digit= prefix_got_digit) + 1
-    code_id = (prefix_generate + str(code_number).zfill(code_id_digit_count))
-    return code_id
-
 
 def _booking_data_create (book_id : str,user_id : str,movie_code : str,booking_date : str
                          ,booking_or_pay : str,x_seat : str, y_seat : str,source : str) -> list:

@@ -1,13 +1,7 @@
 import csv
 import os
-from ....main_program.Library.movie_booking_framework.framework_utils import get_path
-from ....main_program.Library.movie_booking_framework.movie_list_framework import *
+from movie_booking_system.main_program.Library.movie_booking_framework.movie_list_framework import *
 
-def find_file(start_path, target_file):
-    for root, dirs, files in os.walk(start_path):
-        if target_file in files:
-            return os.path.join(root, target_file)
-    return None
 
 #这个是利用movie_booking框架的例子，（请将后续的函数都修改至适配此框架）
 def view_upcoming_movies(file_name : str,movie_code_column_location : int = 1):
@@ -57,8 +51,8 @@ def check_equipment_status(file_name):
         raise FileNotFoundError(f"File:{file_name} not found")
 
 
-def update_equipment_status(movie_code, aircond_status, speaker_status, projector_status):
-    csv_path = os.path.join(os.path.dirname(__file__), 'technicians.csv')
+def update_equipment_status(movie_code, aircond_status, speaker_status, projector_status,file_name):
+    csv_path = get_path(file_name)
     rows = []
     found = False
     with open(csv_path, 'r') as f:
@@ -82,7 +76,7 @@ def update_equipment_status(movie_code, aircond_status, speaker_status, projecto
 
 
 if __name__ == "__main__":
-    view_upcoming_movies("technicians.csv")
-    check_equipment_status("technicians.csv")
-    # update_equipment_status('001', 1, 0, 2)
-    # report_issue()
+    # view_upcoming_movies("cinema_device_list.csv")
+    # check_equipment_status("cinema_device_list.csv")
+    # update_equipment_status('001', 0, 0, 0,"cinema_device_list.csv")
+    report_issue()
