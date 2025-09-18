@@ -155,12 +155,11 @@ def delete_movie_seats_csv (movie_seats_csv : str, movie_code : str,skip_valid_c
         movie_seats_csv_TEMP_path = os.path.dirname(movie_seats_csv_path)
         with (open(movie_seats_csv_path, 'r', newline ='') as ms_csv_r ,
               open(os.path.join(movie_seats_csv_TEMP_path,f"{movie_seats_csv}.temp"), "w", newline='') as ms_csv_w):
-            movie_seat_reader = csv.reader(ms_csv_r)
-            movie_seat_writer = csv.writer(ms_csv_w)
             list_found_all_times = False
             list_found = False
             delete_count = 0
-            for row in movie_seat_reader:
+            for lines in ms_csv_r:
+                row = parse_csv_line(lines)
                 if row and row[0] == "CODE" and row[1] == movie_code:
                     list_found = True
                     list_found_all_times = True
@@ -170,7 +169,7 @@ def delete_movie_seats_csv (movie_seats_csv : str, movie_code : str,skip_valid_c
                     delete_count += 1
                     continue
                 elif list_found: continue
-                movie_seat_writer.writerow(row)
+                ms_csv_w.write(format_csv_line(row))
             if list_found_all_times == False:
                 raise KeyError(f"Cannot Find The Movie Code! Movie Code : {movie_code}")
             if delete_count > 1:
