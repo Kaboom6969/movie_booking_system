@@ -42,3 +42,11 @@ def _detect_got_digit(prefix_list : list) -> bool:
         if row.isdigit():
             return True
     return False
+
+def generate_code_id (code_list : list, prefix_generate : str, code_location : int, number_of_prefix : int
+                      , prefix_got_digit : bool, code_id_digit_count : int) -> str:
+
+    code_number = get_biggest_number_of_code(code_list= code_list, code_location= code_location,
+                                             number_of_prefix= number_of_prefix, prefix_got_digit= prefix_got_digit) + 1
+    code_id = (prefix_generate + str(code_number).zfill(code_id_digit_count))
+    return code_id
