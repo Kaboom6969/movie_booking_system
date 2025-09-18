@@ -3,10 +3,10 @@ from logging import raiseExceptions
 
 import os
 from datetime import datetime
-from movie_booking_system.main_program.Library.movie_booking_framework.seat_visualizer import *
-from movie_booking_system.main_program.Library.movie_booking_framework.cinema_services import *
-from movie_booking_system.main_program.Library.movie_booking_framework.valid_checker import *
-from movie_booking_system.main_program.Library.movie_booking_framework.id_generator import *
+from main_program.Library.movie_booking_framework.seat_visualizer import *
+from main_program.Library.movie_booking_framework.cinema_services import *
+from main_program.Library.movie_booking_framework.valid_checker import *
+from main_program.Library.movie_booking_framework.id_generator import *
 
 
 # def get_customer_csv_path():
@@ -251,6 +251,7 @@ def modify_booking_data(booking_data_csv, booking_id,column,row):
     original_row : list = []
     read_movie_list_csv(movie_list_csv= booking_data_csv,movie_list= original_row,movie_code= booking_id)
     updated_rows = []
+    print(original_row)
     original_row[5] = str(column)
     original_row[6] = str(row)
     original_row[7] = 'Clerk'

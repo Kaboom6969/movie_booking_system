@@ -4,7 +4,7 @@ import os
 import csv
 from operator import truediv
 
-from movie_booking_system.main_program.Library.role.clerk import *
+from main_program.Library.role.clerk import *
 
 def get_data_directory(path):
     base_dir = os.path.dirname(os.path.abspath(__file__))
