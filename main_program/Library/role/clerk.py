@@ -244,14 +244,14 @@ def check_booking_data(booking_data_csv, input_movie_code):
                 return False
         return True
 
-def modify_booking_data(booking_data_csv, booking_id,column,row):
+def modify_booking_data(booking_data_csv, booking_id,column,row,code_location = 0):
     booking_data_path = get_path(booking_data_csv)
     original_row : list = []
     read_movie_list_csv(movie_list_csv= booking_data_csv,movie_list= original_row,movie_code= booking_id)
-    original_row[0][5] = str(column)
-    original_row[0][6] = str(row)
-    original_row[0][7] = 'Clerk'
-    updated_list : list = [original_row[0]]
+    original_row[code_location][5] = str(column)
+    original_row[code_location][6] = str(row)
+    original_row[code_location][7] = 'Clerk'
+    updated_list : list = [original_row[code_location]]
     update_movie_list_csv(movie_list_csv= booking_data_csv,movie_list= updated_list,movie_code= booking_id)
 
 
