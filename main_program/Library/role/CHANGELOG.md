@@ -72,6 +72,7 @@
 ### Fixed
 - Prevented invalid seat access by centralizing validation logic
 - Reduced redundant error handling and unnecessary global variable usage
+- Fixed a bug where the header was not displayed when using the modify and cancel functions.
 
 ## Customer
 ## [1.0.0] - 2025-09-13

@@ -30,7 +30,7 @@ from main_program.Library.movie_booking_framework.id_generator import *
 
 def get_and_print_booking_data(file_name, input_movie_code):
     booking_data_list = []
-    read_movie_list_csv(movie_list_csv=file_name, movie_list= booking_data_list)
+    read_movie_list_csv(movie_list_csv=file_name, movie_list= booking_data_list,read_header=True)
     #header = [Book ID,User ID,Movie Code,Date,(1:booking 2:paid),seat(x-axis),seat(y-axis),Source]
     header : list = booking_data_list[0]
     print(
@@ -282,6 +282,10 @@ def modify_booking(movie_seats_csv, booking_data_csv, template_seats_csv, movie_
                 read_movie_seats_csv(movie_seats_csv=movie_seats_csv, movie_seats=movie_seat_list,
                                      movie_code=input_movie_code)
                 print("Modify successfully")
+                movie_seat_list.clear()
+                read_movie_seats_csv(movie_seats_csv=movie_seats_csv, movie_seats=movie_seat_list,
+                                     movie_code=input_movie_code)
+                print_movie_seat_as_emojis(movie_seat_list)
                 break
             elif choice == 3:
                 break
