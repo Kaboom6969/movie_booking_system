@@ -28,22 +28,20 @@ from main_program.Library.movie_booking_framework.id_generator import *
 #         writer.writerows(data)
 
 
-def get_and_print_booking_data(path, input_movie_code):
+def get_and_print_booking_data(file_name, input_movie_code):
     booking_data_list = []
-    with (open(path, 'r') as f):
-        reader = csv.reader(f)
-        rows = list(reader)
-        # header = [Book ID,User ID,Movie Code,Date,(1:booking 2:paid),seat(x-axis),seat(y-axis),Source]
-        header = rows[0]
-        print(
-            f"{header[0]:<10}{header[1]:<10}{header[2]:<13}{header[3]:<13}{header[4]:<21}{header[5]:<15}{header[6]:<15}{header[7]:<15}")
-        for row in rows[1:]:
-            booking_id, user_id, movie_code, date, status, x_axis, y_axis, source = row
-            if input_movie_code == movie_code:
-                print(
-                    f"{booking_id:<10}{user_id:<10}{movie_code:<13}{date:<13}{status:<21}{x_axis:<15}{y_axis:<15}{source:<15}")
-                booking_data_list.append(row)
-        return booking_data_list
+    read_movie_list_csv(movie_list_csv=file_name, movie_list= booking_data_list,header_read= True)
+    #header = [Book ID,User ID,Movie Code,Date,(1:booking 2:paid),seat(x-axis),seat(y-axis),Source]
+    header : list = booking_data_list[0]
+    print(
+        f"{header[0]:<10}{header[1]:<10}{header[2]:<13}{header[3]:<13}{header[4]:<21}{header[5]:<15}{header[6]:<15}{header[7]:<15}")
+    for row in booking_data_list[1:]:
+        booking_id, user_id, movie_code, date, status, x_axis, y_axis, source = row
+        if input_movie_code == movie_code:
+            print(
+                f"{booking_id:<10}{user_id:<10}{movie_code:<13}{date:<13}{status:<21}{x_axis:<15}{y_axis:<15}{source:<15}")
+            booking_data_list.append(row)
+    return booking_data_list
 
 
 # def generate_booking_id(path):
@@ -265,8 +263,7 @@ def modify_booking(movie_seats_csv, booking_data_csv, template_seats_csv, movie_
     booking_data_exist = check_booking_data(booking_data_csv, input_movie_code)
     if booking_data_exist:
         while True:
-            booking_data_csv_path = get_path(booking_data_csv)
-            booking_data_list = get_and_print_booking_data(booking_data_csv_path, input_movie_code)
+            booking_data_list = get_and_print_booking_data(booking_data_csv, input_movie_code)
             column, row, booking_id = get_user_booking_axis_and_booking_id(booking_data_list)
             choice = get_modify_choice()
             #
