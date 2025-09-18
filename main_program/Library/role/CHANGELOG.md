@@ -69,6 +69,10 @@
 - Fixed a bug in `select_seat` where entering a column value could cause "out of index".
 - Fixed a bug in `modify_input_data` where updating data would raise an error.
 
+## [1.1.1] - 2025-09-18
+### Added
+- Implemented `generate_receipt` function, generates a receipt based on user input booking ID.
+
 ### Fixed
 - Prevented invalid seat access by centralizing validation logic
 - Reduced redundant error handling and unnecessary global variable usage
