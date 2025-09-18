@@ -116,24 +116,23 @@ def add_movie_seats_csv (movie_seats_csv : str, movie_seats : list, movie_code :
     try:
         with (open(movie_seats_csv_path, 'r', newline='') as ms_csv_r,
               open(os.path.join(movie_seats_csv_temp_path, f"{movie_seats_csv}.temp"), "w", newline='') as ms_csv_w):
-            movie_seat_reader = csv.reader(ms_csv_r)    #Create reader for CSV file
-            movie_seat_writer = csv.writer(ms_csv_w)    #Create writer for temporary file
-            for row in movie_seat_reader:       #Copy existing content
-                    movie_seat_writer.writerow(row)
-                    if row and row[0] == "CODE" and row[1] == movie_code:    #Check if movie_code already exists
-                        raise ValueError ("Movie Code Already Exists! You Should Use update_movie_seats_csv function!")
+            for lines in ms_csv_r:
+                row = parse_csv_line(lines)
+                ms_csv_w.write(format_csv_line(row))
+                if row and row[0] == "CODE" and row[1] == movie_code:    #Check if movie_code already exists
+                    raise ValueError ("Movie Code Already Exists! You Should Use update_movie_seats_csv function!")
         #Create headers for CODE, START, and END rows
             longest_row_length = len(find_longest_list(movie_seats))
             code_header : list = _header_create(header_text = "CODE", movie_seats_length= longest_row_length + 1, append_thing="")
             code_header[1] = movie_code
             code_header[2] = template_code
             start_header : list = _header_create(header_text = "START", movie_seats_length = longest_row_length + 1, append_thing="-2")
-            movie_seat_writer.writerow(code_header)       #Write movie_code row
-            movie_seat_writer.writerow(start_header)            #Write START row
+            ms_csv_w.write(format_csv_line(code_header))       #Write movie_code row
+            ms_csv_w.write(format_csv_line(start_header))           #Write START row
             for row in movie_seats:                              #Write seat data
-                movie_seat_writer.writerow(["",*row])           #Add empty first column [""...
+                ms_csv_w.write(format_csv_line(["",*row]))           #Add empty first column [""...
             end_header : list = _header_create(header_text = "END", movie_seats_length = longest_row_length + 1, append_thing="-2")
-            movie_seat_writer.writerow(end_header)              #Write END row
+            ms_csv_w.write(format_csv_line(end_header))              #Write END row
 
         overwrite_file(overwrited_file_csv= movie_seats_csv, original_file_csv=f"{movie_seats_csv}.temp")     #Overwrite original file
     except ValueError as e:
