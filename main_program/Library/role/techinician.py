@@ -1,7 +1,7 @@
 import csv
 import os
-from main_program.Library.movie_booking_framework.framework_utils import get_path
-from main_program.Library.movie_booking_framework.movie_list_framework import *
+from ....main_program.Library.movie_booking_framework.framework_utils import get_path
+from ....main_program.Library.movie_booking_framework.movie_list_framework import *
 
 def find_file(start_path, target_file):
     for root, dirs, files in os.walk(start_path):
