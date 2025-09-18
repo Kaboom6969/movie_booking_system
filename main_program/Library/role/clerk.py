@@ -1,7 +1,3 @@
-from logging import raiseExceptions
-
-
-import os
 from datetime import datetime
 from main_program.Library.movie_booking_framework.seat_visualizer import *
 from main_program.Library.movie_booking_framework.cinema_services import *
