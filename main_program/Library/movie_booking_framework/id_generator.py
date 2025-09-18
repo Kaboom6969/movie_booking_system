@@ -1,11 +1,8 @@
 
 def get_biggest_number_of_code (code_list : list, code_location : int, number_of_prefix : int, prefix_got_digit : bool = False) -> int:
     try:
-        code_number_list : list =[]
-        prefix_list : list =[]
-        for row in code_list:
-            code_number_list.append(row[code_location][number_of_prefix:])
-            prefix_list.append(row[code_location][0:number_of_prefix])
+        code_number_list : list = code_catcher(code_list= code_list, code_location= code_location, number_of_prefix= number_of_prefix)
+        prefix_list : list  = prefix_catcher(code_list= code_list, code_location= code_location, number_of_prefix= number_of_prefix)
         if prefix_got_digit:
             pass
         elif _detect_got_digit(prefix_list= prefix_list) :
@@ -17,6 +14,17 @@ def get_biggest_number_of_code (code_list : list, code_location : int, number_of
     except Exception as e:
         raise Exception(f"GET BIGGEST NUMBER OF CODE FAILED. ERROR: {str(e)}")
 
+def code_catcher (code_list : list,code_location : int,number_of_prefix : int) -> list:
+    code_number_list : list =[]
+    for row in code_list:
+        code_number_list.append(row[code_location][number_of_prefix:])
+    return code_number_list
+
+def prefix_catcher (code_list : list,code_location : int,number_of_prefix : int) -> list:
+    code_number_list : list =[]
+    for row in code_list:
+        code_number_list.append(row[code_location][0:number_of_prefix])
+    return code_number_list
 
 def _get_biggest_number_of_list (number_list : list) -> int:
     biggest_number : int = 0
