@@ -56,46 +56,45 @@ def update_movie_seats_csv (movie_seats_csv : str, movie_seats: list, movie_code
         movie_seats_csv_temp_path = os.path.dirname(movie_seats_csv_path)
         with (open(movie_seats_csv_path, 'r', newline='') as ms_csv_r,
               open(os.path.join(movie_seats_csv_temp_path, f"{movie_seats_csv}.temp"), "w", newline='') as ms_csv_w):
-                movie_seats_writer = csv.writer(ms_csv_w)        #Create writer for temporary file
-                movie_seats_reader = csv.reader(ms_csv_r)        #Create reader for CSV file
-                list_found_all_times = False                    #Track if movie_code was ever found
-                list_found = False                              #Track if currently processing target movie_code
-                start_status = False                            #Track if in START-END section
-                skip_status = False                             #skip status for skipping old data
-                for row in movie_seats_reader:
+            list_found_all_times = False  # Track if movie_code was ever found
+            list_found = False  # Track if currently processing target movie_code
+            start_status = False  # Track if in START-END section
+            skip_status = False  # skip status for skipping old data
+            for lines in ms_csv_r:
+                row = parse_csv_line(lines)
 
-                    if row and row[0] == "CODE" and row[1] == movie_code:                                #Found movie_code
-                        list_found = True
-                        list_found_all_times = True
-                        movie_seats_writer.writerow(row)
-                        continue
+                if row and row[0] == "CODE" and row[1] == movie_code:                                #Found movie_code
+                    list_found = True
+                    list_found_all_times = True
+                    ms_csv_w.write(format_csv_line(row))
+                    continue
 
-                    if list_found and row and row[0] == "START":
-                        start_status = True
-                        start_header : list = _header_create(header_text="START",movie_seats_length= len(movie_seats[0]) + 1, append_thing= "-2")
-                        movie_seats_writer.writerow(start_header)
+                if list_found and row and row[0] == "START":
+                    start_status = True
+                    start_header : list = _header_create(header_text="START",movie_seats_length= len(movie_seats[0]) + 1, append_thing= "-2")
+                    ms_csv_w.write(format_csv_line(start_header))
 
-                    if start_status:
+                if start_status:
 
-                        for i in range(0,len(movie_seats)):
-                            movie_seats_writer.writerow(["",*movie_seats[i][0:]])     #Write row with empty first column
+                    for i in range(0,len(movie_seats)):
+                        ms_csv_w.write(format_csv_line(["",*movie_seats[i][0:]]))     #Write row with empty first column
 
-                        end_header : list = _header_create(header_text="END",movie_seats_length= len(movie_seats[0]) + 1,append_thing= "-2")
-                        movie_seats_writer.writerow(end_header)
-                        start_status = False
-                        skip_status = True
-                        continue
+                    end_header : list = _header_create(header_text="END",movie_seats_length= len(movie_seats[0]) + 1,append_thing= "-2")
+                    ms_csv_w.write(format_csv_line(end_header))
+                    start_status = False
+                    skip_status = True
+                    continue
 
-                    if list_found and row and row[0] == "END":     #Found END marker
-                        skip_status = False
-                        list_found = False
-                        continue
-                    elif skip_status:
-                        continue
+                if list_found and row and row[0] == "END":     #Found END marker
+                    skip_status = False
+                    list_found = False
+                    continue
+                elif skip_status:
+                    continue
 
-                    movie_seats_writer.writerow(row)            #Copy other rows to temporary file
-                if list_found_all_times == False:               #Movie_code not found
-                    raise ValueError("Movie Code Does Not Exist! You Should Use add_movie_seats_csv function")
+                ms_csv_w.write(format_csv_line(row))            #Copy other rows to temporary file
+            if list_found_all_times == False:               #Movie_code not found
+                raise ValueError("Movie Code Does Not Exist! You Should Use add_movie_seats_csv function")
     except FileNotFoundError as e:
         raise FileNotFoundError(f"Update Movie Seats Failed! \nCannot Find the File!"
                                 f"\nFile name: {movie_seats_csv}")
