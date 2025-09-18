@@ -3,32 +3,29 @@ from logging import raiseExceptions
 
 import os
 from datetime import datetime
-from ....main_program.Library.movie_booking_framework.movie_list_framework import *
-from ....main_program.Library.movie_booking_framework.movie_seats_framework import *
-from ....main_program.Library.movie_booking_framework.seat_visualizer import *
-from ....main_program.Library.movie_booking_framework.cinema_services import *
-from ....main_program.Library.movie_booking_framework.framework_utils import *
-from ....main_program.Library.movie_booking_framework.valid_checker import *
-from ....main_program.Library.movie_booking_framework.id_generator import *
+from movie_booking_system.main_program.Library.movie_booking_framework.seat_visualizer import *
+from movie_booking_system.main_program.Library.movie_booking_framework.cinema_services import *
+from movie_booking_system.main_program.Library.movie_booking_framework.valid_checker import *
+from movie_booking_system.main_program.Library.movie_booking_framework.id_generator import *
 
 
-def get_customer_csv_path():
-    base_dir = os.path.dirname(os.path.abspath(__file__))
-    customer_path = os.path.normpath(
-        os.path.join(base_dir, "..", "system_login_framework/Login/login_system/customer.csv"))
-    return customer_path
+# def get_customer_csv_path():
+#     base_dir = os.path.dirname(os.path.abspath(__file__))
+#     customer_path = os.path.normpath(
+#         os.path.join(base_dir, "..", "system_login_framework/Login/login_system/customer.csv"))
+#     return customer_path
 
 
-def get_Data_Directory_path(path):
-    base_dir = os.path.dirname(os.path.abspath(__file__))
-    data_path = os.path.normpath(os.path.join(base_dir, "..", "..", "Data/" + path))
-    return data_path
+# def get_Data_Directory_path(path):
+#     base_dir = os.path.dirname(os.path.abspath(__file__))
+#     data_path = os.path.normpath(os.path.join(base_dir, "..", "..", "Data/" + path))
+#     return data_path
 
 
-def write_booking_data(path, data):
-    with open(path, 'a', newline='') as f:
-        writer = csv.writer(f)
-        writer.writerows(data)
+# def write_booking_data(path, data):
+#     with open(path, 'a', newline='') as f:
+#         writer = csv.writer(f)
+#         writer.writerows(data)
 
 
 def get_and_print_booking_data(path, input_movie_code):
@@ -49,28 +46,28 @@ def get_and_print_booking_data(path, input_movie_code):
         return booking_data_list
 
 
-def generate_booking_id(path):
-    id_max = 0
-    directory_path = get_Data_Directory_path(path)
-    with (open(directory_path, 'r') as booking_read):
-        reader = csv.reader(booking_read)
-        rows = list(reader)
-        if len(rows) <= 1:
-            return "B001"
-        for row in rows[1:]:
-            if not row:
-                continue
-            booking_id = row[0]
-            if booking_id.startswith("B"):
-                try:
-                    id_num = int(booking_id[1:])
-                    if id_num > id_max:
-                        id_max = id_num
-                except ValueError as e:
-                    continue
-
-    next_id = id_max + 1
-    return f"B{next_id:03d}"
+# def generate_booking_id(path):
+#     id_max = 0
+#     directory_path = get_path(path)
+#     with (open(directory_path, 'r') as booking_read):
+#         reader = csv.reader(booking_read)
+#         rows = list(reader)
+#         if len(rows) <= 1:
+#             return "B001"
+#         for row in rows[1:]:
+#             if not row:
+#                 continue
+#             booking_id = row[0]
+#             if booking_id.startswith("B"):
+#                 try:
+#                     id_num = int(booking_id[1:])
+#                     if id_num > id_max:
+#                         id_max = id_num
+#                 except ValueError as e:
+#                     continue
+#
+#     next_id = id_max + 1
+#     return f"B{next_id:03d}"
 
 
 def get_user_choice():
@@ -161,10 +158,12 @@ def handle_booking(movie_seats_csv, booking_data_csv, template_seats_csv, movie_
     column,row = select_seat(movie_seat_list=movie_seat_list)
     today = datetime.today().strftime('%Y/%m/%d')
     print("Purchased successfully")
-    booking_data_csv_path = get_Data_Directory_path(booking_data_csv)
-    booking_id = generate_booking_id(booking_data_csv)
+    booking_data_list : list = []
+    read_movie_list_csv(movie_list_csv= booking_data_csv,movie_list=booking_data_list)
+    booking_id = generate_code_id(code_list= booking_data_list,prefix_generate="B",code_location= 0,number_of_prefix= 0
+                                  ,prefix_got_digit= False,code_id_digit_count= 3)
     data_row = [[booking_id, user_id, input_movie_code, today, 2, column, row, 'Clerk']]
-    write_booking_data(booking_data_csv_path, data_row)
+    add_movie_list_csv(movie_list_csv= booking_data_csv,movie_list= data_row,movie_code= booking_id)
     link_seats(movie_seats_csv=movie_seats_csv, booking_data_csv=booking_data_csv,
                template_seats_csv=template_seats_csv)
     movie_seat_list.clear()
@@ -223,51 +222,39 @@ def get_modify_choice():
             print(e)
 
 
-def delete_user_booking_data(booking_data_csv, booking_id):
-    with open(booking_data_csv, 'r', newline='') as f:
-        reader = csv.reader(f)
-        rows = list(reader)
-    updated_rows = []
-    for row in rows:
-        if row[0] != booking_id:
-            updated_rows.append(row)
-    with open(booking_data_csv, 'w', newline='') as f:
-        writer = csv.writer(f)
-        writer.writerows(updated_rows)
-    print('Cancel booking successfully')
+# def delete_user_booking_data(booking_data_csv, booking_id):
+#     with open(booking_data_csv, 'r', newline='') as f:
+#         reader = csv.reader(f)
+#         rows = list(reader)
+#     updated_rows = []
+#     for row in rows:
+#         if row[0] != booking_id:
+#             updated_rows.append(row)
+#     with open(booking_data_csv, 'w', newline='') as f:
+#         writer = csv.writer(f)
+#         writer.writerows(updated_rows)
+#     print('Cancel booking successfully')
 
 
 def check_booking_data(booking_data_csv, input_movie_code):
-    booking_data_csv_path = get_Data_Directory_path(booking_data_csv)
-    with open(booking_data_csv_path, 'r', newline='') as f:
-        reader = csv.reader(f)
-        rows = list(reader)
-        filter_movie_list = []
-        for row in rows:
-            if row[2] == input_movie_code:
-                filter_movie_list.append(row)
-        if not filter_movie_list:
-            print('No booking data found!')
-            return False
-        else:
-            return True
+        booking_data_list : list = []
+        try:
+            read_movie_list_csv(movie_list_csv= booking_data_csv,movie_list= booking_data_list,movie_code= input_movie_code,code_location= 2)
+        except ValueError as e:
+            if "Code Not Found" in str(e):
+                print("No Booking Data Found!")
+                return False
+        return True
 
 def modify_booking_data(booking_data_csv, booking_id,column,row):
-    booking_data_path = get_Data_Directory_path(booking_data_csv)
+    booking_data_path = get_path(booking_data_csv)
+    original_row : list = []
+    read_movie_list_csv(movie_list_csv= booking_data_csv,movie_list= original_row,movie_code= booking_id)
     updated_rows = []
-    with open(booking_data_path, 'r', newline='') as r:
-        reader = csv.reader(r)
-        rows = list(reader)
-        for data in rows:
-            if data[0] == booking_id:
-                data[5] = str(column)
-                data[6] = str(row)
-                data[7] = 'Clerk'
-            updated_rows.append(data)
-
-    with open(booking_data_path, 'w', newline='') as w:
-        writer = csv.writer(w)
-        writer.writerows(updated_rows)
+    original_row[5] = str(column)
+    original_row[6] = str(row)
+    original_row[7] = 'Clerk'
+    update_movie_list_csv(movie_list_csv= booking_data_csv,movie_list= updated_rows,movie_code= booking_id)
 
 
 
@@ -277,13 +264,14 @@ def modify_booking(movie_seats_csv, booking_data_csv, template_seats_csv, movie_
     booking_data_exist = check_booking_data(booking_data_csv, input_movie_code)
     if booking_data_exist:
         while True:
-            booking_data_csv_path = get_Data_Directory_path(booking_data_csv)
+            booking_data_csv_path = get_path(booking_data_csv)
             booking_data_list = get_and_print_booking_data(booking_data_csv_path, input_movie_code)
             column, row, booking_id = get_user_booking_axis_and_booking_id(booking_data_list)
             choice = get_modify_choice()
             # cancel booking(1), modify booking(2), quit(3)
             if choice == 1:
-                delete_user_booking_data(booking_data_csv_path, booking_id)
+                delete_movie_list_csv(movie_list_csv= booking_data_csv,movie_code= booking_id)
+                print('Cancel booking successfully')
                 link_seats(movie_seats_csv=movie_seats_csv, booking_data_csv=booking_data_csv,
                            template_seats_csv=template_seats_csv)
                 break
