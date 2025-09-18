@@ -1,29 +1,25 @@
-import csv
 import random
-import os
-import csv
-from operator import truediv
 
 from main_program.Library.role.clerk import *
 
+
 def get_data_directory(path):
     base_dir = os.path.dirname(os.path.abspath(__file__))
-    normpath = os.path.normpath(os.path.join(base_dir, "..", "..", "..","..", "Data",path))
+    normpath = os.path.normpath(os.path.join(base_dir, "..", "..", "Data", path))
     return normpath
+
 
 def get_content(path):
     """
     Read file content if exists.
     If file does not exist, create an empty file and return ''
     """
-    if not os.path.exists(path):
-        with open(path, 'w') as f:
-            pass
-            return ''
-    else:
+    if os.path.exists(path):
         with open(path, 'r', newline='') as role_file:
             content = role_file.read().strip()
             return content
+    else:
+        return ''
 
 
 def get_data(path):
@@ -67,13 +63,13 @@ def generate_verification_code() -> str:
     return lower_list[r_lower] + upper_list[r_upper] + number_list[r_num]
 
 
-def write_data(path, user_id, name, password):
+def write_data(path, user_id, name, password, role_prefix):
     """
     Append new user record to CSV file.
     Format: C001,Name,password
     """
     file = open(path, 'a')
-    file.write(f"C{user_id:03d},{name},{password}\n")
+    file.write(f"{role_prefix}{user_id:03d},{name},{password}\n")
     file.close()
 
 
@@ -220,7 +216,7 @@ def check_user_name(new_name, path):
             raise ValueError("Username exist!")
 
 
-def register(path):
+def register(path,role_prefix):
     """
     Register new customer user.
     - Input username (must be unique)
@@ -229,7 +225,7 @@ def register(path):
     """
     while True:
         try:
-            new_name = input("Please enter your name:")
+            new_name = input("Please enter your name:\n")
             check_user_name(new_name, path)
             break
         except ValueError as e:
@@ -246,9 +242,10 @@ def register(path):
         except ValueError as e:
             print(e)
 
-    latest_id = generate_ID(path, 'C')
+    latest_id = generate_ID(path, role_prefix)
     new_id = int(latest_id) + 1
-    write_data(path, new_id, new_name, new_password)
+    write_data(path, new_id, new_name, new_password,role_prefix)
+
 
 def get_id(path, name_or_id):
     """
@@ -277,14 +274,14 @@ def login(path):
     """
     while True:
         print('please login')
-        user_id = input('UserID:')
-        password = input('password:')
+        user_id = input('UserID:\n')
+        password = input('password:\n')
 
         while True:
             try:
                 verification_code = generate_verification_code()
                 print('verification code: ' + verification_code)
-                input_verification_code = input('please enter verification Code:')
+                input_verification_code = input('please enter verification Code:\n')
                 if input_verification_code != verification_code:
                     raise ValueError('verification code error, please try again')
                 else:
@@ -332,11 +329,10 @@ def role(customer_data, clerk_data, manager_data, technician_data):
                 if choice == 1:
                     user_id = login(customer_data)
                     if user_id is not None:
-                        print(user_id)
                         print('customer function')
                     break
                 elif choice == 2:
-                    register(customer_data)
+                    register(customer_data,'C')
                     print('customer register success')
                     break
                 else:
@@ -376,9 +372,7 @@ def main():
     technician_csv = get_data_directory('technician.csv')
 
     role(customer_data=customer_csv, clerk_data=clerk_csv,
-         manager_data= manager_csv, technician_data=technician_csv)
-
-
+         manager_data=manager_csv, technician_data=technician_csv)
 
 
 if __name__ == '__main__':
