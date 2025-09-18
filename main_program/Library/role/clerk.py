@@ -160,7 +160,7 @@ def handle_booking(movie_seats_csv, booking_data_csv, template_seats_csv, movie_
     print("Purchased successfully")
     booking_data_list : list = []
     read_movie_list_csv(movie_list_csv= booking_data_csv,movie_list=booking_data_list)
-    booking_id = generate_code_id(code_list= booking_data_list,prefix_generate="B",code_location= 0,number_of_prefix= 0
+    booking_id = generate_code_id(code_list= booking_data_list,prefix_generate="B",code_location= 0,number_of_prefix= 1
                                   ,prefix_got_digit= False,code_id_digit_count= 3)
     data_row = [[booking_id, user_id, input_movie_code, today, 2, column, row, 'Clerk']]
     add_movie_list_csv(movie_list_csv= booking_data_csv,movie_list= data_row,movie_code= booking_id)
@@ -268,6 +268,7 @@ def modify_booking(movie_seats_csv, booking_data_csv, template_seats_csv, movie_
             booking_data_list = get_and_print_booking_data(booking_data_csv_path, input_movie_code)
             column, row, booking_id = get_user_booking_axis_and_booking_id(booking_data_list)
             choice = get_modify_choice()
+            #
             # cancel booking(1), modify booking(2), quit(3)
             if choice == 1:
                 delete_movie_list_csv(movie_list_csv= booking_data_csv,movie_code= booking_id)
