@@ -24,19 +24,19 @@ def print_movie_seat_as_emojis (movie_seats : list,x_pointer : int = -1,y_pointe
     for index,main_list in enumerate(movie_seats_temp):
         for second_list in main_list:
             if second_list == "0":
-                print("🈳",end=" ")
+                print("[ ]",end=" ")
             elif second_list == "1":
-                print("👨",end=" ")
+                print("[F]",end=" ")
             elif second_list == "-1":
-                print("❌",end=" ")
+                print("[X]",end=" ")
             elif second_list == "2":
-                print("　",end="　")
+                print("   ",end=" ")
             elif second_list == "3":
-                print("⬆️",end=" ")
+                print("[⬆]",end=" ")
             elif second_list == "4":
-                print("⬅️",end=" ")
+                print("[⬅]",end=" ")
             elif second_list == "5":
-                print("🎯",end=" ")
+                print("[T]",end=" ")
         print()
         #⬆⬅
 
