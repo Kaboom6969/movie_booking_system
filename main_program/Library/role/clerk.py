@@ -30,7 +30,7 @@ from main_program.Library.movie_booking_framework.id_generator import *
 
 def get_and_print_booking_data(file_name, input_movie_code):
     booking_data_list = []
-    read_movie_list_csv(movie_list_csv=file_name, movie_list= booking_data_list,header_read= True)
+    read_movie_list_csv(movie_list_csv=file_name, movie_list= booking_data_list)
     #header = [Book ID,User ID,Movie Code,Date,(1:booking 2:paid),seat(x-axis),seat(y-axis),Source]
     header : list = booking_data_list[0]
     print(
@@ -127,7 +127,7 @@ def select_seat(movie_seat_list):
             try:
                 print(f"\ncolumn should be between 1 and {len(movie_seat_list[0])}")
                 column = int(input("Please enter the column number: "))
-                if column < 1 or column > len(movie_seat_list):
+                if column < 1 or column > len(movie_seat_list[0]):
                     print("Please enter a valid row number")    # x_axis
                 else:
                     print_movie_seat_as_emojis(movie_seat_list, column, row)
@@ -248,12 +248,11 @@ def modify_booking_data(booking_data_csv, booking_id,column,row):
     booking_data_path = get_path(booking_data_csv)
     original_row : list = []
     read_movie_list_csv(movie_list_csv= booking_data_csv,movie_list= original_row,movie_code= booking_id)
-    updated_rows = []
-    print(original_row)
-    original_row[5] = str(column)
-    original_row[6] = str(row)
-    original_row[7] = 'Clerk'
-    update_movie_list_csv(movie_list_csv= booking_data_csv,movie_list= updated_rows,movie_code= booking_id)
+    original_row[0][5] = str(column)
+    original_row[0][6] = str(row)
+    original_row[0][7] = 'Clerk'
+    updated_list : list = [original_row[0]]
+    update_movie_list_csv(movie_list_csv= booking_data_csv,movie_list= updated_list,movie_code= booking_id)
 
 
 

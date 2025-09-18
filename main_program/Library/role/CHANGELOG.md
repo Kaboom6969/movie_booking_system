@@ -61,7 +61,13 @@
 ### Added
 - Implemented booking cancellation feature (users can cancel an existing booking).
 - Implemented booking modification feature (users can change their booked seat).
-
+## [1.1.1] - 2025-09-18
+### Fixed
+- Fixed a bug out of index in `select_seat`
+## [1.1.1] - 2025-09-18
+### Fixed
+- Fixed a bug in `select_seat` where entering a column value could cause "out of index".
+- Fixed a bug in `modify_input_data` where updating data would raise an error.
 
 ### Fixed
 - Prevented invalid seat access by centralizing validation logic
