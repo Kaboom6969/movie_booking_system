@@ -142,6 +142,21 @@ def add_movie_seats_csv (movie_seats_csv : str, movie_seats : list, movie_code :
         raise Exception(f"Add Movie Seats Failed\nUnknown Error!\n{e}")
 
 
+def seats_code_catcher (movie_seats_csv : str,movie_code_location : int = 1) -> list:
+    movie_seats_csv_valid_check(movie_seats_csv= movie_seats_csv)
+    movie_seats_code_list : list = []
+    movie_seats_csv_path = get_path(movie_seats_csv)
+    try:
+        with open(movie_seats_csv_path, 'r') as ms_csv_r:
+            for lines in ms_csv_r:
+                row = parse_csv_line(lines)
+                if row and row[0] == "CODE":
+                    movie_seats_code_list.append(row[movie_code_location])
+    except FileNotFoundError:
+        raise FileNotFoundError(f"CATCH SEATS CODE FAILED!\nFILE:{movie_seats_csv} IS NOT FOUND!")
+    return movie_seats_code_list
+
+
 def delete_movie_seats_csv (movie_seats_csv : str, movie_code : str,skip_valid_check : bool = False) -> None:
     try:
         if not skip_valid_check:
