@@ -2,11 +2,12 @@ from .framework_utils import *
 
 
 def read_movie_list_csv(movie_list_csv: str, movie_list: list, movie_code: str = "all", movie_mode: bool = True,
-                        code_location: int = 0) -> None:
+                        code_location: int = 0,read_header : bool = False) -> None:
     try:
         movie_list_csv_path = get_path(movie_list_csv)
         with open(movie_list_csv_path, 'r') as mv_csvfile:
-            next(mv_csvfile)
+            if not read_header:
+                next(mv_csvfile)
             if movie_code == "all":
                 for line in mv_csvfile:
                     if not line.strip(): continue
