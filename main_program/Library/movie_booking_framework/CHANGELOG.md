@@ -126,6 +126,25 @@
 - now the circular import bug fix (a version)
 - fix the bug that `_x_location_add` and  `_y_location_add` is not defined (b version)
 
-## [1.16.2] - 20205-09-18
+## [1.16.2] - 2025-09-18
+### Added
+- add `code_catcher` and `prefix_cathcher` function (id.generator.py) (b version)
+- add `seats_code_cathcher` function for `movie_seats_framework.py` (c version)
+- add `mismatched_calculate` function for `cinema_services.py` (e version)
+- new high level api `sync_all` in work progress! (e version)
+- add `one_dimension_list_to_two_dimension_list` function! (g version)
 ### Change
 - now the whole `movie_booking_framework` is not depend on csv library!
+- `code_catcher` is now more robustness! Now if it detect the code got alphabet,it will skip the code. And got a variable row_got_alpha_count for debugging (f version)
+- let `update_movie_list_csv` and `add_movie_list_csv` can handle one dimension list! (with using `one_dimension_list_to_two_dimension_list` function) (g version)
+- `sync_all` function now can sync for adding,delete still in progress (h version)
+### Fixed
+- fix a small bug that `movie_seats_csv_valid_check` still depend on csv library (a version)
+- now `print_movie_seat_as_emojis` cannot print emoji, just print ASCII (To prevented misunderstand using AI) (b version)
+- `seats_code_catcher` now can report error when it didn't detect any code (d version)
+- fix a little bug in `sync_all`,it will calculate the correct mismatched for movie_list_code_list and cinema_device_movie_code_List (i version)
+
+### [1.17.0] - 2025-09-19
+### Added
+- `sync_all` function done!
+- now `sync_all` function can sync all the movie_code with the SSOT(Single Source of Truth) which is movie_list!
