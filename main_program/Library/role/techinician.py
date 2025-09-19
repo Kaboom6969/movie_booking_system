@@ -1,6 +1,6 @@
 import csv
 import os
-from movie_booking_system.main_program.Library.movie_booking_framework.movie_list_framework import *
+from main_program.Library.movie_booking_framework.movie_list_framework import *
 
 
 #这个是利用movie_booking框架的例子，（请将后续的函数都修改至适配此框架）
