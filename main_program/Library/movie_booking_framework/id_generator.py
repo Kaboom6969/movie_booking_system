@@ -15,8 +15,12 @@ def get_biggest_number_of_code (code_list : list, code_location : int, number_of
         raise Exception(f"GET BIGGEST NUMBER OF CODE FAILED. ERROR: {str(e)}")
 
 def code_catcher (code_list : list,code_location : int,number_of_prefix : int) -> list:
+    row_got_alpha_count : int = 0 #just for testing bug in debug mode
     code_number_list : list =[]
     for row in code_list:
+        if any(item.isalpha() for item in row[code_location][number_of_prefix:]):
+            row_got_alpha_count += 1
+            continue
         code_number_list.append(row[code_location][number_of_prefix:])
     return code_number_list
 
