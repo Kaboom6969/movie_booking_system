@@ -109,7 +109,7 @@ def sync_all (movie_list_csv : str, movie_seats_csv : str,cinema_device_list_csv
                          f"THE movie list file: {movie_list_csv} DONT GOT!\nPLEASE DELETE THE CODE IN THE cinema device "
                          f"list file: {cinema_device_list_csv} manually!")
     list_seats_mismatched : list = mismatched_calculate(main_list= movie_list_code_list,compared_list= movie_seats_code_list)
-    list_device_mismatched : list = mismatched_calculate(main_list= movie_list_code_list,compared_list= cinema_device_list)
+    list_device_mismatched : list = mismatched_calculate(main_list= movie_list_code_list,compared_list= cinema_device_movie_code_list)
     if list_seats_mismatched:
          for movie_code in list_seats_mismatched:
             add_movie_seats_from_template(movie_seats_csv= movie_seats_csv,template_seats_csv= templates_seats_csv,
