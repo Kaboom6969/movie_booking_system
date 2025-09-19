@@ -54,9 +54,9 @@ def book_movie_operation(movie_code : str,movie_seats_csv : str,booking_data_csv
             first_attempt = False
             x_pointer = book_movie_input(range_list= x_range,name_in_input= "Column")
             movie_list_to_movie_seats_print(movie_code=movie_code, movie_seats_csv=movie_seats_csv, x_pointer=x_pointer)
-            y_pointer = s_print(movie_code=movie_code, movie_seats_csv=movie_seats_csv, x_pointer=x_pointer,y_pointer=y_pointer)
-            seats_value = movie_seabook_movie_input(range_list= y_range,name_in_input= "Row")
-            movie_list_to_movie_seatts_specify_value(movie_seats=movie_seats, x_axis=x_pointer, y_axis=y_pointer)
+            y_pointer = book_movie_input(range_list= y_range,name_in_input= "Row")
+            movie_list_to_movie_seats_print(movie_code=movie_code, movie_seats_csv=movie_seats_csv, x_pointer=x_pointer,y_pointer=y_pointer)
+            seats_value =movie_seats_specify_value(movie_seats=movie_seats, x_axis=x_pointer, y_axis=y_pointer)
             booking_status =book_movie_buy(seats_value= seats_value)
             if booking_status:
                 booking_list : list = []
