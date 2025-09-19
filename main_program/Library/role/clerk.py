@@ -4,6 +4,8 @@ from main_program.Library.movie_booking_framework.seat_visualizer import *
 from main_program.Library.movie_booking_framework.cinema_services import *
 from main_program.Library.movie_booking_framework.valid_checker import *
 from main_program.Library.movie_booking_framework.id_generator import *
+from main_program.Library.payment_framework.payment_framework import pay_money
+from main_program.Library.system_login_framework.login_system import *
 
 
 # def get_customer_csv_path():
@@ -152,7 +154,7 @@ def select_seat(movie_seat_list):
             return column, row
 
 
-def handle_booking(movie_seats_csv, booking_data_csv, template_seats_csv, movie_seat_list, input_movie_code, user_id):
+def booking(movie_seats_csv, booking_data_csv, template_seats_csv, movie_seat_list, input_movie_code, user_id):
     column, row = select_seat(movie_seat_list=movie_seat_list)
     today = datetime.today().strftime('%Y/%m/%d')
     print("Purchased successfully")
@@ -168,6 +170,32 @@ def handle_booking(movie_seats_csv, booking_data_csv, template_seats_csv, movie_
     read_movie_seats_csv(movie_seats_csv=movie_seats_csv, movie_seats=movie_seat_list,
                          movie_code=input_movie_code)
     print_movie_seat_as_emojis(movie_seat_list)
+
+
+def handle_booking(movie_seats_csv, booking_data_csv, template_seats_csv, customer_csv, movie_seat_list,
+                   input_movie_code, user_id):
+    while True:
+        print("\nPlease select your choice:")
+        try:
+            choice = int(input(
+                "\ncash(1), account balance(2), quit(3)\n"))
+            if choice == 1:
+                booking(movie_seats_csv, booking_data_csv, template_seats_csv, movie_seat_list, input_movie_code,
+                        user_id)
+                break
+            elif choice == 2:
+                path = get_path(customer_csv)
+                customer_id = login(path)
+                if customer_id is not None:
+                    price = '10'
+
+            elif choice == 3:
+                break
+            else:
+                print("Please enter a valid option (1-3).")
+        except ValueError as e:
+            print(e)
+
 
 
 def checking_movie(movie_seats_csv: str, movie_seat_list: list, input_movie_code: str):
@@ -293,12 +321,14 @@ def modify_booking(movie_seats_csv, booking_data_csv, template_seats_csv, movie_
 def modify_customer_seat(booking_id, movie_seat_list):
     print_movie_seat_as_emojis(movie_seat_list)
 
+
 def get_movie_list_data(movie_list: list, input_movie_code: str) -> list:
     movie_data_list = []
     for data in movie_list:
         if data[0] == input_movie_code:
             movie_data_list = data
     return movie_data_list
+
 
 def generate_receipt_text(movie_list_data, booking_data_dict, booking_id):
     movie_name = movie_list_data[1]
@@ -332,6 +362,7 @@ Price        : RM {movie_price}
 ========================================
 """
     return receipt
+
 
 def generate_receipt(booking_data_csv, input_movie_code):
     movie_list = []
@@ -371,7 +402,7 @@ def clerk(user_id):
             choice = get_user_choice()
             if choice == 1:
                 handle_booking(movie_seats_csv="movie_seat.csv", booking_data_csv="booking_data.csv",
-                               template_seats_csv="template_seats.csv",
+                               template_seats_csv="template_seats.csv", customer_csv="customer.csv",
                                movie_seat_list=movie_seat_list, input_movie_code=input_movie_code, user_id=user_id)
 
             elif choice == 2:
@@ -393,6 +424,7 @@ def clerk(user_id):
 
 def main():
     clerk(user_id='K001')
+    #flag = pay_money(customer_csv="customer.csv", customer_id="C001", price=300)
 
 
 
