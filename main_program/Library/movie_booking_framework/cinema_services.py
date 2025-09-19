@@ -1,4 +1,4 @@
-from .id_generator import code_catcher
+from .id_generator import *
 from .movie_seats_framework import *
 from .movie_list_framework import *
 from .valid_checker import movie_seats_csv_valid_check
@@ -42,6 +42,10 @@ def movie_seats_csv_whole_init (movie_seats_csv : str,template_seats_csv : str) 
     for movie_code,template_code in zip(movie_code_array,template_code_array):
         movie_seats_init(movie_seats_csv= movie_seats_csv,template_seats_csv= template_seats_csv,movie_code= movie_code,template_code= template_code)
 
+def add_movie_seats_from_template (movie_seats_csv : str, template_seats_csv : str, movie_code : str, template_code : str) -> None:
+    new_movie_seats : list = []
+    read_movie_seats_csv(movie_seats_csv= template_seats_csv,movie_seats= new_movie_seats,movie_code= template_code,skip_valid_check= True)
+    add_movie_seats_csv(movie_seats_csv= movie_seats_csv,movie_seats= new_movie_seats,movie_code= movie_code, template_code= template_code)
 
 
 def movie_seats_init(movie_seats_csv : str, template_seats_csv : str, movie_code : str,template_code : str) -> None:
@@ -65,14 +69,31 @@ def mismatched_calculate (main_list : list, compared_list : list) -> list:
             calculated_list.append(item)
     return calculated_list
 
+def data_convert_to_list (*args):
+    target_list : list = []
+    for item in args:
+        target_list.append(item)
+    return target_list
+
+def device_count_for_device_list (cinema_device_list : list) -> int:
+    device_count : int = 0
+    for row in cinema_device_list:
+        for item in row:
+            if "status" in item:
+                device_count += 1
+            if item.isdigit():
+                continue
+    return device_count
 
 
-def sync_all (movie_list_csv : str, movie_seats_csv : str,cinema_device_list_csv : str) -> None:
+
+
+def sync_all (movie_list_csv : str, movie_seats_csv : str,cinema_device_list_csv : str,templates_seats_csv : str,default_template_code : str) -> None:
     movie_list : list = []
     cinema_device_list : list = []
     movie_seats_raw_data : list = read_movie_seats_csv_raw_data(movie_seats_csv= movie_seats_csv)
     read_movie_list_csv(movie_list_csv= movie_list_csv,movie_list= movie_list)
-    read_movie_list_csv(movie_list_csv= cinema_device_list_csv,movie_list= cinema_device_list)
+    read_movie_list_csv(movie_list_csv= cinema_device_list_csv,movie_list= cinema_device_list,read_header= True)
     cinema_device_movie_code_list : list = code_catcher(code_list= cinema_device_list,code_location= 1,number_of_prefix= 0)
     movie_list_code_list : list = code_catcher(code_list= movie_list,code_location= 0,number_of_prefix= 0)
     movie_seats_code_list : list = seats_code_catcher(movie_seats_raw_data= movie_seats_raw_data)
@@ -84,12 +105,22 @@ def sync_all (movie_list_csv : str, movie_seats_csv : str,cinema_device_list_csv
     device_list_mismatched: list = mismatched_calculate(main_list=cinema_device_movie_code_list,
                                                         compared_list=movie_list_code_list)
     if device_list_mismatched:
-        raise ValueError(f"cinema device list file:{cinema_device_list_csv} GOT THE CODE:{device_list_mismatched} BUT THE movie list "
-                         f"file: {movie_list_csv} DONT GOT!\nPLEASE DELETE THE CODE IN THE cinema device list file: "
-                         f"{cinema_device_list_csv} manually!")
+        raise ValueError(f"cinema device list file:{cinema_device_list_csv} GOT THE CODE:{device_list_mismatched} BUT "
+                         f"THE movie list file: {movie_list_csv} DONT GOT!\nPLEASE DELETE THE CODE IN THE cinema device "
+                         f"list file: {cinema_device_list_csv} manually!")
     list_seats_mismatched : list = mismatched_calculate(main_list= movie_list_code_list,compared_list= movie_seats_code_list)
     list_device_mismatched : list = mismatched_calculate(main_list= movie_list_code_list,compared_list= cinema_device_list)
-    #需要给初始化电影座位设置一个更高阶的函数
-    # if list_seats_mismatched:
-    #     for movie_code in list_seats_mismatched:
-    #         add_movie_seats_csv(movie_seats_csv= movie_seats_csv,movie_code= movie_code)
+    if list_seats_mismatched:
+         for movie_code in list_seats_mismatched:
+            add_movie_seats_from_template(movie_seats_csv= movie_seats_csv,template_seats_csv= templates_seats_csv,
+                                          movie_code= movie_code,template_code= default_template_code)
+    if list_device_mismatched:
+        temp_list : list = []
+        default_device_status = device_count_for_device_list(cinema_device_list=cinema_device_list)
+        read_movie_list_csv(movie_list_csv= cinema_device_list_csv,movie_list= temp_list,read_header= True)
+        for movie_code in list_device_mismatched:
+            tech_code = generate_code_id(code_list= temp_list,prefix_generate="TC",code_location= 0,
+                                         number_of_prefix= 2,prefix_got_digit= False,code_id_digit_count= 0)
+            device_list_new : list = data_convert_to_list(tech_code,movie_code,*(0 for i in range(default_device_status)))
+            add_movie_list_csv(movie_list_csv= cinema_device_list_csv,movie_list= device_list_new,movie_code= tech_code)
+
