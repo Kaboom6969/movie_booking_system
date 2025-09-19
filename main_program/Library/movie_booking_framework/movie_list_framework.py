@@ -41,6 +41,7 @@ def update_movie_list_csv(movie_list_csv: str, movie_list: list, movie_code: str
     try:
         with (open(movie_list_csv_path, 'r') as mvl_csv_r,
                 open(os.path.join(movie_list_csv_temp_path, f"{movie_list_csv}.temp"), 'w') as mvl_csv_w):
+            movie_list = one_dimension_list_to_two_dimension_list(movie_list)
             movie_list_dict: dict = {row[code_location]: row for row in movie_list}
             header_line = next(mvl_csv_r)
             mvl_csv_w.write(header_line)
@@ -74,6 +75,7 @@ def update_movie_list_csv(movie_list_csv: str, movie_list: list, movie_code: str
 def add_movie_list_csv(movie_list_csv: str, movie_list: list, movie_code: str, code_location: int = 0) -> None:
     try:
         if movie_code == "all": raise ValueError("'all' isn't supported in this function!")
+        movie_list = one_dimension_list_to_two_dimension_list(movie_list)
         movie_list_dict: dict = {row[code_location]: row for row in movie_list}
         movie_list_for_add: list = []
         code_list_matcher = 0
@@ -122,7 +124,6 @@ def delete_movie_list_csv (movie_list_csv : str,movie_code : str,code_location :
         if code_csv_matcher > 1:
             warnings.warn(f"Found more than 2 movie code:{movie_code} in {movie_list_csv},system will delete all!")
     overwrite_file(overwrited_file_csv=movie_list_csv, original_file_csv=f"{movie_list_csv}.temp")
-
 
 
 

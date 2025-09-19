@@ -46,3 +46,17 @@ def get_path(file) -> str:
     base_directory = _find_project_root(target_directory= TARGET_DIRECTORY)
     movie_code_csv_path = os.path.join(base_directory, file)
     return movie_code_csv_path
+
+def one_dimension_list_to_two_dimension_list (any_dimension_list : list) -> list:
+    new_list : list = []
+    try:
+        if not isinstance(any_dimension_list[0], list):
+            new_list = [any_dimension_list]
+        else:
+            new_list = any_dimension_list
+    except IndexError as e:
+        if "range" in str(e):
+            pass
+        else:
+            raise IndexError (f"List Convert Error! Error:{e}")
+    return new_list
