@@ -13,7 +13,7 @@ def input_time(prompt="Enter time (HH:MM):"):
             print("Invalid format. Please enter like 18:00")
 
 # Generate the next movie ID automatically
-def generate_movieid(movie_list_csv:str) -> str:
+def generate_movie_id(movie_list_csv:str) -> str:
     with open(movie_list_csv,"r") as f:
         lines = f.readlines()
         if len(lines) <=1:    #Only have header
@@ -58,7 +58,7 @@ def get_data(movie_list_csv : str) ->None :
 def add(movie_list_csv : str) ->None:
     Add = False
     try:
-        codes = generate_movieid(movie_list_csv)
+        codes = generate_movie_id(movie_list_csv)
         name = input("Enter the movie name: ")
         cinema = input("Enter the cinema number: ")
         start = input_time("Enter start time (HH:MM): ")
