@@ -6,14 +6,14 @@ import datetime
 DEFAULT_WIDTH = 20
 
 def check_ticket_bought(customer_code : str,booking_data_csv : str,movie_list_csv : str) -> list:
-    booking_list : list = []            #format: ['B001','C001', '001', '2025/8/13','2']
+    booking_list : list = []            #format: ['B001','C001', '001','2025/8/13','2','3','3','Online']
     movie_code_list : list = []         #format:'001'
     read_movie_list_csv(movie_list_csv= booking_data_csv, movie_list= booking_list, movie_code= customer_code,movie_mode = False,code_location = 1)
-    print(f"{'Movie Code': <{DEFAULT_WIDTH}}{'Booking Date': <{DEFAULT_WIDTH}}")
-    print("-" * (DEFAULT_WIDTH * 2 + 1))
+    print(f"{'User_id': <{DEFAULT_WIDTH}}{'Movie Code': <{DEFAULT_WIDTH}}{'Booking Date': <{DEFAULT_WIDTH}}")
+    print("-" * (DEFAULT_WIDTH * 3 + 1))
     for row in booking_list:
         movie_code_list.append(row[2])
-        print(f"{str(row[2]): <{DEFAULT_WIDTH}}{str(row[3]): <{DEFAULT_WIDTH}}")
+        print(f"{customer_code: <{DEFAULT_WIDTH}}{str(row[2]): <{DEFAULT_WIDTH}}{str(row[3]): <{DEFAULT_WIDTH}}")
     return movie_code_list
 
 def booking_to_movie_list_print(movie_code_list : list, movie_code : str, movie_list_csv : str) -> None:
@@ -141,10 +141,12 @@ def check_all_movie_list(movie_list_csv : str,movie_seats_csv : str) -> list:
         return code_range_create(code_list= movie_list_all,code_location= 0)
 
 
-
+def cancel_booking_operation(customer_code : str,booking_data_csv : str,movie_list_csv : str) -> None:
+    check_ticket_bought(customer_code= customer_code,booking_data_csv= booking_data_csv,movie_list_csv= movie_list_csv)
 
 
 #JUST TEST
 if __name__ == '__main__':
-   link_seats(movie_seats_csv= "movie_seat.csv",booking_data_csv= "booking_data.csv",template_seats_csv= "template_seats.csv")
+   #link_seats(movie_seats_csv= "movie_seat.csv",booking_data_csv= "booking_data.csv",template_seats_csv= "template_seats.csv")
+    cancel_booking_operation(customer_code= "C001",booking_data_csv= "booking_data.csv",movie_list_csv= "movie_list.csv")
 
