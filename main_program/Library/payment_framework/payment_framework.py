@@ -11,7 +11,7 @@ def pay_money(customer_csv: str,customer_id:str,price:int) -> bool:
         if list_data[0] == customer_id:
             customer_balance = int(list_data[3])
             if price > customer_balance:
-                print("balance not enough")
+                #balance not enough
                 return False
             else:
                 customer_balance = customer_balance - price
@@ -21,8 +21,7 @@ def pay_money(customer_csv: str,customer_id:str,price:int) -> bool:
                     for i in content_list:
                         line = ",".join(x.strip() for x in i)
                         w.write(line + "\n")
-                    print("payment successful")
+                    #payment successful
                     return True
-    print("invalid customer_id")
-    return False
+    raise ValueError("Invalid customer_id")
 
