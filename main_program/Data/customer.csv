@@ -1,4 +1,5 @@
-Customer_user_id,user_name,user_password,user_balance
+user_id,user_name,user_password,user_balance
 C001,zhihao,123,100
 C002,victor,Abcde@1,300
 C003,caixukun,@Aa11,10
+C004,menglei,Mingda0@,0

@@ -16,6 +16,7 @@ def get_content(path):
     """
     if os.path.exists(path):
         with open(path, 'r', newline='') as role_file:
+            role_file.readline()
             content = role_file.read().strip()
             return content
     else:
@@ -30,6 +31,8 @@ def get_data(path):
     """
     # record ['C001,name,1', 'C002,name,2', 'C003,name,3']
     content = get_content(path)
+    if not content:
+        return []
     file_data = content.split('\n')
     final_data = []
     for i in file_data:
@@ -63,15 +66,22 @@ def generate_verification_code() -> str:
     return lower_list[r_lower] + upper_list[r_upper] + number_list[r_num]
 
 
-def write_data(path, user_id, name, password, role_prefix):
+def write_data(path, user_id, name, password, role_prefix,has_balance_column : bool = False):
     """
     Append new user record to CSV file.
     Format: C001,Name,password
     """
     file = open(path, 'a')
-    file.write(f"{role_prefix}{user_id:03d},{name},{password}\n")
+    if has_balance_column:
+        file.write(f"{role_prefix}{user_id:03d},{name},{password},0\n")
+    else:
+        file.write(f"{role_prefix}{user_id:03d},{name},{password}\n")
     file.close()
 
+def get_column_count(path):
+    with open(path, 'r') as f:
+        header = f.readline()
+        return len(header.split(','))
 
 def generate_ID(path, prefix):
     """
@@ -83,6 +93,7 @@ def generate_ID(path, prefix):
             pass
             return '000'
     f = open(path, 'r')
+    f.readline()
     content = f.read().strip()
     f.close()
     if content == '':
@@ -90,15 +101,16 @@ def generate_ID(path, prefix):
     else:
 
         last_number = 0
+        column_count = get_column_count(path)
         final_data = get_data(path)
-        for i in range(0, len(final_data), +3):
+        for i in range(0, len(final_data), column_count):
             user_id = final_data[i]
             if user_id.startswith(prefix):
                 num = int(user_id[1:])
                 if num > last_number:
                     last_number = num
 
-    return last_number
+    return last_number + 1
 
 
 def check_identity(path, name_or_id, input_password):
@@ -113,7 +125,8 @@ def check_identity(path, name_or_id, input_password):
         file_data = content.split('\n')
         for record in file_data:
             # record ['C001,name,password','C002,name,password']
-            user_id, name, password = record.split(',')
+            part = record.split(',')
+            user_id, name, password = part[0], part[1], part[2]
             if ((user_id == name_or_id) or (name == name_or_id)) and input_password == password:
                 if user_id.startswith('C'):
                     return 'Customer'
@@ -136,14 +149,15 @@ def check_data(path, name_or_id, password):
         return False
     else:
         final_data = get_data(path)
+        column_count = get_column_count(path)
         # judge userid correct or not
-        for i in range(0, len(final_data), +3):
+        for i in range(0, len(final_data), column_count):
             if name_or_id == final_data[i]:
                 # password correct
                 return password == final_data[i + 2]
             # judge name
         else:
-            for i in range(1, len(final_data), +3):
+            for i in range(1, len(final_data), column_count):
                 if name_or_id == final_data[i]:
                     # password correct
                     return password == final_data[i + 1]
@@ -209,8 +223,9 @@ def check_user_name(new_name, path):
     Check if username already exists in file.
     Raise error if duplicate.
     """
+    column_count = get_column_count(path)
     final_data = get_data(path)
-    for i in range(1, len(final_data), +3):
+    for i in range(1, len(final_data), column_count):
         # i = name
         if new_name == final_data[i]:
             raise ValueError("Username exist!")
@@ -242,9 +257,12 @@ def register(path,role_prefix):
         except ValueError as e:
             print(e)
 
-    latest_id = generate_ID(path, role_prefix)
-    new_id = int(latest_id) + 1
-    write_data(path, new_id, new_name, new_password,role_prefix)
+    new_id = generate_ID(path, role_prefix)
+    column_count = get_column_count(path)
+    if column_count == 3:
+        write_data(path, new_id, new_name, new_password,role_prefix)
+    elif column_count == 4:
+        write_data(path, new_id, new_name, new_password,role_prefix,True)
 
 
 def get_id(path, name_or_id):
@@ -259,7 +277,8 @@ def get_id(path, name_or_id):
         file_data = content.split('\n')
         for record in file_data:
             # record ['C001,name,password','C002,name,password']
-            user_id, name, password = record.split(',')
+            part = record.split(',')
+            user_id, name, password = part[0], part[1], part[2]
             if (user_id == name_or_id) or (name == name_or_id):
                 return user_id
         return None
@@ -370,12 +389,12 @@ def main():
     clerk_csv = get_data_directory('clerk.csv')
     manager_csv = get_data_directory('manager.csv')
     technician_csv = get_data_directory('technician.csv')
-
     role(customer_data=customer_csv, clerk_data=clerk_csv,
          manager_data=manager_csv, technician_data=technician_csv)
 
 
 if __name__ == '__main__':
+    main()
     while True:
         try:
             main()

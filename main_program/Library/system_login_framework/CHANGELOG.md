@@ -20,3 +20,12 @@
 - Removed `csv.reader` and `csv.writer`; replaced with custom file reader and writer.
 ### Fixed
 - Fixed `get_data_directory` returning an incorrect path.
+
+[1.1.1] - 2025-09-19
+### Added
+- Added get_column_count function to retrieve the number of columns from the header.
+- Added has_balance_column parameter to the write_data function to allow writing balance data.
+### Changed
+- Updated file reading to start from the second row (skip header).
+### Fixed
+- Fixed check_data and check_user_name causing 'Index out of range' errors during data iteration.
