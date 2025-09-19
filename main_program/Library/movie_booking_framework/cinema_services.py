@@ -13,13 +13,13 @@ def link_seats (movie_seats_csv : str, booking_data_csv : str,template_seats_csv
                                                                movie_code_location= book_movie_code_location,
                                                                x_seats_location= book_x_seats_location,
                                                                y_seats_location= book_y_seats_location)
-        movie_seats : list = []
-        read_movie_seats_csv(movie_seats_csv= movie_seats_csv,movie_seats= movie_seats,movie_code= mvcode_x_y_list[0])
-        if movie_seats_specify_value(movie_seats=movie_seats,x_axis=mvcode_x_y_list[1],y_axis=mvcode_x_y_list[2]) ==  "-1":
+        current_movie_seats : list = []
+        read_movie_seats_csv(movie_seats_csv= movie_seats_csv,movie_seats= current_movie_seats,movie_code= mvcode_x_y_list[0])
+        if movie_seats_specify_value(movie_seats=current_movie_seats,x_axis=mvcode_x_y_list[1],y_axis=mvcode_x_y_list[2]) ==  "-1":
             raise ValueError(f"This movie seat is unvailable(-1)!You should check your booking data file!\n"
-                             f"movie_seats: {movie_seats}\nx_axis: {mvcode_x_y_list[1]}\ny_axis: {mvcode_x_y_list[2]}")
-        modify_movie_seats_list(movie_seat_list=movie_seats,x_axis=mvcode_x_y_list[1],y_axis=mvcode_x_y_list[2],target_number= 1)
-        update_movie_seats_csv(movie_seats_csv= movie_seats_csv,movie_seats=movie_seats,movie_code= mvcode_x_y_list[0])
+                             f"movie_seats: {current_movie_seats}\nx_axis: {mvcode_x_y_list[1]}\ny_axis: {mvcode_x_y_list[2]}")
+        modify_movie_seats_list(movie_seat_list=current_movie_seats,x_axis=mvcode_x_y_list[1],y_axis=mvcode_x_y_list[2],target_number= 1)
+        update_movie_seats_csv(movie_seats_csv= movie_seats_csv,movie_seats=current_movie_seats,movie_code= mvcode_x_y_list[0])
 
 def movie_seats_csv_whole_init (movie_seats_csv : str,template_seats_csv : str) -> None:
     try:
