@@ -1,6 +1,6 @@
 import random
-
-from main_program.Library.role.clerk import *
+import os
+from main_program.Library.role.clerk import clerk
 
 
 def get_data_directory(path):
