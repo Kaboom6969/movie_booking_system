@@ -21,7 +21,7 @@
 ### Fixed
 - Fixed `get_data_directory` returning an incorrect path.
 
-[1.1.1] - 2025-09-19
+## [1.1.1] - 2025-09-19
 ### Added
 - Added get_column_count function to retrieve the number of columns from the header.
 - Added has_balance_column parameter to the write_data function to allow writing balance data.
