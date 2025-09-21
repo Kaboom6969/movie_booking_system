@@ -52,7 +52,7 @@
 - Moved the location of some packages.
 
 ## [1.15.1] -2025-09-04 to 2025-09-14
-## Added
+### Added
 - Added a `_movie_seats_csv_valid_check` function to check the format integrity of CSV files.
 - add the `add_movie_list_csv` fucntion!
 - add the `delete_movie_list_csv` function
@@ -144,7 +144,7 @@
 - `seats_code_catcher` now can report error when it didn't detect any code (d version)
 - fix a little bug in `sync_all`,it will calculate the correct mismatched for movie_list_code_list and cinema_device_movie_code_List (i version)
 
-### [1.17.0] - 2025-09-19
+## [1.17.0] - 2025-09-19
 ### Added
 - `sync_all` function done!
 - now `sync_all` function can sync all the movie_code with the SSOT(Single Source of Truth) which is movie_list!
@@ -152,7 +152,7 @@
 - add comment for `sync_all` function (a version)
 - add comment for `link_seats` function (b version)
 
-### [1.17.1] - 2025-09-19
+## [1.17.1] - 2025-09-19
 ### Added
 - now `cinema_services.py` got the comment!
 ### Changed
