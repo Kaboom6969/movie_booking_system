@@ -166,10 +166,23 @@
 
 ## [1.17.2] - 2025-09-21
 ### Added
-- now `framework_utils` got the comment!
+- now `framework_utils.py` got the comment!\
+### Changed
 - add comment for `parse_csv_line`
 - add comment for `format_csv_line`
 - add comment for `overwrite_file`
 - add comment for `_find_project_root`
 - add comment for `get_path`
 - add comment for `one_dimension_list_to_two_dimension_list`
+
+## [1.17.3] - 2025-09-22
+### Added
+- now `id_generator.py` got the comment!
+### Changed
+- add comment for `get_biggest_number_of_code`
+- add comment for `code_catcher`
+- add comment for `prefix_catcher`
+- add comment for `_get_biggest_number_of_list`
+- add comment for `_list_str_number_to_int_number`
+- add comment for `detect_got_digit`
+- add comment for `generate_code_id`
