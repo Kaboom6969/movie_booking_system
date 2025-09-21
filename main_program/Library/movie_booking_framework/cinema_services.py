@@ -31,62 +31,108 @@ def link_seats (movie_seats_csv : str, booking_data_csv : str,template_seats_csv
 
 def movie_seats_csv_whole_init (movie_seats_csv : str,template_seats_csv : str) -> None:
     try:
+        #detect the csv file is movie seats format for not
         movie_seats_csv_valid_check(movie_seats_csv)
     except Exception as e:
+        #if not,interrupt the action and raise error
         raise Exception(f"INIT FAILED! ERROR:{e}")
+    #get the path of movie seats (to prevent FileNotFoundError)
     movie_seats_csv_path = get_path(movie_seats_csv)
     movie_code_array : list = []
     template_code_array : list = []
+    #open the movie seats file with read mode
     with open(movie_seats_csv_path,'r',newline ='') as ms_csv_r:
+        #skip header
         next(ms_csv_r)
+        #get the row of file (still string need to convert to list)
         for line in ms_csv_r:
+            #check the row is empty or not
             if not line.strip(): continue
+            #if not,turn this row to list
             row = parse_csv_line(line)
+            #found the CODE header of the movie seats(if found the CODE header,movie code and template code can get easily)
             if row[0] == "CODE":
+                #add the movie code to movie code array
                 movie_code_array.append(row[1])
+                #add the template code to template code array
                 template_code_array.append(row[2])
+    #if there is mismatched of movie code and template code,then got serious problem
     if len(movie_code_array) != len(template_code_array):
+        #interrupt the action immediately and raise error
         raise ValueError("The number of movie code and template code should be same! Please check the file!")
+    #if there is no problem,init the movie seats file with using for loop
     for movie_code,template_code in zip(movie_code_array,template_code_array):
+        #init the movie seats(one only,but using for loop so can init all the file)
         movie_seats_init(movie_seats_csv= movie_seats_csv,template_seats_csv= template_seats_csv,movie_code= movie_code,template_code= template_code)
-
-def add_movie_seats_from_template (movie_seats_csv : str, template_seats_csv : str, movie_code : str, template_code : str) -> None:
-    new_movie_seats : list = []
-    read_movie_seats_csv(movie_seats_csv= template_seats_csv,movie_seats= new_movie_seats,movie_code= template_code,skip_valid_check= True)
-    add_movie_seats_csv(movie_seats_csv= movie_seats_csv,movie_seats= new_movie_seats,movie_code= movie_code, template_code= template_code)
 
 
 def movie_seats_init(movie_seats_csv : str, template_seats_csv : str, movie_code : str,template_code : str) -> None:
     template_seats : list = []
+    #read the template data
     read_movie_seats_csv(movie_seats_csv= template_seats_csv,movie_seats= template_seats,movie_code= template_code,skip_valid_check= True)
+    #overwrite the old data with template data
     update_movie_seats_csv(movie_seats_csv= movie_seats_csv,movie_seats= template_seats,movie_code= movie_code)
 
+
+#this is the high level function level version of add_movie_seats_csv
+def add_movie_seats_from_template (movie_seats_csv : str, template_seats_csv : str, movie_code : str, template_code : str) -> None:
+    new_movie_seats : list = []
+    #read the template data
+    read_movie_seats_csv(movie_seats_csv= template_seats_csv,movie_seats= new_movie_seats,movie_code= template_code,skip_valid_check= True)
+    #add the movie seats with using template data
+    add_movie_seats_csv(movie_seats_csv= movie_seats_csv,movie_seats= new_movie_seats,movie_code= movie_code, template_code= template_code)
+
+
+#IMPORTANT:please check the movie_code_location,x_seats_location,and y_seats_location is the correct location or not!
+#I have no error detection for this EXCEPTION!!!!!!
 def get_movie_code_x_y_value_list (booking_data_array : list,movie_code_location : int, x_seats_location : int, y_seats_location : int) -> list:
+    #check the booking_data_array is one dimension list or not (no 2d list allow)
     if any(isinstance(element, (list,tuple)) for element in booking_data_array):
+        #if the booking_data_array is 2d list,interrupt the action and raise error
         raise TypeError (f"booking_data_array: {booking_data_array} must be a array (no 2d list allowed)")
     mvcode_x_y_list : list = []
+    #add the movie code
     mvcode_x_y_list.append(booking_data_array[movie_code_location])
+    #add the x axis
     mvcode_x_y_list.append(int(booking_data_array[x_seats_location]))
+    #add the y axis
     mvcode_x_y_list.append(int(booking_data_array[y_seats_location]))
+    #return the list
     return mvcode_x_y_list
 
+
+#yup,just calculate the mismatched
 def mismatched_calculate (main_list : list, compared_list : list) -> list:
     calculated_list : list = []
     for item in main_list:
+        #if the element of main_list is not in compared_list,it shows that the element is mismatched
         if item not in compared_list:
+            #append the mismatched element into the list
             calculated_list.append(item)
+    #return the mismatched list
     return calculated_list
 
+
+#yup,just convert the data to list
+#for example
+#the_list = data_convert_to_list ("x","ok","zzzz")
+#the_list = ["x","ok","zzzz"]
 def data_convert_to_list (*args):
     target_list : list = []
+    #unpack the args and use for loop to append the inside item of args
     for item in args:
         target_list.append(item)
+    #return the list
     return target_list
 
+
+#yup this function just only for device column count
+#if i have time,i will turn this function to universal function
 def device_count_for_device_list (cinema_device_list : list) -> int:
     device_count : int = 0
     for row in cinema_device_list:
         for item in row:
+            #if "status" keyword is in item,it shows that the item is device column
             if "status" in item:
                 device_count += 1
             else:
@@ -94,7 +140,8 @@ def device_count_for_device_list (cinema_device_list : list) -> int:
     return device_count
 
 
-
+#sync the movie list,movie seats, and cinema device list
+#The SSOT is movie list
 def sync_all (movie_list_csv : str, movie_seats_csv : str,cinema_device_list_csv : str,templates_seats_csv : str,default_template_code : str) -> None:
     movie_list : list = []
     cinema_device_list : list = []

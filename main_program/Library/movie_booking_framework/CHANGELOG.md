@@ -148,3 +148,18 @@
 ### Added
 - `sync_all` function done!
 - now `sync_all` function can sync all the movie_code with the SSOT(Single Source of Truth) which is movie_list!
+### Changed
+- add comment for `sync_all` function (a version)
+- add comment for `link_seats` function (b version)
+
+### [1.17.1] - 2025-09-19
+### Added
+- now `cinema_services.py` got the comment!
+### Changed
+- add comment for `movie_seats_csv_whole_init` function
+- add comment for `movie_seats_init` function
+- add comment for `add_movie_seats_from_template` function
+- add comment for `get_movie_code_x_y_value_list` function
+- add comment for `mismatched_calculate` function
+- add comment for `data_convert_to_list` function
+- add comment for `device_count_for_device_list` function
