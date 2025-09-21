@@ -152,7 +152,7 @@
 - add comment for `sync_all` function (a version)
 - add comment for `link_seats` function (b version)
 
-## [1.17.1] - 2025-09-19
+## [1.17.1] - 2025-09-21
 ### Added
 - now `cinema_services.py` got the comment!
 ### Changed
@@ -163,3 +163,13 @@
 - add comment for `mismatched_calculate` function
 - add comment for `data_convert_to_list` function
 - add comment for `device_count_for_device_list` function
+
+## [1.17.2] - 2025-09-21
+### Added
+- now `framework_utils` got the comment!
+- add comment for `parse_csv_line`
+- add comment for `format_csv_line`
+- add comment for `overwrite_file`
+- add comment for `_find_project_root`
+- add comment for `get_path`
+- add comment for `one_dimension_list_to_two_dimension_list`
