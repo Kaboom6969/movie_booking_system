@@ -1,12 +1,12 @@
-from .movie_list_framework import *
-from .movie_seats_framework import *
 from .valid_checker import *
+DICTIONARY_INIT_STATUS : bool = False
 MOVIE_LIST_DICTIONARY : dict = {}
 BOOKING_DATA_DICTIONARY : dict = {}
 CINEMA_DEVICE_DICTIONARY : dict = {}
 MOVIE_SEATS_DICTIONARY : dict = {}
 
 def seat_dictionary_create (seats_csv : str) -> dict:
+    from .movie_seats_framework import read_movie_seats_csv_raw_data
     key: str = ""
     movie_seats_temp: list = []
     movie_seats_dict_in_func : dict = {}
@@ -34,15 +34,17 @@ def seat_dictionary_update (dictionary : dict,key_to_add : str,seats_list_to_add
 def dictionary_update_with_dict (dictionary : dict,dictionary_to_add : dict) -> dict:
     return dictionary | dictionary_to_add
 
-def dictionary_delete (dictionary : dict,key_to_delete : str) -> dict:
+def dictionary_delete (dictionary : dict,key_to_delete : str,skip_key_not_found_error : bool = False) -> dict:
     try:
         debug_data = dictionary.pop(key_to_delete)
     except KeyError:
-        raise ValueError(f"{key_to_delete} not found in dictionary!")
+        if skip_key_not_found_error: pass
+        else: raise ValueError(f"{key_to_delete} not found in dictionary!")
     return dictionary
 
 
 def list_dictionary_create (list_csv : str,code_location : int) -> dict:
+    from .movie_list_framework import read_movie_list_csv
     movie_list_temp : list = []
     movie_list_dict_in_func : dict = {}
     read_movie_list_csv(movie_list_csv= list_csv, movie_list= movie_list_temp)
@@ -63,14 +65,37 @@ def list_dictionary_update(dictionary : dict, key_location : int, list_to_add : 
 
 
 def init_all_dictionary():
-    global MOVIE_LIST_DICTIONARY,BOOKING_DATA_DICTIONARY,CINEMA_DEVICE_DICTIONARY,MOVIE_SEATS_DICTIONARY
+    global MOVIE_LIST_DICTIONARY,BOOKING_DATA_DICTIONARY,CINEMA_DEVICE_DICTIONARY,MOVIE_SEATS_DICTIONARY,DICTIONARY_INIT_STATUS
     MOVIE_LIST_DICTIONARY = list_dictionary_create (list_csv= "movie_list.csv", code_location = 0)
     BOOKING_DATA_DICTIONARY = list_dictionary_create (list_csv= "booking_data.csv", code_location = 0)
     CINEMA_DEVICE_DICTIONARY = list_dictionary_create (list_csv= "cinema_device_list.csv", code_location = 0)
     MOVIE_SEATS_DICTIONARY = seat_dictionary_create(seats_csv= "movie_seat.csv")
-    print (MOVIE_LIST_DICTIONARY)
-    print (BOOKING_DATA_DICTIONARY)
-    print (CINEMA_DEVICE_DICTIONARY)
-    print (MOVIE_SEATS_DICTIONARY)
+    DICTIONARY_INIT_STATUS = True
+    # print (MOVIE_LIST_DICTIONARY)
+    # print (BOOKING_DATA_DICTIONARY)
+    # print (CINEMA_DEVICE_DICTIONARY)
+    # print (MOVIE_SEATS_DICTIONARY)
+
+def read_list_from_cache (cache_dictionary : dict,code : str = "all",code_location : int = 0) -> list:
+    cache_list: list = []
+    list_for_all : list = []
+    try:
+        if code == "all":
+            keys : list = list(cache_dictionary.keys())
+            values : list = list(cache_dictionary.values())
+            for key_element,value_element in zip(keys,values):
+                cache_list.extend(value_element)
+                cache_list.insert(code_location,key_element)
+                list_for_all.append(cache_list[:])
+                cache_list.clear()
+            return list_for_all
+        else:
+            keys : str = code
+            values : list = cache_dictionary[code]
+            cache_list.extend(values)
+            cache_list.insert(code_location,keys)
+            return [cache_list]
+    except KeyError:
+        raise KeyError(f"Cannot Find the code:{code} in code location:{code_location}!")
 
 

@@ -4,13 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0ea8b363-fbeb-45e9-9d45-12a8498462b3" name="Changes" comment="Seat &amp; List FrameWork Version 1.17.4 a.b&#10;- fix the bug again">
-      <change afterPath="$PROJECT_DIR$/main_program/Library/movie_booking_framework/data_dictionary_framework.py" afterDir="false" />
+    <list default="true" id="0ea8b363-fbeb-45e9-9d45-12a8498462b3" name="Changes" comment="-just change the import name">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main_program/Library/movie_booking_framework/CHANGELOG.md" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/Library/movie_booking_framework/CHANGELOG.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main_program/Library/movie_booking_framework/data_dictionary.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/main_program/Library/role/customer.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/Library/role/customer.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main_program/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main_program/Library/movie_booking_framework/cinema_services.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/Library/movie_booking_framework/cinema_services.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main_program/Library/movie_booking_framework/data_dictionary_framework.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/Library/movie_booking_framework/data_dictionary_framework.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main_program/Library/movie_booking_framework/movie_list_framework.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/Library/movie_booking_framework/movie_list_framework.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -118,39 +116,7 @@
       <workItem from="1758470794749" duration="3818000" />
       <workItem from="1758526484245" duration="369000" />
       <workItem from="1758542580817" duration="7999000" />
-      <workItem from="1758556780307" duration="3966000" />
-    </task>
-    <task id="LOCAL-00023" summary="-just change the import location&#10;-change the parameter (movie_list -&gt; code_list) in `get_biggest_number_of_code`">
-      <option name="closed" value="true" />
-      <created>1758042828003</created>
-      <option name="number" value="00023" />
-      <option name="presentableId" value="LOCAL-00023" />
-      <option name="project" value="LOCAL" />
-      <updated>1758042828003</updated>
-    </task>
-    <task id="LOCAL-00024" summary="Seat &amp; List FrameWork Version 1.15.3 a&#10;- change `_movie_seats_csv_valid_check`'s re.fullmatch to re.match">
-      <option name="closed" value="true" />
-      <created>1758044996875</created>
-      <option name="number" value="00024" />
-      <option name="presentableId" value="LOCAL-00024" />
-      <option name="project" value="LOCAL" />
-      <updated>1758044996875</updated>
-    </task>
-    <task id="LOCAL-00025" summary="-just template of movie_seats">
-      <option name="closed" value="true" />
-      <created>1758045037199</created>
-      <option name="number" value="00025" />
-      <option name="presentableId" value="LOCAL-00025" />
-      <option name="project" value="LOCAL" />
-      <updated>1758045037199</updated>
-    </task>
-    <task id="LOCAL-00026" summary="Seat &amp; List FrameWork Version 1.16.0&#10;- the biggest update ever in this framework!&#10;- see the changelog!">
-      <option name="closed" value="true" />
-      <created>1758050850246</created>
-      <option name="number" value="00026" />
-      <option name="presentableId" value="LOCAL-00026" />
-      <option name="project" value="LOCAL" />
-      <updated>1758050850246</updated>
+      <workItem from="1758556780307" duration="11106000" />
     </task>
     <task id="LOCAL-00027" summary="Seat &amp; List FrameWork Version 1.16.1&#10;- split the framework">
       <option name="closed" value="true" />
@@ -512,7 +478,39 @@
       <option name="project" value="LOCAL" />
       <updated>1758560707128</updated>
     </task>
-    <option name="localTasksCounter" value="72" />
+    <task id="LOCAL-00072" summary="Seat &amp; List FrameWork Version 1.17.4 b&#10;- The CRUD from `data_dictionary_framework.py` is done!">
+      <option name="closed" value="true" />
+      <created>1758562091906</created>
+      <option name="number" value="00072" />
+      <option name="presentableId" value="LOCAL-00072" />
+      <option name="project" value="LOCAL" />
+      <updated>1758562091906</updated>
+    </task>
+    <task id="LOCAL-00073" summary="-sync the main">
+      <option name="closed" value="true" />
+      <created>1758570519115</created>
+      <option name="number" value="00073" />
+      <option name="presentableId" value="LOCAL-00073" />
+      <option name="project" value="LOCAL" />
+      <updated>1758570519115</updated>
+    </task>
+    <task id="LOCAL-00074" summary="-just a graveyard">
+      <option name="closed" value="true" />
+      <created>1758570534802</created>
+      <option name="number" value="00074" />
+      <option name="presentableId" value="LOCAL-00074" />
+      <option name="project" value="LOCAL" />
+      <updated>1758570534802</updated>
+    </task>
+    <task id="LOCAL-00075" summary="-just change the import name">
+      <option name="closed" value="true" />
+      <created>1758570553104</created>
+      <option name="number" value="00075" />
+      <option name="presentableId" value="LOCAL-00075" />
+      <option name="project" value="LOCAL" />
+      <updated>1758570553104</updated>
+    </task>
+    <option name="localTasksCounter" value="76" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -530,10 +528,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="customer version 1.2.0 c&#10;- idk why it got the bug but i fix it" />
-    <MESSAGE value="1.1.1 a login system&#10;-change the import things (prevent bug)" />
-    <MESSAGE value="customer version 1.2.0 c.a&#10;-change the var name in `book_movie_operation` (movie_seats -&gt; booking_movie_seats)" />
-    <MESSAGE value="Seat &amp; List FrameWork Version 1.17.0&#10;- `sync_all` function done!&#10;- now `sync_all` function can sync all the movie_code with the SSOT(Single Source of Truth) which is movie_list!" />
     <MESSAGE value="-add header for `customer.csv`&#10;-add user_balance for `customer.csv`" />
     <MESSAGE value="payment_framework version 1.0.0&#10;- add `payment_framework.py`" />
     <MESSAGE value="payment_framework version 1.0.0 a&#10;- move the payment_framework to a new package" />
@@ -555,10 +549,81 @@
     <MESSAGE value="Seat &amp; List FrameWork Version 1.17.4 a&#10;- edit `movie_seats_csv_valid_check` to let it compare to the new seats format (just a simple valid check)" />
     <MESSAGE value="Seat &amp; List FrameWork Version 1.17.4 a.a&#10;- fix a little bug in `movie_seats_csv_valid_check` (it will always raise error in that bug)" />
     <MESSAGE value="Seat &amp; List FrameWork Version 1.17.4 a.b&#10;- fix the bug again" />
-    <option name="LAST_COMMIT_MESSAGE" value="Seat &amp; List FrameWork Version 1.17.4 a.b&#10;- fix the bug again" />
+    <MESSAGE value="Seat &amp; List FrameWork Version 1.17.4 b&#10;- The CRUD from `data_dictionary_framework.py` is done!" />
+    <MESSAGE value="-sync the main" />
+    <MESSAGE value="-just a graveyard" />
+    <MESSAGE value="-just change the import name" />
+    <option name="LAST_COMMIT_MESSAGE" value="-just change the import name" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/main_program/main.py</url>
+          <line>7</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/main_program/Library/movie_booking_framework/data_dictionary_framework.py</url>
+          <line>68</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/main_program/Library/movie_booking_framework/data_dictionary_framework.py</url>
+          <line>67</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/main_program/Library/movie_booking_framework/data_dictionary_framework.py</url>
+          <line>69</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/main_program/Library/movie_booking_framework/data_dictionary_framework.py</url>
+          <line>70</line>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/main_program/Library/movie_booking_framework/data_dictionary_framework.py</url>
+          <line>71</line>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/main_program/Library/movie_booking_framework/data_dictionary_framework.py</url>
+          <line>56</line>
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/main_program/Library/movie_booking_framework/data_dictionary_framework.py</url>
+          <line>45</line>
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/main_program/Library/movie_booking_framework/data_dictionary_framework.py</url>
+          <line>36</line>
+          <option name="timeStamp" value="9" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/main_program/Library/movie_booking_framework/data_dictionary_framework.py</url>
+          <line>28</line>
+          <option name="timeStamp" value="10" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/main_program/Library/movie_booking_framework/data_dictionary_framework.py</url>
+          <line>7</line>
+          <option name="timeStamp" value="11" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/main_program/Library/movie_booking_framework/data_dictionary_framework.py</url>
+          <line>46</line>
+          <option name="timeStamp" value="12" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/main_program/Library/movie_booking_framework/data_dictionary_framework.py</url>
+          <line>47</line>
+          <option name="timeStamp" value="13" />
+        </line-breakpoint>
+      </breakpoints>
       <default-breakpoints>
         <breakpoint type="python-exception">
           <properties notifyOnTerminate="true" exception="BaseException">
@@ -571,7 +636,7 @@
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/movie_booking_system$data_dictionary.coverage" NAME="data_dictionary Coverage Results" MODIFIED="1758560507379" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/main_program/Library/movie_booking_framework" />
     <SUITE FILE_PATH="coverage/movie_booking_system$customer.coverage" NAME="customer Coverage Results" MODIFIED="1758549896525" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/main_program/Library/role" />
-    <SUITE FILE_PATH="coverage/movie_booking_system$main.coverage" NAME="main Coverage Results" MODIFIED="1758560857139" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/main_program" />
+    <SUITE FILE_PATH="coverage/movie_booking_system$main.coverage" NAME="main Coverage Results" MODIFIED="1758569600069" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/main_program" />
     <SUITE FILE_PATH="coverage/movie_booking_system$movie_seats_framework.coverage" NAME="movie_seats_framework Coverage Results" MODIFIED="1758548134663" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/main_program/Library/movie_booking_framework" />
   </component>
 </project>

@@ -1,14 +1,16 @@
 from .id_generator import *
 from .movie_seats_framework import *
 from .movie_list_framework import *
+from main_program.Library.movie_booking_framework import data_dictionary_framework as ddf
 from .valid_checker import movie_seats_csv_valid_check
 
-def link_seats (movie_seats_csv : str, booking_data_csv : str,template_seats_csv : str,book_movie_code_location : int = 2, book_x_seats_location : int = 5, book_y_seats_location : int = 6) -> None:
-    booking_data_list : list = []
+def link_seats (movie_seats_csv : str, booking_data_csv : str,template_seats_csv : str,
+                book_movie_code_location : int = 2, book_x_seats_location : int = 5, book_y_seats_location : int = 6,
+                movie_seats_dict : dict = ddf.MOVIE_SEATS_DICTIONARY,booking_data_dict : dict = ddf.DICTIONARY_INIT_STATUS) -> None:
+    #read the booking data from cache
+    booking_data_list : list = ddf.read_list_from_cache(cache_dictionary= booking_data_dict)
     #First init the seats file (all the data of seats clear)
     movie_seats_csv_whole_init(movie_seats_csv= movie_seats_csv,template_seats_csv= template_seats_csv)
-    #read the booking data
-    read_movie_list_csv(movie_list_csv= booking_data_csv,movie_list=booking_data_list)
     for row in booking_data_list:
         #get the data of booking (movie code,x,y) from booking data list)
         #[movie_code,x_axis,y_axis]

@@ -198,5 +198,12 @@
 - The CRUD from `data_dictionary_framework.py` is done! (b version)
 ### Changed
 - edit `movie_seats_csv_valid_check` to let it compare to the new seats format (just a simple valid check) (a version)
-### Fixed
+
+## [1.17.5] - 2025-09-23
+### Added
+- add `read_list_from_cache` function in `data_dictionary_framework.py`,it is read the data from RAM(dictionary) and not Hard disk(csvfile)
+- take the first step for using the `read_list_from_cache` in `cinema_services.py` (100x faster)
+### Changed
+- add lazy import for `data_dictionary_framework.py`
+- add the sync of dictionary(cache) and the actual csv file
 

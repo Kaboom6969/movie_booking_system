@@ -1,5 +1,6 @@
-from .framework_utils import *
+from .data_dictionary_framework import *
 
+DICT_USELESS : dict = {}
 
 def read_movie_list_csv(movie_list_csv: str, movie_list: list, movie_code: str = "all", movie_mode: bool = True,
                         code_location: int = 0,read_header : bool = False) -> None:
@@ -33,8 +34,10 @@ def read_movie_list_csv(movie_list_csv: str, movie_list: list, movie_code: str =
         raise e
 
 
-def update_movie_list_csv(movie_list_csv: str, movie_list: list, movie_code: str = "all",
+def update_movie_list_csv(movie_list_csv: str, movie_list: list, dictionary=None, movie_code: str = "all",
                           code_location: int = 0) -> None:
+    if dictionary is None:
+        dictionary = DICT_USELESS
     movie_list_csv_path = get_path(movie_list_csv)
     movie_list_csv_temp_path = os.path.dirname(movie_list_csv_path)
 
@@ -45,34 +48,26 @@ def update_movie_list_csv(movie_list_csv: str, movie_list: list, movie_code: str
             movie_list_dict: dict = {row[code_location]: row for row in movie_list}
             header_line = next(mvl_csv_r)
             mvl_csv_w.write(header_line)
-            if movie_code == "all":
+            try:
+                movie_list_specify: list = movie_list_dict[movie_code]
                 for line in mvl_csv_r:
                     if not line.strip(): continue
                     row = parse_csv_line(line)
-                    if row[code_location] in movie_list_dict:
-                        line_to_write = format_csv_line(movie_list_dict[row[code_location]])
+                    if row[code_location] == movie_list_specify[code_location]:
+                        line_to_write = format_csv_line(movie_list_specify)
                         mvl_csv_w.write(line_to_write)
-                        del movie_list_dict[row[code_location]]
+                        list_dictionary_update(dictionary= dictionary,key_location= code_location,list_to_add= movie_list_specify)
                     else:
                         mvl_csv_w.write(line)
-            else:
-                try:
-                    movie_list_specify: list = movie_list_dict[movie_code]
-                    for line in mvl_csv_r:
-                        if not line.strip(): continue
-                        row = parse_csv_line(line)
-                        if row[code_location] == movie_list_specify[code_location]:
-                            line_to_write = format_csv_line(movie_list_specify)
-                            mvl_csv_w.write(line_to_write)
-                        else:
-                            mvl_csv_w.write(line)
-                except KeyError:
-                    raise IndexError("Movie Code is not in the list!")
+            except KeyError:
+                raise IndexError("Movie Code is not in the list!")
     except Exception as e:
         raise Exception(f"UPDATE LIST ERROR!ERROR:{e}")
     overwrite_file(overwrited_file_csv=movie_list_csv, original_file_csv=f"{movie_list_csv}.temp")
 
-def add_movie_list_csv(movie_list_csv: str, movie_list: list, movie_code: str, code_location: int = 0) -> None:
+def add_movie_list_csv(movie_list_csv: str, movie_list: list,movie_code: str,dictionary : dict = None, code_location: int = 0) -> None:
+    if dictionary is None:
+        dictionary = DICT_USELESS
     try:
         if movie_code == "all": raise ValueError("'all' isn't supported in this function!")
         movie_list = one_dimension_list_to_two_dimension_list(movie_list)
@@ -98,6 +93,7 @@ def add_movie_list_csv(movie_list_csv: str, movie_list: list, movie_code: str, c
             for row_to_add in movie_list_for_add:
                 line_to_write = format_csv_line(row_to_add)
                 mvl_csv_w.write(line_to_write)
+                list_dictionary_update(dictionary= dictionary,key_location= code_location,list_to_add= row_to_add)
     except FileNotFoundError as e:
         raise FileNotFoundError(f"ADD MOVIE FAILED! ERROR:{e}")
     except ValueError as e:
@@ -106,7 +102,9 @@ def add_movie_list_csv(movie_list_csv: str, movie_list: list, movie_code: str, c
         raise Exception(f"ADD MOVIE FAILED! UNKNOWN ERROR:{e}")
     overwrite_file(overwrited_file_csv=movie_list_csv, original_file_csv=f"{movie_list_csv}.temp")
 
-def delete_movie_list_csv (movie_list_csv : str,movie_code : str,code_location : int = 0) -> None:
+def delete_movie_list_csv (movie_list_csv : str,movie_code : str,dictionary : dict = None,code_location : int = 0) -> None:
+    if dictionary is None:
+        dictionary = DICT_USELESS
     movie_list_csv_path = get_path(movie_list_csv)
     movie_list_csv_temp_path = os.path.dirname(movie_list_csv_path)
     with (open(movie_list_csv_path,'r') as mvl_csv_r,
@@ -123,9 +121,8 @@ def delete_movie_list_csv (movie_list_csv : str,movie_code : str,code_location :
             raise ValueError(f"Didn't find the movie code:{movie_code} in {movie_list_csv}!")
         if code_csv_matcher > 1:
             warnings.warn(f"Found more than 2 movie code:{movie_code} in {movie_list_csv},system will delete all!")
+    dictionary_delete(dictionary= dictionary,key_to_delete= movie_code,skip_key_not_found_error = True)
     overwrite_file(overwrited_file_csv=movie_list_csv, original_file_csv=f"{movie_list_csv}.temp")
-
-
 
 
 
