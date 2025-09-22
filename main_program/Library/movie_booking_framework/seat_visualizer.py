@@ -21,6 +21,8 @@ def print_movie_seat_as_emojis (movie_seats : list,x_pointer : int = -1,y_pointe
         movie_seats_temp = _y_location_add(movie_seats= movie_seats_temp,y_pointer= y_pointer)
     if x_pointer > 0:
         movie_seats_temp = _x_location_add(movie_seats= movie_seats_temp,x_pointer= x_pointer)
+    if y_pointer > 0 and x_pointer > 0:
+        movie_seats_temp[len(movie_seats_temp) - y_pointer - 1][x_pointer - 1] = "5"
     for index,main_list in enumerate(movie_seats_temp):
         for second_list in main_list:
             if second_list == "0":
@@ -28,7 +30,7 @@ def print_movie_seat_as_emojis (movie_seats : list,x_pointer : int = -1,y_pointe
             elif second_list == "1":
                 print("[F]",end=" ")
             elif second_list == "-1":
-                print("[X]",end=" ")
+                print("   ",end=" ")
             elif second_list == "2":
                 print("   ",end=" ")
             elif second_list == "3":
