@@ -50,14 +50,17 @@ def movie_seats_csv_valid_check (movie_seats_csv : str) -> None:
                                      f"Line:{line_count}\nThis Row: {row[0]}\nLAST Row:{row_head_temp}")
                 if END_status and not START_status:
                     raise ValueError(f"START HEADER DIDN'T FOUND!\nFile name:{movie_seats_csv}\nFile path:{movie_seats_csv_path}\nLine:{line_count}")
-                if CODE_status and START_status and END_status:
+                if CODE_status and START_status and END_status and DATA_status:
                     CODE_status = False
                     START_status = False
                     END_status = False
+                    DATA_status = False
                 row_head_temp = row[0]
             if START_status and CODE_status: raise ValueError (f"END HEADER LOST!\nFile name:{movie_seats_csv}"
                                                    f"\nFile path:{movie_seats_csv_path}\nLine:{line_count}")
             if CODE_status: raise ValueError(f"START HEADER AND END HEADER LOST!\nFile name:{movie_seats_csv}"
+                                                   f"\nFile path:{movie_seats_csv_path}\nLine:{line_count}")
+            if DATA_status: raise ValueError(f"END HEADER LOST!\nFile name:{movie_seats_csv}"
                                                    f"\nFile path:{movie_seats_csv_path}\nLine:{line_count}")
             if START_status or END_status or CODE_status:
                 raise ValueError(f"FORMAT ERROR! COULD NOT PINPOINT THE EXACT ISSUE. PLEASE REVIEW YOUR FILE!\nFile name:{movie_seats_csv}\nFile path:{movie_seats_csv_path}")
