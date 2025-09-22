@@ -1,20 +1,21 @@
 from main_program.Library.movie_booking_framework.seat_visualizer import *
 from main_program.Library.movie_booking_framework.id_generator import *
 from main_program.Library.movie_booking_framework.cinema_services import *
+from main_program.Library.movie_booking_framework.data_dictionary import *
 import datetime
 
 DEFAULT_WIDTH = 20
 
-def check_ticket_bought(customer_code : str,booking_data_csv : str,movie_list_csv : str) -> list:
+def check_ticket_bought(customer_code : str,booking_data_csv : str) -> list:
     booking_list : list = []            #format: ['B001','C001', '001','2025/8/13','2','3','3','Online']
-    movie_code_list : list = []         #format:'001'
+    booking_code_list : list = []         #format:'001'
     read_movie_list_csv(movie_list_csv= booking_data_csv, movie_list= booking_list, movie_code= customer_code,movie_mode = False,code_location = 1)
-    print(f"{'User_id': <{DEFAULT_WIDTH}}{'Movie Code': <{DEFAULT_WIDTH}}{'Booking Date': <{DEFAULT_WIDTH}}")
-    print("-" * (DEFAULT_WIDTH * 3 + 1))
+    print(f"{'booking_id' : <{DEFAULT_WIDTH}}{'User_id': <{DEFAULT_WIDTH}}{'Movie Code': <{DEFAULT_WIDTH}}{'Booking Date': <{DEFAULT_WIDTH}}")
+    print("-" * (DEFAULT_WIDTH * 4 + 1))
     for row in booking_list:
-        movie_code_list.append(row[2])
-        print(f"{customer_code: <{DEFAULT_WIDTH}}{str(row[2]): <{DEFAULT_WIDTH}}{str(row[3]): <{DEFAULT_WIDTH}}")
-    return movie_code_list
+        booking_code_list.append(row[0])
+        print(f"{row[0]: <{DEFAULT_WIDTH}}{row[1]: <{DEFAULT_WIDTH}}{str(row[2]): <{DEFAULT_WIDTH}}{str(row[3]): <{DEFAULT_WIDTH}}")
+    return booking_code_list
 
 def booking_to_movie_list_print(movie_code_list : list, movie_code : str, movie_list_csv : str) -> None:
     if movie_code not in movie_code_list:
@@ -43,8 +44,9 @@ def code_range_create(code_list : list,code_location : int) -> list:
         code_range_list.append(row[code_location])
     return code_range_list
 
-def book_movie_operation(movie_code : str,movie_seats_csv : str,booking_data_csv : str,user_id : str) -> None:
+def book_movie_operation(movie_code : str,movie_seats_csv : str,booking_data_csv : str,template_seats_csv : str,user_id : str) -> None:
     try:
+        link_seats(movie_seats_csv= movie_seats_csv,booking_data_csv= booking_data_csv, template_seats_csv= template_seats_csv)
         booking_movie_seats = movie_list_to_movie_seats_print(movie_code=movie_code, movie_seats_csv=movie_seats_csv)
         x_range = x_range_calculate(movie_seats=booking_movie_seats)
         y_range = y_range_calculate(movie_seats=booking_movie_seats)
@@ -67,6 +69,8 @@ def book_movie_operation(movie_code : str,movie_seats_csv : str,booking_data_csv
                                                          ,booking_or_pay= "1",x_seat= str(x_pointer)
                                                          ,y_seat= str(y_pointer),source= "online")
                 add_movie_list_csv(movie_list_csv= booking_data_csv,movie_list= booking_data_list,movie_code= book_id)
+                link_seats(movie_seats_csv=movie_seats_csv, booking_data_csv=booking_data_csv,
+                           template_seats_csv=template_seats_csv)
 
             if not booking_status: try_again = True
             else: try_again = False
@@ -141,12 +145,36 @@ def check_all_movie_list(movie_list_csv : str,movie_seats_csv : str) -> list:
         return code_range_create(code_list= movie_list_all,code_location= 0)
 
 
-def cancel_booking_operation(customer_code : str,booking_data_csv : str,movie_list_csv : str) -> None:
-    check_ticket_bought(customer_code= customer_code,booking_data_csv= booking_data_csv,movie_list_csv= movie_list_csv)
+def cancel_booking_operation(user_id : str, booking_data_csv : str, movie_seats_csv : str, movie_list_csv : str, template_seats_csv : str) -> None:
+    booking_code_range : list = check_ticket_bought(customer_code= user_id, booking_data_csv= booking_data_csv)
+    while True:
+        booking_code_cancel : str = str(input("Please Enter the code that you want to cancel: "))
+        if booking_code_cancel not in booking_code_range:
+            print("Please enter a valid code!")
+            continue
+        while True:
+            user_command : str = str(input("Are you sure you want to cancel the booking? (y/n)"))
+            if user_command.lower() != 'y' and user_command.lower() != 'n':
+                print("Please enter a valid command!(y/n)")
+            else:
+                break
+        if user_command.lower() == "n":
+            return
+        if user_command.lower() == "y":
+            delete_movie_list_csv(movie_list_csv= booking_data_csv,movie_code= booking_code_cancel,code_location= 0)
+            link_seats(movie_seats_csv= movie_seats_csv, booking_data_csv= booking_data_csv, template_seats_csv= template_seats_csv)
+            return
+
+
+
+
 
 
 #JUST TEST
 if __name__ == '__main__':
-   #link_seats(movie_seats_csv= "movie_seat.csv",booking_data_csv= "booking_data.csv",template_seats_csv= "template_seats.csv")
-    cancel_booking_operation(customer_code= "C001",booking_data_csv= "booking_data.csv",movie_list_csv= "movie_list.csv")
+    init_all_dictionary()
+    #book_movie_operation(movie_code= "003",movie_seats_csv= "movie_seat.csv",booking_data_csv= "booking_data.csv",
+    #                     template_seats_csv= "template_seats.csv",user_id= "C001")
+    # cancel_booking_operation(user_id= "C001",booking_data_csv= "booking_data.csv",movie_list_csv= "movie_list.csv"
+    #                          ,movie_seats_csv= "movie_seat.csv",template_seats_csv= "template_seats.csv")
 
