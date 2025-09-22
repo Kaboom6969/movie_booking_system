@@ -4,13 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0ea8b363-fbeb-45e9-9d45-12a8498462b3" name="Changes" comment="movie_booking_system Version 0.0.0&#10;- add main.py">
-      <change afterPath="$PROJECT_DIR$/main_program/Library/movie_booking_framework/data_dictionary.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/movie_booking_system.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/movie_booking_system.iml" afterDir="false" />
+    <list default="true" id="0ea8b363-fbeb-45e9-9d45-12a8498462b3" name="Changes" comment="Seat &amp; List FrameWork Version 1.17.4 a.b&#10;- fix the bug again">
+      <change afterPath="$PROJECT_DIR$/main_program/Library/movie_booking_framework/data_dictionary_framework.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main_program/Data/booking_data.csv" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/Data/booking_data.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main_program/Data/movie_seat.csv" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/Data/movie_seat.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main_program/Library/movie_booking_framework/seat_visualizer.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/Library/movie_booking_framework/seat_visualizer.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main_program/Library/movie_booking_framework/CHANGELOG.md" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/Library/movie_booking_framework/CHANGELOG.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main_program/Library/movie_booking_framework/data_dictionary.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/main_program/Library/role/customer.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/Library/role/customer.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main_program/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/main.py" afterDir="false" />
     </list>
@@ -54,40 +52,40 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "Python.__movie_framework__.executor": "Run",
-    "Python.__movie_list_framework__.executor": "Run",
-    "Python.__movie_seats_framework__.executor": "Run",
-    "Python._movie_seats_framework_.executor": "Run",
-    "Python.clerk.executor": "Run",
-    "Python.customer.executor": "Run",
-    "Python.data_dictionary.executor": "Run",
-    "Python.login_system.executor": "Run",
-    "Python.main.executor": "Run",
-    "Python.main_program.Library.movie_booking_operation.user_operation.executor": "Run",
-    "Python.manager.executor": "Run",
-    "Python.movie_booking_system.main_program.Library.movie_booking_operation.user_operation.executor": "Run",
-    "Python.movie_list_framework.executor": "Run",
-    "Python.movie_list_test.executor": "Debug",
-    "Python.movie_seats_framework.executor": "Run",
-    "Python.user_operation.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "test",
-    "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "C:/Users/leezh/PycharmProjects/movie_booking_system/Main Program/Library/system_login_framework/Login/login_system",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "reference.settingsdialog.IDE.editor.colors.Python",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;Python.__movie_framework__.executor&quot;: &quot;Run&quot;,
+    &quot;Python.__movie_list_framework__.executor&quot;: &quot;Run&quot;,
+    &quot;Python.__movie_seats_framework__.executor&quot;: &quot;Run&quot;,
+    &quot;Python._movie_seats_framework_.executor&quot;: &quot;Run&quot;,
+    &quot;Python.clerk.executor&quot;: &quot;Run&quot;,
+    &quot;Python.customer.executor&quot;: &quot;Run&quot;,
+    &quot;Python.data_dictionary.executor&quot;: &quot;Run&quot;,
+    &quot;Python.login_system.executor&quot;: &quot;Run&quot;,
+    &quot;Python.main.executor&quot;: &quot;Run&quot;,
+    &quot;Python.main_program.Library.movie_booking_operation.user_operation.executor&quot;: &quot;Run&quot;,
+    &quot;Python.manager.executor&quot;: &quot;Run&quot;,
+    &quot;Python.movie_booking_system.main_program.Library.movie_booking_operation.user_operation.executor&quot;: &quot;Run&quot;,
+    &quot;Python.movie_list_framework.executor&quot;: &quot;Run&quot;,
+    &quot;Python.movie_list_test.executor&quot;: &quot;Debug&quot;,
+    &quot;Python.movie_seats_framework.executor&quot;: &quot;Run&quot;,
+    &quot;Python.user_operation.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;test&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/leezh/PycharmProjects/movie_booking_system/Main Program/Library/system_login_framework/Login/login_system&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.IDE.editor.colors.Python&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\leezh\PycharmProjects\movie_booking_system\Main Program\Library\system_login_framework\Login\login_system" />
@@ -119,79 +117,8 @@
       <workItem from="1758455834480" duration="7229000" />
       <workItem from="1758470794749" duration="3818000" />
       <workItem from="1758526484245" duration="369000" />
-      <workItem from="1758542580817" duration="7381000" />
-    </task>
-    <task id="LOCAL-00014" summary="Login FramWork Version 1.1.0 a&#10;-Refactored `check_password` to be more modular and to raise an error when an invalid password is detected, instead of returning False.">
-      <option name="closed" value="true" />
-      <created>1756838005742</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1756838005742</updated>
-    </task>
-    <task id="LOCAL-00015" summary="Seat &amp; List FrameWork Version 1.14.0 b&#10;-Yup Just change the date from CHANGELOG.md.">
-      <option name="closed" value="true" />
-      <created>1756838615255</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
-      <option name="project" value="LOCAL" />
-      <updated>1756838615255</updated>
-    </task>
-    <task id="LOCAL-00016" summary="Login FramWork Version 1.1.0 b&#10;-Refactored some of the code.">
-      <option name="closed" value="true" />
-      <created>1756841021429</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1756841021429</updated>
-    </task>
-    <task id="LOCAL-00017" summary="Login FramWork Version 1.1.0 b&#10;-Refactored some of the code.">
-      <option name="closed" value="true" />
-      <created>1756841043936</created>
-      <option name="number" value="00017" />
-      <option name="presentableId" value="LOCAL-00017" />
-      <option name="project" value="LOCAL" />
-      <updated>1756841043936</updated>
-    </task>
-    <task id="LOCAL-00018" summary="FUCKING TESTING VERSION (1000 BUGS)">
-      <option name="closed" value="true" />
-      <created>1756847730742</created>
-      <option name="number" value="00018" />
-      <option name="presentableId" value="LOCAL-00018" />
-      <option name="project" value="LOCAL" />
-      <updated>1756847730742</updated>
-    </task>
-    <task id="LOCAL-00019" summary="Seat &amp; List FrameWork Version 1.15.2 a&#10;-Improved some of the functionality in update_movie_list_csv (work in progress).">
-      <option name="closed" value="true" />
-      <created>1757003858033</created>
-      <option name="number" value="00019" />
-      <option name="presentableId" value="LOCAL-00019" />
-      <option name="project" value="LOCAL" />
-      <updated>1757003858033</updated>
-    </task>
-    <task id="LOCAL-00020" summary="- add date column for movie_list.csv">
-      <option name="closed" value="true" />
-      <created>1758037538825</created>
-      <option name="number" value="00020" />
-      <option name="presentableId" value="LOCAL-00020" />
-      <option name="project" value="LOCAL" />
-      <updated>1758037538825</updated>
-    </task>
-    <task id="LOCAL-00021" summary="- change the name `Date` to `booking_date`">
-      <option name="closed" value="true" />
-      <created>1758037848633</created>
-      <option name="number" value="00021" />
-      <option name="presentableId" value="LOCAL-00021" />
-      <option name="project" value="LOCAL" />
-      <updated>1758037848633</updated>
-    </task>
-    <task id="LOCAL-00022" summary="Customer Version 1.2.0 b&#10;- now `book_movie_operation` will add the booking record to booking_data.csv&#10;-  Added `_booking_data_create` function">
-      <option name="closed" value="true" />
-      <created>1758042770994</created>
-      <option name="number" value="00022" />
-      <option name="presentableId" value="LOCAL-00022" />
-      <option name="project" value="LOCAL" />
-      <updated>1758042770994</updated>
+      <workItem from="1758542580817" duration="7999000" />
+      <workItem from="1758556780307" duration="3966000" />
     </task>
     <task id="LOCAL-00023" summary="-just change the import location&#10;-change the parameter (movie_list -&gt; code_list) in `get_biggest_number_of_code`">
       <option name="closed" value="true" />
@@ -513,7 +440,79 @@
       <option name="project" value="LOCAL" />
       <updated>1758547627467</updated>
     </task>
-    <option name="localTasksCounter" value="63" />
+    <task id="LOCAL-00063" summary="Seat &amp; List FrameWork Version 1.17.3 a&#10;- `print_movie_seat_as_emojis` now can draw target">
+      <option name="closed" value="true" />
+      <created>1758550452053</created>
+      <option name="number" value="00063" />
+      <option name="presentableId" value="LOCAL-00063" />
+      <option name="project" value="LOCAL" />
+      <updated>1758550452053</updated>
+    </task>
+    <task id="LOCAL-00064" summary="Seat &amp; List FrameWork Version 1.17.4&#10;- `data_dictionary.py` is now open! (work in progress)(a lot of workkkkkk)">
+      <option name="closed" value="true" />
+      <created>1758550494074</created>
+      <option name="number" value="00064" />
+      <option name="presentableId" value="LOCAL-00064" />
+      <option name="project" value="LOCAL" />
+      <updated>1758550494074</updated>
+    </task>
+    <task id="LOCAL-00065" summary="- test for main">
+      <option name="closed" value="true" />
+      <created>1758550507436</created>
+      <option name="number" value="00065" />
+      <option name="presentableId" value="LOCAL-00065" />
+      <option name="project" value="LOCAL" />
+      <updated>1758550507436</updated>
+    </task>
+    <task id="LOCAL-00066" summary="customer version 1.2.1&#10;- now `cancel_booking_operation` is done!&#10;- `check_ticket_bought` now will return book_id and not user_id&#10;- add `link_seats` for `book_movie_operation`">
+      <option name="closed" value="true" />
+      <created>1758550600805</created>
+      <option name="number" value="00066" />
+      <option name="presentableId" value="LOCAL-00066" />
+      <option name="project" value="LOCAL" />
+      <updated>1758550600805</updated>
+    </task>
+    <task id="LOCAL-00067" summary="- sync the data">
+      <option name="closed" value="true" />
+      <created>1758550611027</created>
+      <option name="number" value="00067" />
+      <option name="presentableId" value="LOCAL-00067" />
+      <option name="project" value="LOCAL" />
+      <updated>1758550611027</updated>
+    </task>
+    <task id="LOCAL-00068" summary="- idk what is this i just push it">
+      <option name="closed" value="true" />
+      <created>1758550634155</created>
+      <option name="number" value="00068" />
+      <option name="presentableId" value="LOCAL-00068" />
+      <option name="project" value="LOCAL" />
+      <updated>1758550634155</updated>
+    </task>
+    <task id="LOCAL-00069" summary="Seat &amp; List FrameWork Version 1.17.4 a&#10;- edit `movie_seats_csv_valid_check` to let it compare to the new seats format (just a simple valid check)">
+      <option name="closed" value="true" />
+      <created>1758560327661</created>
+      <option name="number" value="00069" />
+      <option name="presentableId" value="LOCAL-00069" />
+      <option name="project" value="LOCAL" />
+      <updated>1758560327661</updated>
+    </task>
+    <task id="LOCAL-00070" summary="Seat &amp; List FrameWork Version 1.17.4 a.a&#10;- fix a little bug in `movie_seats_csv_valid_check` (it will always raise error in that bug)">
+      <option name="closed" value="true" />
+      <created>1758560576371</created>
+      <option name="number" value="00070" />
+      <option name="presentableId" value="LOCAL-00070" />
+      <option name="project" value="LOCAL" />
+      <updated>1758560576371</updated>
+    </task>
+    <task id="LOCAL-00071" summary="Seat &amp; List FrameWork Version 1.17.4 a.b&#10;- fix the bug again">
+      <option name="closed" value="true" />
+      <created>1758560707127</created>
+      <option name="number" value="00071" />
+      <option name="presentableId" value="LOCAL-00071" />
+      <option name="project" value="LOCAL" />
+      <updated>1758560707128</updated>
+    </task>
+    <option name="localTasksCounter" value="72" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -531,15 +530,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="-sync data" />
-    <MESSAGE value="Seat &amp; List FrameWork Version 1.16.2 b&#10;- add `code_catcher` and `prefix_cathcher` function (id.generator.py)" />
-    <MESSAGE value="Seat &amp; List FrameWork Version 1.16.2 c&#10;- add `seats_code_cathcher` function for `movie_seats_framework.py`" />
-    <MESSAGE value="Seat &amp; List FrameWork Version 1.16.2 d&#10;- `seats_code_catcher` now can report error when it didn't detect any code" />
-    <MESSAGE value="Seat &amp; List FrameWork Version 1.16.2 e&#10;- add `mismatched_calculate` function for `cinema_services.py`&#10;- new high level api `sync_all` in work progress!" />
-    <MESSAGE value="Seat &amp; List FrameWork Version 1.16.2 f&#10;- `code_catcher` is now more robustness! Now if it detect the code got alphabet,it will skip the code. And got a variable row_got_alpha_count for debugging" />
-    <MESSAGE value="Seat &amp; List FrameWork Version 1.16.2 g&#10;- add `one_dimension_list_to_two_dimension_list` function!&#10;- let `update_movie_list_csv` and `add_movie_list_csv` can handle one dimension list! (with using `one_dimension_list_to_two_dimension_list` function)" />
-    <MESSAGE value="Seat &amp; List FrameWork Version 1.16.2 h&#10;- `sync_all` function now can sync for adding,delete still in progress" />
-    <MESSAGE value="Seat &amp; List FrameWork Version 1.16.2 i&#10;- fix a little bug in `sync_all`,it will calculate the correct mismatched for movie_list_code_list and cinema_device_movie_code_List" />
     <MESSAGE value="customer version 1.2.0 c&#10;- idk why it got the bug but i fix it" />
     <MESSAGE value="1.1.1 a login system&#10;-change the import things (prevent bug)" />
     <MESSAGE value="customer version 1.2.0 c.a&#10;-change the var name in `book_movie_operation` (movie_seats -&gt; booking_movie_seats)" />
@@ -556,7 +546,16 @@
     <MESSAGE value="Seat &amp; List FrameWork Version 1.17.3 a&#10;- revise the format of movie seats&#10;- now the first column of data is no more &quot;&quot;,now it will fill with &quot;DATA&quot;.&#10;- adjust `update_movie_seats_csv` and `add_movie_seats_csv` to let them compatible into the new format" />
     <MESSAGE value="Seat &amp; List FrameWork Version 1.17.3 a.a&#10;- also revise the template seats (forgot in last version)" />
     <MESSAGE value="movie_booking_system Version 0.0.0&#10;- add main.py" />
-    <option name="LAST_COMMIT_MESSAGE" value="movie_booking_system Version 0.0.0&#10;- add main.py" />
+    <MESSAGE value="Seat &amp; List FrameWork Version 1.17.3 a&#10;- `print_movie_seat_as_emojis` now can draw target" />
+    <MESSAGE value="Seat &amp; List FrameWork Version 1.17.4&#10;- `data_dictionary.py` is now open! (work in progress)(a lot of workkkkkk)" />
+    <MESSAGE value="- test for main" />
+    <MESSAGE value="customer version 1.2.1&#10;- now `cancel_booking_operation` is done!&#10;- `check_ticket_bought` now will return book_id and not user_id&#10;- add `link_seats` for `book_movie_operation`" />
+    <MESSAGE value="- sync the data" />
+    <MESSAGE value="- idk what is this i just push it" />
+    <MESSAGE value="Seat &amp; List FrameWork Version 1.17.4 a&#10;- edit `movie_seats_csv_valid_check` to let it compare to the new seats format (just a simple valid check)" />
+    <MESSAGE value="Seat &amp; List FrameWork Version 1.17.4 a.a&#10;- fix a little bug in `movie_seats_csv_valid_check` (it will always raise error in that bug)" />
+    <MESSAGE value="Seat &amp; List FrameWork Version 1.17.4 a.b&#10;- fix the bug again" />
+    <option name="LAST_COMMIT_MESSAGE" value="Seat &amp; List FrameWork Version 1.17.4 a.b&#10;- fix the bug again" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -570,9 +569,9 @@
     </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/movie_booking_system$data_dictionary.coverage" NAME="data_dictionary Coverage Results" MODIFIED="1758549477171" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/main_program/Library/movie_booking_framework" />
+    <SUITE FILE_PATH="coverage/movie_booking_system$data_dictionary.coverage" NAME="data_dictionary Coverage Results" MODIFIED="1758560507379" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/main_program/Library/movie_booking_framework" />
     <SUITE FILE_PATH="coverage/movie_booking_system$customer.coverage" NAME="customer Coverage Results" MODIFIED="1758549896525" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/main_program/Library/role" />
-    <SUITE FILE_PATH="coverage/movie_booking_system$main.coverage" NAME="main Coverage Results" MODIFIED="1758550311365" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/main_program" />
+    <SUITE FILE_PATH="coverage/movie_booking_system$main.coverage" NAME="main Coverage Results" MODIFIED="1758560857139" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/main_program" />
     <SUITE FILE_PATH="coverage/movie_booking_system$movie_seats_framework.coverage" NAME="movie_seats_framework Coverage Results" MODIFIED="1758548134663" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/main_program/Library/movie_booking_framework" />
   </component>
 </project>

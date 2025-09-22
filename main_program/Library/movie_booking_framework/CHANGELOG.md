@@ -186,3 +186,17 @@
 - add comment for `_list_str_number_to_int_number`
 - add comment for `detect_got_digit`
 - add comment for `generate_code_id`
+- revise the format of movie seats (a version)
+- now the first column of data is no more "",now it will fill with "DATA". (a version)
+- adjust `update_movie_seats_csv` and `add_movie_seats_csv` to let them compatible into the new format (a version)
+- also revise the template seats (a version)
+- `print_movie_seat_as_emojis` now can draw target (a version)
+
+## [1.17.4] - 2025-09-23
+### Added
+- `data_dictionary.py` is now open! (work in progress)(a lot of workkkkkk)
+- The CRUD from `data_dictionary_framework.py` is done! (b version)
+### Changed
+- edit `movie_seats_csv_valid_check` to let it compare to the new seats format (just a simple valid check) (a version)
+### Fixed
+
