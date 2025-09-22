@@ -25,6 +25,7 @@ def movie_seats_csv_valid_check (movie_seats_csv : str) -> None:
             CODE_status = False
             START_status = False
             END_status = False
+            DATA_status = False
             line_count = 0
             for lines in ms_csv_r:
                 row = parse_csv_line(lines)
@@ -39,8 +40,11 @@ def movie_seats_csv_valid_check (movie_seats_csv : str) -> None:
                         raise ValueError(f"TEMPLATE CODE IS INVALID!\nFile name:{movie_seats_csv}\nFile path:{movie_seats_csv_path}\n"
                                      f"Line:{line_count}\nThis Row: {row}")
                 if row[0] == "START": START_status = True
+                if row[0] == "DATA" : DATA_status = True
                 if row[0] == "END": END_status = True
-
+                if DATA_status and (not START_status or not END_status):
+                    raise ValueError(f"START or END DIDN'T FOUND!\nFile name:{movie_seats_csv}\nFile path:{movie_seats_csv_path}\n"
+                                     f"Line:{line_count}\nThis Row: {row[0]}\nLAST Row:{row_head_temp}")
                 if START_status and not CODE_status:
                     raise ValueError(f"MOVIE_CODE DIDN'T FOUND!\nFile name:{movie_seats_csv}\nFile path:{movie_seats_csv_path}\n"
                                      f"Line:{line_count}\nThis Row: {row[0]}\nLAST Row:{row_head_temp}")
