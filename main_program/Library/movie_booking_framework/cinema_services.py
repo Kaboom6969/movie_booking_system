@@ -8,7 +8,7 @@ def link_seats (movie_seats_csv : str, booking_data_csv : str,template_seats_csv
                 book_movie_code_location : int = 2, book_x_seats_location : int = 5, book_y_seats_location : int = 6,
                 movie_seats_dict : dict = ddf.MOVIE_SEATS_DICTIONARY,booking_data_dict : dict = ddf.DICTIONARY_INIT_STATUS) -> None:
     #read the booking data from cache
-    booking_data_list : list = ddf.read_list_from_cache(cache_dictionary= booking_data_dict)
+    booking_data_list : list = ddf.read_list_from_cache(dictionary_cache= booking_data_dict)
     #First init the seats file (all the data of seats clear)
     movie_seats_csv_whole_init(movie_seats_csv= movie_seats_csv,template_seats_csv= template_seats_csv)
     for row in booking_data_list:
