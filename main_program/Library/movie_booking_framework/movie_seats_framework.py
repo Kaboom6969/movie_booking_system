@@ -83,7 +83,7 @@ def update_movie_seats_csv (movie_seats_csv : str,movie_seats: list, movie_code 
 
                 if list_found and row and row[0] == "START":
                     start_status = True
-                    start_header : list = _header_create(header_text="START",movie_seats_length= len(movie_seats[0]) + 1, append_thing= "-2")
+                    start_header : list = header_create(header_text="START", movie_seats_length=len(movie_seats[0]) + 1, append_thing="-2")
                     ms_csv_w.write(format_csv_line(start_header))
 
                 if start_status:
@@ -91,7 +91,7 @@ def update_movie_seats_csv (movie_seats_csv : str,movie_seats: list, movie_code 
                     for i in range(0,len(movie_seats)):
                         ms_csv_w.write(format_csv_line(["DATA",*movie_seats[i][0:]]))     #Write row with empty first column
 
-                    end_header : list = _header_create(header_text="END",movie_seats_length= len(movie_seats[0]) + 1,append_thing= "-2")
+                    end_header : list = header_create(header_text="END", movie_seats_length=len(movie_seats[0]) + 1, append_thing="-2")
                     ms_csv_w.write(format_csv_line(end_header))
                     start_status = False
                     skip_status = True
@@ -134,15 +134,15 @@ def add_movie_seats_csv (movie_seats_csv : str, movie_seats : list, movie_code :
                     raise ValueError ("Movie Code Already Exists! You Should Use update_movie_seats_csv function!")
         #Create headers for CODE, START, and END rows
             longest_row_length = len(find_longest_list(movie_seats))
-            code_header : list = _header_create(header_text = "CODE", movie_seats_length= longest_row_length + 1, append_thing="")
+            code_header : list = header_create(header_text ="CODE", movie_seats_length=longest_row_length + 1, append_thing="")
             code_header[1] = movie_code
             code_header[2] = template_code
-            start_header : list = _header_create(header_text = "START", movie_seats_length = longest_row_length + 1, append_thing="-2")
+            start_header : list = header_create(header_text ="START", movie_seats_length =longest_row_length + 1, append_thing="-2")
             ms_csv_w.write(format_csv_line(code_header))       #Write movie_code row
             ms_csv_w.write(format_csv_line(start_header))           #Write START row
             for row in movie_seats:                              #Write seat data
                 ms_csv_w.write(format_csv_line(["DATA",*row]))           #Add empty first column [""...
-            end_header : list = _header_create(header_text = "END", movie_seats_length = longest_row_length + 1, append_thing="-2")
+            end_header : list = header_create(header_text ="END", movie_seats_length =longest_row_length + 1, append_thing="-2")
             ms_csv_w.write(format_csv_line(end_header))              #Write END row
 
         overwrite_file(overwrited_file_csv= movie_seats_csv, original_file_csv=f"{movie_seats_csv}.temp")     #Overwrite original file
@@ -238,7 +238,7 @@ def movie_seats_specify_value(movie_seats : list,x_axis : int,y_axis : int) -> s
 
 
 
-def _header_create (header_text : str , movie_seats_length : int , append_thing :str) -> list:
+def header_create (header_text : str, movie_seats_length : int, append_thing :str) -> list:
     header : list = []
     header.append(header_text)                  #Add header text
     for i in range(0,movie_seats_length - 1):   #Fill remaining columns

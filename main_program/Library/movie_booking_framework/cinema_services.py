@@ -21,9 +21,8 @@ def link_seats (movie_seats_csv : str, booking_data_csv : str, template_seats_cs
                                                                movie_code_location= book_movie_code_location,
                                                                x_seats_location= book_x_seats_location,
                                                                y_seats_location= book_y_seats_location)
-        current_movie_seats : list = []
         #read the current movie seats (from the mvcode_x_y_list)
-        read_movie_seats_csv(movie_seats_csv= movie_seats_csv,movie_seats= current_movie_seats,movie_code= mvcode_x_y_list[0])
+        current_movie_seats : list = ccsf.read_seats_from_cache(cache_dictionary= movie_seats_dict,code= mvcode_x_y_list[0])
         # detect the actually seat is available or not
         if movie_seats_specify_value(movie_seats=current_movie_seats,x_axis=mvcode_x_y_list[1],y_axis=mvcode_x_y_list[2]) ==  "-1":
             #this usually happen in manager change the template code of movie seats
@@ -42,26 +41,15 @@ def movie_seats_csv_whole_init (movie_seats_csv : str,template_seats_csv : str) 
     except Exception as e:
         #if not,interrupt the action and raise error
         raise Exception(f"INIT FAILED! ERROR:{e}")
-    #get the path of movie seats (to prevent FileNotFoundError)
-    movie_seats_csv_path = get_path(movie_seats_csv)
+    movie_seats_raw_data : list = read_movie_seats_csv_raw_data(movie_seats_csv= movie_seats_csv)
     movie_code_array : list = []
     template_code_array : list = []
-    #open the movie seats file with read mode
-    with open(movie_seats_csv_path,'r',newline ='') as ms_csv_r:
-        #skip header
-        next(ms_csv_r)
-        #get the row of file (still string need to convert to list)
-        for line in ms_csv_r:
-            #check the row is empty or not
-            if not line.strip(): continue
-            #if not,turn this row to list
-            row = parse_csv_line(line)
-            #found the CODE header of the movie seats(if found the CODE header,movie code and template code can get easily)
-            if row[0] == "CODE":
-                #add the movie code to movie code array
-                movie_code_array.append(row[1])
-                #add the template code to template code array
-                template_code_array.append(row[2])
+    for row in movie_seats_raw_data:
+        if row[0] == "CODE":
+            #add the movie code to movie code array
+            movie_code_array.append(row[1])
+            #add the template code to template code array
+            template_code_array.append(row[2])
     #if there is mismatched of movie code and template code,then got serious problem
     if len(movie_code_array) != len(template_code_array):
         #interrupt the action immediately and raise error
@@ -72,12 +60,17 @@ def movie_seats_csv_whole_init (movie_seats_csv : str,template_seats_csv : str) 
         movie_seats_init(movie_seats_csv= movie_seats_csv,template_seats_csv= template_seats_csv,movie_code= movie_code,template_code= template_code)
 
 
-def movie_seats_init(movie_seats_csv : str, template_seats_csv : str, movie_code : str,template_code : str) -> None:
-    template_seats : list = []
-    #read the template data
-    read_movie_seats_csv(movie_seats_csv= template_seats_csv,movie_seats= template_seats,movie_code= template_code,skip_valid_check= True)
+def movie_seats_init(movie_seats_csv : str, template_seats_csv : str, movie_code : str, template_code : str,
+                     movie_seats_dict : dict=None, template_seats_dict : dict=None) -> None:
+    if template_seats_dict is None:
+        template_seats_dict = ddf.TEMPLATE_SEATS_DICTIONARY
+    if movie_seats_dict is None:
+        movie_seats_dict = ddf.MOVIE_SEATS_DICTIONARY
+
+    # read the template data
+    template_seats : list = ccsf.read_seats_from_cache(cache_dictionary= template_seats_dict,code= template_code)
     #overwrite the old data with template data
-    update_movie_seats_csv(movie_seats_csv= movie_seats_csv,movie_seats= template_seats,movie_code= movie_code)
+    ccsf.update_seats_sync(seats_csv= movie_seats_csv,seats_data= template_seats,dictionary_cache= movie_seats_dict,code= movie_code)
 
 
 #this is the high level function level version of add_movie_seats_csv
