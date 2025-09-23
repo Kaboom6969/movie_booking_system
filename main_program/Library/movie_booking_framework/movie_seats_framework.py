@@ -56,7 +56,7 @@ def read_movie_seats_csv_raw_data(movie_seats_csv: str) -> list:
 
 
 #Update seat data for a specific movie_code in the CSV file
-def update_movie_seats_csv (movie_seats_csv : str, movie_seats: list, movie_code : str,skip_valid_check : bool = False) -> None:
+def update_movie_seats_csv (movie_seats_csv : str,movie_seats: list, movie_code : str,skip_valid_check : bool = False) -> None:
     try:
         if not skip_valid_check:
             movie_seats_csv_valid_check(movie_seats_csv= movie_seats_csv)
@@ -112,7 +112,6 @@ def update_movie_seats_csv (movie_seats_csv : str, movie_seats: list, movie_code
                                 f"\nFile name: {movie_seats_csv}")
     except ValueError as e:
         raise ValueError(f"Update Movie Seats Failed!\n{e}")
-
     overwrite_file(overwrited_file_csv= movie_seats_csv, original_file_csv=f"{movie_seats_csv}.temp")   #Overwrite original file
 
 #Add a new seat table for a movie_code to the CSV file
