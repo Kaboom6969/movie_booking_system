@@ -40,9 +40,9 @@ def read_movie_seats_csv(movie_seats_csv: str, movie_seats: list, movie_code: st
     except IndexError as e:
         raise e
 
-def read_movie_seats_csv_raw_data(movie_seats_csv: str) -> list:
+def read_movie_seats_csv_raw_data(movie_seats_csv: str,skip_check : bool = False) -> list:
     raw_data : list = []
-    movie_seats_csv_valid_check(movie_seats_csv= movie_seats_csv)
+    if not skip_check:movie_seats_csv_valid_check(movie_seats_csv= movie_seats_csv)
     movie_seats_csv_path = get_path(movie_seats_csv)
     try:
         with open(movie_seats_csv_path, 'r') as ms_csv_r:
