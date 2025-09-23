@@ -1,62 +1,57 @@
 from main_program.Library.movie_booking_framework import movie_list_framework as mlf
 from main_program.Library.movie_booking_framework import movie_seats_framework as msf
-from main_program.Library.cache_framework import data_dictionary_framework as ddf
+from main_program.Library.cache_framework.data_dictionary_framework import *
 
 
 def update_list_sync (list_csv : str,list_data : list,dictionary_cache : dict,code : str,code_location : int = 0) -> None:
     try:
         mlf.update_movie_list_csv(movie_list_csv= list_csv,movie_list= list_data,movie_code= code,code_location= code_location)
-        ddf.list_dictionary_update(dictionary= dictionary_cache,list_to_add= list_data,key_location= code_location)
+        list_dictionary_update(dictionary= dictionary_cache,list_to_add= list_data,key_location= code_location)
     except Exception as e:
         raise ValueError(f"Update cache error!\nError : str{e}")
 
 def add_list_sync (list_csv : str,list_data : list,dictionary_cache : dict,code : str,code_location : int = 0) -> None:
     try:
         mlf.add_movie_list_csv(movie_list_csv= list_csv,movie_list= list_data,movie_code= code,code_location= code_location)
-        ddf.list_dictionary_update(dictionary= dictionary_cache,list_to_add= list_data,key_location= code_location)
+        list_dictionary_update(dictionary= dictionary_cache,list_to_add= list_data,key_location= code_location)
     except Exception as e:
         raise ValueError(f"Update cache error!\nError : str{e}")
 
 def delete_list_sync (list_csv : str,dictionary_cache : dict,code : str,code_location : int = 0) -> None:
     try:
         mlf.delete_movie_list_csv(movie_list_csv= list_csv,movie_code= code,code_location= code_location)
-        ddf.dictionary_delete(dictionary= dictionary_cache,key_to_delete= code)
+        dictionary_delete(dictionary= dictionary_cache,key_to_delete= code)
     except Exception as e:
         raise ValueError(f"Update cache error!\nError : str{e}")
 
-def read_list_from_cache (dictionary_cache : dict,code : str = "all",code_location : int = 0) -> list:
-    return ddf.read_list_from_cache(dictionary_cache= dictionary_cache,code= code,code_location= code_location)
 
 def update_seats_sync (seats_csv : str,seats_data : list,dictionary_cache,code : str) -> None:
     try:
         msf.update_movie_seats_csv(movie_seats_csv= seats_csv,movie_seats= seats_data,movie_code= code)
-        ddf.seat_dictionary_update(dictionary= dictionary_cache,key_to_add= code,seats_data_to_add= seats_data)
+        seat_dictionary_update(seats_dictionary= dictionary_cache, code_to_update= code, seats_data_to_add= seats_data)
     except Exception as e:
         raise ValueError(f"Update cache error!\nError : str{e}")
 
 def add_seats_sync (seats_csv : str,seats_data : list,dictionary_cache : dict,code : str,template_code : str) -> None:
     try:
         msf.add_movie_seats_csv(movie_seats_csv= seats_csv,movie_seats= seats_data,movie_code= code,template_code= template_code)
-        ddf.seat_dictionary_update(dictionary= dictionary_cache, key_to_add= code, seats_data_to_add= seats_data)
+        seat_dictionary_update(seats_dictionary= dictionary_cache, code_to_update= code, seats_data_to_add= seats_data)
     except Exception as e:
         raise ValueError(f"Update cache error!\nError : str{e}")
 
 def delete_seats_sync (seats_csv : str,dictionary_cache : dict,code : str) -> None:
     try:
         msf.delete_movie_seats_csv(movie_seats_csv= seats_csv,movie_code= code)
-        ddf.dictionary_delete(dictionary= dictionary_cache,key_to_delete= code)
+        dictionary_delete(dictionary= dictionary_cache,key_to_delete= code)
     except Exception as e:
         raise ValueError(f"Update cache error!\nError : str{e}")
-
-def read_seats_from_cache (cache_dictionary : dict,code : str) -> list:
-    return ddf.read_seats_from_cache(cache_dictionary= cache_dictionary,code= code)
 
 def seats_cache_write_to_csv (seats_csv : str,seats_dictionary_cache : dict,mt_code_dictionary_cache : dict) -> None:
     seats_csv_path = mlf.get_path(seats_csv)
     seats_csv_temp_path = seats_csv_path + ".temp"
     header_text = seats_dictionary_cache.get("header")
     if seats_csv != seats_dictionary_cache.get("base file name"):
-        raise ValueError(f"The file name is not same with base file name!")
+        raise ValueError(f"The file name:{seats_csv} is not same with base file name:{seats_dictionary_cache.get('base file name')}!")
     with open(seats_csv_temp_path,"w") as s_csv_w:
         s_csv_w.write(msf.format_csv_line(header_text))
         for data_seats_code,seats_data in seats_dictionary_cache.items():
@@ -79,7 +74,7 @@ def list_cache_write_to_csv (list_csv : str,list_dictionary_cache : dict) -> Non
     code_location = list_dictionary_cache.get("code_location")
     header = list_dictionary_cache.get("header")
     if list_csv != list_dictionary_cache["base file name"]:
-        raise ValueError(f"The file name is not same with base file name!")
+        raise ValueError(f"The file name:{list_csv} is not same with base file name:{list_dictionary_cache.get('base file name')}!")
     with open(list_csv_temp_path,"w") as l_csv_w:
         l_csv_w.write(mlf.format_csv_line(header))
         for key,value in list_dictionary_cache.items():
