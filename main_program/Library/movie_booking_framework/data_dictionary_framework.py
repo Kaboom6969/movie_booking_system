@@ -76,13 +76,13 @@ def init_all_dictionary():
     # print (CINEMA_DEVICE_DICTIONARY)
     # print (MOVIE_SEATS_DICTIONARY)
 
-def read_list_from_cache (cache_dictionary : dict,code : str = "all",code_location : int = 0) -> list:
+def read_list_from_cache (dictionary_cache : dict, code : str = "all", code_location : int = 0) -> list:
     cache_list: list = []
     list_for_all : list = []
     try:
         if code == "all":
-            keys : list = list(cache_dictionary.keys())
-            values : list = list(cache_dictionary.values())
+            keys : list = list(dictionary_cache.keys())
+            values : list = list(dictionary_cache.values())
             for key_element,value_element in zip(keys,values):
                 cache_list.extend(value_element)
                 cache_list.insert(code_location,key_element)
@@ -91,11 +91,18 @@ def read_list_from_cache (cache_dictionary : dict,code : str = "all",code_locati
             return list_for_all
         else:
             keys : str = code
-            values : list = cache_dictionary[code]
+            values : list = dictionary_cache[code]
             cache_list.extend(values)
             cache_list.insert(code_location,keys)
             return [cache_list]
     except KeyError:
         raise KeyError(f"Cannot Find the code:{code} in code location:{code_location}!")
+
+def read_seats_from_cache (cache_dictionary : dict,code : str) -> list:
+    cache_list: list = []
+    for value in cache_dictionary[code]:
+        cache_list.append(value)
+    return cache_list
+
 
 
