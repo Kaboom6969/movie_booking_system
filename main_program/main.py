@@ -7,3 +7,4 @@ if __name__ == '__main__':
     print(ddf.MOVIE_LIST_DICTIONARY)
     print(ddf.BOOKING_DATA_DICTIONARY)
     print(ddf.CINEMA_DEVICE_DICTIONARY)
+    print(ddf.TEMPLATE_SEATS_DICTIONARY)
