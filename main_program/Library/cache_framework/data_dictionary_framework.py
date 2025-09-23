@@ -6,13 +6,13 @@ MOVIE_LIST_DICTIONARY : dict = {}
 BOOKING_DATA_DICTIONARY : dict = {}
 CINEMA_DEVICE_DICTIONARY : dict = {}
 MOVIE_SEATS_DICTIONARY : dict = {}
+TEMPLATE_SEATS_DICTIONARY : dict = {}
 
-def seat_dictionary_init (seats_csv : str) -> dict:
+def seat_dictionary_init (seats_csv : str,skip_check : bool = False) -> dict:
     key: str = ""
     movie_seats_temp: list = []
     movie_seats_dict_in_func : dict = {}
-    vc.movie_seats_csv_valid_check(movie_seats_csv= seats_csv)
-    movie_seats_raw_data: list = msf.read_movie_seats_csv_raw_data(movie_seats_csv= seats_csv)
+    movie_seats_raw_data: list = msf.read_movie_seats_csv_raw_data(movie_seats_csv= seats_csv,skip_check= True)
     read_data_mode : bool = False
     for row in movie_seats_raw_data:
         if row[0] == "CODE":
@@ -65,11 +65,12 @@ def list_dictionary_update(dictionary : dict, key_location : int, list_to_add : 
 
 
 def init_all_dictionary():
-    global MOVIE_LIST_DICTIONARY,BOOKING_DATA_DICTIONARY,CINEMA_DEVICE_DICTIONARY,MOVIE_SEATS_DICTIONARY,DICTIONARY_INIT_STATUS
+    global MOVIE_LIST_DICTIONARY,BOOKING_DATA_DICTIONARY,CINEMA_DEVICE_DICTIONARY,MOVIE_SEATS_DICTIONARY,DICTIONARY_INIT_STATUS,TEMPLATE_SEATS_DICTIONARY
     MOVIE_LIST_DICTIONARY = list_dictionary_init (list_csv="movie_list.csv", code_location = 0)
     BOOKING_DATA_DICTIONARY = list_dictionary_init (list_csv="booking_data.csv", code_location = 0)
     CINEMA_DEVICE_DICTIONARY = list_dictionary_init (list_csv="cinema_device_list.csv", code_location = 0)
     MOVIE_SEATS_DICTIONARY = seat_dictionary_init(seats_csv="movie_seat.csv")
+    TEMPLATE_SEATS_DICTIONARY = seat_dictionary_init(seats_csv="template_seats.csv",skip_check= True)
     DICTIONARY_INIT_STATUS = True
     # print (MOVIE_LIST_DICTIONARY)
     # print (BOOKING_DATA_DICTIONARY)
