@@ -1,4 +1,4 @@
-from .data_dictionary_framework import *
+from .valid_checker import *
 
 
 def read_movie_list_csv(movie_list_csv: str, movie_list: list, movie_code: str = "all", movie_mode: bool = True,
