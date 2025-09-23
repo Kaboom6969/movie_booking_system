@@ -1,4 +1,6 @@
-from .valid_checker import *
+from main_program.Library.movie_booking_framework import valid_checker as vc
+from main_program.Library.movie_booking_framework import movie_seats_framework as msf
+from main_program.Library.movie_booking_framework import movie_list_framework as mlf
 DICTIONARY_INIT_STATUS : bool = False
 MOVIE_LIST_DICTIONARY : dict = {}
 BOOKING_DATA_DICTIONARY : dict = {}
@@ -6,12 +8,11 @@ CINEMA_DEVICE_DICTIONARY : dict = {}
 MOVIE_SEATS_DICTIONARY : dict = {}
 
 def seat_dictionary_init (seats_csv : str) -> dict:
-    from .movie_seats_framework import read_movie_seats_csv_raw_data
     key: str = ""
     movie_seats_temp: list = []
     movie_seats_dict_in_func : dict = {}
-    movie_seats_csv_valid_check(movie_seats_csv= seats_csv)
-    movie_seats_raw_data: list = read_movie_seats_csv_raw_data(movie_seats_csv= seats_csv)
+    vc.movie_seats_csv_valid_check(movie_seats_csv= seats_csv)
+    movie_seats_raw_data: list = msf.read_movie_seats_csv_raw_data(movie_seats_csv= seats_csv)
     read_data_mode : bool = False
     for row in movie_seats_raw_data:
         if row[0] == "CODE":
@@ -26,8 +27,8 @@ def seat_dictionary_init (seats_csv : str) -> dict:
             movie_seats_temp.clear()
     return movie_seats_dict_in_func
 
-def seat_dictionary_update (dictionary : dict,key_to_add : str,seats_list_to_add : list) -> dict:
-    dictionary.update({key_to_add:seats_list_to_add})
+def seat_dictionary_update (dictionary : dict, key_to_add : str, seats_data_to_add : list) -> dict:
+    dictionary.update({key_to_add:seats_data_to_add})
     return dictionary
 
 # python 3.9++ for this function !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -44,10 +45,9 @@ def dictionary_delete (dictionary : dict,key_to_delete : str,skip_key_not_found_
 
 
 def list_dictionary_init (list_csv : str, code_location : int) -> dict:
-    from .movie_list_framework import read_movie_list_csv
     movie_list_temp : list = []
     movie_list_dict_in_func : dict = {}
-    read_movie_list_csv(movie_list_csv= list_csv, movie_list= movie_list_temp)
+    mlf.read_movie_list_csv(movie_list_csv= list_csv, movie_list= movie_list_temp)
     for row in movie_list_temp:
         key : str = row[code_location]
         row.remove(key)
