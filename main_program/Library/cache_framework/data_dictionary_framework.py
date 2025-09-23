@@ -8,6 +8,7 @@ CINEMA_DEVICE_DICTIONARY : dict = {}
 MOVIE_SEATS_DICTIONARY : dict = {}
 TEMPLATE_SEATS_DICTIONARY : dict = {}
 MOVIE_TEMPLATE_CODE_DICTIONARY : dict = {}
+MOVIE_DEVICE_CODE_DICTIONARY : dict = {}
 
 def seat_dictionary_init (seats_csv : str) -> tuple[dict,dict]:
     key: str = ""
@@ -33,9 +34,10 @@ def seat_dictionary_init (seats_csv : str) -> tuple[dict,dict]:
             movie_seats_temp.clear()
     return seats_dict_in_func,movie_template_code_in_func
 
-def seat_dictionary_update (dictionary : dict, key_to_add : str, seats_data_to_add : list) -> dict:
-    dictionary.update({key_to_add:seats_data_to_add})
-    return dictionary
+def seat_dictionary_update (seats_dictionary : dict,mt_code_dictionary : dict, code_to_update : str, seats_data_to_add : list, template_code : str = None) -> dict:
+    seats_dictionary.update({code_to_update:seats_data_to_add})
+    if template_code is not None: mt_code_dictionary.update({code_to_update:template_code})
+    return seats_dictionary
 
 # python 3.9++ for this function !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 def dictionary_update_with_dict (dictionary : dict,dictionary_to_add : dict) -> dict:
@@ -63,6 +65,15 @@ def list_dictionary_init (list_csv : str, code_location : int) -> dict:
         movie_list_dict_in_func.update({key:row[:]})
     return movie_list_dict_in_func
 
+def primary_foreign_key_dictionary_init (list_csv : str, PK_location : int, FK_location : int) -> dict:
+    list_temp : list = []
+    dictionary_in_func : dict = {}
+    mlf.read_movie_list_csv(movie_list_csv= list_csv,movie_list= list_temp)
+    for row in list_temp:
+        dictionary_in_func.update({row[PK_location]:row[FK_location]})
+    return dictionary_in_func
+
+
 def list_dictionary_update(dictionary : dict, key_location : int, list_to_add : list) -> None:
     list_to_add_temp : list = list_to_add[:]
     key : str = list_to_add_temp[key_location]
@@ -75,12 +86,13 @@ def list_dictionary_update(dictionary : dict, key_location : int, list_to_add : 
 
 def init_all_dictionary():
     global MOVIE_LIST_DICTIONARY,BOOKING_DATA_DICTIONARY,CINEMA_DEVICE_DICTIONARY,MOVIE_SEATS_DICTIONARY,\
-        DICTIONARY_INIT_STATUS,TEMPLATE_SEATS_DICTIONARY,MOVIE_TEMPLATE_CODE_DICTIONARY
+        DICTIONARY_INIT_STATUS,TEMPLATE_SEATS_DICTIONARY,MOVIE_TEMPLATE_CODE_DICTIONARY,MOVIE_DEVICE_CODE_DICTIONARY
     MOVIE_LIST_DICTIONARY = list_dictionary_init (list_csv="movie_list.csv", code_location = 0)
     BOOKING_DATA_DICTIONARY = list_dictionary_init (list_csv="booking_data.csv", code_location = 0)
     CINEMA_DEVICE_DICTIONARY = list_dictionary_init (list_csv="cinema_device_list.csv", code_location = 0)
     MOVIE_SEATS_DICTIONARY,MOVIE_TEMPLATE_CODE_DICTIONARY = seat_dictionary_init(seats_csv="movie_seat.csv")
     TEMPLATE_SEATS_DICTIONARY,_ = seat_dictionary_init(seats_csv="template_seats.csv")
+    MOVIE_DEVICE_CODE_DICTIONARY = primary_foreign_key_dictionary_init(list_csv="cinema_device_list.csv", PK_location = 1, FK_location = 0)
     DICTIONARY_INIT_STATUS = True
     # print (MOVIE_LIST_DICTIONARY)
     # print (BOOKING_DATA_DICTIONARY)
@@ -92,10 +104,10 @@ def read_list_from_cache (dictionary_cache : dict, code : str = "all", code_loca
     list_for_all : list = []
     try:
         if code == "all":
-            keys : list = list(dictionary_cache.keys())
-            values : list = list(dictionary_cache.values())
-            for key_element,value_element in zip(keys,values):
-                cache_list.extend(value_element)
+            for key_element,value_element in dictionary_cache.items():
+                if key_element in ["header", "base file name", "code_location"]: continue
+                value_temp = value_element[:]
+                cache_list.extend(value_temp)
                 cache_list.insert(code_location,key_element)
                 list_for_all.append(cache_list[:])
                 cache_list.clear()
@@ -114,6 +126,14 @@ def read_seats_from_cache (cache_dictionary : dict,code : str) -> list:
     for value in cache_dictionary[code]:
         cache_list.append(value)
     return cache_list
+
+def seats_code_catcher_from_cache (seats_cache : dict) -> list:
+    code_list : list = []
+    for key in seats_cache.keys():
+        if key in ["header","base file name"] : continue
+        code_list.append(key)
+    return code_list
+
 
 
 
