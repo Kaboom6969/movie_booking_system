@@ -5,10 +5,12 @@ from main_program.Library.data_communication_framework import cache_csv_sync_fra
 from main_program.Library.cache_framework import data_dictionary_framework as ddf
 from .valid_checker import movie_seats_csv_valid_check
 
-def link_seats (movie_seats_csv : str, booking_data_csv : str,template_seats_csv : str,
+def link_seats (movie_seats_csv : str, booking_data_csv : str, template_seats_csv : str,
                 book_movie_code_location : int = 2, book_x_seats_location : int = 5, book_y_seats_location : int = 6,
-                movie_seats_dict : dict = ddf.MOVIE_SEATS_DICTIONARY,booking_data_dict : dict = ddf.DICTIONARY_INIT_STATUS) -> None:
-    #read the booking data from cache
+                movie_seats_dict=None, booking_data_dict=None, template_seats_dict=None) -> None:
+    if booking_data_dict is None: booking_data_dict = ddf.BOOKING_DATA_DICTIONARY
+    if template_seats_dict is None: template_seats_dict = ddf.TEMPLATE_SEATS_DICTIONARY
+    if movie_seats_dict is None: movie_seats_dict = ddf.MOVIE_SEATS_DICTIONARY
     booking_data_list : list = ccsf.read_list_from_cache(dictionary_cache= booking_data_dict)
     #First init the seats file (all the data of seats clear)
     movie_seats_csv_whole_init(movie_seats_csv= movie_seats_csv,template_seats_csv= template_seats_csv)
@@ -30,7 +32,8 @@ def link_seats (movie_seats_csv : str, booking_data_csv : str,template_seats_csv
         # if no problem,modify the actual seat
         modify_movie_seats_list(movie_seat_list=current_movie_seats,x_axis=mvcode_x_y_list[1],y_axis=mvcode_x_y_list[2],target_number= 1)
         # update it to the movie seats csv
-        update_movie_seats_csv(movie_seats_csv= movie_seats_csv,movie_seats=current_movie_seats,movie_code= mvcode_x_y_list[0])
+        ccsf.update_seats_sync(seats_csv= movie_seats_csv,seats_data= current_movie_seats,
+                               dictionary_cache= movie_seats_dict,code= mvcode_x_y_list[0])
 
 def movie_seats_csv_whole_init (movie_seats_csv : str,template_seats_csv : str) -> None:
     try:
