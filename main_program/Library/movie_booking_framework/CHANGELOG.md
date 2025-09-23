@@ -206,4 +206,11 @@
 ### Changed
 - add lazy import for `data_dictionary_framework.py`
 - add the sync of dictionary(cache) and the actual csv file
+- remove the sync (cache and csv) from `movie_list_framework.py`, this will split to another framework (a version)
+- add skip_check parameter for `read_movie_seats_csv_raw_data` (a version)
+- now `update_seats_sync` is replace the `update_movie_seats_csv` in link_seats (a version) (alr abandoned)
+
+## [1.18.0] - 2025-09-24
+### Added
+- now `link_seats` and `sync_all` function is fully support cache based system
 
