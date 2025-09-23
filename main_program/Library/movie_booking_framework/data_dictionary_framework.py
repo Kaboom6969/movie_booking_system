@@ -5,7 +5,7 @@ BOOKING_DATA_DICTIONARY : dict = {}
 CINEMA_DEVICE_DICTIONARY : dict = {}
 MOVIE_SEATS_DICTIONARY : dict = {}
 
-def seat_dictionary_create (seats_csv : str) -> dict:
+def seat_dictionary_init (seats_csv : str) -> dict:
     from .movie_seats_framework import read_movie_seats_csv_raw_data
     key: str = ""
     movie_seats_temp: list = []
@@ -43,7 +43,7 @@ def dictionary_delete (dictionary : dict,key_to_delete : str,skip_key_not_found_
     return dictionary
 
 
-def list_dictionary_create (list_csv : str,code_location : int) -> dict:
+def list_dictionary_init (list_csv : str, code_location : int) -> dict:
     from .movie_list_framework import read_movie_list_csv
     movie_list_temp : list = []
     movie_list_dict_in_func : dict = {}
@@ -66,10 +66,10 @@ def list_dictionary_update(dictionary : dict, key_location : int, list_to_add : 
 
 def init_all_dictionary():
     global MOVIE_LIST_DICTIONARY,BOOKING_DATA_DICTIONARY,CINEMA_DEVICE_DICTIONARY,MOVIE_SEATS_DICTIONARY,DICTIONARY_INIT_STATUS
-    MOVIE_LIST_DICTIONARY = list_dictionary_create (list_csv= "movie_list.csv", code_location = 0)
-    BOOKING_DATA_DICTIONARY = list_dictionary_create (list_csv= "booking_data.csv", code_location = 0)
-    CINEMA_DEVICE_DICTIONARY = list_dictionary_create (list_csv= "cinema_device_list.csv", code_location = 0)
-    MOVIE_SEATS_DICTIONARY = seat_dictionary_create(seats_csv= "movie_seat.csv")
+    MOVIE_LIST_DICTIONARY = list_dictionary_init (list_csv="movie_list.csv", code_location = 0)
+    BOOKING_DATA_DICTIONARY = list_dictionary_init (list_csv="booking_data.csv", code_location = 0)
+    CINEMA_DEVICE_DICTIONARY = list_dictionary_init (list_csv="cinema_device_list.csv", code_location = 0)
+    MOVIE_SEATS_DICTIONARY = seat_dictionary_init(seats_csv="movie_seat.csv")
     DICTIONARY_INIT_STATUS = True
     # print (MOVIE_LIST_DICTIONARY)
     # print (BOOKING_DATA_DICTIONARY)
