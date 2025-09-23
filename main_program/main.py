@@ -1,7 +1,4 @@
-from main_program.Library.movie_booking_framework import data_dictionary_framework as ddf
-from main_program.Library.role import *
-from main_program.Library.role.customer import book_movie_operation
-
+from main_program.Library.cache_framework import data_dictionary_framework as ddf
 
 #testinggggggggggggggggggggggggggg
 if __name__ == '__main__':
