@@ -53,13 +53,6 @@ def movie_seats_init(movie_code : str, template_code : str,
                                     seats_data_to_add= template_seats)
 
 
-#this is the high level function level version of add_movie_seats_csv
-def add_movie_seats_from_template (movie_seats_csv : str, template_seats_csv : str, movie_code : str, template_code : str) -> None:
-    new_movie_seats : list = []
-    #read the template data
-    read_movie_seats_csv(movie_seats_csv= template_seats_csv,movie_seats= new_movie_seats,movie_code= template_code,skip_valid_check= True)
-    #add the movie seats with using template data
-    add_movie_seats_csv(movie_seats_csv= movie_seats_csv,movie_seats= new_movie_seats,movie_code= movie_code, template_code= template_code)
 
 
 #IMPORTANT:please check the movie_code_location,x_seats_location,and y_seats_location is the correct location or not!
@@ -191,7 +184,7 @@ def _sync_delete (seats_list_mismatched : list,
     if device_list_mismatched:
         for movie_code in device_list_mismatched:
             ccsf.dictionary_delete(dictionary= cinema_device_dict, key_to_delete= md_code_dict[movie_code])
-            ccsf.dictionary_delete(dictionary= mt_code_dict,key_to_delete= movie_code)
+            ccsf.dictionary_delete(dictionary= md_code_dict,key_to_delete= movie_code)
         # uncomment below if the delete function is broke
         # raise ValueError(f"cinema device list file:{cinema_device_list_csv} GOT THE CODE:{device_list_mismatched} BUT "
         #                  f"THE movie list file: {movie_list_csv} DONT GOT!\nPLEASE DELETE THE CODE IN THE cinema device "
