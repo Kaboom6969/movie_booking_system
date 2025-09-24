@@ -4,11 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0ea8b363-fbeb-45e9-9d45-12a8498462b3" name="Changes" comment="data_communication_framework version 1.1.0 a&#10;- just change the import namespace">
+    <list default="true" id="0ea8b363-fbeb-45e9-9d45-12a8498462b3" name="Changes" comment="- update the graveyard">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main_program/Data/movie_seat.csv" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/Data/movie_seat.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main_program/Library/movie_booking_framework/CHANGELOG.md" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/Library/movie_booking_framework/CHANGELOG.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main_program/Library/movie_booking_framework/cinema_services.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/Library/movie_booking_framework/cinema_services.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main_program/Library/role/customer.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/Library/role/customer.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -118,39 +117,8 @@
       <workItem from="1758542580817" duration="7999000" />
       <workItem from="1758556780307" duration="11410000" />
       <workItem from="1758616627009" duration="46000" />
-      <workItem from="1758619179089" duration="24011000" />
-    </task>
-    <task id="LOCAL-00036" summary="Seat &amp; List FrameWork Version 1.16.2 a&#10;- fix a small bug that `movie_seats_csv_valid_check` still depend on csv library">
-      <option name="closed" value="true" />
-      <created>1758211964432</created>
-      <option name="number" value="00036" />
-      <option name="presentableId" value="LOCAL-00036" />
-      <option name="project" value="LOCAL" />
-      <updated>1758211964432</updated>
-    </task>
-    <task id="LOCAL-00037" summary="Seat &amp; List FrameWork Version 1.16.2 b&#10;- now `print_movie_seat_as_emojis` cannot print emoji, just print ASCII (To prevented misunderstand using AI)">
-      <option name="closed" value="true" />
-      <created>1758216653126</created>
-      <option name="number" value="00037" />
-      <option name="presentableId" value="LOCAL-00037" />
-      <option name="project" value="LOCAL" />
-      <updated>1758216653126</updated>
-    </task>
-    <task id="LOCAL-00038" summary="-sync data">
-      <option name="closed" value="true" />
-      <created>1758216663217</created>
-      <option name="number" value="00038" />
-      <option name="presentableId" value="LOCAL-00038" />
-      <option name="project" value="LOCAL" />
-      <updated>1758216663217</updated>
-    </task>
-    <task id="LOCAL-00039" summary="Seat &amp; List FrameWork Version 1.16.2 b&#10;- add `code_catcher` and `prefix_cathcher` function (id.generator.py)">
-      <option name="closed" value="true" />
-      <created>1758219409640</created>
-      <option name="number" value="00039" />
-      <option name="presentableId" value="LOCAL-00039" />
-      <option name="project" value="LOCAL" />
-      <updated>1758219409640</updated>
+      <workItem from="1758619179089" duration="25117000" />
+      <workItem from="1758706784118" duration="1354000" />
     </task>
     <task id="LOCAL-00040" summary="Seat &amp; List FrameWork Version 1.16.2 c&#10;- add `seats_code_cathcher` function for `movie_seats_framework.py`">
       <option name="closed" value="true" />
@@ -512,7 +480,39 @@
       <option name="project" value="LOCAL" />
       <updated>1758666270951</updated>
     </task>
-    <option name="localTasksCounter" value="85" />
+    <task id="LOCAL-00085" summary="Seat &amp; List FrameWork Version 1.18.0&#10;- now `link_seats` and `sync_all` function is support cache based system">
+      <option name="closed" value="true" />
+      <created>1758666490983</created>
+      <option name="number" value="00085" />
+      <option name="presentableId" value="LOCAL-00085" />
+      <option name="project" value="LOCAL" />
+      <updated>1758666490983</updated>
+    </task>
+    <task id="LOCAL-00086" summary="- sync data">
+      <option name="closed" value="true" />
+      <created>1758666504690</created>
+      <option name="number" value="00086" />
+      <option name="presentableId" value="LOCAL-00086" />
+      <option name="project" value="LOCAL" />
+      <updated>1758666504690</updated>
+    </task>
+    <task id="LOCAL-00087" summary="- fix a small bug">
+      <option name="closed" value="true" />
+      <created>1758667124267</created>
+      <option name="number" value="00087" />
+      <option name="presentableId" value="LOCAL-00087" />
+      <option name="project" value="LOCAL" />
+      <updated>1758667124267</updated>
+    </task>
+    <task id="LOCAL-00088" summary="- update the graveyard">
+      <option name="closed" value="true" />
+      <created>1758667140125</created>
+      <option name="number" value="00088" />
+      <option name="presentableId" value="LOCAL-00088" />
+      <option name="project" value="LOCAL" />
+      <updated>1758667140125</updated>
+    </task>
+    <option name="localTasksCounter" value="89" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -530,10 +530,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Seat &amp; List FrameWork Version 1.17.3&#10;- add comment for `get_biggest_number_of_code`&#10;- add comment for `code_catcher`&#10;- add comment for `prefix_catcher`&#10;- add comment for `_get_biggest_number_of_list`&#10;- add comment for `_list_str_number_to_int_number`&#10;- add comment for `detect_got_digit`&#10;- add comment for `generate_code_id`" />
-    <MESSAGE value="Seat &amp; List FrameWork Version 1.17.3 a&#10;- revise the format of movie seats&#10;- now the first column of data is no more &quot;&quot;,now it will fill with &quot;DATA&quot;.&#10;- adjust `update_movie_seats_csv` and `add_movie_seats_csv` to let them compatible into the new format" />
-    <MESSAGE value="Seat &amp; List FrameWork Version 1.17.3 a.a&#10;- also revise the template seats (forgot in last version)" />
-    <MESSAGE value="movie_booking_system Version 0.0.0&#10;- add main.py" />
     <MESSAGE value="Seat &amp; List FrameWork Version 1.17.3 a&#10;- `print_movie_seat_as_emojis` now can draw target" />
     <MESSAGE value="Seat &amp; List FrameWork Version 1.17.4&#10;- `data_dictionary.py` is now open! (work in progress)(a lot of workkkkkk)" />
     <MESSAGE value="- test for main" />
@@ -555,7 +551,11 @@
     <MESSAGE value="- still testing" />
     <MESSAGE value="cache_framework 1.0.1 a&#10;- add a new cache(dictionary) `MOVIE_DEVICE_CODE_DICTIONARY`&#10;- add `primary_foreign_key_dictionary_init` function&#10;- add `seats_code_catcher_from_cache` function" />
     <MESSAGE value="data_communication_framework version 1.1.0 a&#10;- just change the import namespace" />
-    <option name="LAST_COMMIT_MESSAGE" value="data_communication_framework version 1.1.0 a&#10;- just change the import namespace" />
+    <MESSAGE value="Seat &amp; List FrameWork Version 1.18.0&#10;- now `link_seats` and `sync_all` function is support cache based system" />
+    <MESSAGE value="- sync data" />
+    <MESSAGE value="- fix a small bug" />
+    <MESSAGE value="- update the graveyard" />
+    <option name="LAST_COMMIT_MESSAGE" value="- update the graveyard" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
