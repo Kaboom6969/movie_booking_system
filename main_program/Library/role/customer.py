@@ -4,7 +4,7 @@ from main_program.Library.cache_framework.data_dictionary_framework import *
 from main_program.Library.data_communication_framework import cache_csv_sync_framework as ccsf
 import datetime
 
-DEFAULT_WIDTH = 20
+DEFAULT_WIDTH = 30
 
 def check_ticket_bought(customer_code : str,return_booking_code : bool,booking_data_dict : dict = None) -> list:
     if booking_data_dict is None: booking_data_dict = ddf.BOOKING_DATA_DICTIONARY
@@ -184,9 +184,11 @@ def cancel_booking_operation(user_id : str, booking_data_csv : str, movie_seats_
 #JUST TEST
 if __name__ == '__main__':
     init_all_dictionary()
-    valid_movie_code = check_ticket_bought(customer_code= "C001",return_booking_code= False)
-    user_input = str(input("Please enter the code: "))
-    booking_to_movie_list_print(movie_code_list= valid_movie_code,movie_code= user_input)
+    user_input = str(input("empty"))
+    check_all_movie_list()
+    # valid_movie_code = check_ticket_bought(customer_code= "C001",return_booking_code= False)
+    # user_input = str(input("Please enter the code: "))
+    # booking_to_movie_list_print(movie_code_list= valid_movie_code,movie_code= user_input)
     #book_movie_operation(movie_code= "003",movie_seats_csv= "movie_seat.csv",booking_data_csv= "booking_data.csv",
     #                     template_seats_csv= "template_seats.csv",user_id= "C001")
     # cancel_booking_operation(user_id= "C001",booking_data_csv= "booking_data.csv",movie_list_csv= "movie_list.csv"
