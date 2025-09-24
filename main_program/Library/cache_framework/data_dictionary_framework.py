@@ -39,7 +39,6 @@ def seat_dictionary_update (seats_dictionary : dict,mt_code_dictionary : dict, c
     if template_code is not None: mt_code_dictionary.update({code_to_update:template_code})
     return seats_dictionary
 
-# python 3.9++ for this function !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 def dictionary_update_with_dict (dictionary : dict,dictionary_to_add : dict) -> None:
     dictionary.update(dictionary_to_add)
 
