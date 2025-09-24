@@ -104,12 +104,11 @@ def data_convert_to_list (*args):
 def device_count_for_device_list (cinema_device_list : list) -> int:
     device_count : int = 0
     for row in cinema_device_list:
-        for item in row:
-            #if "status" keyword is in item,it shows that the item is device column
-            if "status" in item:
-                device_count += 1
-            else:
-                continue
+        #if "status" keyword is in item,it shows that the item is device column
+        if "status" in row:
+            device_count += 1
+        else:
+            continue
     return device_count
 
 
@@ -204,13 +203,14 @@ def _sync_add (default_template_code : str,list_seats_mismatched : list,list_dev
             ccsf.dictionary_update_with_dict(dictionary= mt_code_dict,dictionary_to_add= dictionary_for_mt)
     if list_device_mismatched:
         #read the cinema device list to make sure the technician code generate is always the newest data
-        temp_list : list = ccsf.read_list_from_cache(dictionary_cache= cinema_device_dict)
         #check the device list csv got what number of device
-        default_device_status = device_count_for_device_list(cinema_device_list=temp_list)
+        header = cinema_device_dict.get('header')
+        default_device_status = device_count_for_device_list(cinema_device_list=header)
         for movie_code in list_device_mismatched:
+            temp_list: list = ccsf.read_list_from_cache(dictionary_cache=cinema_device_dict)
             #generate technician code
             tech_code = generate_code_id(code_list= temp_list,prefix_generate="TC",code_location= 0,
-                                         number_of_prefix= 2,prefix_got_digit= False,code_id_digit_count= 0)
+                                         number_of_prefix= 2,prefix_got_digit= False,code_id_digit_count= 3)
             #generate the new device list
             device_list_new : list = data_convert_to_list(tech_code,movie_code,*(0 for _ in range(default_device_status)))
             # add the device list that is lack
