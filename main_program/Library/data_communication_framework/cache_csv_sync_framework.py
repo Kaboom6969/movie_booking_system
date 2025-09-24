@@ -3,49 +3,6 @@ from main_program.Library.movie_booking_framework import movie_seats_framework a
 from main_program.Library.cache_framework.data_dictionary_framework import *
 
 
-def update_list_sync (list_csv : str,list_data : list,dictionary_cache : dict,code : str,code_location : int = 0) -> None:
-    try:
-        mlf.update_movie_list_csv(movie_list_csv= list_csv,movie_list= list_data,movie_code= code,code_location= code_location)
-        list_dictionary_update(dictionary= dictionary_cache,list_to_add= list_data,key_location= code_location)
-    except Exception as e:
-        raise ValueError(f"Update cache error!\nError : str{e}")
-
-def add_list_sync (list_csv : str,list_data : list,dictionary_cache : dict,code : str,code_location : int = 0) -> None:
-    try:
-        mlf.add_movie_list_csv(movie_list_csv= list_csv,movie_list= list_data,movie_code= code,code_location= code_location)
-        list_dictionary_update(dictionary= dictionary_cache,list_to_add= list_data,key_location= code_location)
-    except Exception as e:
-        raise ValueError(f"Update cache error!\nError : str{e}")
-
-def delete_list_sync (list_csv : str,dictionary_cache : dict,code : str,code_location : int = 0) -> None:
-    try:
-        mlf.delete_movie_list_csv(movie_list_csv= list_csv,movie_code= code,code_location= code_location)
-        dictionary_delete(dictionary= dictionary_cache,key_to_delete= code)
-    except Exception as e:
-        raise ValueError(f"Update cache error!\nError : str{e}")
-
-
-def update_seats_sync (seats_csv : str,seats_data : list,dictionary_cache,code : str) -> None:
-    try:
-        msf.update_movie_seats_csv(movie_seats_csv= seats_csv,movie_seats= seats_data,movie_code= code)
-        seat_dictionary_update(seats_dictionary= dictionary_cache, code_to_update= code, seats_data_to_add= seats_data)
-    except Exception as e:
-        raise ValueError(f"Update cache error!\nError : str{e}")
-
-def add_seats_sync (seats_csv : str,seats_data : list,dictionary_cache : dict,code : str,template_code : str) -> None:
-    try:
-        msf.add_movie_seats_csv(movie_seats_csv= seats_csv,movie_seats= seats_data,movie_code= code,template_code= template_code)
-        seat_dictionary_update(seats_dictionary= dictionary_cache, code_to_update= code, seats_data_to_add= seats_data)
-    except Exception as e:
-        raise ValueError(f"Update cache error!\nError : str{e}")
-
-def delete_seats_sync (seats_csv : str,dictionary_cache : dict,code : str) -> None:
-    try:
-        msf.delete_movie_seats_csv(movie_seats_csv= seats_csv,movie_code= code)
-        dictionary_delete(dictionary= dictionary_cache,key_to_delete= code)
-    except Exception as e:
-        raise ValueError(f"Update cache error!\nError : str{e}")
-
 def seats_cache_write_to_csv (seats_csv : str,seats_dictionary_cache : dict,mt_code_dictionary_cache : dict) -> None:
     seats_csv_path = mlf.get_path(seats_csv)
     seats_csv_temp_path = seats_csv_path + ".temp"
