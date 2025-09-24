@@ -5,7 +5,7 @@ from main_program.Library.data_communication_framework import cache_csv_sync_fra
 from main_program.Library.cache_framework import data_dictionary_framework as ddf
 from .valid_checker import movie_seats_csv_valid_check
 
-def link_seats (movie_seats_csv : str,
+def link_seats (movie_seats_csv : str, booking_data_csv : str,
                 book_movie_code_location : int = 2, book_x_seats_location : int = 5, book_y_seats_location : int = 6,
                 movie_seats_dict=None, booking_data_dict=None, template_seats_dict=None, mt_code_dict=None) -> None:
     if booking_data_dict is None: booking_data_dict = ddf.BOOKING_DATA_DICTIONARY
@@ -34,6 +34,7 @@ def link_seats (movie_seats_csv : str,
         # update it to the movie seats csv
         ccsf.seat_dictionary_update(seats_dictionary= movie_seats_dict,mt_code_dictionary=mt_code_dict,
                                         code_to_update=mvcode_x_y_list[0],seats_data_to_add=current_movie_seats)
+    ccsf.list_cache_write_to_csv(list_csv= booking_data_csv,list_dictionary_cache= booking_data_dict)
     ccsf.seats_cache_write_to_csv(seats_csv= movie_seats_csv,seats_dictionary_cache= movie_seats_dict,
                                       mt_code_dictionary_cache= mt_code_dict)
 
