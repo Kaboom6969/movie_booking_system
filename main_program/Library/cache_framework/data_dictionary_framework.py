@@ -40,8 +40,9 @@ def seat_dictionary_update (seats_dictionary : dict,mt_code_dictionary : dict, c
     return seats_dictionary
 
 # python 3.9++ for this function !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-def dictionary_update_with_dict (dictionary : dict,dictionary_to_add : dict) -> dict:
-    return dictionary | dictionary_to_add
+def dictionary_update_with_dict (dictionary : dict,dictionary_to_add : dict) -> None:
+    dictionary.update(dictionary_to_add)
+
 
 def dictionary_delete (dictionary : dict,key_to_delete : str,skip_key_not_found_error : bool = False) -> dict:
     try:
