@@ -1,37 +1,43 @@
 from main_program.Library.movie_booking_framework.seat_visualizer import *
 from main_program.Library.movie_booking_framework.cinema_services import *
 from main_program.Library.cache_framework.data_dictionary_framework import *
+from main_program.Library.data_communication_framework import cache_csv_sync_framework as ccsf
 import datetime
 
 DEFAULT_WIDTH = 20
 
-def check_ticket_bought(customer_code : str,booking_data_csv : str) -> list:
-    booking_list : list = []            #format: ['B001','C001', '001','2025/8/13','2','3','3','Online']
-    booking_code_list : list = []         #format:'001'
-    read_movie_list_csv(movie_list_csv= booking_data_csv, movie_list= booking_list, movie_code= customer_code,movie_mode = False,code_location = 1)
+def check_ticket_bought(customer_code : str,booking_data_dict : dict = None) -> list:
+    if booking_data_dict is None: booking_data_dict = ddf.BOOKING_DATA_DICTIONARY
+    # format: ['B001','C001', '001','2025/8/13','2','3','3','Online']
+    booking_list : list = ccsf.read_list_from_cache(dictionary_cache= booking_data_dict,code_location= 0)
+    booking_list_filtered : list = [row for row in booking_list if row[1]==customer_code]
+    booking_code_list : list = []         #format:'B001'
     print(f"{'booking_id' : <{DEFAULT_WIDTH}}{'User_id': <{DEFAULT_WIDTH}}{'Movie Code': <{DEFAULT_WIDTH}}{'Booking Date': <{DEFAULT_WIDTH}}")
     print("-" * (DEFAULT_WIDTH * 4 + 1))
-    for row in booking_list:
-        booking_code_list.append(row[0])
+    for row in booking_list_filtered:
+        booking_code_list.append(row[2])
         print(f"{row[0]: <{DEFAULT_WIDTH}}{row[1]: <{DEFAULT_WIDTH}}{str(row[2]): <{DEFAULT_WIDTH}}{str(row[3]): <{DEFAULT_WIDTH}}")
     return booking_code_list
 
-def booking_to_movie_list_print(movie_code_list : list, movie_code : str, movie_list_csv : str) -> None:
+def booking_to_movie_list_print(movie_code_list : list, movie_code : str, movie_list_dict : dict = None) -> None:
+    if movie_list_dict is None: movie_list_dict = ddf.MOVIE_LIST_DICTIONARY
     if movie_code not in movie_code_list:
         raise ValueError("Please enter the valid movie code!")
     else:
-        booking_movie_list : list = []  #format:[['002', 'Joker', 'cinema002', '19:00', '22:00']]
-        read_movie_list_csv(movie_list_csv= movie_list_csv, movie_list= booking_movie_list, movie_code= movie_code)
+        #format: [['002', 'Joker', 'cinema002', '19:00', '22:00']]
+        booking_movie_list : list = ccsf.read_list_from_cache(dictionary_cache= movie_list_dict,code= movie_code,code_location= 0)
         movie_list_print_with_format(data_list= booking_movie_list)
 
-def movie_list_print_with_format(data_list : list,movie_seats_csv : str, DEFAULT_WIDTH : int = DEFAULT_WIDTH) -> None:
+def movie_list_print_with_format(data_list : list,
+                                 DEFAULT_WIDTH : int = DEFAULT_WIDTH,movie_seats_dict : dict = None) -> None:
+    if movie_seats_dict is None: movie_seats_dict = ddf.MOVIE_SEATS_DICTIONARY
     print(f"{'Movie Code': <{DEFAULT_WIDTH}}{'Movie Name': <{DEFAULT_WIDTH}}"
           f"{'Cinema Location': <{DEFAULT_WIDTH}}{'Start Time': <{DEFAULT_WIDTH}}"
-          f"{'End Time': <{DEFAULT_WIDTH}}{'Capacity': <{DEFAULT_WIDTH}}")
-    print("-" * (DEFAULT_WIDTH * 6 + 1))
+          f"{'End Time': <{DEFAULT_WIDTH}}{'Date': <{DEFAULT_WIDTH}}"
+          f"{'Price': <{DEFAULT_WIDTH}}{'Capacity': <{DEFAULT_WIDTH}}")
+    print("-" * (DEFAULT_WIDTH * 8 + 1))
     for row in data_list:
-        seat_list_temp : list = []
-        read_movie_seats_csv(movie_seats_csv= movie_seats_csv,movie_seats= seat_list_temp,movie_code= row[0])
+        seat_list_temp : list = ccsf.read_seats_from_cache(cache_dictionary=movie_seats_dict, code=row[0])
         for data in row:
             print(f"{data: <{DEFAULT_WIDTH}}", end="")
         print(f"{get_capacity(seat_list_temp): <{DEFAULT_WIDTH}}", end ="")
@@ -172,6 +178,9 @@ def cancel_booking_operation(user_id : str, booking_data_csv : str, movie_seats_
 #JUST TEST
 if __name__ == '__main__':
     init_all_dictionary()
+    valid_movie_code = check_ticket_bought(customer_code= "C001")
+    user_input = str(input("Please enter the code: "))
+    booking_to_movie_list_print(movie_code_list= valid_movie_code,movie_code= user_input)
     #book_movie_operation(movie_code= "003",movie_seats_csv= "movie_seat.csv",booking_data_csv= "booking_data.csv",
     #                     template_seats_csv= "template_seats.csv",user_id= "C001")
     # cancel_booking_operation(user_id= "C001",booking_data_csv= "booking_data.csv",movie_list_csv= "movie_list.csv"
