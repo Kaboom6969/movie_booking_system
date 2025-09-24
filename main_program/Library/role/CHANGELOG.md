@@ -69,6 +69,10 @@
 - Fixed a bug in `select_seat` where entering a column value could cause "out of index".
 - Fixed a bug in `modify_input_data` where updating data would raise an error.
 
+## [1.2.0] - 2025-09-24
+### Added
+- refactor most function in `clerk.py` so all the function is now support cache based system
+
 ## [1.1.1] - 2025-09-18
 ### Added
 - Implemented `generate_receipt` function, generates a receipt based on user input booking ID.
@@ -103,9 +107,27 @@
 - Just let you guys see how Spaghetti Code looks like (in `book_movie`) (in 1.1.0 a)
 
 ## [1.2.0] - 2025-09-15
+### Added
+-  Added `_booking_data_create` function (b version)
+- add user_id show in `check_ticket_bought` (d version)
 ### Changed
 - **Refactored the booking process**: The monolithic booking function has been broken down into three smaller, single-responsibility functions (`book_movie_operation`, `book_movie_input`, `book_movie_buy`). This greatly improves code readability, maintainability, and reusability.
-  - `book_movie_operation` now acts as a high-level coordinator for the booking flow.
-  - `book_movie_input` is now a reusable utility that handles robust user input and validation for coordinates.
-  - `book_movie_buy` now encapsulates all logic related to confirming and finalizing the purchase.
+- `book_movie_operation` now acts as a high-level coordinator for the booking flow.
+- `book_movie_input` is now a reusable utility that handles robust user input and validation for coordinates.
+- `book_movie_buy` now encapsulates all logic related to confirming and finalizing the purchase.
+- now `book_movie_operation` will add the booking record to booking_data.csv (b version) (abandon)
+- now `book_movie_buy` will not change the movie_seats by writing the csv file (link_seats can do all) (c version)
+- change the var name in `book_movie_operation` (movie_seats -> booking_movie_seats) (c version)
 
+## [1.2.1] - 2025-09-22
+### Added
+- now `cancel_booking_operation` is done!
+- add `link_seats` for `book_movie_operation`
+### Changed
+- `check_ticket_bought` now will return book_id and not user_id
+
+## [1.3.0] - 2025-09-24
+### Added
+- refactor most function in `customer.py` so all the function is now support cache based system
+### Changed
+- change the DEFAULT_WIDTH from 20 to 30
