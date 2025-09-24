@@ -5,4 +5,5 @@ from main_program.Library.movie_booking_framework import cinema_services as cnsv
 #testinggggggggggggggggggggggggggg
 if __name__ == '__main__':
     ddf.init_all_dictionary()
-    cnsv.sync_all(movie_list_csv="movie_list.csv",movie_seats_csv="movie_seat.csv",cinema_device_list_csv="cinema_device_list.csv",default_template_code= "TEMPLATE001")
+    print(ddf.BOOKING_DATA_DICTIONARY)
+    #cnsv.sync_all(movie_list_csv="movie_list.csv",movie_seats_csv="movie_seat.csv",cinema_device_list_csv="cinema_device_list.csv",default_template_code= "TEMPLATE001")
