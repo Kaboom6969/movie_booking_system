@@ -117,7 +117,7 @@ def read_list_from_cache (dictionary_cache : dict, code : str = "all", code_loca
             values : list = dictionary_cache[code]
             cache_list.extend(values)
             cache_list.insert(code_location,keys)
-            return [cache_list]
+            return cache_list
     except KeyError:
         raise KeyError(f"Cannot Find the code:{code} in code location:{code_location}!")
 
