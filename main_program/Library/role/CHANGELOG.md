@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## Clerk
+# Clerk
 ### Added
 ## [1.1.0] - 2025-09-12
 - Initial booking system (basic version, still needs improvement).
@@ -69,10 +69,6 @@
 - Fixed a bug in `select_seat` where entering a column value could cause "out of index".
 - Fixed a bug in `modify_input_data` where updating data would raise an error.
 
-## [1.2.0] - 2025-09-24
-### Added
-- refactor most function in `clerk.py` so all the function is now support cache based system
-
 ## [1.1.1] - 2025-09-18
 ### Added
 - Implemented `generate_receipt` function, generates a receipt based on user input booking ID.
@@ -82,7 +78,12 @@
 - Reduced redundant error handling and unnecessary global variable usage
 - Fixed a bug where the header was not displayed when using the modify and cancel functions.
 
-## Customer
+## [1.2.0] - 2025-09-24
+### Added
+- refactor most function in `clerk.py` so all the function is now support cache based system
+
+
+# Customer
 ## [1.0.0] - 2025-09-13
 ### Added
 - added `check_ticket_bought` function (still in test)
@@ -131,3 +132,29 @@
 - refactor most function in `customer.py` so all the function is now support cache based system
 ### Changed
 - change the DEFAULT_WIDTH from 20 to 30
+
+
+# Technician
+## [1.0.0] - 2025-09-19
+### Added
+- just a base
+- add a csv file for technician (a version)
+### Changed
+- add parameter for `update_equipment_status` and `view_upcoming_movies` (a version)
+- Add a more detailed error directory for `report_issue` (b version)
+- refractor `view_upcoming_movies`,let it use the `movie_list_framework`'s function (c version)
+- change the name (technicians.csv -> cinema_device_list.csv (d version)
+### Fixed
+- fix the bug that `update_equipment_status` cannot find the file (a version)
+- add a comment for `techinician.py` (c version)
+
+## [1.1.0] - 2025-09-26
+## Main
+- refactor all the function so the function is more dynamic and support cache based system
+### Added
+- add a function `movie_list_print_technician_ver`
+### Changed
+- `report_issue` function is now cache based and more dynamic 
+- `update_status` function is now cache based and more dynamic 
+- `check_equipment_status` function is now cache based and more dynamic
+- `view_upcoming_movies` is now cache based and can really get the upcoming movie (the date before today will not show)
