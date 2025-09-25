@@ -4,15 +4,15 @@ import warnings
 TARGET_DIRECTORY = "Data"
 # turn the string with ',' to list
 # "hello,test,data,data" -> ["hello","test","data","data]
-def parse_csv_line(line: str) -> list:
+def str_line_to_list(line: str) -> list:
     #strip the data (remove '\n' or ' ') and split it with ','
     return line.strip().split(',')
 
 # turn the list to string
 # ["hello","test","data","data] -> "hello,test,data,data"
-def format_csv_line(data_list: list) -> str:
+def list_to_str_line(data_list: list,blank_need:bool=True) -> str:
     #join ',' in the gap of list,and put '\n',because it usually is convert to a row of file
-    return ','.join(map(str,data_list)) +'\n'
+    return ','.join(map(str,data_list)) +('\n' if blank_need else '')
 
 
 #overwrite file (ususally is use for temp file overwrite to original file)
@@ -107,3 +107,65 @@ def one_dimension_list_to_two_dimension_list (any_dimension_list : list) -> list
         else:
             raise IndexError (f"List Convert Error! Error:{e}")
     return new_list
+
+#yup this function just only for device column count
+#if i have time,i will turn this function to universal function (done in 25/09/2025)
+def keyword_count_for_list (any_dimension_list : list,keyword : str) -> int:
+    two_dimension_list = one_dimension_list_to_two_dimension_list(any_dimension_list)
+    count : int = 0
+    for row in two_dimension_list:
+        for element in row:
+            #if "status" keyword is in item,it shows that the item is device column
+            if keyword in element:
+                count += 1
+                continue
+    return count
+
+# ['hello','hellokeyword','hi_keyword']
+# to
+# 【‘hello','hello','hi_']
+def keyword_erase_for_list (any_dimension_list : list,keyword : str) -> list:
+    two_dimension_list = one_dimension_list_to_two_dimension_list(any_dimension_list)
+    list_erased : list = []
+    for row in two_dimension_list:
+        one_dimension_list : list = []
+        for element in row:
+            if keyword in element:
+                element = element.replace(keyword, "")
+            one_dimension_list.append(element)
+        list_erased.append(one_dimension_list)
+    if len(list_erased) == 1: return list_erased[0]
+    return list_erased
+
+
+# ['hello','hellokeyword','hi_keyword']
+# to
+#['hellokeyword','hi_keyword']
+def keyword_only_for_list (any_dimension_list : list,keyword : str) -> list:
+    two_dimension_list = one_dimension_list_to_two_dimension_list(any_dimension_list)
+    list_keyword_only : list = []
+    for row in two_dimension_list:
+        one_dimension_list : list = []
+        for element in row:
+            if keyword not in element: continue
+            one_dimension_list.append(element)
+        list_keyword_only.append(one_dimension_list)
+    if len(list_keyword_only) == 1: return list_keyword_only[0]
+    return list_keyword_only
+
+#yup,just convert the data to list
+#for example
+#the_list = data_convert_to_list ("x","ok","zzzz")
+#the_list = ["x","ok","zzzz"]
+def data_convert_to_list (*args):
+    target_list : list = []
+    #unpack the args and use for loop to append the inside item of args
+    for item in args:
+        target_list.append(item)
+    #return the list
+    return target_list
+
+if __name__ == "__main__":
+    list_test : list = ["idk_status","header","nihao_status","wtf_status","end"]
+    print(keyword_erase_for_list(list_test,"status"))
+

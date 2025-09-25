@@ -28,7 +28,7 @@ def movie_seats_csv_valid_check (movie_seats_csv : str) -> None:
             DATA_status = False
             line_count = 0
             for lines in ms_csv_r:
-                row = parse_csv_line(lines)
+                row = str_line_to_list(lines)
                 line_count += 1
                 if not row: raise ValueError(f"GOT BLANK IN THE FILE!\nFile name:{movie_seats_csv}\nFile path:{movie_seats_csv_path}\nLine:{line_count}")
                 if row[0] == "CODE":

@@ -86,30 +86,8 @@ def mismatched_calculate (main_list : list, compared_list : list) -> list:
     return calculated_list
 
 
-#yup,just convert the data to list
-#for example
-#the_list = data_convert_to_list ("x","ok","zzzz")
-#the_list = ["x","ok","zzzz"]
-def data_convert_to_list (*args):
-    target_list : list = []
-    #unpack the args and use for loop to append the inside item of args
-    for item in args:
-        target_list.append(item)
-    #return the list
-    return target_list
 
 
-#yup this function just only for device column count
-#if i have time,i will turn this function to universal function
-def device_count_for_device_list (cinema_device_list : list) -> int:
-    device_count : int = 0
-    for row in cinema_device_list:
-        #if "status" keyword is in item,it shows that the item is device column
-        if "status" in row:
-            device_count += 1
-        else:
-            continue
-    return device_count
 
 
 #sync the movie list,movie seats, and cinema device list
@@ -205,7 +183,7 @@ def _sync_add (default_template_code : str,list_seats_mismatched : list,list_dev
         #read the cinema device list to make sure the technician code generate is always the newest data
         #check the device list csv got what number of device
         header = cinema_device_dict.get('header')
-        default_device_status = device_count_for_device_list(cinema_device_list=header)
+        default_device_status = keyword_count_for_list(any_dimension_list= header,keyword="status")
         for movie_code in list_device_mismatched:
             temp_list: list = ccsf.read_list_from_cache(dictionary_cache=cinema_device_dict)
             #generate technician code

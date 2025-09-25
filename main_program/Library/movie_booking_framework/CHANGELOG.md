@@ -213,4 +213,16 @@
 ## [1.18.0] - 2025-09-24
 ### Added
 - now `link_seats` and `sync_all` function is fully support cache based system
+### Fixed
+- fix the bug that `device_count_for_device_list` wouldn't return correct device_count (a version)
+- fix the bug that the tech_code in `_sync_add` is always the same if the mismatched is > 1 (a version)
 
+## [1.18.1] - 2025-09-26
+### Added
+- add `keyword_erase_for_list` function (check the comment of this function to know the function）
+- add `keyword_only_for_list` function (check the comment of this function to know the function）
+### Changed
+- change the function name `parse_csv_line` and `format_csv_line` to `str_line_to_list` and `list_to_str_line`
+- `list_to_str_line` is now update a parameter that allow you to select add blank or not
+- move `data_convert_to_list` to `framework_utils.py`
+refactor `device_count_for_device_list`,now the new name is `keyword_count_for_list`(more universal) and it is now moved to `framework_utils.py`

@@ -11,7 +11,7 @@ def read_movie_list_csv(movie_list_csv: str, movie_list: list, movie_code: str =
             if movie_code == "all":
                 for line in mv_csvfile:
                     if not line.strip(): continue
-                    row = parse_csv_line(line)
+                    row = str_line_to_list(line)
                     movie_list.append(row)
                 if not movie_code:
                     raise ValueError("Code is empty! Please Check Your movie_code parameter!")
@@ -19,7 +19,7 @@ def read_movie_list_csv(movie_list_csv: str, movie_list: list, movie_code: str =
                 list_found = False
                 for line in mv_csvfile:
                     if not line.strip(): continue
-                    row = parse_csv_line(line)
+                    row = str_line_to_list(line)
                     if row[code_location] == movie_code and list_found == True and movie_mode == True:
                         raise ValueError("Code Repeat! Please Check Your File!")
                     elif row[code_location] == movie_code:
@@ -49,9 +49,9 @@ def update_movie_list_csv(movie_list_csv: str, movie_list: list, movie_code: str
                 movie_list_specify: list = movie_list_dict[movie_code]
                 for line in mvl_csv_r:
                     if not line.strip(): continue
-                    row = parse_csv_line(line)
+                    row = str_line_to_list(line)
                     if row[code_location] == movie_list_specify[code_location]:
-                        line_to_write = format_csv_line(movie_list_specify)
+                        line_to_write = list_to_str_line(movie_list_specify)
                         mvl_csv_w.write(line_to_write)
                         #list_dictionary_update(dictionary= dictionary,key_location= code_location,list_to_add= movie_list_specify)
                     else:
@@ -82,11 +82,11 @@ def add_movie_list_csv(movie_list_csv: str, movie_list: list,movie_code: str, co
             for line in mvl_csv_r:
                 mvl_csv_w.write(line)
                 if not line.strip(): continue
-                row = parse_csv_line(line)
+                row = str_line_to_list(line)
                 if row[code_location] == movie_code:
                     raise ValueError(f"Movie Code Repeat! You Should Use update_movie_list_csv function!")
             for row_to_add in movie_list_for_add:
-                line_to_write = format_csv_line(row_to_add)
+                line_to_write = list_to_str_line(row_to_add)
                 mvl_csv_w.write(line_to_write)
                 #list_dictionary_update(dictionary= dictionary,key_location= code_location,list_to_add= row_to_add)
     except FileNotFoundError as e:
@@ -105,7 +105,7 @@ def delete_movie_list_csv (movie_list_csv : str,movie_code : str,code_location :
         code_csv_matcher = 0
         for line in mvl_csv_r:
             if not line.strip(): continue
-            row = parse_csv_line(line)
+            row = str_line_to_list(line)
             if row[code_location] == movie_code:
                 code_csv_matcher += 1
             else:

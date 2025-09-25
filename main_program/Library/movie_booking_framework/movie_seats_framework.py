@@ -19,7 +19,7 @@ def read_movie_seats_csv(movie_seats_csv: str, movie_seats: list, movie_code: st
             next(ms_csv_r)
             for line in ms_csv_r:
                 if not line.strip(): continue
-                row = parse_csv_line(line)
+                row = str_line_to_list(line)
 
                 if row and row[0] == "CODE" and row[1] == movie_code:
                     list_found = True
@@ -47,7 +47,7 @@ def read_movie_seats_csv_raw_data(movie_seats_csv: str,skip_check : bool = False
     try:
         with open(movie_seats_csv_path, 'r') as ms_csv_r:
             for lines in ms_csv_r:
-                row = parse_csv_line(lines)
+                row = str_line_to_list(lines)
                 raw_data.append(row)
     except FileNotFoundError:
         raise FileNotFoundError(f"READ RAW DATA FAILED!\nFILE:{movie_seats_csv} IS NOT FOUND!")
@@ -73,26 +73,26 @@ def update_movie_seats_csv (movie_seats_csv : str,movie_seats: list, movie_code 
             start_status = False  # Track if in START-END section
             skip_status = False  # skip status for skipping old data
             for lines in ms_csv_r:
-                row = parse_csv_line(lines)
+                row = str_line_to_list(lines)
 
                 if row and row[0] == "CODE" and row[1] == movie_code:                                #Found movie_code
                     list_found = True
                     list_found_all_times = True
-                    ms_csv_w.write(format_csv_line(row))
+                    ms_csv_w.write(list_to_str_line(row))
                     continue
 
                 if list_found and row and row[0] == "START":
                     start_status = True
                     start_header : list = header_create(header_text="START", movie_seats_length=len(movie_seats[0]) + 1, append_thing="-2")
-                    ms_csv_w.write(format_csv_line(start_header))
+                    ms_csv_w.write(list_to_str_line(start_header))
 
                 if start_status:
 
                     for i in range(0,len(movie_seats)):
-                        ms_csv_w.write(format_csv_line(["DATA",*movie_seats[i][0:]]))     #Write row with empty first column
+                        ms_csv_w.write(list_to_str_line(["DATA", *movie_seats[i][0:]]))     #Write row with empty first column
 
                     end_header : list = header_create(header_text="END", movie_seats_length=len(movie_seats[0]) + 1, append_thing="-2")
-                    ms_csv_w.write(format_csv_line(end_header))
+                    ms_csv_w.write(list_to_str_line(end_header))
                     start_status = False
                     skip_status = True
                     continue
@@ -104,7 +104,7 @@ def update_movie_seats_csv (movie_seats_csv : str,movie_seats: list, movie_code 
                 elif skip_status:
                     continue
 
-                ms_csv_w.write(format_csv_line(row))            #Copy other rows to temporary file
+                ms_csv_w.write(list_to_str_line(row))            #Copy other rows to temporary file
             if list_found_all_times == False:               #Movie_code not found
                 raise ValueError("Movie Code Does Not Exist! You Should Use add_movie_seats_csv function")
     except FileNotFoundError as e:
@@ -128,8 +128,8 @@ def add_movie_seats_csv (movie_seats_csv : str, movie_seats : list, movie_code :
         with (open(movie_seats_csv_path, 'r', newline='') as ms_csv_r,
               open(os.path.join(movie_seats_csv_temp_path, f"{movie_seats_csv}.temp"), "w", newline='') as ms_csv_w):
             for lines in ms_csv_r:
-                row = parse_csv_line(lines)
-                ms_csv_w.write(format_csv_line(row))
+                row = str_line_to_list(lines)
+                ms_csv_w.write(list_to_str_line(row))
                 if row and row[0] == "CODE" and row[1] == movie_code:    #Check if movie_code already exists
                     raise ValueError ("Movie Code Already Exists! You Should Use update_movie_seats_csv function!")
         #Create headers for CODE, START, and END rows
@@ -138,12 +138,12 @@ def add_movie_seats_csv (movie_seats_csv : str, movie_seats : list, movie_code :
             code_header[1] = movie_code
             code_header[2] = template_code
             start_header : list = header_create(header_text ="START", movie_seats_length =longest_row_length + 1, append_thing="-2")
-            ms_csv_w.write(format_csv_line(code_header))       #Write movie_code row
-            ms_csv_w.write(format_csv_line(start_header))           #Write START row
+            ms_csv_w.write(list_to_str_line(code_header))       #Write movie_code row
+            ms_csv_w.write(list_to_str_line(start_header))           #Write START row
             for row in movie_seats:                              #Write seat data
-                ms_csv_w.write(format_csv_line(["DATA",*row]))           #Add empty first column [""...
+                ms_csv_w.write(list_to_str_line(["DATA", *row]))           #Add empty first column [""...
             end_header : list = header_create(header_text ="END", movie_seats_length =longest_row_length + 1, append_thing="-2")
-            ms_csv_w.write(format_csv_line(end_header))              #Write END row
+            ms_csv_w.write(list_to_str_line(end_header))              #Write END row
 
         overwrite_file(overwrited_file_csv= movie_seats_csv, original_file_csv=f"{movie_seats_csv}.temp")     #Overwrite original file
     except ValueError as e:
@@ -182,7 +182,7 @@ def delete_movie_seats_csv (movie_seats_csv : str, movie_code : str,skip_valid_c
             list_found = False
             delete_count = 0
             for lines in ms_csv_r:
-                row = parse_csv_line(lines)
+                row = str_line_to_list(lines)
                 if row and row[0] == "CODE" and row[1] == movie_code:
                     list_found = True
                     list_found_all_times = True
@@ -192,7 +192,7 @@ def delete_movie_seats_csv (movie_seats_csv : str, movie_code : str,skip_valid_c
                     delete_count += 1
                     continue
                 elif list_found: continue
-                ms_csv_w.write(format_csv_line(row))
+                ms_csv_w.write(list_to_str_line(row))
             if list_found_all_times == False:
                 raise KeyError(f"Cannot Find The Movie Code! Movie Code : {movie_code}")
             if delete_count > 1:
