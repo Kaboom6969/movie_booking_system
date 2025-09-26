@@ -188,7 +188,7 @@ def _sync_add (default_template_code : str,list_seats_mismatched : list,list_dev
             temp_list: list = ccsf.read_list_from_cache(dictionary_cache=cinema_device_dict)
             #generate technician code
             tech_code = generate_code_id(code_list= temp_list,prefix_generate="TC",code_location= 0,
-                                         number_of_prefix= 2,prefix_got_digit= False,code_id_digit_count= 3)
+                                         number_of_prefix= 2,prefix_got_digit= False,code_id_digit_count= 4)
             #generate the new device list
             device_list_new : list = data_convert_to_list(tech_code,movie_code,*(0 for _ in range(default_device_status)))
             # add the device list that is lack

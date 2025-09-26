@@ -1,4 +1,3 @@
-import csv
 from datetime import datetime
 from main_program.Library.movie_booking_framework.seat_visualizer import *
 from main_program.Library.movie_booking_framework.cinema_services import *
@@ -22,8 +21,7 @@ def get_and_print_booking_data(input_movie_code,booking_data_dict : dict=None):
     booking_data_list = ccsf.read_list_from_cache(dictionary_cache= booking_data_dict)
     # header = [Book ID,User ID,Movie Code,Date,(1:booking 2:paid),seat(x-axis),seat(y-axis),Source]
     header: list = booking_data_dict.get("header")
-    print(
-        f"{header[0]:<10}{header[1]:<10}{header[2]:<13}{header[3]:<13}{header[4]:<21}{header[5]:<15}{header[6]:<15}{header[7]:<15}")
+    print(f"{header[0]:<10}{header[1]:<10}{header[2]:<13}{header[3]:<13}{header[4]:<21}{header[5]:<15}{header[6]:<15}{header[7]:<15}")
     filtered_list = []
     for row in booking_data_list:
         booking_id, user_id, movie_code, date, status, x_axis, y_axis, source = row
@@ -128,7 +126,7 @@ def booking(movie_seats_csv, booking_data_csv,movie_seat_list, input_movie_code,
     print("Purchased successfully")
     booking_data_list: list = ccsf.read_list_from_cache(booking_data_dict)
     booking_id = generate_code_id(code_list=booking_data_list, prefix_generate="B", code_location=0, number_of_prefix=1
-                                  , prefix_got_digit=False, code_id_digit_count=3)
+                                  , prefix_got_digit=False, code_id_digit_count=4)
     data_row = [booking_id, user_id, input_movie_code, today, 2, column, row, 'Clerk']
     ccsf.list_dictionary_update(dictionary=booking_data_dict,key_location= 0,list_to_add=data_row)
     link_seats(movie_seats_csv=movie_seats_csv, booking_data_csv=booking_data_csv)
