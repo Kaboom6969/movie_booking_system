@@ -99,9 +99,10 @@ def init_all_dictionary():
     # print (CINEMA_DEVICE_DICTIONARY)
     # print (MOVIE_SEATS_DICTIONARY)
 
-def read_list_from_cache (dictionary_cache : dict, code : str = "all", code_location : int = 0) -> list:
+def read_list_from_cache (dictionary_cache : dict, code : str = "all") -> list:
     cache_list: list = []
     list_for_all : list = []
+    code_location : int = dictionary_cache.get("code_location")
     try:
         if code == "all":
             for key_element,value_element in dictionary_cache.items():
