@@ -14,3 +14,6 @@
 - add a new cache(dictionary) `MOVIE_DEVICE_CODE_DICTIONARY` (a version)
 - add `primary_foreign_key_dictionary_init` function (a version)
 - add `seats_code_catcher_from_cache` function (a version)
+### Fixed
+- fix the bug that `dictionary_update_with_dict` wouldn't update the data permanently (b version)
+- now the `read_list_from_cache` will return one dimension list if the movie code is specific (if movie code is all still return two dimension list) (c version)
