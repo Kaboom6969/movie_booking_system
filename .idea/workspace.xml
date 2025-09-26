@@ -4,15 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0ea8b363-fbeb-45e9-9d45-12a8498462b3" name="Changes" comment="Seat &amp; List FrameWork Version 1.18.2&#10;- add `keyword_find_for_list` function&#10;- now `generate_code_id` can handle one dimension list and two dimension list&#10;- add `date_valid_check` function&#10;- add `time_valid_check` function">
-      <change afterPath="$PROJECT_DIR$/main_program/graveyard/graveyard_for_manager.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main_program/Data/booking_data.csv" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/Data/booking_data.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main_program/Data/cinema_device_list.csv" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/Data/cinema_device_list.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main_program/Data/movie_list.csv" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/Data/movie_list.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main_program/Data/movie_seat.csv" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/Data/movie_seat.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main_program/Library/role/manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/Library/role/manager.py" afterDir="false" />
-    </list>
+    <list default="true" id="0ea8b363-fbeb-45e9-9d45-12a8498462b3" name="Changes" comment="- sync data" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -133,39 +125,7 @@
       <workItem from="1758723893874" duration="5899000" />
       <workItem from="1758733568761" duration="5350000" />
       <workItem from="1758800851312" duration="13817000" />
-      <workItem from="1758909317489" duration="9301000" />
-    </task>
-    <task id="LOCAL-00065" summary="- test for main">
-      <option name="closed" value="true" />
-      <created>1758550507436</created>
-      <option name="number" value="00065" />
-      <option name="presentableId" value="LOCAL-00065" />
-      <option name="project" value="LOCAL" />
-      <updated>1758550507436</updated>
-    </task>
-    <task id="LOCAL-00066" summary="customer version 1.2.1&#10;- now `cancel_booking_operation` is done!&#10;- `check_ticket_bought` now will return book_id and not user_id&#10;- add `link_seats` for `book_movie_operation`">
-      <option name="closed" value="true" />
-      <created>1758550600805</created>
-      <option name="number" value="00066" />
-      <option name="presentableId" value="LOCAL-00066" />
-      <option name="project" value="LOCAL" />
-      <updated>1758550600805</updated>
-    </task>
-    <task id="LOCAL-00067" summary="- sync the data">
-      <option name="closed" value="true" />
-      <created>1758550611027</created>
-      <option name="number" value="00067" />
-      <option name="presentableId" value="LOCAL-00067" />
-      <option name="project" value="LOCAL" />
-      <updated>1758550611027</updated>
-    </task>
-    <task id="LOCAL-00068" summary="- idk what is this i just push it">
-      <option name="closed" value="true" />
-      <created>1758550634155</created>
-      <option name="number" value="00068" />
-      <option name="presentableId" value="LOCAL-00068" />
-      <option name="project" value="LOCAL" />
-      <updated>1758550634155</updated>
+      <workItem from="1758909317489" duration="9657000" />
     </task>
     <task id="LOCAL-00069" summary="Seat &amp; List FrameWork Version 1.17.4 a&#10;- edit `movie_seats_csv_valid_check` to let it compare to the new seats format (just a simple valid check)">
       <option name="closed" value="true" />
@@ -527,7 +487,39 @@
       <option name="project" value="LOCAL" />
       <updated>1758922278638</updated>
     </task>
-    <option name="localTasksCounter" value="114" />
+    <task id="LOCAL-00114" summary="- update CHANGELOG.md">
+      <option name="closed" value="true" />
+      <created>1758922550778</created>
+      <option name="number" value="00114" />
+      <option name="presentableId" value="LOCAL-00114" />
+      <option name="project" value="LOCAL" />
+      <updated>1758922550778</updated>
+    </task>
+    <task id="LOCAL-00115" summary="Manager version 1.1.0&#10;- added `add_movie_operation` function (more dynamic)(will be split to small fucntion i think?)">
+      <option name="closed" value="true" />
+      <created>1758922605033</created>
+      <option name="number" value="00115" />
+      <option name="presentableId" value="LOCAL-00115" />
+      <option name="project" value="LOCAL" />
+      <updated>1758922605033</updated>
+    </task>
+    <task id="LOCAL-00116" summary="- add a new graveyard for manager">
+      <option name="closed" value="true" />
+      <created>1758922621571</created>
+      <option name="number" value="00116" />
+      <option name="presentableId" value="LOCAL-00116" />
+      <option name="project" value="LOCAL" />
+      <updated>1758922621571</updated>
+    </task>
+    <task id="LOCAL-00117" summary="- sync data">
+      <option name="closed" value="true" />
+      <created>1758922637072</created>
+      <option name="number" value="00117" />
+      <option name="presentableId" value="LOCAL-00117" />
+      <option name="project" value="LOCAL" />
+      <updated>1758922637072</updated>
+    </task>
+    <option name="localTasksCounter" value="118" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -545,9 +537,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="- fix a small bug" />
-    <MESSAGE value="- update the graveyard" />
-    <MESSAGE value="Seat &amp; List FrameWork Version 1.18.0 a&#10;- add a parameter for `link_seats` (booking_data_csv)" />
     <MESSAGE value="Customer version 1.3.0&#10;- now all the customer.py is fully support cache based system!" />
     <MESSAGE value="- add more graveyard" />
     <MESSAGE value="- xml update" />
@@ -563,14 +552,17 @@
     <MESSAGE value="- workspace.xml update" />
     <MESSAGE value="data_communication_framework version 1.1.0 b&#10;- delete all the sync function" />
     <MESSAGE value="- remove a comment" />
-    <MESSAGE value="- sync data" />
     <MESSAGE value="Seat &amp; List FrameWork Version 1.18.1&#10;- change the function name `parse_csv_line` and `format_csv_line` to `str_line_to_list` and `list_to_str_line`&#10;- `list_to_str_line` is now update a parameter that allow you to select add blank or not&#10;- move `data_convert_to_list` to `framework_utils.py`&#10;- refactor `device_count_for_device_list`,now the new name is `keyword_count_for_list`(more universal) and it is now moved to `framework_utils.py`&#10;- add `keyword_erase_for_list` function (check the comment of this function to know the function）&#10;- add `keyword_only_for_list` function (check the comment of this function to know the function）" />
     <MESSAGE value="- function call name change (other file)" />
     <MESSAGE value="cache_framework 1.0.1 c&#10;- fix: now the `read_list_from_cache` will return one dimension list if the movie code is specific (if movie code is all still return two dimension list)" />
     <MESSAGE value="- Extend the code field length to four digits for compatibility." />
     <MESSAGE value="cache_framework 1.0.1 d&#10;- now `read_list_from_cache` can get the code_location by itself!(by using the key 'code_location' in the dictionary)" />
     <MESSAGE value="Seat &amp; List FrameWork Version 1.18.2&#10;- add `keyword_find_for_list` function&#10;- now `generate_code_id` can handle one dimension list and two dimension list&#10;- add `date_valid_check` function&#10;- add `time_valid_check` function" />
-    <option name="LAST_COMMIT_MESSAGE" value="Seat &amp; List FrameWork Version 1.18.2&#10;- add `keyword_find_for_list` function&#10;- now `generate_code_id` can handle one dimension list and two dimension list&#10;- add `date_valid_check` function&#10;- add `time_valid_check` function" />
+    <MESSAGE value="- update CHANGELOG.md" />
+    <MESSAGE value="Manager version 1.1.0&#10;- added `add_movie_operation` function (more dynamic)(will be split to small fucntion i think?)" />
+    <MESSAGE value="- add a new graveyard for manager" />
+    <MESSAGE value="- sync data" />
+    <option name="LAST_COMMIT_MESSAGE" value="- sync data" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
