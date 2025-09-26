@@ -158,3 +158,12 @@
 - `update_status` function is now cache based and more dynamic 
 - `check_equipment_status` function is now cache based and more dynamic
 - `view_upcoming_movies` is now cache based and can really get the upcoming movie (the date before today will not show)
+
+# Manager
+## [1.0.0] - 2025-09-19
+### Added
+- just a base
+
+## [1.1.0] - 2025-09-27
+### Added
+- added `add_movie_operation` function (more dynamic) (will be split to small function i think?)
