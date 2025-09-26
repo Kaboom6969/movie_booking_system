@@ -226,3 +226,11 @@
 - `list_to_str_line` is now update a parameter that allow you to select add blank or not
 - move `data_convert_to_list` to `framework_utils.py`
 refactor `device_count_for_device_list`,now the new name is `keyword_count_for_list`(more universal) and it is now moved to `framework_utils.py`
+
+## [1.18.2] - 2025-09-27
+### Added
+- add `keyword_find_for_list` function
+- add `date_valid_check` function
+- add `time_valid_check` function
+### Changed
+- now `generate_code_id` can handle one dimension list and two dimension list

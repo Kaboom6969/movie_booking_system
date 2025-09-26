@@ -153,6 +153,13 @@ def keyword_only_for_list (any_dimension_list : list,keyword : str) -> list:
     if len(list_keyword_only) == 1: return list_keyword_only[0]
     return list_keyword_only
 
+def keyword_find_for_list (one_dimension_list : list,keyword : str) -> int:
+    for index,element in enumerate(one_dimension_list):
+        if keyword in element:
+            return index
+    return -1
+
+
 #yup,just convert the data to list
 #for example
 #the_list = data_convert_to_list ("x","ok","zzzz")

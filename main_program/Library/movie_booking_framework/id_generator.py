@@ -7,7 +7,7 @@ def get_biggest_number_of_code (code_list : list, code_location : int, number_of
         #get the prefix list from the list
         prefix_list : list  = prefix_catcher(code_list= code_list, code_location= code_location, number_of_prefix= number_of_prefix)
         #if user set the prefix is got digit,don't do the check
-        if prefix_got_digit:
+        if prefix_got_digit or number_of_prefix == 0:
             pass
         #if user don't set, check the prefix got digit or not
         elif _detect_got_digit(prefix_list= prefix_list) :
@@ -38,7 +38,10 @@ def code_catcher (code_list : list,code_location : int,number_of_prefix : int) -
             row_got_alpha_count += 1
             continue
         #append the code to the list
-        code_number_list.append(row[code_location][number_of_prefix:])
+        if isinstance(code_list[0],list):
+            code_number_list.append(row[code_location][number_of_prefix:])
+        else:
+            code_number_list.append(row[number_of_prefix:])
     #return the code number list
     return code_number_list
 
@@ -47,8 +50,11 @@ def code_catcher (code_list : list,code_location : int,number_of_prefix : int) -
 def prefix_catcher (code_list : list,code_location : int,number_of_prefix : int) -> list:
     code_number_list : list =[]
     for row in code_list:
-        ##append the prefix from code_list (row[code_location][0:number_of_prefix] is to locate prefix location)
-        code_number_list.append(row[code_location][0:number_of_prefix])
+        if isinstance(code_list[0], list):
+            ##append the prefix from code_list (row[code_location][0:number_of_prefix] is to locate prefix location)
+            code_number_list.append(row[code_location][0:number_of_prefix])
+        else:
+            code_number_list.append(row[0:number_of_prefix])
     return code_number_list
 
 #example:

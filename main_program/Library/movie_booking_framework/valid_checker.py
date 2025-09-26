@@ -33,7 +33,7 @@ def movie_seats_csv_valid_check (movie_seats_csv : str) -> None:
                 if not row: raise ValueError(f"GOT BLANK IN THE FILE!\nFile name:{movie_seats_csv}\nFile path:{movie_seats_csv_path}\nLine:{line_count}")
                 if row[0] == "CODE":
                     CODE_status = True
-                    if not re.match(pattern = r"\d{3}",string = row[1]):
+                    if not re.match(pattern = r"\d{4}",string = row[1]):
                         raise ValueError(f"MOVIE CODE IS INVALID\nFile name:{movie_seats_csv}\nFile path:{movie_seats_csv_path}\n"
                                      f"Line:{line_count}\nThis Row: {row}")
                     if "TEMPLATE" not in row[2]:
@@ -78,3 +78,31 @@ def movie_seats_pointer_valid_check(movie_seats : list,x_pointer : int,y_pointer
         return False
     except ValueError as e:
         raise e
+
+
+def date_valid_check(date : str) -> bool:
+    def leap_year_check(year : int) -> bool:
+        if year % 4 == 0 and year % 100 != 0: return True
+        if year % 400 == 0: return True
+        return False
+
+    if not re.fullmatch(r"(\d{4})/(\d{2})/(\d{2})", date): return False
+
+    date_after_split = re.search(r"(\d{4})/(\d{2})/(\d{2})", date)
+    year, month, day = date_after_split.groups()
+    month_30_day : list =[4,6,9,11]
+    if int(month) > 12: return False
+    if int(day) > 31: return False
+    if int(month) in month_30_day and int(day) > 30:return False
+    if int(month) == 2 and not leap_year_check(int(year)) and int(day) > 28: return False
+    if int(month) == 2 and leap_year_check(int(year)) and int(day) > 29: return False
+    return True
+
+def time_valid_check(time : str) -> bool:
+    if not re.fullmatch(r"(\d{2}):(\d{2})",time) : return False
+
+    time_after_split = re.search(r"(\d{2}):(\d{2})",time)
+    hour,minute = time_after_split.groups()
+    if int(hour) > 23: return False
+    if int(minute) > 59: return False
+    return True
