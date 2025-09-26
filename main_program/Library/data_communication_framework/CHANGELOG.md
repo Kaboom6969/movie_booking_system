@@ -11,3 +11,5 @@
 - add `seats_cache_write_to_csv` function
 - add `list_cache_write_to_csv` function
 - ready to refactor the system
+### Changed
+- delete all the sync function (b version)
