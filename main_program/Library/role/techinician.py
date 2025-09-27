@@ -71,15 +71,15 @@ def update_status(cinema_device_csv : str,movie_code : str,issue_device : str,is
             break
     technician_code : str = md_code_dict.get(movie_code)
     cinema_device_list_specify : list = ccsf.read_list_from_cache(dictionary_cache= cinema_device_dict,
-                                                                  code=technician_code,code_location= 0)
+                                                                  code=technician_code)
     cinema_device_list_specify[device_location] = issue_status
-    ccsf.list_dictionary_update(dictionary= cinema_device_dict,key_location= 0,list_to_add= cinema_device_list_specify)
+    ccsf.list_dictionary_update(dictionary= cinema_device_dict,list_to_add= cinema_device_list_specify)
     ccsf.list_cache_write_to_csv(list_csv=cinema_device_csv,list_dictionary_cache= cinema_device_dict)
 
 def check_equipment_status(cinema_device_dict : dict =None) -> None:
     if cinema_device_dict is None: cinema_device_dict = ddf.CINEMA_DEVICE_DICTIONARY
     cinema_device_header : list = cinema_device_dict.get("header")
-    cinema_device_list : list = ccsf.read_list_from_cache(dictionary_cache= cinema_device_dict,code_location= 0)
+    cinema_device_list : list = ccsf.read_list_from_cache(dictionary_cache= cinema_device_dict)
     status_dictionary : dict = {'0' : 'good', '1' : 'breakdown', '2' : 'under maintenance'}
     for row in cinema_device_list:
         print(*(f"{cinema_device_header[i]}:{status_dictionary.get(row[i],row[i])}\n" for i in range(len(cinema_device_header))))

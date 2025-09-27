@@ -128,7 +128,7 @@ def booking(movie_seats_csv, booking_data_csv,movie_seat_list, input_movie_code,
     booking_id = generate_code_id(code_list=booking_data_list, prefix_generate="B", code_location=0, number_of_prefix=1
                                   , prefix_got_digit=False, code_id_digit_count=4)
     data_row = [booking_id, user_id, input_movie_code, today, 2, column, row, 'Clerk']
-    ccsf.list_dictionary_update(dictionary=booking_data_dict,key_location= 0,list_to_add=data_row)
+    ccsf.list_dictionary_update(dictionary=booking_data_dict,list_to_add=data_row)
     link_seats(movie_seats_csv=movie_seats_csv, booking_data_csv=booking_data_csv)
     print_movie_seat_as_emojis(ccsf.read_seats_from_cache(cache_dictionary=movie_seats_dict,code=input_movie_code))
 
@@ -224,12 +224,12 @@ def check_booking_data(input_movie_code, booking_data_dict : dict=None):
 def modify_booking_data(booking_id, column, row, code_location=0,
                         booking_data_dict=None):
     if booking_data_dict is None: booking_data_dict = ddf.BOOKING_DATA_DICTIONARY
-    original_row: list = ccsf.read_list_from_cache(dictionary_cache=booking_data_dict, code=booking_id,code_location=code_location)
+    original_row: list = ccsf.read_list_from_cache(dictionary_cache=booking_data_dict, code=booking_id)
     original_row[code_location][5] = str(column)
     original_row[code_location][6] = str(row)
     original_row[code_location][7] = 'Clerk'
     updated_list: list = original_row[code_location]
-    ccsf.list_dictionary_update(dictionary=booking_data_dict,key_location=code_location,list_to_add=updated_list)
+    ccsf.list_dictionary_update(dictionary=booking_data_dict,list_to_add=updated_list)
 
 
 def modify_booking(movie_seats_csv, booking_data_csv,movie_seat_list, input_movie_code, user_id

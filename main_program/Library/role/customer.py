@@ -77,7 +77,7 @@ def book_movie_operation(movie_code : str,movie_seats_csv : str,booking_data_csv
                                                          ,booking_date= datetime.datetime.now().strftime('%Y/%m/%d')
                                                          ,booking_or_pay= "1",x_seat= str(x_pointer)
                                                          ,y_seat= str(y_pointer),source= "online")
-                ccsf.list_dictionary_update(dictionary= booking_data_dict,key_location= 0,list_to_add= booking_data_list)
+                ccsf.list_dictionary_update(dictionary= booking_data_dict,list_to_add= booking_data_list)
                 link_seats(movie_seats_csv=movie_seats_csv, booking_data_csv= booking_data_csv)
 
             if not booking_status: try_again = True

@@ -192,6 +192,6 @@ def _sync_add (default_template_code : str,list_seats_mismatched : list,list_dev
             #generate the new device list
             device_list_new : list = data_convert_to_list(tech_code,movie_code,*(0 for _ in range(default_device_status)))
             # add the device list that is lack
-            ccsf.list_dictionary_update(dictionary= cinema_device_dict,key_location= 0,list_to_add= device_list_new)
+            ccsf.list_dictionary_update(dictionary= cinema_device_dict,list_to_add= device_list_new)
             dictionary_for_md : dict = {movie_code : tech_code}
             ccsf.dictionary_update_with_dict(dictionary= md_code_dict,dictionary_to_add= dictionary_for_md)
