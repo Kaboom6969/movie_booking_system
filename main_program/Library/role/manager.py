@@ -7,6 +7,7 @@ from main_program.Library.movie_booking_framework import id_generator as idg
 from main_program.Library.movie_booking_framework import valid_checker as vc
 from main_program.Library.movie_booking_framework import framework_utils as fu
 from main_program.Library.movie_booking_framework import cinema_services as cs
+from main_program.Library.movie_booking_framework.movie_seats_framework import get_capacity
 
 # #13/9/2025: validate time format
 # def input_time(prompt="Enter time (HH:MM):"):
@@ -196,6 +197,21 @@ def get_code_range (dictionary_cache : dict) -> list:
             code_list_copy.remove(i)
     return code_list_copy
 
+def movie_list_print_with_format(data_list : list,
+                                 DEFAULT_WIDTH : int = 30,movie_seats_dict : dict = None) -> None:
+    if movie_seats_dict is None: movie_seats_dict = ddf.MOVIE_SEATS_DICTIONARY
+    print(f"{'Movie Code': <{DEFAULT_WIDTH}}{'Movie Name': <{DEFAULT_WIDTH}}"
+          f"{'Cinema Location': <{DEFAULT_WIDTH}}{'Start Time': <{DEFAULT_WIDTH}}"
+          f"{'End Time': <{DEFAULT_WIDTH}}{'Date': <{DEFAULT_WIDTH}}"
+          f"{'Price': <{DEFAULT_WIDTH}}{'Capacity': <{DEFAULT_WIDTH}}")
+    print("-" * (DEFAULT_WIDTH * 8 + 1))
+    for row in data_list:
+        seat_list_temp : list = ccsf.read_seats_from_cache(cache_dictionary=movie_seats_dict, code=row[0])
+        for data in row:
+            print(f"{data: <{DEFAULT_WIDTH}}", end="")
+        print(f"{get_capacity(seat_list_temp): <{DEFAULT_WIDTH}}", end ="")
+        print()
+
 def add_movie_operation (default_template_code : str,movie_list_dict:dict=None,movie_seats_dict:dict=None,cinema_device_dict:dict=None) -> None:
     if movie_list_dict is None: movie_list_dict= ddf.MOVIE_LIST_DICTIONARY
     if movie_seats_dict is None: movie_seats_dict = ddf.MOVIE_SEATS_DICTIONARY
@@ -224,6 +240,20 @@ def delete_movie_operation(movie_list_dict:dict=None,movie_seats_dict:dict=None,
     movie_list_header : list = movie_list_dict["header"]
     movie_code_range : list = get_code_range(movie_list_dict)
     movie_code_to_delete = element_input(element_name=movie_list_header[0],input_range= movie_code_range)
+    movie_list_print_with_format(data_list= [ccsf.read_list_from_cache(dictionary_cache= movie_list_dict,code=movie_code_to_delete)])
+    print (f"Are You Sure You Want Delete Movie Code: {movie_code_to_delete}?")
+    user_operation :str = element_input(element_name= "command (Y/N)",input_range= ["Y","y","N","n"])
+    if user_operation.lower() == "y":
+        ccsf.dictionary_delete(dictionary=movie_list_dict,key_to_delete=movie_code_to_delete)
+        # This is just for test,after compile,the sync all function will be placed at the bottom of manager()
+        cs.sync_all(movie_list_csv=movie_list_dict["base file name"],
+                    movie_seats_csv=movie_seats_dict["base file name"],
+                    cinema_device_list_csv=cinema_device_dict["base file name"],
+                    default_template_code= "TEMPLATE001")
+        print("delete successfully!")
+    if user_operation.lower() == "n":
+        return
+
 
 
 
@@ -247,7 +277,8 @@ def element_input (element_name : str, input_range : list=None, valid_check_func
 
 if __name__ == "__main__":
     ddf.init_all_dictionary()
-    add_movie_operation(default_template_code= "TEMPLATE001")
+    #add_movie_operation(default_template_code= "TEMPLATE001")
+    delete_movie_operation()
 
         
 

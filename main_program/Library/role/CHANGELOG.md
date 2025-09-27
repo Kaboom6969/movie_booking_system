@@ -172,3 +172,7 @@
 ### Added
 - added `element_input` function
 - refactor `add_movie_operation` function with using `element_input` function and not just while loop
+
+## [1.2.0] - 2025-09-28
+### Added
+- add `delete_movie_operation` function (more dynamic)

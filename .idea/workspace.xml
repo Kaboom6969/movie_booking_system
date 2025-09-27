@@ -4,13 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0ea8b363-fbeb-45e9-9d45-12a8498462b3" name="Changes" comment="- fit the new update with function in cache_framework.py">
+    <list default="true" id="0ea8b363-fbeb-45e9-9d45-12a8498462b3" name="Changes" comment="-sync the data">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main_program/Data/cinema_device_list.csv" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/Data/cinema_device_list.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main_program/Data/movie_list.csv" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/Data/movie_list.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main_program/Data/movie_seat.csv" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/Data/movie_seat.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main_program/Library/movie_booking_framework/movie_list_framework.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/Library/movie_booking_framework/movie_list_framework.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main_program/Library/movie_booking_framework/valid_checker.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/Library/movie_booking_framework/valid_checker.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main_program/Library/role/manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/Library/role/manager.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -56,44 +54,44 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "Python.__movie_framework__.executor": "Run",
-    "Python.__movie_list_framework__.executor": "Run",
-    "Python.__movie_seats_framework__.executor": "Run",
-    "Python._movie_seats_framework_.executor": "Run",
-    "Python.cinema_services.executor": "Debug",
-    "Python.clerk.executor": "Run",
-    "Python.customer.executor": "Run",
-    "Python.data_dictionary.executor": "Run",
-    "Python.framework_utils.executor": "Run",
-    "Python.id_generator.executor": "Debug",
-    "Python.login_system.executor": "Run",
-    "Python.main.executor": "Run",
-    "Python.main_program.Library.movie_booking_operation.user_operation.executor": "Run",
-    "Python.manager.executor": "Run",
-    "Python.movie_booking_system.main_program.Library.movie_booking_operation.user_operation.executor": "Run",
-    "Python.movie_list_framework.executor": "Run",
-    "Python.movie_list_test.executor": "Debug",
-    "Python.movie_seats_framework.executor": "Run",
-    "Python.techinician.executor": "Run",
-    "Python.user_operation.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "test",
-    "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "C:/Users/leezh/PycharmProjects/movie_booking_system/Main Program/Library/system_login_framework/Login/login_system",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "reference.settingsdialog.IDE.editor.colors.Python",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;Python.__movie_framework__.executor&quot;: &quot;Run&quot;,
+    &quot;Python.__movie_list_framework__.executor&quot;: &quot;Run&quot;,
+    &quot;Python.__movie_seats_framework__.executor&quot;: &quot;Run&quot;,
+    &quot;Python._movie_seats_framework_.executor&quot;: &quot;Run&quot;,
+    &quot;Python.cinema_services.executor&quot;: &quot;Debug&quot;,
+    &quot;Python.clerk.executor&quot;: &quot;Run&quot;,
+    &quot;Python.customer.executor&quot;: &quot;Run&quot;,
+    &quot;Python.data_dictionary.executor&quot;: &quot;Run&quot;,
+    &quot;Python.framework_utils.executor&quot;: &quot;Run&quot;,
+    &quot;Python.id_generator.executor&quot;: &quot;Debug&quot;,
+    &quot;Python.login_system.executor&quot;: &quot;Run&quot;,
+    &quot;Python.main.executor&quot;: &quot;Run&quot;,
+    &quot;Python.main_program.Library.movie_booking_operation.user_operation.executor&quot;: &quot;Run&quot;,
+    &quot;Python.manager.executor&quot;: &quot;Run&quot;,
+    &quot;Python.movie_booking_system.main_program.Library.movie_booking_operation.user_operation.executor&quot;: &quot;Run&quot;,
+    &quot;Python.movie_list_framework.executor&quot;: &quot;Run&quot;,
+    &quot;Python.movie_list_test.executor&quot;: &quot;Debug&quot;,
+    &quot;Python.movie_seats_framework.executor&quot;: &quot;Run&quot;,
+    &quot;Python.techinician.executor&quot;: &quot;Run&quot;,
+    &quot;Python.user_operation.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;test&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/leezh/PycharmProjects/movie_booking_system/Main Program/Library/system_login_framework/Login/login_system&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.IDE.editor.colors.Python&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\leezh\PycharmProjects\movie_booking_system\Main Program\Library\system_login_framework\Login\login_system" />
@@ -135,39 +133,8 @@
       <workItem from="1758800851312" duration="13817000" />
       <workItem from="1758909317489" duration="9783000" />
       <workItem from="1758959084706" duration="1529000" />
-      <workItem from="1758968995691" duration="11366000" />
-    </task>
-    <task id="LOCAL-00073" summary="-sync the main">
-      <option name="closed" value="true" />
-      <created>1758570519115</created>
-      <option name="number" value="00073" />
-      <option name="presentableId" value="LOCAL-00073" />
-      <option name="project" value="LOCAL" />
-      <updated>1758570519115</updated>
-    </task>
-    <task id="LOCAL-00074" summary="-just a graveyard">
-      <option name="closed" value="true" />
-      <created>1758570534802</created>
-      <option name="number" value="00074" />
-      <option name="presentableId" value="LOCAL-00074" />
-      <option name="project" value="LOCAL" />
-      <updated>1758570534802</updated>
-    </task>
-    <task id="LOCAL-00075" summary="-just change the import name">
-      <option name="closed" value="true" />
-      <created>1758570553104</created>
-      <option name="number" value="00075" />
-      <option name="presentableId" value="LOCAL-00075" />
-      <option name="project" value="LOCAL" />
-      <updated>1758570553104</updated>
-    </task>
-    <task id="LOCAL-00076" summary="Seat &amp; List FrameWork Version 1.17.5&#10;- add the sync of dictionary(cache) and the actual csv file&#10;- add lazy import for `data_dictionary_framework.py`&#10;- add `read_list_from_cache` function in `data_dictionary_framework.py`,it is read the data from RAM(dictionary) and not Hard disk(csvfile)&#10;- take the first step for using the `read_list_from_cache` in `cinema_services.py` (100x faster)">
-      <option name="closed" value="true" />
-      <created>1758570975986</created>
-      <option name="number" value="00076" />
-      <option name="presentableId" value="LOCAL-00076" />
-      <option name="project" value="LOCAL" />
-      <updated>1758570975986</updated>
+      <workItem from="1758968995691" duration="11679000" />
+      <workItem from="1758998006412" duration="1613000" />
     </task>
     <task id="LOCAL-00077" summary="-sync the data">
       <option name="closed" value="true" />
@@ -529,7 +496,39 @@
       <option name="project" value="LOCAL" />
       <updated>1758981686017</updated>
     </task>
-    <option name="localTasksCounter" value="122" />
+    <task id="LOCAL-00122" summary="Seat &amp; List FrameWork Version 1.18.2 a&#10;- now `date_valid_check` and `time_valid_check` will return tuple[bool,str] and not just a bool">
+      <option name="closed" value="true" />
+      <created>1758982261713</created>
+      <option name="number" value="00122" />
+      <option name="presentableId" value="LOCAL-00122" />
+      <option name="project" value="LOCAL" />
+      <updated>1758982261713</updated>
+    </task>
+    <task id="LOCAL-00123" summary="- just test">
+      <option name="closed" value="true" />
+      <created>1758982279676</created>
+      <option name="number" value="00123" />
+      <option name="presentableId" value="LOCAL-00123" />
+      <option name="project" value="LOCAL" />
+      <updated>1758982279676</updated>
+    </task>
+    <task id="LOCAL-00124" summary="Manager version 1.1.1&#10;- added `element_input` function&#10;- refactor `add_movie_operation` function with using `element_input` function and not just while loop">
+      <option name="closed" value="true" />
+      <created>1758982388214</created>
+      <option name="number" value="00124" />
+      <option name="presentableId" value="LOCAL-00124" />
+      <option name="project" value="LOCAL" />
+      <updated>1758982388214</updated>
+    </task>
+    <task id="LOCAL-00125" summary="-sync the data">
+      <option name="closed" value="true" />
+      <created>1758982400000</created>
+      <option name="number" value="00125" />
+      <option name="presentableId" value="LOCAL-00125" />
+      <option name="project" value="LOCAL" />
+      <updated>1758982400000</updated>
+    </task>
+    <option name="localTasksCounter" value="126" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -547,13 +546,9 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="cache_framework 1.0.1 b&#10;- fix the bug that `dictionary_update_with_dict` wouldn't update the data permanently" />
-    <MESSAGE value="Seat &amp; List FrameWork Version 1.18.0 a&#10;- fix the bug that `device_count_for_device_list` wouldn't return correct device_count&#10;- fix the bug that the tech_code in `_sync_add` is always the same if the mismatched is &gt; 1" />
-    <MESSAGE value="Customer version 1.3.0 a&#10;- change the DEFAULT_WIDTH from 20 to 30" />
     <MESSAGE value="- still for test" />
     <MESSAGE value="- add a lot of data to test the system stability" />
     <MESSAGE value=" workspace.xml update" />
-    <MESSAGE value="- just test" />
     <MESSAGE value="Clerk Version 1.2.0&#10;- refactor most function in `clerk.py` so all the function is now support cache based system" />
     <MESSAGE value="- add a new member for graveyard" />
     <MESSAGE value="- workspace.xml update" />
@@ -572,7 +567,11 @@
     <MESSAGE value="- update workspace.xml" />
     <MESSAGE value="cache_framework 1.0.2&#10;- added error handling for `list_dictionary_init` and `primary_foreign_key_dictionary_init` functions&#10;-  if the code location is out of range, `list_dictionary_init` and `primary_foreign_key_dictionary_list` will raise error&#10;- refactor `list_dictionary_init` function,now it will get the key location dynamic (with using the code_location key in the dictionary)" />
     <MESSAGE value="- fit the new update with function in cache_framework.py" />
-    <option name="LAST_COMMIT_MESSAGE" value="- fit the new update with function in cache_framework.py" />
+    <MESSAGE value="Seat &amp; List FrameWork Version 1.18.2 a&#10;- now `date_valid_check` and `time_valid_check` will return tuple[bool,str] and not just a bool" />
+    <MESSAGE value="- just test" />
+    <MESSAGE value="Manager version 1.1.1&#10;- added `element_input` function&#10;- refactor `add_movie_operation` function with using `element_input` function and not just while loop" />
+    <MESSAGE value="-sync the data" />
+    <option name="LAST_COMMIT_MESSAGE" value="-sync the data" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -614,8 +613,13 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main_program/Library/role/manager.py</url>
-          <line>249</line>
+          <line>279</line>
           <option name="timeStamp" value="43" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/main_program/Library/role/manager.py</url>
+          <line>248</line>
+          <option name="timeStamp" value="44" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
@@ -638,7 +642,7 @@
     <SUITE FILE_PATH="coverage/movie_booking_system$cinema_services.coverage" NAME="cinema_services Coverage Results" MODIFIED="1758712134381" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/main_program/Library/movie_booking_framework" />
     <SUITE FILE_PATH="coverage/movie_booking_system$customer.coverage" NAME="customer Coverage Results" MODIFIED="1758737650882" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/main_program/Library/role" />
     <SUITE FILE_PATH="coverage/movie_booking_system$framework_utils.coverage" NAME="framework_utils Coverage Results" MODIFIED="1758809851315" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/main_program/Library/movie_booking_framework" />
-    <SUITE FILE_PATH="coverage/movie_booking_system$manager.coverage" NAME="manager Coverage Results" MODIFIED="1758980102893" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/main_program/Library/role" />
+    <SUITE FILE_PATH="coverage/movie_booking_system$manager.coverage" NAME="manager Coverage Results" MODIFIED="1759000108644" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/main_program/Library/role" />
     <SUITE FILE_PATH="coverage/movie_booking_system$id_generator.coverage" NAME="id_generator Coverage Results" MODIFIED="1758915214344" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/main_program/Library/movie_booking_framework" />
     <SUITE FILE_PATH="coverage/movie_booking_system$clerk.coverage" NAME="clerk Coverage Results" MODIFIED="1758737661150" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/main_program/Library/role" />
     <SUITE FILE_PATH="coverage/movie_booking_system$main.coverage" NAME="main Coverage Results" MODIFIED="1758915012132" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/main_program" />
