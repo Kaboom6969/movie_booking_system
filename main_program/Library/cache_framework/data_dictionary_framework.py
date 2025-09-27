@@ -53,28 +53,43 @@ def dictionary_delete (dictionary : dict,key_to_delete : str,skip_key_not_found_
 
 
 def list_dictionary_init (list_csv : str, code_location : int) -> dict:
-    movie_list_temp : list = []
-    movie_list_dict_in_func : dict = {}
-    mlf.read_movie_list_csv(movie_list_csv= list_csv, movie_list= movie_list_temp,read_header= True)
-    movie_list_dict_in_func.update({"base file name" : list_csv})
-    movie_list_dict_in_func.update({"header":movie_list_temp[0][:]})
-    movie_list_dict_in_func.update({"code_location" : code_location})
-    for row in movie_list_temp[1:]:
-        key : str = row[code_location]
-        row.remove(key)
-        movie_list_dict_in_func.update({key:row[:]})
+    try:
+        movie_list_temp : list = []
+        movie_list_dict_in_func : dict = {}
+        mlf.read_movie_list_csv(movie_list_csv= list_csv, movie_list= movie_list_temp,read_header= True)
+        movie_list_dict_in_func.update({"base file name" : list_csv})
+        movie_list_dict_in_func.update({"header":movie_list_temp[0][:]})
+        movie_list_dict_in_func.update({"code_location" : code_location})
+        try:
+            for row in movie_list_temp[1:]:
+                key : str = row[code_location]
+                row.remove(key)
+                movie_list_dict_in_func.update({key:row[:]})
+        except IndexError:
+            raise IndexError(f"code_location : {code_location} is not in the range!")
+
+    except Exception as e:
+        raise Exception(f"LIST DICTIONARY INIT FAILED! ERROR:{str(e)}")
     return movie_list_dict_in_func
 
 def primary_foreign_key_dictionary_init (list_csv : str, PK_location : int, FK_location : int) -> dict:
-    list_temp : list = []
-    dictionary_in_func : dict = {}
-    mlf.read_movie_list_csv(movie_list_csv= list_csv,movie_list= list_temp)
-    for row in list_temp:
-        dictionary_in_func.update({row[PK_location]:row[FK_location]})
+    try:
+        list_temp : list = []
+        dictionary_in_func : dict = {}
+        mlf.read_movie_list_csv(movie_list_csv= list_csv,movie_list= list_temp)
+        try:
+            for row in list_temp:
+                dictionary_in_func.update({row[PK_location]:row[FK_location]})
+        except IndexError:
+            raise IndexError(f"PK_location : {PK_location} or FK_location : {FK_location} is not in the range!")
+
+    except Exception as e:
+        raise Exception(f"PF KEY DICTIONARY INIT FAILED! ERROR:{str(e)}")
     return dictionary_in_func
 
 
-def list_dictionary_update(dictionary : dict, key_location : int, list_to_add : list) -> None:
+def list_dictionary_update(dictionary : dict,list_to_add : list) -> None:
+    key_location = dictionary.get("code_location")
     list_to_add_temp : list = list_to_add[:]
     key : str = list_to_add_temp[key_location]
     list_to_add_temp.remove(key)

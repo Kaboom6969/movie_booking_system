@@ -19,3 +19,10 @@
 ### Fixed
 - fix the bug that `dictionary_update_with_dict` wouldn't update the data permanently (b version)
 - now the `read_list_from_cache` will return one dimension list if the movie code is specific (if movie code is all still return two dimension list) (c version)
+
+## [1.0.2] -2025-09-27
+### Added
+- added error handling for `list_dictionary_init` and `primary_foreign_key_dictionary_init` functions
+-  if the code location is out of range, `list_dictionary_init` and `primary_foreign_key_dictionary_list` will raise error\
+### Changed
+- refactor `list_dictionary_init` function,now it will get the key location dynamic (with using the code_location key in the dictionary)
