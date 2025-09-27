@@ -999,3 +999,4 @@ movie_code,movie_name,cinema_number,movie_time_start,movie_time_end,date,price
 0998,Project Chimera,cinema003,14:30,16:45,2026/04/08,20
 0999,The Clockwork City,cinema004,21:00,23:15,2026/04/08,30
 1000,Joker3,cinema003,19:00,20:00,2025/12/23,20
+1001,joker4,cinema003,10:30,14:00,2025/09/28,20
