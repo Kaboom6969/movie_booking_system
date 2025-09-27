@@ -201,43 +201,47 @@ def add_movie_operation (default_template_code : str,movie_list_dict:dict=None,m
     if movie_seats_dict is None: movie_seats_dict = ddf.MOVIE_SEATS_DICTIONARY
     if cinema_device_dict is None: cinema_device_dict = ddf.CINEMA_DEVICE_DICTIONARY
     movie_code_list = get_code_range(movie_list_dict)
-    movie_list_header : list = movie_list_dict.get("header")
-    date_location : int = fu.keyword_find_for_list(movie_list_header,keyword= "date")
-    start_time_location : int = fu.keyword_find_for_list(movie_list_header,keyword= "movie_time_start")
-    end_time_location : int = fu.keyword_find_for_list(movie_list_header,keyword="movie_time_end")
+    movie_list_header : list = movie_list_dict["header"]
     movie_code = idg.generate_code_id(movie_code_list,prefix_generate="",code_location=movie_list_dict["code_location"],
                                       number_of_prefix=0,prefix_got_digit= False,code_id_digit_count=4)
     added_movie_list : list = [movie_code]
     for i in movie_list_header[1:]:
-        user_input = str(input(f"Please enter the new {i}:"))
+        if "date" in i: user_input = element_input(element_name= i, valid_check_func= vc.date_valid_check)
+        elif "time" in i: user_input = element_input(element_name= i, valid_check_func= vc.time_valid_check)
+        else: user_input = element_input(element_name= i)
         added_movie_list.append(user_input)
 
+    ccsf.list_dictionary_update(dictionary= movie_list_dict,list_to_add=added_movie_list)
+    cs.sync_all(movie_list_csv=movie_list_dict["base file name"],movie_seats_csv=movie_seats_dict["base file name"],
+                cinema_device_list_csv=cinema_device_dict["base file name"],default_template_code=default_template_code)
+
+
+
+def delete_movie_operation(movie_list_dict:dict=None,movie_seats_dict:dict=None,cinema_device_dict:dict=None) -> None:
+    if movie_list_dict is None: movie_list_dict= ddf.MOVIE_LIST_DICTIONARY
+    if movie_seats_dict is None: movie_seats_dict = ddf.MOVIE_SEATS_DICTIONARY
+    if cinema_device_dict is None: cinema_device_dict = ddf.CINEMA_DEVICE_DICTIONARY
+    movie_list_header : list = movie_list_dict["header"]
+    movie_code_range : list = get_code_range(movie_list_dict)
+    movie_code_to_delete = element_input(element_name=movie_list_header[0],input_range= movie_code_range)
+
+
+
+
+
+def element_input (element_name : str, input_range : list=None, valid_check_func=None) -> str:
     while True:
-        if not vc.date_valid_check(added_movie_list[date_location]):
-            print(f"Your {movie_list_header[date_location]}'s format is invalid,it should be YYYY/MM/DD")
-            user_input = str(input("Please enter the new date:"))
-            added_movie_list.insert(date_location, user_input)
-
-        if not vc.time_valid_check(added_movie_list[start_time_location]):
-            print(f"Your {movie_list_header[start_time_location]}'s format is invalid,it should be HH:MM")
-            user_input = str(input("Please enter the new time:"))
-            added_movie_list.insert(start_time_location, user_input)
-
-        if not vc.time_valid_check(added_movie_list[end_time_location]):
-            print(f"Your {movie_list_header[end_time_location]}'s format is invalid,it should be HH:MM")
-            user_input = str(input("Please enter the new time:"))
-            added_movie_list.insert(end_time_location, user_input)
-
-        else:
-            ccsf.list_dictionary_update(dictionary= movie_list_dict,key_location=movie_list_dict["code_location"],list_to_add=added_movie_list)
-            cs.sync_all(movie_list_csv=movie_list_dict["base file name"],movie_seats_csv=movie_seats_dict["base file name"],
-                        cinema_device_list_csv=cinema_device_dict["base file name"],default_template_code=default_template_code)
-            break
-
-
-
-
-
+        element = str(input(f"Please enter the {element_name}:"))
+        if input_range is not None and element not in input_range:
+            print(f"{element} is invalid,it should be in {input_range}")
+            continue
+        if valid_check_func is None: break
+        valid,element_format = valid_check_func(element)
+        if not valid:
+            print(f"{element} is invalid,its format should be {element_format}")
+            continue
+        break
+    return element
 
 
 

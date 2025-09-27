@@ -167,3 +167,8 @@
 ## [1.1.0] - 2025-09-27
 ### Added
 - added `add_movie_operation` function (more dynamic) (will be split to small function i think?)
+
+## [1.1.1] - 2025-09-27
+### Added
+- added `element_input` function
+- refactor `add_movie_operation` function with using `element_input` function and not just while loop
