@@ -234,3 +234,4 @@ refactor `device_count_for_device_list`,now the new name is `keyword_count_for_l
 - add `time_valid_check` function
 ### Changed
 - now `generate_code_id` can handle one dimension list and two dimension list
+- now `date_valid_check` and `time_valid_check` will return tuple[bool,str] and not just a bool (a version)
