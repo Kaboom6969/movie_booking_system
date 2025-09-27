@@ -1,3 +1,5 @@
+import os.path
+
 from .valid_checker import *
 
 
@@ -6,6 +8,7 @@ def read_movie_list_csv(movie_list_csv: str, movie_list: list, movie_code: str =
     try:
         movie_list_csv_path = get_path(movie_list_csv)
         with open(movie_list_csv_path, 'r') as mv_csvfile:
+            if not os.path.getsize(movie_list_csv_path): raise ValueError("The File is Empty!")
             if not read_header:
                 next(mv_csvfile)
             if movie_code == "all":
@@ -30,7 +33,7 @@ def read_movie_list_csv(movie_list_csv: str, movie_list: list, movie_code: str =
     except FileNotFoundError:
         raise FileNotFoundError(f"File Not Found!\nYour File Name is {movie_list_csv}.\nPLease Check Your File! ")
     except ValueError as e:
-        raise e
+        raise ValueError(f"READ LIST FAILED! ERROR: {str(e)}")
 
 
 def update_movie_list_csv(movie_list_csv: str, movie_list: list, movie_code: str,
