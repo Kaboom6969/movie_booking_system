@@ -190,7 +190,7 @@ if __name__ == '__main__':
     # user_input = str(input("Please enter the code: "))
     # booking_to_movie_list_print(movie_code_list= valid_movie_code,movie_code= user_input)
     #book_movie_operation(movie_code= "003",movie_seats_csv= "movie_seat.csv",booking_data_csv= "booking_data.csv",
-    #                     template_seats_csv= "template_seats.csv",user_id= "C001")
+    #                     template_seats_csv= "cinema_seats.csv",user_id= "C001")
     # cancel_booking_operation(user_id= "C001",booking_data_csv= "booking_data.csv",movie_list_csv= "movie_list.csv"
-    #                          ,movie_seats_csv= "movie_seat.csv",template_seats_csv= "template_seats.csv")
+    #                          ,movie_seats_csv= "movie_seat.csv",template_seats_csv= "cinema_seats.csv")
 

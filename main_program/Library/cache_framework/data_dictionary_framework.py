@@ -6,15 +6,15 @@ MOVIE_LIST_DICTIONARY : dict = {}
 BOOKING_DATA_DICTIONARY : dict = {}
 CINEMA_DEVICE_DICTIONARY : dict = {}
 MOVIE_SEATS_DICTIONARY : dict = {}
-TEMPLATE_SEATS_DICTIONARY : dict = {}
-MOVIE_TEMPLATE_CODE_DICTIONARY : dict = {}
+CINEMA_SEATS_DICTIONARY : dict = {}
+MOVIE_CINEMA_CODE_DICTIONARY : dict = {}
 MOVIE_DEVICE_CODE_DICTIONARY : dict = {}
 
 def seat_dictionary_init (seats_csv : str) -> tuple[dict,dict]:
     key: str = ""
     movie_seats_temp: list = []
     seats_dict_in_func : dict = {}
-    movie_template_code_in_func : dict = {}
+    movie_cinema_code_in_func : dict = {}
     movie_seats_raw_data: list = msf.read_movie_seats_csv_raw_data(movie_seats_csv= seats_csv,skip_check= True)
     seats_dict_in_func.update({"base file name" : seats_csv})
     seats_dict_in_func.update({"header":movie_seats_raw_data[0]})
@@ -22,8 +22,8 @@ def seat_dictionary_init (seats_csv : str) -> tuple[dict,dict]:
     for row in movie_seats_raw_data[1:]:
         if row[0] == "CODE":
             key = row[1]
-            if row[1].isdigit(): #detect the row[1] is movie code or not(because this function also been use by template seats
-                movie_template_code_in_func.update({key:row[2]}) #{001 : TEMPLATE001}
+            if row[1].isdigit(): #detect the row[1] is movie code or not(because this function also been use by cinema seats
+                movie_cinema_code_in_func.update({key:row[2]}) #{001 : CINEMA001}
             read_data_mode = True
         if read_data_mode and row[0] == "DATA":
             movie_seats_temp.append(row[1:])
@@ -32,11 +32,11 @@ def seat_dictionary_init (seats_csv : str) -> tuple[dict,dict]:
             key = ""
             read_data_mode = False
             movie_seats_temp.clear()
-    return seats_dict_in_func,movie_template_code_in_func
+    return seats_dict_in_func,movie_cinema_code_in_func
 
-def seat_dictionary_update (seats_dictionary : dict,mt_code_dictionary : dict, code_to_update : str, seats_data_to_add : list, template_code : str = None) -> dict:
+def seat_dictionary_update (seats_dictionary : dict, mt_code_dictionary : dict, code_to_update : str, seats_data_to_add : list, cinema_code : str = None) -> dict:
     seats_dictionary.update({code_to_update:seats_data_to_add})
-    if template_code is not None: mt_code_dictionary.update({code_to_update:template_code})
+    if cinema_code is not None: mt_code_dictionary.update({code_to_update:cinema_code})
     return seats_dictionary
 
 def dictionary_update_with_dict (dictionary : dict,dictionary_to_add : dict) -> None:
@@ -101,12 +101,12 @@ def list_dictionary_update(dictionary : dict,list_to_add : list) -> None:
 
 def init_all_dictionary():
     global MOVIE_LIST_DICTIONARY,BOOKING_DATA_DICTIONARY,CINEMA_DEVICE_DICTIONARY,MOVIE_SEATS_DICTIONARY,\
-        DICTIONARY_INIT_STATUS,TEMPLATE_SEATS_DICTIONARY,MOVIE_TEMPLATE_CODE_DICTIONARY,MOVIE_DEVICE_CODE_DICTIONARY
+        DICTIONARY_INIT_STATUS,CINEMA_SEATS_DICTIONARY,MOVIE_CINEMA_CODE_DICTIONARY,MOVIE_DEVICE_CODE_DICTIONARY
     MOVIE_LIST_DICTIONARY = list_dictionary_init (list_csv="movie_list.csv", code_location = 0)
     BOOKING_DATA_DICTIONARY = list_dictionary_init (list_csv="booking_data.csv", code_location = 0)
     CINEMA_DEVICE_DICTIONARY = list_dictionary_init (list_csv="cinema_device_list.csv", code_location = 0)
-    MOVIE_SEATS_DICTIONARY,MOVIE_TEMPLATE_CODE_DICTIONARY = seat_dictionary_init(seats_csv="movie_seat.csv")
-    TEMPLATE_SEATS_DICTIONARY,_ = seat_dictionary_init(seats_csv="template_seats.csv")
+    MOVIE_SEATS_DICTIONARY,MOVIE_CINEMA_CODE_DICTIONARY = seat_dictionary_init(seats_csv="movie_seat.csv")
+    CINEMA_SEATS_DICTIONARY,_ = seat_dictionary_init(seats_csv="cinema_seats.csv")
     MOVIE_DEVICE_CODE_DICTIONARY = primary_foreign_key_dictionary_init(list_csv="cinema_device_list.csv", PK_location = 1, FK_location = 0)
     DICTIONARY_INIT_STATUS = True
     # print (MOVIE_LIST_DICTIONARY)

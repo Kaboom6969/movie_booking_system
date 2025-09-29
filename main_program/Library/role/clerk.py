@@ -344,7 +344,7 @@ def clerk(user_id):
             choice = get_user_choice()
             if choice == 1:
                 handle_booking(movie_seats_csv="movie_seat.csv", booking_data_csv="booking_data.csv",
-                               template_seats_csv="template_seats.csv", customer_csv="customer.csv",
+                               template_seats_csv="cinema_seats.csv", customer_csv="customer.csv",
                                movie_seat_list=movie_seat_list, input_movie_code=input_movie_code, user_id=user_id)
 
             elif choice == 2:

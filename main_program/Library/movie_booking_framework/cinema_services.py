@@ -7,14 +7,14 @@ from .valid_checker import movie_seats_csv_valid_check
 
 def link_seats (movie_seats_csv : str, booking_data_csv : str,
                 book_movie_code_location : int = 2, book_x_seats_location : int = 5, book_y_seats_location : int = 6,
-                movie_seats_dict=None, booking_data_dict=None, template_seats_dict=None, mt_code_dict=None) -> None:
+                movie_seats_dict=None, booking_data_dict=None, cinema_seats_dict=None, mt_code_dict=None) -> None:
     if booking_data_dict is None: booking_data_dict = ddf.BOOKING_DATA_DICTIONARY
-    if template_seats_dict is None: template_seats_dict = ddf.TEMPLATE_SEATS_DICTIONARY
+    if cinema_seats_dict is None: cinema_seats_dict = ddf.CINEMA_SEATS_DICTIONARY
     if movie_seats_dict is None: movie_seats_dict = ddf.MOVIE_SEATS_DICTIONARY
-    if mt_code_dict is None : mt_code_dict = ddf.MOVIE_TEMPLATE_CODE_DICTIONARY
+    if mt_code_dict is None : mt_code_dict = ddf.MOVIE_CINEMA_CODE_DICTIONARY
     booking_data_list : list = ccsf.read_list_from_cache(dictionary_cache= booking_data_dict)
     #First init the seats file (all the data of seats clear)
-    movie_seats_cache_whole_init(movie_seats_dict= movie_seats_dict,template_seats_dict= template_seats_dict,mt_code_dict= mt_code_dict)
+    movie_seats_cache_whole_init(movie_seats_dict= movie_seats_dict, cinema_seats_dict= cinema_seats_dict, mt_code_dict= mt_code_dict)
     for row in booking_data_list:
         #get the data of booking (movie code,x,y) from booking data list)
         #[movie_code,x_axis,y_axis]
@@ -38,20 +38,20 @@ def link_seats (movie_seats_csv : str, booking_data_csv : str,
     ccsf.seats_cache_write_to_csv(seats_csv= movie_seats_csv,seats_dictionary_cache= movie_seats_dict,
                                       mt_code_dictionary_cache= mt_code_dict)
 
-def movie_seats_cache_whole_init (movie_seats_dict : dict, template_seats_dict : dict, mt_code_dict : dict) -> None:
-    for movie_code,template_code in mt_code_dict.items():
+def movie_seats_cache_whole_init (movie_seats_dict : dict, cinema_seats_dict : dict, mt_code_dict : dict) -> None:
+    for movie_code,cinema_code in mt_code_dict.items():
         #init the movie seats(one only,but using for loop so can init all the file)
-        movie_seats_init(movie_code= movie_code,template_code= template_code,movie_seats_dict= movie_seats_dict,
-                         template_seats_dict= template_seats_dict,mt_code_dict= mt_code_dict)
+        movie_seats_init(movie_code= movie_code, cinema_code= cinema_code.upper(), movie_seats_dict= movie_seats_dict,
+                         cinema_seats_dict= cinema_seats_dict, mt_code_dict= mt_code_dict)
 
 
-def movie_seats_init(movie_code : str, template_code : str,
-                     movie_seats_dict : dict, template_seats_dict : dict, mt_code_dict : dict) -> None:
+def movie_seats_init(movie_code : str, cinema_code : str,
+                     movie_seats_dict : dict, cinema_seats_dict : dict, mt_code_dict : dict) -> None:
     # read the template data
-    template_seats : list = ccsf.read_seats_from_cache(cache_dictionary= template_seats_dict,code= template_code)
+    cinema_seats : list = ccsf.read_seats_from_cache(cache_dictionary= cinema_seats_dict, code= cinema_code.upper())
     #overwrite the old data with template data
     ccsf.seat_dictionary_update(seats_dictionary= movie_seats_dict,mt_code_dictionary=mt_code_dict,code_to_update= movie_code,
-                                    seats_data_to_add= template_seats)
+                                    seats_data_to_add= cinema_seats)
 
 
 
@@ -92,14 +92,14 @@ def mismatched_calculate (main_list : list, compared_list : list) -> list:
 
 #sync the movie list,movie seats, and cinema device list
 #The SSOT is movie list
-def sync_all (movie_list_csv : str, movie_seats_csv : str,cinema_device_list_csv : str,default_template_code : str,
+def sync_all (movie_list_csv : str, movie_seats_csv : str,cinema_device_list_csv : str,
               movie_list_dict : dict=None,movie_seats_dict : dict=None,cinema_device_dict : dict =None,
               template_seats_dict : dict=None, mt_code_dict : dict=None,md_code_dict : dict=None) -> None:
     if movie_seats_dict is None: movie_seats_dict = ddf.MOVIE_SEATS_DICTIONARY
     if movie_list_dict is None: movie_list_dict = ddf.MOVIE_LIST_DICTIONARY
     if cinema_device_dict is None: cinema_device_dict = ddf.CINEMA_DEVICE_DICTIONARY
-    if template_seats_dict is None: template_seats_dict = ddf.TEMPLATE_SEATS_DICTIONARY
-    if mt_code_dict is None: mt_code_dict = ddf.MOVIE_TEMPLATE_CODE_DICTIONARY
+    if template_seats_dict is None: template_seats_dict = ddf.CINEMA_SEATS_DICTIONARY
+    if mt_code_dict is None: mt_code_dict = ddf.MOVIE_CINEMA_CODE_DICTIONARY
     if md_code_dict is None: md_code_dict = ddf.MOVIE_DEVICE_CODE_DICTIONARY
     #read the data from csv file
     #
@@ -138,7 +138,7 @@ def sync_all (movie_list_csv : str, movie_seats_csv : str,cinema_device_list_csv
                  movie_seats_dict= movie_seats_dict,cinema_device_dict= cinema_device_dict,md_code_dict=md_code_dict,
                  mt_code_dict= mt_code_dict)
     #sync add part
-    _sync_add(default_template_code=default_template_code,list_seats_mismatched= list_seats_mismatched,
+    _sync_add(movie_list_dict= movie_list_dict,list_seats_mismatched= list_seats_mismatched,
               list_device_mismatched= list_device_mismatched,movie_seats_dict= movie_seats_dict,
               template_seats_dict= template_seats_dict,mt_code_dict= mt_code_dict, md_code_dict= md_code_dict,
               cinema_device_dict= cinema_device_dict)
@@ -169,15 +169,17 @@ def _sync_delete (seats_list_mismatched : list,
         #                  f"list file: {cinema_device_list_csv} manually!")
 
 
-def _sync_add (default_template_code : str,list_seats_mismatched : list,list_device_mismatched : list,
+def _sync_add (list_seats_mismatched : list,list_device_mismatched : list,
                movie_seats_dict :dict,template_seats_dict :dict,mt_code_dict : dict,
-               cinema_device_dict : dict,md_code_dict : dict) -> None:
+               cinema_device_dict : dict,md_code_dict : dict,movie_list_dict:dict) -> None:
     if list_seats_mismatched:
          for movie_code in list_seats_mismatched:
             # add the movie seats that is lack
-            movie_seats_init(movie_code= movie_code,template_code= default_template_code,
-                             movie_seats_dict= movie_seats_dict,mt_code_dict= mt_code_dict,template_seats_dict= template_seats_dict)
-            dictionary_for_mt : dict = {movie_code : default_template_code}
+            cinema_code = movie_list_dict[movie_code][1].upper()
+            movie_seats_init(movie_code= movie_code, cinema_code= cinema_code,
+                             movie_seats_dict= movie_seats_dict, mt_code_dict= mt_code_dict,
+                             cinema_seats_dict= template_seats_dict)
+            dictionary_for_mt : dict = {movie_code : cinema_code}
             ccsf.dictionary_update_with_dict(dictionary= mt_code_dict,dictionary_to_add= dictionary_for_mt)
     if list_device_mismatched:
         #read the cinema device list to make sure the technician code generate is always the newest data
