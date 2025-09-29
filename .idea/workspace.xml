@@ -4,12 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0ea8b363-fbeb-45e9-9d45-12a8498462b3" name="Changes" comment="-sync the data">
+    <list default="true" id="0ea8b363-fbeb-45e9-9d45-12a8498462b3" name="Changes" comment="Manager version 1.2.0&#10;- add `delete_movie_operation` function">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main_program/Data/cinema_device_list.csv" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/Data/cinema_device_list.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main_program/Data/movie_list.csv" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/Data/movie_list.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main_program/Data/movie_seat.csv" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/Data/movie_seat.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main_program/Data/template_seats.csv" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/Data/cinema_seats.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main_program/Library/cache_framework/data_dictionary_framework.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/Library/cache_framework/data_dictionary_framework.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main_program/Library/movie_booking_framework/cinema_services.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/Library/movie_booking_framework/cinema_services.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main_program/Library/role/clerk.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/Library/role/clerk.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main_program/Library/role/customer.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/Library/role/customer.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main_program/Library/role/manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/Library/role/manager.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main_program/graveyard/graveyard_for_clerk.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/graveyard/graveyard_for_clerk.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main_program/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -134,23 +140,8 @@
       <workItem from="1758909317489" duration="9783000" />
       <workItem from="1758959084706" duration="1529000" />
       <workItem from="1758968995691" duration="11679000" />
-      <workItem from="1758998006412" duration="1613000" />
-    </task>
-    <task id="LOCAL-00077" summary="-sync the data">
-      <option name="closed" value="true" />
-      <created>1758655461423</created>
-      <option name="number" value="00077" />
-      <option name="presentableId" value="LOCAL-00077" />
-      <option name="project" value="LOCAL" />
-      <updated>1758655461423</updated>
-    </task>
-    <task id="LOCAL-00078" summary="- still testing">
-      <option name="closed" value="true" />
-      <created>1758655468274</created>
-      <option name="number" value="00078" />
-      <option name="presentableId" value="LOCAL-00078" />
-      <option name="project" value="LOCAL" />
-      <updated>1758655468274</updated>
+      <workItem from="1758998006412" duration="4301000" />
+      <workItem from="1759127639245" duration="3476000" />
     </task>
     <task id="LOCAL-00079" summary="cache_framework 1.0.1&#10;- add more information for the dictionary (file name,header...)">
       <option name="closed" value="true" />
@@ -528,7 +519,23 @@
       <option name="project" value="LOCAL" />
       <updated>1758982400000</updated>
     </task>
-    <option name="localTasksCounter" value="126" />
+    <task id="LOCAL-00126" summary="-sync the data">
+      <option name="closed" value="true" />
+      <created>1759000156602</created>
+      <option name="number" value="00126" />
+      <option name="presentableId" value="LOCAL-00126" />
+      <option name="project" value="LOCAL" />
+      <updated>1759000156602</updated>
+    </task>
+    <task id="LOCAL-00127" summary="Manager version 1.2.0&#10;- add `delete_movie_operation` function">
+      <option name="closed" value="true" />
+      <created>1759000246019</created>
+      <option name="number" value="00127" />
+      <option name="presentableId" value="LOCAL-00127" />
+      <option name="project" value="LOCAL" />
+      <updated>1759000246019</updated>
+    </task>
+    <option name="localTasksCounter" value="128" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -546,7 +553,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="- still for test" />
     <MESSAGE value="- add a lot of data to test the system stability" />
     <MESSAGE value=" workspace.xml update" />
     <MESSAGE value="Clerk Version 1.2.0&#10;- refactor most function in `clerk.py` so all the function is now support cache based system" />
@@ -571,7 +577,8 @@
     <MESSAGE value="- just test" />
     <MESSAGE value="Manager version 1.1.1&#10;- added `element_input` function&#10;- refactor `add_movie_operation` function with using `element_input` function and not just while loop" />
     <MESSAGE value="-sync the data" />
-    <option name="LAST_COMMIT_MESSAGE" value="-sync the data" />
+    <MESSAGE value="Manager version 1.2.0&#10;- add `delete_movie_operation` function" />
+    <option name="LAST_COMMIT_MESSAGE" value="Manager version 1.2.0&#10;- add `delete_movie_operation` function" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -613,12 +620,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main_program/Library/role/manager.py</url>
-          <line>279</line>
+          <line>270</line>
           <option name="timeStamp" value="43" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main_program/Library/role/manager.py</url>
-          <line>248</line>
+          <line>239</line>
           <option name="timeStamp" value="44" />
         </line-breakpoint>
       </breakpoints>
@@ -645,7 +652,7 @@
     <SUITE FILE_PATH="coverage/movie_booking_system$manager.coverage" NAME="manager Coverage Results" MODIFIED="1759000108644" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/main_program/Library/role" />
     <SUITE FILE_PATH="coverage/movie_booking_system$id_generator.coverage" NAME="id_generator Coverage Results" MODIFIED="1758915214344" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/main_program/Library/movie_booking_framework" />
     <SUITE FILE_PATH="coverage/movie_booking_system$clerk.coverage" NAME="clerk Coverage Results" MODIFIED="1758737661150" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/main_program/Library/role" />
-    <SUITE FILE_PATH="coverage/movie_booking_system$main.coverage" NAME="main Coverage Results" MODIFIED="1758915012132" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/main_program" />
+    <SUITE FILE_PATH="coverage/movie_booking_system$main.coverage" NAME="main Coverage Results" MODIFIED="1759152521981" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/main_program" />
     <SUITE FILE_PATH="coverage/movie_booking_system$movie_seats_framework.coverage" NAME="movie_seats_framework Coverage Results" MODIFIED="1758548134663" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/main_program/Library/movie_booking_framework" />
     <SUITE FILE_PATH="coverage/movie_booking_system$techinician.coverage" NAME="techinician Coverage Results" MODIFIED="1758819119137" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/main_program/Library/role" />
   </component>
