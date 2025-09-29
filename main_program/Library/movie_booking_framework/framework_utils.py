@@ -172,6 +172,27 @@ def data_convert_to_list (*args):
     #return the list
     return target_list
 
+def element_input (element_name : str, input_range : list=None, valid_check_func=None,return_range_index : bool = False) -> str | tuple[str, int]:
+    while True:
+        element = str(input(f"Please enter the {element_name}:"))
+        if "," in element:
+            print(f"{element} is invalid, no ',' allowed.")
+            continue
+        if input_range is not None and element not in input_range:
+            print(f"{element} is invalid,it should be in {input_range}")
+            continue
+        if valid_check_func is None: break
+        valid,element_format = valid_check_func(element)
+        if not valid:
+            print(f"{element} is invalid,its format should be {element_format}")
+            continue
+        break
+    if return_range_index:
+        for index,element_in_range in enumerate(input_range):
+            if element_in_range == element:
+                return element,index
+    return element
+
 if __name__ == "__main__":
     list_test : list = ["idk_status","header","nihao_status","wtf_status","end"]
     print(keyword_erase_for_list(list_test,"status"))
