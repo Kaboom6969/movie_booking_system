@@ -1,1001 +1,1001 @@
-movie_code,movie_name,cinema_number,movie_time_start,movie_time_end,date,price
-0001,Joker,cinema001,18:00,21:00,2025/09/18,20
-0002,Joker2,cinema002,19:00,22:00,2025/09/19,30
-0003,Superman,cinema003,20:00,22:00,2025/09/18,30
-0004,Starlight Voyager,cinema004,14:30,16:45,2025/09/25,25
-0005,Echoes of Tomorrow,cinema004,21:15,23:30,2025/09/26,28
-0006,The Crimson Cipher,cinema001,17:00,19:15,2025/09/25,22
-0007,River of Secrets,cinema002,13:45,16:00,2025/09/27,20
-0008,Neon Dragons,cinema003,20:30,22:45,2025/09/28,30
-0009,The Glass Garden,cinema004,19:15,21:30,2025/09/25,25
-0010,Solaris Prime,cinema004,16:00,18:15,2025/09/26,28
-0011,Midnight Bloom,cinema001,22:00,00:15,2025/09/27,35
-0012,Project Chimera,cinema002,15:30,17:45,2025/09/28,25
-0013,The Clockwork City,cinema003,18:45,21:00,2025/09/25,22
-0014,Whispers in the Void,cinema004,14:00,16:15,2025/09/26,20
-0015,Legacy of the Serpent,cinema004,21:45,00:00,2025/09/27,35
-0016,Ironclad Fury,cinema001,13:15,15:30,2025/09/28,20
-0017,Aetherium Gates,cinema002,19:30,21:45,2025/09/25,28
-0018,The Silent Cartographer,cinema003,16:45,19:00,2025/09/26,25
-0019,Zero Horizon,cinema004,22:30,00:45,2025/09/27,35
-0020,Chronoscape,cinema004,15:00,17:15,2025/09/28,22
-0021,Starlight Voyager,cinema001,19:45,22:00,2025/09/25,30
-0022,Echoes of Tomorrow,cinema002,14:15,16:30,2025/09/26,20
-0023,The Crimson Cipher,cinema003,21:00,23:15,2025/09/27,30
-0024,River of Secrets,cinema004,17:30,19:45,2025/09/28,25
-0025,Neon Dragons,cinema004,13:00,15:15,2025/09/25,20
-0026,The Glass Garden,cinema001,20:15,22:30,2025/09/26,30
-0027,Solaris Prime,cinema002,16:30,18:45,2025/09/27,25
-0028,Midnight Bloom,cinema003,14:45,17:00,2025/09/28,22
-0029,Project Chimera,cinema004,22:15,00:30,2025/09/25,35
-0030,The Clockwork City,cinema004,19:00,21:15,2025/09/26,28
-0031,Whispers in the Void,cinema001,15:45,18:00,2025/09/27,25
-0032,Legacy of the Serpent,cinema002,22:45,01:00,2025/09/28,35
-0033,Ironclad Fury,cinema003,13:30,15:45,2025/09/25,20
-0034,Aetherium Gates,cinema004,20:00,22:15,2025/09/26,30
-0035,The Silent Cartographer,cinema004,17:15,19:30,2025/09/27,25
-0036,Zero Horizon,cinema001,14:15,16:30,2025/09/28,22
-0037,Chronoscape,cinema002,21:30,23:45,2025/09/25,30
-0038,Starlight Voyager,cinema003,18:00,20:15,2025/09/26,28
-0039,Echoes of Tomorrow,cinema004,15:15,17:30,2025/09/27,25
-0040,The Crimson Cipher,cinema004,23:00,01:15,2025/09/28,35
-0041,River of Secrets,cinema001,13:00,15:15,2025/09/29,20
-0042,Neon Dragons,cinema002,20:45,23:00,2025/09/29,30
-0043,The Glass Garden,cinema003,17:45,20:00,2025/09/29,25
-0044,Solaris Prime,cinema004,15:00,17:15,2025/09/29,22
-0045,Midnight Bloom,cinema004,22:30,00:45,2025/09/29,35
-0046,Project Chimera,cinema001,19:30,21:45,2025/09/30,28
-0047,The Clockwork City,cinema002,16:15,18:30,2025/09/30,25
-0048,Whispers in the Void,cinema003,14:30,16:45,2025/09/30,20
-0049,Legacy of the Serpent,cinema004,21:00,23:15,2025/09/30,30
-0050,Ironclad Fury,cinema004,18:30,20:45,2025/09/30,28
-0051,Aetherium Gates,cinema001,15:15,17:30,2025/10/01,25
-0052,The Silent Cartographer,cinema002,22:00,00:15,2025/10/01,35
-0053,Zero Horizon,cinema003,13:45,16:00,2025/10/01,20
-0054,Chronoscape,cinema004,20:15,22:30,2025/10/01,30
-0055,Starlight Voyager,cinema004,17:00,19:15,2025/10/01,25
-0056,Echoes of Tomorrow,cinema001,14:45,17:00,2025/10/02,22
-0057,The Crimson Cipher,cinema002,21:45,00:00,2025/10/02,35
-0058,River of Secrets,cinema003,18:15,20:30,2025/10/02,28
-0059,Neon Dragons,cinema004,16:00,18:15,2025/10/02,25
-0060,The Glass Garden,cinema004,23:15,01:30,2025/10/02,35
-0061,Solaris Prime,cinema001,13:30,15:45,2025/10/03,20
-0062,Midnight Bloom,cinema002,20:00,22:15,2025/10/03,30
-0063,Project Chimera,cinema003,17:30,19:45,2025/10/03,25
-0064,The Clockwork City,cinema004,14:15,16:30,2025/10/03,22
-0065,Whispers in the Void,cinema004,21:30,23:45,2025/10/03,30
-0066,Legacy of the Serpent,cinema001,18:45,21:00,2025/10/04,28
-0067,Ironclad Fury,cinema002,15:45,18:00,2025/10/04,25
-0068,Aetherium Gates,cinema003,22:45,01:00,2025/10/04,35
-0069,The Silent Cartographer,cinema004,13:15,15:30,2025/10/04,20
-0070,Zero Horizon,cinema004,20:30,22:45,2025/10/04,30
-0071,Chronoscape,cinema001,16:45,19:00,2025/10/05,25
-0072,Starlight Voyager,cinema002,14:00,16:15,2025/10/05,22
-0073,Echoes of Tomorrow,cinema003,21:15,23:30,2025/10/05,30
-0074,The Crimson Cipher,cinema004,18:00,20:15,2025/10/05,28
-0075,River of Secrets,cinema004,15:30,17:45,2025/10/05,25
-0076,Neon Dragons,cinema001,22:15,00:30,2025/10/06,35
-0077,The Glass Garden,cinema002,19:15,21:30,2025/10/06,28
-0078,Solaris Prime,cinema003,16:30,18:45,2025/10/06,25
-0079,Midnight Bloom,cinema004,13:00,15:15,2025/10/06,20
-0080,Project Chimera,cinema004,20:45,23:00,2025/10/06,30
-0081,The Clockwork City,cinema001,17:45,20:00,2025/10/07,25
-0082,Whispers in the Void,cinema002,15:00,17:15,2025/10/07,22
-0083,Legacy of the Serpent,cinema003,22:30,00:45,2025/10/07,35
-0084,Ironclad Fury,cinema004,19:30,21:45,2025/10/07,28
-0085,Aetherium Gates,cinema004,16:15,18:30,2025/10/07,25
-0086,The Silent Cartographer,cinema001,14:30,16:45,2025/10/08,20
-0087,Zero Horizon,cinema002,21:00,23:15,2025/10/08,30
-0088,Chronoscape,cinema003,18:30,20:45,2025/10/08,28
-0089,Starlight Voyager,cinema004,15:15,17:30,2025/10/08,25
-0090,Echoes of Tomorrow,cinema004,22:00,00:15,2025/10/08,35
-0091,The Crimson Cipher,cinema001,13:45,16:00,2025/10/09,20
-0092,River of Secrets,cinema002,20:15,22:30,2025/10/09,30
-0093,Neon Dragons,cinema003,17:00,19:15,2025/10/09,25
-0094,The Glass Garden,cinema004,14:45,17:00,2025/10/09,22
-0095,Solaris Prime,cinema004,21:45,00:00,2025/10/09,35
-0096,Midnight Bloom,cinema001,18:15,20:30,2025/10/10,28
-0097,Project Chimera,cinema002,16:00,18:15,2025/10/10,25
-0098,The Clockwork City,cinema003,23:15,01:30,2025/10/10,35
-0099,Whispers in the Void,cinema004,13:30,15:45,2025/10/10,20
-0100,Legacy of the Serpent,cinema004,20:00,22:15,2025/10/10,30
-0101,Ironclad Fury,cinema001,17:30,19:45,2025/10/11,25
-0102,Aetherium Gates,cinema002,14:15,16:30,2025/10/11,22
-0103,The Silent Cartographer,cinema003,21:30,23:45,2025/10/11,30
-0104,Zero Horizon,cinema004,18:45,21:00,2025/10/11,28
-0105,Chronoscape,cinema004,15:45,18:00,2025/10/11,25
-0106,Starlight Voyager,cinema001,22:45,01:00,2025/10/12,35
-0107,Echoes of Tomorrow,cinema002,13:15,15:30,2025/10/12,20
-0108,The Crimson Cipher,cinema003,20:30,22:45,2025/10/12,30
-0109,River of Secrets,cinema004,16:45,19:00,2025/10/12,25
-0110,Neon Dragons,cinema004,14:00,16:15,2025/10/12,22
-0111,The Glass Garden,cinema001,21:15,23:30,2025/10/13,30
-0112,Solaris Prime,cinema002,18:00,20:15,2025/10/13,28
-0113,Midnight Bloom,cinema003,15:30,17:45,2025/10/13,25
-0114,Project Chimera,cinema004,22:15,00:30,2025/10/13,35
-0115,The Clockwork City,cinema004,19:15,21:30,2025/10/13,28
-0116,Whispers in the Void,cinema001,16:30,18:45,2025/10/14,25
-0117,Legacy of the Serpent,cinema002,13:00,15:15,2025/10/14,20
-0118,Ironclad Fury,cinema003,20:45,23:00,2025/10/14,30
-0119,Aetherium Gates,cinema004,17:45,20:00,2025/10/14,25
-0120,The Silent Cartographer,cinema004,15:00,17:15,2025/10/14,22
-0121,Zero Horizon,cinema001,22:30,00:45,2025/10/15,35
-0122,Chronoscape,cinema002,19:30,21:45,2025/10/15,28
-0123,Starlight Voyager,cinema003,16:15,18:30,2025/10/15,25
-0124,Echoes of Tomorrow,cinema004,14:30,16:45,2025/10/15,20
-0125,The Crimson Cipher,cinema004,21:00,23:15,2025/10/15,30
-0126,River of Secrets,cinema001,18:30,20:45,2025/10/16,28
-0127,Neon Dragons,cinema002,15:15,17:30,2025/10/16,25
-0128,The Glass Garden,cinema003,22:00,00:15,2025/10/16,35
-0129,Solaris Prime,cinema004,13:45,16:00,2025/10/16,20
-0130,Midnight Bloom,cinema004,20:15,22:30,2025/10/16,30
-0131,Project Chimera,cinema001,17:00,19:15,2025/10/17,25
-0132,The Clockwork City,cinema002,14:45,17:00,2025/10/17,22
-0133,Whispers in the Void,cinema003,21:45,00:00,2025/10/17,35
-0134,Legacy of the Serpent,cinema004,18:15,20:30,2025/10/17,28
-0135,Ironclad Fury,cinema004,16:00,18:15,2025/10/17,25
-0136,Aetherium Gates,cinema001,23:15,01:30,2025/10/18,35
-0137,The Silent Cartographer,cinema002,13:30,15:45,2025/10/18,20
-0138,Zero Horizon,cinema003,20:00,22:15,2025/10/18,30
-0139,Chronoscape,cinema004,17:30,19:45,2025/10/18,25
-0140,Starlight Voyager,cinema004,14:15,16:30,2025/10/18,22
-0141,Echoes of Tomorrow,cinema001,21:30,23:45,2025/10/19,30
-0142,The Crimson Cipher,cinema002,18:45,21:00,2025/10/19,28
-0143,River of Secrets,cinema003,15:45,18:00,2025/10/19,25
-0144,Neon Dragons,cinema004,22:45,01:00,2025/10/19,35
-0145,The Glass Garden,cinema004,13:15,15:30,2025/10/19,20
-0146,Solaris Prime,cinema001,20:30,22:45,2025/10/20,30
-0147,Midnight Bloom,cinema002,16:45,19:00,2025/10/20,25
-0148,Project Chimera,cinema003,14:00,16:15,2025/10/20,22
-0149,The Clockwork City,cinema004,21:15,23:30,2025/10/20,30
-0150,Whispers in the Void,cinema004,18:00,20:15,2025/10/20,28
-0151,Legacy of the Serpent,cinema001,15:30,17:45,2025/10/21,25
-0152,Ironclad Fury,cinema002,22:15,00:30,2025/10/21,35
-0153,Aetherium Gates,cinema003,19:15,21:30,2025/10/21,28
-0154,The Silent Cartographer,cinema004,16:30,18:45,2025/10/21,25
-0155,Zero Horizon,cinema004,13:00,15:15,2025/10/21,20
-0156,Chronoscape,cinema001,20:45,23:00,2025/10/22,30
-0157,Starlight Voyager,cinema002,17:45,20:00,2025/10/22,25
-0158,Echoes of Tomorrow,cinema003,15:00,17:15,2025/10/22,22
-0159,The Crimson Cipher,cinema004,22:30,00:45,2025/10/22,35
-0160,River of Secrets,cinema004,19:30,21:45,2025/10/22,28
-0161,Neon Dragons,cinema001,16:15,18:30,2025/10/23,25
-0162,The Glass Garden,cinema002,14:30,16:45,2025/10/23,20
-0163,Solaris Prime,cinema003,21:00,23:15,2025/10/23,30
-0164,Midnight Bloom,cinema004,18:30,20:45,2025/10/23,28
-0165,Project Chimera,cinema004,15:15,17:30,2025/10/23,25
-0166,The Clockwork City,cinema001,22:00,00:15,2025/10/24,35
-0167,Whispers in the Void,cinema002,13:45,16:00,2025/10/24,20
-0168,Legacy of the Serpent,cinema003,20:15,22:30,2025/10/24,30
-0169,Ironclad Fury,cinema004,17:00,19:15,2025/10/24,25
-0170,Aetherium Gates,cinema004,14:45,17:00,2025/10/24,22
-0171,The Silent Cartographer,cinema001,21:45,00:00,2025/10/25,35
-0172,Zero Horizon,cinema002,18:15,20:30,2025/10/25,28
-0173,Chronoscape,cinema003,16:00,18:15,2025/10/25,25
-0174,Starlight Voyager,cinema004,23:15,01:30,2025/10/25,35
-0175,Echoes of Tomorrow,cinema004,13:30,15:45,2025/10/25,20
-0176,The Crimson Cipher,cinema001,20:00,22:15,2025/10/26,30
-0177,River of Secrets,cinema002,17:30,19:45,2025/10/26,25
-0178,Neon Dragons,cinema003,14:15,16:30,2025/10/26,22
-0179,The Glass Garden,cinema004,21:30,23:45,2025/10/26,30
-0180,Solaris Prime,cinema004,18:45,21:00,2025/10/26,28
-0181,Midnight Bloom,cinema001,15:45,18:00,2025/10/27,25
-0182,Project Chimera,cinema002,22:45,01:00,2025/10/27,35
-0183,The Clockwork City,cinema003,13:15,15:30,2025/10/27,20
-0184,Whispers in the Void,cinema004,20:30,22:45,2025/10/27,30
-0185,Legacy of the Serpent,cinema004,16:45,19:00,2025/10/27,25
-0186,Ironclad Fury,cinema001,14:00,16:15,2025/10/28,22
-0187,Aetherium Gates,cinema002,21:15,23:30,2025/10/28,30
-0188,The Silent Cartographer,cinema003,18:00,20:15,2025/10/28,28
-0189,Zero Horizon,cinema004,15:30,17:45,2025/10/28,25
-0190,Chronoscape,cinema004,22:15,00:30,2025/10/28,35
-0191,Starlight Voyager,cinema001,19:15,21:30,2025/10/29,28
-0192,Echoes of Tomorrow,cinema002,16:30,18:45,2025/10/29,25
-0193,The Crimson Cipher,cinema003,13:00,15:15,2025/10/29,20
-0194,River of Secrets,cinema004,20:45,23:00,2025/10/29,30
-0195,Neon Dragons,cinema004,17:45,20:00,2025/10/29,25
-0196,The Glass Garden,cinema001,15:00,17:15,2025/10/30,22
-0197,Solaris Prime,cinema002,22:30,00:45,2025/10/30,35
-0198,Midnight Bloom,cinema003,19:30,21:45,2025/10/30,28
-0199,Project Chimera,cinema004,16:15,18:30,2025/10/30,25
-0200,The Clockwork City,cinema004,14:30,16:45,2025/10/30,20
-0201,Whispers in the Void,cinema001,21:00,23:15,2025/10/31,30
-0202,Legacy of the Serpent,cinema002,18:30,20:45,2025/10/31,28
-0203,Ironclad Fury,cinema003,15:15,17:30,2025/10/31,25
-0204,Aetherium Gates,cinema004,22:00,00:15,2025/10/31,35
-0205,The Silent Cartographer,cinema004,13:45,16:00,2025/10/31,20
-0206,Zero Horizon,cinema001,20:15,22:30,2025/11/01,30
-0207,Chronoscape,cinema002,17:00,19:15,2025/11/01,25
-0208,Starlight Voyager,cinema003,14:45,17:00,2025/11/01,22
-0209,Echoes of Tomorrow,cinema004,21:45,00:00,2025/11/01,35
-0210,The Crimson Cipher,cinema004,18:15,20:30,2025/11/01,28
-0211,River of Secrets,cinema001,16:00,18:15,2025/11/02,25
-0212,Neon Dragons,cinema002,23:15,01:30,2025/11/02,35
-0213,The Glass Garden,cinema003,13:30,15:45,2025/11/02,20
-0214,Solaris Prime,cinema004,20:00,22:15,2025/11/02,30
-0215,Midnight Bloom,cinema004,17:30,19:45,2025/11/02,25
-0216,Project Chimera,cinema001,14:15,16:30,2025/11/03,22
-0217,The Clockwork City,cinema002,21:30,23:45,2025/11/03,30
-0218,Whispers in the Void,cinema003,18:45,21:00,2025/11/03,28
-0219,Legacy of the Serpent,cinema004,15:45,18:00,2025/11/03,25
-0220,Ironclad Fury,cinema004,22:45,01:00,2025/11/03,35
-0221,Aetherium Gates,cinema001,13:15,15:30,2025/11/04,20
-0222,The Silent Cartographer,cinema002,20:30,22:45,2025/11/04,30
-0223,Zero Horizon,cinema003,16:45,19:00,2025/11/04,25
-0224,Chronoscape,cinema004,14:00,16:15,2025/11/04,22
-0225,Starlight Voyager,cinema004,21:15,23:30,2025/11/04,30
-0226,Echoes of Tomorrow,cinema001,18:00,20:15,2025/11/05,28
-0227,The Crimson Cipher,cinema002,15:30,17:45,2025/11/05,25
-0228,River of Secrets,cinema003,22:15,00:30,2025/11/05,35
-0229,Neon Dragons,cinema004,19:15,21:30,2025/11/05,28
-0230,The Glass Garden,cinema004,16:30,18:45,2025/11/05,25
-0231,Solaris Prime,cinema001,13:00,15:15,2025/11/06,20
-0232,Midnight Bloom,cinema002,20:45,23:00,2025/11/06,30
-0233,Project Chimera,cinema003,17:45,20:00,2025/11/06,25
-0234,The Clockwork City,cinema004,15:00,17:15,2025/11/06,22
-0235,Whispers in the Void,cinema004,22:30,00:45,2025/11/06,35
-0236,Legacy of the Serpent,cinema001,19:30,21:45,2025/11/07,28
-0237,Ironclad Fury,cinema002,16:15,18:30,2025/11/07,25
-0238,Aetherium Gates,cinema003,14:30,16:45,2025/11/07,20
-0239,The Silent Cartographer,cinema004,21:00,23:15,2025/11/07,30
-0240,Zero Horizon,cinema004,18:30,20:45,2025/11/07,28
-0241,Chronoscape,cinema001,15:15,17:30,2025/11/08,25
-0242,Starlight Voyager,cinema002,22:00,00:15,2025/11/08,35
-0243,Echoes of Tomorrow,cinema003,13:45,16:00,2025/11/08,20
-0244,The Crimson Cipher,cinema004,20:15,22:30,2025/11/08,30
-0245,River of Secrets,cinema004,17:00,19:15,2025/11/08,25
-0246,Neon Dragons,cinema001,14:45,17:00,2025/11/09,22
-0247,The Glass Garden,cinema002,21:45,00:00,2025/11/09,35
-0248,Solaris Prime,cinema003,18:15,20:30,2025/11/09,28
-0249,Midnight Bloom,cinema004,16:00,18:15,2025/11/09,25
-0250,Project Chimera,cinema004,23:15,01:30,2025/11/09,35
-0251,The Clockwork City,cinema001,13:30,15:45,2025/11/10,20
-0252,Whispers in the Void,cinema002,20:00,22:15,2025/11/10,30
-0253,Legacy of the Serpent,cinema003,17:30,19:45,2025/11/10,25
-0254,Ironclad Fury,cinema004,14:15,16:30,2025/11/10,22
-0255,Aetherium Gates,cinema004,21:30,23:45,2025/11/10,30
-0256,The Silent Cartographer,cinema001,18:45,21:00,2025/11/11,28
-0257,Zero Horizon,cinema002,15:45,18:00,2025/11/11,25
-0258,Chronoscape,cinema003,22:45,01:00,2025/11/11,35
-0259,Starlight Voyager,cinema004,13:15,15:30,2025/11/11,20
-0260,Echoes of Tomorrow,cinema004,20:30,22:45,2025/11/11,30
-0261,The Crimson Cipher,cinema001,16:45,19:00,2025/11/12,25
-0262,River of Secrets,cinema002,14:00,16:15,2025/11/12,22
-0263,Neon Dragons,cinema003,21:15,23:30,2025/11/12,30
-0264,The Glass Garden,cinema004,18:00,20:15,2025/11/12,28
-0265,Solaris Prime,cinema004,15:30,17:45,2025/11/12,25
-0266,Midnight Bloom,cinema001,22:15,00:30,2025/11/13,35
-0267,Project Chimera,cinema002,19:15,21:30,2025/11/13,28
-0268,The Clockwork City,cinema003,16:30,18:45,2025/11/13,25
-0269,Whispers in the Void,cinema004,13:00,15:15,2025/11/13,20
-0270,Legacy of the Serpent,cinema004,20:45,23:00,2025/11/13,30
-0271,Ironclad Fury,cinema001,17:45,20:00,2025/11/14,25
-0272,Aetherium Gates,cinema002,15:00,17:15,2025/11/14,22
-0273,The Silent Cartographer,cinema003,22:30,00:45,2025/11/14,35
-0274,Zero Horizon,cinema004,19:30,21:45,2025/11/14,28
-0275,Chronoscape,cinema004,16:15,18:30,2025/11/14,25
-0276,Starlight Voyager,cinema001,14:30,16:45,2025/11/15,20
-0277,Echoes of Tomorrow,cinema002,21:00,23:15,2025/11/15,30
-0278,The Crimson Cipher,cinema003,18:30,20:45,2025/11/15,28
-0279,River of Secrets,cinema004,15:15,17:30,2025/11/15,25
-0280,Neon Dragons,cinema004,22:00,00:15,2025/11/15,35
-0281,The Glass Garden,cinema001,13:45,16:00,2025/11/16,20
-0282,Solaris Prime,cinema002,20:15,22:30,2025/11/16,30
-0283,Midnight Bloom,cinema003,17:00,19:15,2025/11/16,25
-0284,Project Chimera,cinema004,14:45,17:00,2025/11/16,22
-0285,The Clockwork City,cinema004,21:45,00:00,2025/11/16,35
-0286,Whispers in the Void,cinema001,18:15,20:30,2025/11/17,28
-0287,Legacy of the Serpent,cinema002,16:00,18:15,2025/11/17,25
-0288,Ironclad Fury,cinema003,23:15,01:30,2025/11/17,35
-0289,Aetherium Gates,cinema004,13:30,15:45,2025/11/17,20
-0290,The Silent Cartographer,cinema004,20:00,22:15,2025/11/17,30
-0291,Zero Horizon,cinema001,17:30,19:45,2025/11/18,25
-0292,Chronoscape,cinema002,14:15,16:30,2025/11/18,22
-0293,Starlight Voyager,cinema003,21:30,23:45,2025/11/18,30
-0294,Echoes of Tomorrow,cinema004,18:45,21:00,2025/11/18,28
-0295,The Crimson Cipher,cinema004,15:45,18:00,2025/11/18,25
-0296,River of Secrets,cinema001,22:45,01:00,2025/11/19,35
-0297,Neon Dragons,cinema002,13:15,15:30,2025/11/19,20
-0298,The Glass Garden,cinema003,20:30,22:45,2025/11/19,30
-0299,Solaris Prime,cinema004,16:45,19:00,2025/11/19,25
-0300,Midnight Bloom,cinema004,14:00,16:15,2025/11/19,22
-0301,Project Chimera,cinema001,21:15,23:30,2025/11/20,30
-0302,The Clockwork City,cinema002,18:00,20:15,2025/11/20,28
-0303,Whispers in the Void,cinema003,15:30,17:45,2025/11/20,25
-0304,Legacy of the Serpent,cinema004,22:15,00:30,2025/11/20,35
-0305,Ironclad Fury,cinema004,19:15,21:30,2025/11/20,28
-0306,Aetherium Gates,cinema001,16:30,18:45,2025/11/21,25
-0307,The Silent Cartographer,cinema002,13:00,15:15,2025/11/21,20
-0308,Zero Horizon,cinema003,20:45,23:00,2025/11/21,30
-0309,Chronoscape,cinema004,17:45,20:00,2025/11/21,25
-0310,Starlight Voyager,cinema004,15:00,17:15,2025/11/21,22
-0311,Echoes of Tomorrow,cinema001,22:30,00:45,2025/11/22,35
-0312,The Crimson Cipher,cinema002,19:30,21:45,2025/11/22,28
-0313,River of Secrets,cinema003,16:15,18:30,2025/11/22,25
-0314,Neon Dragons,cinema004,14:30,16:45,2025/11/22,20
-0315,The Glass Garden,cinema004,21:00,23:15,2025/11/22,30
-0316,Solaris Prime,cinema001,18:30,20:45,2025/11/23,28
-0317,Midnight Bloom,cinema002,15:15,17:30,2025/11/23,25
-0318,Project Chimera,cinema003,22:00,00:15,2025/11/23,35
-0319,The Clockwork City,cinema004,13:45,16:00,2025/11/23,20
-0320,Whispers in the Void,cinema004,20:15,22:30,2025/11/23,30
-0321,Legacy of the Serpent,cinema001,17:00,19:15,2025/11/24,25
-0322,Ironclad Fury,cinema002,14:45,17:00,2025/11/24,22
-0323,Aetherium Gates,cinema003,21:45,00:00,2025/11/24,35
-0324,The Silent Cartographer,cinema004,18:15,20:30,2025/11/24,28
-0325,Zero Horizon,cinema004,16:00,18:15,2025/11/24,25
-0326,Chronoscape,cinema001,23:15,01:30,2025/11/25,35
-0327,Starlight Voyager,cinema002,13:30,15:45,2025/11/25,20
-0328,Echoes of Tomorrow,cinema003,20:00,22:15,2025/11/25,30
-0329,The Crimson Cipher,cinema004,17:30,19:45,2025/11/25,25
-0330,River of Secrets,cinema004,14:15,16:30,2025/11/25,22
-0331,Neon Dragons,cinema001,21:30,23:45,2025/11/26,30
-0332,The Glass Garden,cinema002,18:45,21:00,2025/11/26,28
-0333,Solaris Prime,cinema003,15:45,18:00,2025/11/26,25
-0334,Midnight Bloom,cinema004,22:45,01:00,2025/11/26,35
-0335,Project Chimera,cinema004,13:15,15:30,2025/11/26,20
-0336,The Clockwork City,cinema001,20:30,22:45,2025/11/27,30
-0337,Whispers in the Void,cinema002,16:45,19:00,2025/11/27,25
-0338,Legacy of the Serpent,cinema003,14:00,16:15,2025/11/27,22
-0339,Ironclad Fury,cinema004,21:15,23:30,2025/11/27,30
-0340,Aetherium Gates,cinema004,18:00,20:15,2025/11/27,28
-0341,The Silent Cartographer,cinema001,15:30,17:45,2025/11/28,25
-0342,Zero Horizon,cinema002,22:15,00:30,2025/11/28,35
-0343,Chronoscape,cinema003,19:15,21:30,2025/11/28,28
-0344,Starlight Voyager,cinema004,16:30,18:45,2025/11/28,25
-0345,Echoes of Tomorrow,cinema004,13:00,15:15,2025/11/28,20
-0346,The Crimson Cipher,cinema001,20:45,23:00,2025/11/29,30
-0347,River of Secrets,cinema002,17:45,20:00,2025/11/29,25
-0348,Neon Dragons,cinema003,15:00,17:15,2025/11/29,22
-0349,The Glass Garden,cinema004,22:30,00:45,2025/11/29,35
-0350,Solaris Prime,cinema004,19:30,21:45,2025/11/29,28
-0351,Midnight Bloom,cinema001,16:15,18:30,2025/11/30,25
-0352,Project Chimera,cinema002,14:30,16:45,2025/11/30,20
-0353,The Clockwork City,cinema003,21:00,23:15,2025/11/30,30
-0354,Whispers in the Void,cinema004,18:30,20:45,2025/11/30,28
-0355,Legacy of the Serpent,cinema004,15:15,17:30,2025/11/30,25
-0356,Ironclad Fury,cinema001,22:00,00:15,2025/12/01,35
-0357,Aetherium Gates,cinema002,13:45,16:00,2025/12/01,20
-0358,The Silent Cartographer,cinema003,20:15,22:30,2025/12/01,30
-0359,Zero Horizon,cinema004,17:00,19:15,2025/12/01,25
-0360,Chronoscape,cinema004,14:45,17:00,2025/12/01,22
-0361,Starlight Voyager,cinema001,21:45,00:00,2025/12/02,35
-0362,Echoes of Tomorrow,cinema002,18:15,20:30,2025/12/02,28
-0363,The Crimson Cipher,cinema003,16:00,18:15,2025/12/02,25
-0364,River of Secrets,cinema004,23:15,01:30,2025/12/02,35
-0365,Neon Dragons,cinema004,13:30,15:45,2025/12/02,20
-0366,The Glass Garden,cinema001,20:00,22:15,2025/12/03,30
-0367,Solaris Prime,cinema002,17:30,19:45,2025/12/03,25
-0368,Midnight Bloom,cinema003,14:15,16:30,2025/12/03,22
-0369,Project Chimera,cinema004,21:30,23:45,2025/12/03,30
-0370,The Clockwork City,cinema004,18:45,21:00,2025/12/03,28
-0371,Whispers in the Void,cinema001,15:45,18:00,2025/12/04,25
-0372,Legacy of the Serpent,cinema002,22:45,01:00,2025/12/04,35
-0373,Ironclad Fury,cinema003,13:15,15:30,2025/12/04,20
-0374,Aetherium Gates,cinema004,20:30,22:45,2025/12/04,30
-0375,The Silent Cartographer,cinema004,16:45,19:00,2025/12/04,25
-0376,Zero Horizon,cinema001,14:00,16:15,2025/12/05,22
-0377,Chronoscape,cinema002,21:15,23:30,2025/12/05,30
-0378,Starlight Voyager,cinema003,18:00,20:15,2025/12/05,28
-0379,Echoes of Tomorrow,cinema004,15:30,17:45,2025/12/05,25
-0380,The Crimson Cipher,cinema004,22:15,00:30,2025/12/05,35
-0381,River of Secrets,cinema001,19:15,21:30,2025/12/06,28
-0382,Neon Dragons,cinema002,16:30,18:45,2025/12/06,25
-0383,The Glass Garden,cinema003,13:00,15:15,2025/12/06,20
-0384,Solaris Prime,cinema004,20:45,23:00,2025/12/06,30
-0385,Midnight Bloom,cinema004,17:45,20:00,2025/12/06,25
-0386,Project Chimera,cinema001,15:00,17:15,2025/12/07,22
-0387,The Clockwork City,cinema002,22:30,00:45,2025/12/07,35
-0388,Whispers in the Void,cinema003,19:30,21:45,2025/12/07,28
-0389,Legacy of the Serpent,cinema004,16:15,18:30,2025/12/07,25
-0390,Ironclad Fury,cinema004,14:30,16:45,2025/12/07,20
-0391,Aetherium Gates,cinema001,21:00,23:15,2025/12/08,30
-0392,The Silent Cartographer,cinema002,18:30,20:45,2025/12/08,28
-0393,Zero Horizon,cinema003,15:15,17:30,2025/12/08,25
-0394,Chronoscape,cinema004,22:00,00:15,2025/12/08,35
-0395,Starlight Voyager,cinema004,13:45,16:00,2025/12/08,20
-0396,Echoes of Tomorrow,cinema001,20:15,22:30,2025/12/09,30
-0397,The Crimson Cipher,cinema002,17:00,19:15,2025/12/09,25
-0398,River of Secrets,cinema003,14:45,17:00,2025/12/09,22
-0399,Neon Dragons,cinema004,21:45,00:00,2025/12/09,35
-0400,The Glass Garden,cinema004,18:15,20:30,2025/12/09,28
-0401,Solaris Prime,cinema001,16:00,18:15,2025/12/10,25
-0402,Midnight Bloom,cinema002,23:15,01:30,2025/12/10,35
-0403,Project Chimera,cinema003,13:30,15:45,2025/12/10,20
-0404,The Clockwork City,cinema004,20:00,22:15,2025/12/10,30
-0405,Whispers in the Void,cinema004,17:30,19:45,2025/12/10,25
-0406,Legacy of the Serpent,cinema001,14:15,16:30,2025/12/11,22
-0407,Ironclad Fury,cinema002,21:30,23:45,2025/12/11,30
-0408,Aetherium Gates,cinema003,18:45,21:00,2025/12/11,28
-0409,The Silent Cartographer,cinema004,15:45,18:00,2025/12/11,25
-0410,Zero Horizon,cinema004,22:45,01:00,2025/12/11,35
-0411,Chronoscape,cinema001,13:15,15:30,2025/12/12,20
-0412,Starlight Voyager,cinema002,20:30,22:45,2025/12/12,30
-0413,Echoes of Tomorrow,cinema003,16:45,19:00,2025/12/12,25
-0414,The Crimson Cipher,cinema004,14:00,16:15,2025/12/12,22
-0415,River of Secrets,cinema004,21:15,23:30,2025/12/12,30
-0416,Neon Dragons,cinema001,18:00,20:15,2025/12/13,28
-0417,The Glass Garden,cinema002,15:30,17:45,2025/12/13,25
-0418,Solaris Prime,cinema003,22:15,00:30,2025/12/13,35
-0419,Midnight Bloom,cinema004,19:15,21:30,2025/12/13,28
-0420,Project Chimera,cinema004,16:30,18:45,2025/12/13,25
-0421,The Clockwork City,cinema001,13:00,15:15,2025/12/14,20
-0422,Whispers in the Void,cinema002,20:45,23:00,2025/12/14,30
-0423,Legacy of the Serpent,cinema003,17:45,20:00,2025/12/14,25
-0424,Ironclad Fury,cinema004,15:00,17:15,2025/12/14,22
-0425,Aetherium Gates,cinema004,22:30,00:45,2025/12/14,35
-0426,The Silent Cartographer,cinema001,19:30,21:45,2025/12/15,28
-0427,Zero Horizon,cinema002,16:15,18:30,2025/12/15,25
-0428,Chronoscape,cinema003,14:30,16:45,2025/12/15,20
-0429,Starlight Voyager,cinema004,21:00,23:15,2025/12/15,30
-0430,Echoes of Tomorrow,cinema004,18:30,20:45,2025/12/15,28
-0431,The Crimson Cipher,cinema001,15:15,17:30,2025/12/16,25
-0432,River of Secrets,cinema002,22:00,00:15,2025/12/16,35
-0433,Neon Dragons,cinema003,13:45,16:00,2025/12/16,20
-0434,The Glass Garden,cinema004,20:15,22:30,2025/12/16,30
-0435,Solaris Prime,cinema004,17:00,19:15,2025/12/16,25
-0436,Midnight Bloom,cinema001,14:45,17:00,2025/12/17,22
-0437,Project Chimera,cinema002,21:45,00:00,2025/12/17,35
-0438,The Clockwork City,cinema003,18:15,20:30,2025/12/17,28
-0439,Whispers in the Void,cinema004,16:00,18:15,2025/12/17,25
-0440,Legacy of the Serpent,cinema004,23:15,01:30,2025/12/17,35
-0441,Ironclad Fury,cinema001,13:30,15:45,2025/12/18,20
-0442,Aetherium Gates,cinema002,20:00,22:15,2025/12/18,30
-0443,The Silent Cartographer,cinema003,17:30,19:45,2025/12/18,25
-0444,Zero Horizon,cinema004,14:15,16:30,2025/12/18,22
-0445,Chronoscape,cinema004,21:30,23:45,2025/12/18,30
-0446,Starlight Voyager,cinema001,18:45,21:00,2025/12/19,28
-0447,Echoes of Tomorrow,cinema002,15:45,18:00,2025/12/19,25
-0448,The Crimson Cipher,cinema003,22:45,01:00,2025/12/19,35
-0449,River of Secrets,cinema004,13:15,15:30,2025/12/19,20
-0450,Neon Dragons,cinema004,20:30,22:45,2025/12/19,30
-0451,The Glass Garden,cinema001,16:45,19:00,2025/12/20,25
-0452,Solaris Prime,cinema002,14:00,16:15,2025/12/20,22
-0453,Midnight Bloom,cinema003,21:15,23:30,2025/12/20,30
-0454,Project Chimera,cinema004,18:00,20:15,2025/12/20,28
-0455,The Clockwork City,cinema004,15:30,17:45,2025/12/20,25
-0456,Whispers in the Void,cinema001,22:15,00:30,2025/12/21,35
-0457,Legacy of the Serpent,cinema002,19:15,21:30,2025/12/21,28
-0458,Ironclad Fury,cinema003,16:30,18:45,2025/12/21,25
-0459,Aetherium Gates,cinema004,13:00,15:15,2025/12/21,20
-0460,The Silent Cartographer,cinema004,20:45,23:00,2025/12/21,30
-0461,Zero Horizon,cinema001,17:45,20:00,2025/12/22,25
-0462,Chronoscape,cinema002,15:00,17:15,2025/12/22,22
-0463,Starlight Voyager,cinema003,22:30,00:45,2025/12/22,35
-0464,Echoes of Tomorrow,cinema004,19:30,21:45,2025/12/22,28
-0465,The Crimson Cipher,cinema004,16:15,18:30,2025/12/22,25
-0466,River of Secrets,cinema001,14:30,16:45,2025/12/23,20
-0467,Neon Dragons,cinema002,21:00,23:15,2025/12/23,30
-0468,The Glass Garden,cinema003,18:30,20:45,2025/12/23,28
-0469,Solaris Prime,cinema004,15:15,17:30,2025/12/23,25
-0470,Midnight Bloom,cinema004,22:00,00:15,2025/12/23,35
-0471,Project Chimera,cinema001,13:45,16:00,2025/12/24,20
-0472,The Clockwork City,cinema002,20:15,22:30,2025/12/24,30
-0473,Whispers in the Void,cinema003,17:00,19:15,2025/12/24,25
-0474,Legacy of the Serpent,cinema004,14:45,17:00,2025/12/24,22
-0475,Ironclad Fury,cinema004,21:45,00:00,2025/12/24,35
-0476,Aetherium Gates,cinema001,18:15,20:30,2025/12/25,28
-0477,The Silent Cartographer,cinema002,16:00,18:15,2025/12/25,25
-0478,Zero Horizon,cinema003,23:15,01:30,2025/12/25,35
-0479,Chronoscape,cinema004,13:30,15:45,2025/12/25,20
-0480,Starlight Voyager,cinema004,20:00,22:15,2025/12/25,30
-0481,Echoes of Tomorrow,cinema001,17:30,19:45,2025/12/26,25
-0482,The Crimson Cipher,cinema002,14:15,16:30,2025/12/26,22
-0483,River of Secrets,cinema003,21:30,23:45,2025/12/26,30
-0484,Neon Dragons,cinema004,18:45,21:00,2025/12/26,28
-0485,The Glass Garden,cinema004,15:45,18:00,2025/12/26,25
-0486,Solaris Prime,cinema001,22:45,01:00,2025/12/27,35
-0487,Midnight Bloom,cinema002,13:15,15:30,2025/12/27,20
-0488,Project Chimera,cinema003,20:30,22:45,2025/12/27,30
-0489,The Clockwork City,cinema004,16:45,19:00,2025/12/27,25
-0490,Whispers in the Void,cinema004,14:00,16:15,2025/12/27,22
-0491,Legacy of the Serpent,cinema001,21:15,23:30,2025/12/28,30
-0492,Ironclad Fury,cinema002,18:00,20:15,2025/12/28,28
-0493,Aetherium Gates,cinema003,15:30,17:45,2025/12/28,25
-0494,The Silent Cartographer,cinema004,22:15,00:30,2025/12/28,35
-0495,Zero Horizon,cinema004,19:15,21:30,2025/12/28,28
-0496,Chronoscape,cinema001,16:30,18:45,2025/12/29,25
-0497,Starlight Voyager,cinema002,13:00,15:15,2025/12/29,20
-0498,Echoes of Tomorrow,cinema003,20:45,23:00,2025/12/29,30
-0499,The Crimson Cipher,cinema004,17:45,20:00,2025/12/29,25
-0500,River of Secrets,cinema004,15:00,17:15,2025/12/29,22
-0501,Neon Dragons,cinema001,22:30,00:45,2025/12/30,35
-0502,The Glass Garden,cinema002,19:30,21:45,2025/12/30,28
-0503,Solaris Prime,cinema003,16:15,18:30,2025/12/30,25
-0504,Midnight Bloom,cinema004,14:30,16:45,2025/12/30,20
-0505,Project Chimera,cinema004,21:00,23:15,2025/12/30,30
-0506,The Clockwork City,cinema001,18:30,20:45,2025/12/31,28
-0507,Whispers in the Void,cinema002,15:15,17:30,2025/12/31,25
-0508,Legacy of the Serpent,cinema003,22:00,00:15,2025/12/31,35
-0509,Ironclad Fury,cinema004,13:45,16:00,2025/12/31,20
-0510,Aetherium Gates,cinema004,20:15,22:30,2025/12/31,30
-0511,The Silent Cartographer,cinema001,17:00,19:15,2026/01/01,25
-0512,Zero Horizon,cinema002,14:45,17:00,2026/01/01,22
-0513,Chronoscape,cinema003,21:45,00:00,2026/01/01,35
-0514,Starlight Voyager,cinema004,18:15,20:30,2026/01/01,28
-0515,Echoes of Tomorrow,cinema004,16:00,18:15,2026/01/01,25
-0516,The Crimson Cipher,cinema001,23:15,01:30,2026/01/02,35
-0517,River of Secrets,cinema002,13:30,15:45,2026/01/02,20
-0518,Neon Dragons,cinema003,20:00,22:15,2026/01/02,30
-0519,The Glass Garden,cinema004,17:30,19:45,2026/01/02,25
-0520,Solaris Prime,cinema004,14:15,16:30,2026/01/02,22
-0521,Midnight Bloom,cinema001,21:30,23:45,2026/01/03,30
-0522,Project Chimera,cinema002,18:45,21:00,2026/01/03,28
-0523,The Clockwork City,cinema003,15:45,18:00,2026/01/03,25
-0524,Whispers in the Void,cinema004,22:45,01:00,2026/01/03,35
-0525,Legacy of the Serpent,cinema004,13:15,15:30,2026/01/03,20
-0526,Ironclad Fury,cinema001,20:30,22:45,2026/01/04,30
-0527,Aetherium Gates,cinema002,16:45,19:00,2026/01/04,25
-0528,The Silent Cartographer,cinema003,14:00,16:15,2026/01/04,22
-0529,Zero Horizon,cinema004,21:15,23:30,2026/01/04,30
-0530,Chronoscape,cinema004,18:00,20:15,2026/01/04,28
-0531,Starlight Voyager,cinema001,15:30,17:45,2026/01/05,25
-0532,Echoes of Tomorrow,cinema002,22:15,00:30,2026/01/05,35
-0533,The Crimson Cipher,cinema003,19:15,21:30,2026/01/05,28
-0534,River of Secrets,cinema004,16:30,18:45,2026/01/05,25
-0535,Neon Dragons,cinema004,13:00,15:15,2026/01/05,20
-0536,The Glass Garden,cinema001,20:45,23:00,2026/01/06,30
-0537,Solaris Prime,cinema002,17:45,20:00,2026/01/06,25
-0538,Midnight Bloom,cinema003,15:00,17:15,2026/01/06,22
-0539,Project Chimera,cinema004,22:30,00:45,2026/01/06,35
-0540,The Clockwork City,cinema004,19:30,21:45,2026/01/06,28
-0541,Whispers in the Void,cinema001,16:15,18:30,2026/01/07,25
-0542,Legacy of the Serpent,cinema002,14:30,16:45,2026/01/07,20
-0543,Ironclad Fury,cinema003,21:00,23:15,2026/01/07,30
-0544,Aetherium Gates,cinema004,18:30,20:45,2026/01/07,28
-0545,The Silent Cartographer,cinema004,15:15,17:30,2026/01/07,25
-0546,Zero Horizon,cinema001,22:00,00:15,2026/01/08,35
-0547,Chronoscape,cinema002,13:45,16:00,2026/01/08,20
-0548,Starlight Voyager,cinema003,20:15,22:30,2026/01/08,30
-0549,Echoes of Tomorrow,cinema004,17:00,19:15,2026/01/08,25
-0550,The Crimson Cipher,cinema004,14:45,17:00,2026/01/08,22
-0551,River of Secrets,cinema001,21:45,00:00,2026/01/09,35
-0552,Neon Dragons,cinema002,18:15,20:30,2026/01/09,28
-0553,The Glass Garden,cinema003,16:00,18:15,2026/01/09,25
-0554,Solaris Prime,cinema004,23:15,01:30,2026/01/09,35
-0555,Midnight Bloom,cinema004,13:30,15:45,2026/01/09,20
-0556,Project Chimera,cinema001,20:00,22:15,2026/01/10,30
-0557,The Clockwork City,cinema002,17:30,19:45,2026/01/10,25
-0558,Whispers in the Void,cinema003,14:15,16:30,2026/01/10,22
-0559,Legacy of the Serpent,cinema004,21:30,23:45,2026/01/10,30
-0560,Ironclad Fury,cinema004,18:45,21:00,2026/01/10,28
-0561,Aetherium Gates,cinema001,15:45,18:00,2026/01/11,25
-0562,The Silent Cartographer,cinema002,22:45,01:00,2026/01/11,35
-0563,Zero Horizon,cinema003,13:15,15:30,2026/01/11,20
-0564,Chronoscape,cinema004,20:30,22:45,2026/01/11,30
-0565,Starlight Voyager,cinema004,16:45,19:00,2026/01/11,25
-0566,Echoes of Tomorrow,cinema001,14:00,16:15,2026/01/12,22
-0567,The Crimson Cipher,cinema002,21:15,23:30,2026/01/12,30
-0568,River of Secrets,cinema003,18:00,20:15,2026/01/12,28
-0569,Neon Dragons,cinema004,15:30,17:45,2026/01/12,25
-0570,The Glass Garden,cinema004,22:15,00:30,2026/01/12,35
-0571,Solaris Prime,cinema001,19:15,21:30,2026/01/13,28
-0572,Midnight Bloom,cinema002,16:30,18:45,2026/01/13,25
-0573,Project Chimera,cinema003,13:00,15:15,2026/01/13,20
-0574,The Clockwork City,cinema004,20:45,23:00,2026/01/13,30
-0575,Whispers in the Void,cinema004,17:45,20:00,2026/01/13,25
-0576,Legacy of the Serpent,cinema001,15:00,17:15,2026/01/14,22
-0577,Ironclad Fury,cinema002,22:30,00:45,2026/01/14,35
-0578,Aetherium Gates,cinema003,19:30,21:45,2026/01/14,28
-0579,The Silent Cartographer,cinema004,16:15,18:30,2026/01/14,25
-0580,Zero Horizon,cinema004,14:30,16:45,2026/01/14,20
-0581,Chronoscape,cinema001,21:00,23:15,2026/01/15,30
-0582,Starlight Voyager,cinema002,18:30,20:45,2026/01/15,28
-0583,Echoes of Tomorrow,cinema003,15:15,17:30,2026/01/15,25
-0584,The Crimson Cipher,cinema004,22:00,00:15,2026/01/15,35
-0585,River of Secrets,cinema004,13:45,16:00,2026/01/15,20
-0586,Neon Dragons,cinema001,20:15,22:30,2026/01/16,30
-0587,The Glass Garden,cinema002,17:00,19:15,2026/01/16,25
-0588,Solaris Prime,cinema003,14:45,17:00,2026/01/16,22
-0589,Midnight Bloom,cinema004,21:45,00:00,2026/01/16,35
-0590,Project Chimera,cinema004,18:15,20:30,2026/01/16,28
-0591,The Clockwork City,cinema001,16:00,18:15,2026/01/17,25
-0592,Whispers in the Void,cinema002,23:15,01:30,2026/01/17,35
-0593,Legacy of the Serpent,cinema003,13:30,15:45,2026/01/17,20
-0594,Ironclad Fury,cinema004,20:00,22:15,2026/01/17,30
-0595,Aetherium Gates,cinema004,17:30,19:45,2026/01/17,25
-0596,The Silent Cartographer,cinema001,14:15,16:30,2026/01/18,22
-0597,Zero Horizon,cinema002,21:30,23:45,2026/01/18,30
-0598,Chronoscape,cinema003,18:45,21:00,2026/01/18,28
-0599,Starlight Voyager,cinema004,15:45,18:00,2026/01/18,25
-0600,Echoes of Tomorrow,cinema004,22:45,01:00,2026/01/18,35
-0601,The Crimson Cipher,cinema001,13:15,15:30,2026/01/19,20
-0602,River of Secrets,cinema002,20:30,22:45,2026/01/19,30
-0603,Neon Dragons,cinema003,16:45,19:00,2026/01/19,25
-0604,The Glass Garden,cinema004,14:00,16:15,2026/01/19,22
-0605,Solaris Prime,cinema004,21:15,23:30,2026/01/19,30
-0606,Midnight Bloom,cinema001,18:00,20:15,2026/01/20,28
-0607,Project Chimera,cinema002,15:30,17:45,2026/01/20,25
-0608,The Clockwork City,cinema003,22:15,00:30,2026/01/20,35
-0609,Whispers in the Void,cinema004,19:15,21:30,2026/01/20,28
-0610,Legacy of the Serpent,cinema004,16:30,18:45,2026/01/20,25
-0611,Ironclad Fury,cinema001,13:00,15:15,2026/01/21,20
-0612,Aetherium Gates,cinema002,20:45,23:00,2026/01/21,30
-0613,The Silent Cartographer,cinema003,17:45,20:00,2026/01/21,25
-0614,Zero Horizon,cinema004,15:00,17:15,2026/01/21,22
-0615,Chronoscape,cinema004,22:30,00:45,2026/01/21,35
-0616,Starlight Voyager,cinema001,19:30,21:45,2026/01/22,28
-0617,Echoes of Tomorrow,cinema002,16:15,18:30,2026/01/22,25
-0618,The Crimson Cipher,cinema003,14:30,16:45,2026/01/22,20
-0619,River of Secrets,cinema004,21:00,23:15,2026/01/22,30
-0620,Neon Dragons,cinema004,18:30,20:45,2026/01/22,28
-0621,The Glass Garden,cinema001,15:15,17:30,2026/01/23,25
-0622,Solaris Prime,cinema002,22:00,00:15,2026/01/23,35
-0623,Midnight Bloom,cinema003,13:45,16:00,2026/01/23,20
-0624,Project Chimera,cinema004,20:15,22:30,2026/01/23,30
-0625,The Clockwork City,cinema004,17:00,19:15,2026/01/23,25
-0626,Whispers in the Void,cinema001,14:45,17:00,2026/01/24,22
-0627,Legacy of the Serpent,cinema002,21:45,00:00,2026/01/24,35
-0628,Ironclad Fury,cinema003,18:15,20:30,2026/01/24,28
-0629,Aetherium Gates,cinema004,16:00,18:15,2026/01/24,25
-0630,The Silent Cartographer,cinema004,23:15,01:30,2026/01/24,35
-0631,Zero Horizon,cinema001,13:30,15:45,2026/01/25,20
-0632,Chronoscape,cinema002,20:00,22:15,2026/01/25,30
-0633,Starlight Voyager,cinema003,17:30,19:45,2026/01/25,25
-0634,Echoes of Tomorrow,cinema004,14:15,16:30,2026/01/25,22
-0635,The Crimson Cipher,cinema004,21:30,23:45,2026/01/25,30
-0636,River of Secrets,cinema001,18:45,21:00,2026/01/26,28
-0637,Neon Dragons,cinema002,15:45,18:00,2026/01/26,25
-0638,The Glass Garden,cinema003,22:45,01:00,2026/01/26,35
-0639,Solaris Prime,cinema004,13:15,15:30,2026/01/26,20
-0640,Midnight Bloom,cinema004,20:30,22:45,2026/01/26,30
-0641,Project Chimera,cinema001,16:45,19:00,2026/01/27,25
-0642,The Clockwork City,cinema002,14:00,16:15,2026/01/27,22
-0643,Whispers in the Void,cinema003,21:15,23:30,2026/01/27,30
-0644,Legacy of the Serpent,cinema004,18:00,20:15,2026/01/27,28
-0645,Ironclad Fury,cinema004,15:30,17:45,2026/01/27,25
-0646,Aetherium Gates,cinema001,22:15,00:30,2026/01/28,35
-0647,The Silent Cartographer,cinema002,19:15,21:30,2026/01/28,28
-0648,Zero Horizon,cinema003,16:30,18:45,2026/01/28,25
-0649,Chronoscape,cinema004,13:00,15:15,2026/01/28,20
-0650,Starlight Voyager,cinema004,20:45,23:00,2026/01/28,30
-0651,Echoes of Tomorrow,cinema001,17:45,20:00,2026/01/29,25
-0652,The Crimson Cipher,cinema002,15:00,17:15,2026/01/29,22
-0653,River of Secrets,cinema003,22:30,00:45,2026/01/29,35
-0654,Neon Dragons,cinema004,19:30,21:45,2026/01/29,28
-0655,The Glass Garden,cinema004,16:15,18:30,2026/01/29,25
-0656,Solaris Prime,cinema001,14:30,16:45,2026/01/30,20
-0657,Midnight Bloom,cinema002,21:00,23:15,2026/01/30,30
-0658,Project Chimera,cinema003,18:30,20:45,2026/01/30,28
-0659,The Clockwork City,cinema004,15:15,17:30,2026/01/30,25
-0660,Whispers in the Void,cinema004,22:00,00:15,2026/01/30,35
-0661,Legacy of the Serpent,cinema001,13:45,16:00,2026/01/31,20
-0662,Ironclad Fury,cinema002,20:15,22:30,2026/01/31,30
-0663,Aetherium Gates,cinema003,17:00,19:15,2026/01/31,25
-0664,The Silent Cartographer,cinema004,14:45,17:00,2026/01/31,22
-0665,Zero Horizon,cinema004,21:45,00:00,2026/01/31,35
-0666,Chronoscape,cinema001,18:15,20:30,2026/02/01,28
-0667,Starlight Voyager,cinema002,16:00,18:15,2026/02/01,25
-0668,Echoes of Tomorrow,cinema003,23:15,01:30,2026/02/01,35
-0669,The Crimson Cipher,cinema004,13:30,15:45,2026/02/01,20
-0670,River of Secrets,cinema004,20:00,22:15,2026/02/01,30
-0671,Neon Dragons,cinema001,17:30,19:45,2026/02/02,25
-0672,The Glass Garden,cinema002,14:15,16:30,2026/02/02,22
-0673,Solaris Prime,cinema003,21:30,23:45,2026/02/02,30
-0674,Midnight Bloom,cinema004,18:45,21:00,2026/02/02,28
-0675,Project Chimera,cinema004,15:45,18:00,2026/02/02,25
-0676,The Clockwork City,cinema001,22:45,01:00,2026/02/03,35
-0677,Whispers in the Void,cinema002,13:15,15:30,2026/02/03,20
-0678,Legacy of the Serpent,cinema003,20:30,22:45,2026/02/03,30
-0679,Ironclad Fury,cinema004,16:45,19:00,2026/02/03,25
-0680,Aetherium Gates,cinema004,14:00,16:15,2026/02/03,22
-0681,The Silent Cartographer,cinema001,21:15,23:30,2026/02/04,30
-0682,Zero Horizon,cinema002,18:00,20:15,2026/02/04,28
-0683,Chronoscape,cinema003,15:30,17:45,2026/02/04,25
-0684,Starlight Voyager,cinema004,22:15,00:30,2026/02/04,35
-0685,Echoes of Tomorrow,cinema004,19:15,21:30,2026/02/04,28
-0686,The Crimson Cipher,cinema001,16:30,18:45,2026/02/05,25
-0687,River of Secrets,cinema002,13:00,15:15,2026/02/05,20
-0688,Neon Dragons,cinema003,20:45,23:00,2026/02/05,30
-0689,The Glass Garden,cinema004,17:45,20:00,2026/02/05,25
-0690,Solaris Prime,cinema004,15:00,17:15,2026/02/05,22
-0691,Midnight Bloom,cinema001,22:30,00:45,2026/02/06,35
-0692,Project Chimera,cinema002,19:30,21:45,2026/02/06,28
-0693,The Clockwork City,cinema003,16:15,18:30,2026/02/06,25
-0694,Whispers in the Void,cinema004,14:30,16:45,2026/02/06,20
-0695,Legacy of the Serpent,cinema004,21:00,23:15,2026/02/06,30
-0696,Ironclad Fury,cinema001,18:30,20:45,2026/02/07,28
-0697,Aetherium Gates,cinema002,15:15,17:30,2026/02/07,25
-0698,The Silent Cartographer,cinema003,22:00,00:15,2026/02/07,35
-0699,Zero Horizon,cinema004,13:45,16:00,2026/02/07,20
-0700,Chronoscape,cinema004,20:15,22:30,2026/02/07,30
-0701,Starlight Voyager,cinema001,17:00,19:15,2026/02/08,25
-0702,Echoes of Tomorrow,cinema002,14:45,17:00,2026/02/08,22
-0703,The Crimson Cipher,cinema003,21:45,00:00,2026/02/08,35
-0704,River of Secrets,cinema004,18:15,20:30,2026/02/08,28
-0705,Neon Dragons,cinema004,16:00,18:15,2026/02/08,25
-0706,The Glass Garden,cinema001,23:15,01:30,2026/02/09,35
-0707,Solaris Prime,cinema002,13:30,15:45,2026/02/09,20
-0708,Midnight Bloom,cinema003,20:00,22:15,2026/02/09,30
-0709,Project Chimera,cinema004,17:30,19:45,2026/02/09,25
-0710,The Clockwork City,cinema004,14:15,16:30,2026/02/09,22
-0711,Whispers in the Void,cinema001,21:30,23:45,2026/02/10,30
-0712,Legacy of the Serpent,cinema002,18:45,21:00,2026/02/10,28
-0713,Ironclad Fury,cinema003,15:45,18:00,2026/02/10,25
-0714,Aetherium Gates,cinema004,22:45,01:00,2026/02/10,35
-0715,The Silent Cartographer,cinema004,13:15,15:30,2026/02/10,20
-0716,Zero Horizon,cinema001,20:30,22:45,2026/02/11,30
-0717,Chronoscape,cinema002,16:45,19:00,2026/02/11,25
-0718,Starlight Voyager,cinema003,14:00,16:15,2026/02/11,22
-0719,Echoes of Tomorrow,cinema004,21:15,23:30,2026/02/11,30
-0720,The Crimson Cipher,cinema004,18:00,20:15,2026/02/11,28
-0721,River of Secrets,cinema001,15:30,17:45,2026/02/12,25
-0722,Neon Dragons,cinema002,22:15,00:30,2026/02/12,35
-0723,The Glass Garden,cinema003,19:15,21:30,2026/02/12,28
-0724,Solaris Prime,cinema004,16:30,18:45,2026/02/12,25
-0725,Midnight Bloom,cinema004,13:00,15:15,2026/02/12,20
-0726,Project Chimera,cinema001,20:45,23:00,2026/02/13,30
-0727,The Clockwork City,cinema002,17:45,20:00,2026/02/13,25
-0728,Whispers in the Void,cinema003,15:00,17:15,2026/02/13,22
-0729,Legacy of the Serpent,cinema004,22:30,00:45,2026/02/13,35
-0730,Ironclad Fury,cinema004,19:30,21:45,2026/02/13,28
-0731,Aetherium Gates,cinema001,16:15,18:30,2026/02/14,25
-0732,The Silent Cartographer,cinema002,14:30,16:45,2026/02/14,20
-0733,Zero Horizon,cinema003,21:00,23:15,2026/02/14,30
-0734,Chronoscape,cinema004,18:30,20:45,2026/02/14,28
-0735,Starlight Voyager,cinema004,15:15,17:30,2026/02/14,25
-0736,Echoes of Tomorrow,cinema001,22:00,00:15,2026/02/15,35
-0737,The Crimson Cipher,cinema002,13:45,16:00,2026/02/15,20
-0738,River of Secrets,cinema003,20:15,22:30,2026/02/15,30
-0739,Neon Dragons,cinema004,17:00,19:15,2026/02/15,25
-0740,The Glass Garden,cinema004,14:45,17:00,2026/02/15,22
-0741,Solaris Prime,cinema001,21:45,00:00,2026/02/16,35
-0742,Midnight Bloom,cinema002,18:15,20:30,2026/02/16,28
-0743,Project Chimera,cinema003,16:00,18:15,2026/02/16,25
-0744,The Clockwork City,cinema004,23:15,01:30,2026/02/16,35
-0745,Whispers in the Void,cinema004,13:30,15:45,2026/02/16,20
-0746,Legacy of the Serpent,cinema001,20:00,22:15,2026/02/17,30
-0747,Ironclad Fury,cinema002,17:30,19:45,2026/02/17,25
-0748,Aetherium Gates,cinema003,14:15,16:30,2026/02/17,22
-0749,The Silent Cartographer,cinema004,21:30,23:45,2026/02/17,30
-0750,Zero Horizon,cinema004,18:45,21:00,2026/02/17,28
-0751,Chronoscape,cinema001,15:45,18:00,2026/02/18,25
-0752,Starlight Voyager,cinema002,22:45,01:00,2026/02/18,35
-0753,Echoes of Tomorrow,cinema003,13:15,15:30,2026/02/18,20
-0754,The Crimson Cipher,cinema004,20:30,22:45,2026/02/18,30
-0755,River of Secrets,cinema004,16:45,19:00,2026/02/18,25
-0756,Neon Dragons,cinema001,14:00,16:15,2026/02/19,22
-0757,The Glass Garden,cinema002,21:15,23:30,2026/02/19,30
-0758,Solaris Prime,cinema003,18:00,20:15,2026/02/19,28
-0759,Midnight Bloom,cinema004,15:30,17:45,2026/02/19,25
-0760,Project Chimera,cinema004,22:15,00:30,2026/02/19,35
-0761,The Clockwork City,cinema001,19:15,21:30,2026/02/20,28
-0762,Whispers in the Void,cinema002,16:30,18:45,2026/02/20,25
-0763,Legacy of the Serpent,cinema003,13:00,15:15,2026/02/20,20
-0764,Ironclad Fury,cinema004,20:45,23:00,2026/02/20,30
-0765,Aetherium Gates,cinema004,17:45,20:00,2026/02/20,25
-0766,The Silent Cartographer,cinema001,15:00,17:15,2026/02/21,22
-0767,Zero Horizon,cinema002,22:30,00:45,2026/02/21,35
-0768,Chronoscape,cinema003,19:30,21:45,2026/02/21,28
-0769,Starlight Voyager,cinema004,16:15,18:30,2026/02/21,25
-0770,Echoes of Tomorrow,cinema004,14:30,16:45,2026/02/21,20
-0771,The Crimson Cipher,cinema001,21:00,23:15,2026/02/22,30
-0772,River of Secrets,cinema002,18:30,20:45,2026/02/22,28
-0773,Neon Dragons,cinema003,15:15,17:30,2026/02/22,25
-0774,The Glass Garden,cinema004,22:00,00:15,2026/02/22,35
-0775,Solaris Prime,cinema004,13:45,16:00,2026/02/22,20
-0776,Midnight Bloom,cinema001,20:15,22:30,2026/02/23,30
-0777,Project Chimera,cinema002,17:00,19:15,2026/02/23,25
-0778,The Clockwork City,cinema003,14:45,17:00,2026/02/23,22
-0779,Whispers in the Void,cinema004,21:45,00:00,2026/02/23,35
-0780,Legacy of the Serpent,cinema004,18:15,20:30,2026/02/23,28
-0781,Ironclad Fury,cinema001,16:00,18:15,2026/02/24,25
-0782,Aetherium Gates,cinema002,23:15,01:30,2026/02/24,35
-0783,The Silent Cartographer,cinema003,13:30,15:45,2026/02/24,20
-0784,Zero Horizon,cinema004,20:00,22:15,2026/02/24,30
-0785,Chronoscape,cinema004,17:30,19:45,2026/02/24,25
-0786,Starlight Voyager,cinema001,14:15,16:30,2026/02/25,22
-0787,Echoes of Tomorrow,cinema002,21:30,23:45,2026/02/25,30
-0788,The Crimson Cipher,cinema003,18:45,21:00,2026/02/25,28
-0789,River of Secrets,cinema004,15:45,18:00,2026/02/25,25
-0790,Neon Dragons,cinema004,22:45,01:00,2026/02/25,35
-0791,The Glass Garden,cinema001,13:15,15:30,2026/02/26,20
-0792,Solaris Prime,cinema002,20:30,22:45,2026/02/26,30
-0793,Midnight Bloom,cinema003,16:45,19:00,2026/02/26,25
-0794,Project Chimera,cinema004,14:00,16:15,2026/02/26,22
-0795,The Clockwork City,cinema004,21:15,23:30,2026/02/26,30
-0796,Whispers in the Void,cinema001,18:00,20:15,2026/02/27,28
-0797,Legacy of the Serpent,cinema002,15:30,17:45,2026/02/27,25
-0798,Ironclad Fury,cinema003,22:15,00:30,2026/02/27,35
-0799,Aetherium Gates,cinema004,19:15,21:30,2026/02/27,28
-0800,The Silent Cartographer,cinema004,16:30,18:45,2026/02/27,25
-0801,Zero Horizon,cinema001,13:00,15:15,2026/02/28,20
-0802,Chronoscape,cinema002,20:45,23:00,2026/02/28,30
-0803,Starlight Voyager,cinema003,17:45,20:00,2026/02/28,25
-0804,Echoes of Tomorrow,cinema004,15:00,17:15,2026/02/28,22
-0805,The Crimson Cipher,cinema004,22:30,00:45,2026/02/28,35
-0806,River of Secrets,cinema001,19:30,21:45,2026/03/01,28
-0807,Neon Dragons,cinema002,16:15,18:30,2026/03/01,25
-0808,The Glass Garden,cinema003,14:30,16:45,2026/03/01,20
-0809,Solaris Prime,cinema004,21:00,23:15,2026/03/01,30
-0810,Midnight Bloom,cinema004,18:30,20:45,2026/03/01,28
-0811,Project Chimera,cinema001,15:15,17:30,2026/03/02,25
-0812,The Clockwork City,cinema002,22:00,00:15,2026/03/02,35
-0813,Whispers in the Void,cinema003,13:45,16:00,2026/03/02,20
-0814,Legacy of the Serpent,cinema004,20:15,22:30,2026/03/02,30
-0815,Ironclad Fury,cinema004,17:00,19:15,2026/03/02,25
-0816,Aetherium Gates,cinema001,14:45,17:00,2026/03/03,22
-0817,The Silent Cartographer,cinema002,21:45,00:00,2026/03/03,35
-0818,Zero Horizon,cinema003,18:15,20:30,2026/03/03,28
-0819,Chronoscape,cinema004,16:00,18:15,2026/03/03,25
-0820,Starlight Voyager,cinema004,23:15,01:30,2026/03/03,35
-0821,Echoes of Tomorrow,cinema001,13:30,15:45,2026/03/04,20
-0822,The Crimson Cipher,cinema002,20:00,22:15,2026/03/04,30
-0823,River of Secrets,cinema003,17:30,19:45,2026/03/04,25
-0824,Neon Dragons,cinema004,14:15,16:30,2026/03/04,22
-0825,The Glass Garden,cinema004,21:30,23:45,2026/03/04,30
-0826,Solaris Prime,cinema001,18:45,21:00,2026/03/05,28
-0827,Midnight Bloom,cinema002,15:45,18:00,2026/03/05,25
-0828,Project Chimera,cinema003,22:45,01:00,2026/03/05,35
-0829,The Clockwork City,cinema004,13:15,15:30,2026/03/05,20
-0830,Whispers in the Void,cinema004,20:30,22:45,2026/03/05,30
-0831,Legacy of the Serpent,cinema001,16:45,19:00,2026/03/06,25
-0832,Ironclad Fury,cinema002,14:00,16:15,2026/03/06,22
-0833,Aetherium Gates,cinema003,21:15,23:30,2026/03/06,30
-0834,The Silent Cartographer,cinema004,18:00,20:15,2026/03/06,28
-0835,Zero Horizon,cinema004,15:30,17:45,2026/03/06,25
-0836,Chronoscape,cinema001,22:15,00:30,2026/03/07,35
-0837,Starlight Voyager,cinema002,19:15,21:30,2026/03/07,28
-0838,Echoes of Tomorrow,cinema003,16:30,18:45,2026/03/07,25
-0839,The Crimson Cipher,cinema004,13:00,15:15,2026/03/07,20
-0840,River of Secrets,cinema004,20:45,23:00,2026/03/07,30
-0841,Neon Dragons,cinema001,17:45,20:00,2026/03/08,25
-0842,The Glass Garden,cinema002,15:00,17:15,2026/03/08,22
-0843,Solaris Prime,cinema003,22:30,00:45,2026/03/08,35
-0844,Midnight Bloom,cinema004,19:30,21:45,2026/03/08,28
-0845,Project Chimera,cinema004,16:15,18:30,2026/03/08,25
-0846,The Clockwork City,cinema001,14:30,16:45,2026/03/09,20
-0847,Whispers in the Void,cinema002,21:00,23:15,2026/03/09,30
-0848,Legacy of the Serpent,cinema003,18:30,20:45,2026/03/09,28
-0849,Ironclad Fury,cinema004,15:15,17:30,2026/03/09,25
-0850,Aetherium Gates,cinema004,22:00,00:15,2026/03/09,35
-0851,The Silent Cartographer,cinema001,13:45,16:00,2026/03/10,20
-0852,Zero Horizon,cinema002,20:15,22:30,2026/03/10,30
-0853,Chronoscape,cinema003,17:00,19:15,2026/03/10,25
-0854,Starlight Voyager,cinema004,14:45,17:00,2026/03/10,22
-0855,Echoes of Tomorrow,cinema004,21:45,00:00,2026/03/10,35
-0856,The Crimson Cipher,cinema001,18:15,20:30,2026/03/11,28
-0857,River of Secrets,cinema002,16:00,18:15,2026/03/11,25
-0858,Neon Dragons,cinema003,23:15,01:30,2026/03/11,35
-0859,The Glass Garden,cinema004,13:30,15:45,2026/03/11,20
-0860,Solaris Prime,cinema004,20:00,22:15,2026/03/11,30
-0861,Midnight Bloom,cinema001,17:30,19:45,2026/03/12,25
-0862,Project Chimera,cinema002,14:15,16:30,2026/03/12,22
-0863,The Clockwork City,cinema003,21:30,23:45,2026/03/12,30
-0864,Whispers in the Void,cinema004,18:45,21:00,2026/03/12,28
-0865,Legacy of the Serpent,cinema004,15:45,18:00,2026/03/12,25
-0866,Ironclad Fury,cinema001,22:45,01:00,2026/03/13,35
-0867,Aetherium Gates,cinema002,13:15,15:30,2026/03/13,20
-0868,The Silent Cartographer,cinema003,20:30,22:45,2026/03/13,30
-0869,Zero Horizon,cinema004,16:45,19:00,2026/03/13,25
-0870,Chronoscape,cinema004,14:00,16:15,2026/03/13,22
-0871,Starlight Voyager,cinema001,21:15,23:30,2026/03/14,30
-0872,Echoes of Tomorrow,cinema002,18:00,20:15,2026/03/14,28
-0873,The Crimson Cipher,cinema003,15:30,17:45,2026/03/14,25
-0874,River of Secrets,cinema004,22:15,00:30,2026/03/14,35
-0875,Neon Dragons,cinema004,19:15,21:30,2026/03/14,28
-0876,The Glass Garden,cinema001,16:30,18:45,2026/03/15,25
-0877,Solaris Prime,cinema002,13:00,15:15,2026/03/15,20
-0878,Midnight Bloom,cinema003,20:45,23:00,2026/03/15,30
-0879,Project Chimera,cinema004,17:45,20:00,2026/03/15,25
-0880,The Clockwork City,cinema004,15:00,17:15,2026/03/15,22
-0881,Whispers in the Void,cinema001,22:30,00:45,2026/03/16,35
-0882,Legacy of the Serpent,cinema002,19:30,21:45,2026/03/16,28
-0883,Ironclad Fury,cinema003,16:15,18:30,2026/03/16,25
-0884,Aetherium Gates,cinema004,14:30,16:45,2026/03/16,20
-0885,The Silent Cartographer,cinema004,21:00,23:15,2026/03/16,30
-0886,Zero Horizon,cinema001,18:30,20:45,2026/03/17,28
-0887,Chronoscape,cinema002,15:15,17:30,2026/03/17,25
-0888,Starlight Voyager,cinema003,22:00,00:15,2026/03/17,35
-0889,Echoes of Tomorrow,cinema004,13:45,16:00,2026/03/17,20
-0890,The Crimson Cipher,cinema004,20:15,22:30,2026/03/17,30
-0891,River of Secrets,cinema001,17:00,19:15,2026/03/18,25
-0892,Neon Dragons,cinema002,14:45,17:00,2026/03/18,22
-0893,The Glass Garden,cinema003,21:45,00:00,2026/03/18,35
-0894,Solaris Prime,cinema004,18:15,20:30,2026/03/18,28
-0895,Midnight Bloom,cinema004,16:00,18:15,2026/03/18,25
-0896,Project Chimera,cinema001,23:15,01:30,2026/03/19,35
-0897,The Clockwork City,cinema002,13:30,15:45,2026/03/19,20
-0898,Whispers in the Void,cinema003,20:00,22:15,2026/03/19,30
-0899,Legacy of the Serpent,cinema004,17:30,19:45,2026/03/19,25
-0900,Ironclad Fury,cinema004,14:15,16:30,2026/03/19,22
-0901,Aetherium Gates,cinema001,21:30,23:45,2026/03/20,30
-0902,The Silent Cartographer,cinema002,18:45,21:00,2026/03/20,28
-0903,Zero Horizon,cinema003,15:45,18:00,2026/03/20,25
-0904,Chronoscape,cinema004,22:45,01:00,2026/03/20,35
-0905,Starlight Voyager,cinema004,13:15,15:30,2026/03/20,20
-0906,Echoes of Tomorrow,cinema001,20:30,22:45,2026/03/21,30
-0907,The Crimson Cipher,cinema002,16:45,19:00,2026/03/21,25
-0908,River of Secrets,cinema003,14:00,16:15,2026/03/21,22
-0909,Neon Dragons,cinema004,21:15,23:30,2026/03/21,30
-0910,The Glass Garden,cinema004,18:00,20:15,2026/03/21,28
-0911,Solaris Prime,cinema001,15:30,17:45,2026/03/22,25
-0912,Midnight Bloom,cinema002,22:15,00:30,2026/03/22,35
-0913,Project Chimera,cinema003,19:15,21:30,2026/03/22,28
-0914,The Clockwork City,cinema004,16:30,18:45,2026/03/22,25
-0915,Whispers in the Void,cinema004,13:00,15:15,2026/03/22,20
-0916,Legacy of the Serpent,cinema001,20:45,23:00,2026/03/23,30
-0917,Ironclad Fury,cinema002,17:45,20:00,2026/03/23,25
-0918,Aetherium Gates,cinema003,15:00,17:15,2026/03/23,22
-0919,The Silent Cartographer,cinema004,22:30,00:45,2026/03/23,35
-0920,Zero Horizon,cinema004,19:30,21:45,2026/03/23,28
-0921,Chronoscape,cinema001,16:15,18:30,2026/03/24,25
-0922,Starlight Voyager,cinema002,14:30,16:45,2026/03/24,20
-0923,Echoes of Tomorrow,cinema003,21:00,23:15,2026/03/24,30
-0924,The Crimson Cipher,cinema004,18:30,20:45,2026/03/24,28
-0925,River of Secrets,cinema004,15:15,17:30,2026/03/24,25
-0926,Neon Dragons,cinema001,22:00,00:15,2026/03/25,35
-0927,The Glass Garden,cinema002,13:45,16:00,2026/03/25,20
-0928,Solaris Prime,cinema003,20:15,22:30,2026/03/25,30
-0929,Midnight Bloom,cinema004,17:00,19:15,2026/03/25,25
-0930,Project Chimera,cinema004,14:45,17:00,2026/03/25,22
-0931,The Clockwork City,cinema001,21:45,00:00,2026/03/26,35
-0932,Whispers in the Void,cinema002,18:15,20:30,2026/03/26,28
-0933,Legacy of the Serpent,cinema003,16:00,18:15,2026/03/26,25
-0934,Ironclad Fury,cinema004,23:15,01:30,2026/03/26,35
-0935,Aetherium Gates,cinema004,13:30,15:45,2026/03/26,20
-0936,The Silent Cartographer,cinema001,20:00,22:15,2026/03/27,30
-0937,Zero Horizon,cinema002,17:30,19:45,2026/03/27,25
-0938,Chronoscape,cinema003,14:15,16:30,2026/03/27,22
-0939,Starlight Voyager,cinema004,21:30,23:45,2026/03/27,30
-0940,Echoes of Tomorrow,cinema004,18:45,21:00,2026/03/27,28
-0941,The Crimson Cipher,cinema001,15:45,18:00,2026/03/28,25
-0942,River of Secrets,cinema002,22:45,01:00,2026/03/28,35
-0943,Neon Dragons,cinema003,13:15,15:30,2026/03/28,20
-0944,The Glass Garden,cinema004,20:30,22:45,2026/03/28,30
-0945,Solaris Prime,cinema004,16:45,19:00,2026/03/28,25
-0946,Midnight Bloom,cinema001,14:00,16:15,2026/03/29,22
-0947,Project Chimera,cinema002,21:15,23:30,2026/03/29,30
-0948,The Clockwork City,cinema003,18:00,20:15,2026/03/29,28
-0949,Whispers in the Void,cinema004,15:30,17:45,2026/03/29,25
-0950,Legacy of the Serpent,cinema004,22:15,00:30,2026/03/29,35
-0951,Ironclad Fury,cinema001,19:15,21:30,2026/03/30,28
-0952,Aetherium Gates,cinema002,16:30,18:45,2026/03/30,25
-0953,The Silent Cartographer,cinema003,13:00,15:15,2026/03/30,20
-0954,Zero Horizon,cinema004,20:45,23:00,2026/03/30,30
-0955,Chronoscape,cinema004,17:45,20:00,2026/03/30,25
-0956,Starlight Voyager,cinema001,15:00,17:15,2026/03/31,22
-0957,Echoes of Tomorrow,cinema002,22:30,00:45,2026/03/31,35
-0958,The Crimson Cipher,cinema003,19:30,21:45,2026/03/31,28
-0959,River of Secrets,cinema004,16:15,18:30,2026/03/31,25
-0960,Neon Dragons,cinema004,14:30,16:45,2026/03/31,20
-0961,The Glass Garden,cinema001,21:00,23:15,2026/04/01,30
-0962,Solaris Prime,cinema002,18:30,20:45,2026/04/01,28
-0963,Midnight Bloom,cinema003,15:15,17:30,2026/04/01,25
-0964,Project Chimera,cinema004,22:00,00:15,2026/04/01,35
-0965,The Clockwork City,cinema004,13:45,16:00,2026/04/01,20
-0966,Whispers in the Void,cinema001,20:15,22:30,2026/04/02,30
-0967,Legacy of the Serpent,cinema002,17:00,19:15,2026/04/02,25
-0968,Ironclad Fury,cinema003,14:45,17:00,2026/04/02,22
-0969,Aetherium Gates,cinema004,21:45,00:00,2026/04/02,35
-0970,The Silent Cartographer,cinema004,18:15,20:30,2026/04/02,28
-0971,Zero Horizon,cinema001,16:00,18:15,2026/04/03,25
-0972,Chronoscape,cinema002,23:15,01:30,2026/04/03,35
-0973,Starlight Voyager,cinema003,13:30,15:45,2026/04/03,20
-0974,Echoes of Tomorrow,cinema004,20:00,22:15,2026/04/03,30
-0975,The Crimson Cipher,cinema004,17:30,19:45,2026/04/03,25
-0976,River of Secrets,cinema001,14:15,16:30,2026/04/04,22
-0977,Neon Dragons,cinema002,21:30,23:45,2026/04/04,30
-0978,The Glass Garden,cinema003,18:45,21:00,2026/04/04,28
-0979,Solaris Prime,cinema004,15:45,18:00,2026/04/04,25
-0980,Midnight Bloom,cinema004,22:45,01:00,2026/04/04,35
-0981,Project Chimera,cinema001,13:15,15:30,2026/04/05,20
-0982,The Clockwork City,cinema002,20:30,22:45,2026/04/05,30
-0983,Whispers in the Void,cinema003,16:45,19:00,2026/04/05,25
-0984,Legacy of the Serpent,cinema004,14:00,16:15,2026/04/05,22
-0985,Ironclad Fury,cinema004,21:15,23:30,2026/04/05,30
-0986,Aetherium Gates,cinema001,18:00,20:15,2026/04/06,28
-0987,The Silent Cartographer,cinema002,15:30,17:45,2026/04/06,25
-0988,Zero Horizon,cinema003,22:15,00:30,2026/04/06,35
-0989,Chronoscape,cinema004,19:15,21:30,2026/04/06,28
-0990,Starlight Voyager,cinema004,16:30,18:45,2026/04/06,25
-0991,Echoes of Tomorrow,cinema001,13:00,15:15,2026/04/07,20
-0992,The Crimson Cipher,cinema002,20:45,23:00,2026/04/07,30
-0993,River of Secrets,cinema003,17:45,20:00,2026/04/07,25
-0994,Neon Dragons,cinema004,15:00,17:15,2026/04/07,22
-0995,The Glass Garden,cinema004,22:30,00:45,2026/04/07,35
-0996,Solaris Prime,cinema001,19:30,21:45,2026/04/08,28
-0997,Midnight Bloom,cinema002,16:15,18:30,2026/04/08,25
-0998,Project Chimera,cinema003,14:30,16:45,2026/04/08,20
-0999,The Clockwork City,cinema004,21:00,23:15,2026/04/08,30
-1000,Joker3,cinema003,19:00,20:00,2025/12/23,20
+movie_code,movie_name,CINEMA_number,movie_time_start,movie_time_end,date,price
+0001,Joker,CINEMA001,18:00,21:00,2025/09/18,20
+0002,Joker2,CINEMA002,19:00,22:00,2025/09/19,30
+0003,Superman,CINEMA003,20:00,22:00,2025/09/18,30
+0004,Starlight Voyager,CINEMA004,14:30,16:45,2025/09/25,25
+0005,Echoes of Tomorrow,CINEMA004,21:15,23:30,2025/09/26,28
+0006,The Crimson Cipher,CINEMA001,17:00,19:15,2025/09/25,22
+0007,River of Secrets,CINEMA002,13:45,16:00,2025/09/27,20
+0008,Neon Dragons,CINEMA003,20:30,22:45,2025/09/28,30
+0009,The Glass Garden,CINEMA004,19:15,21:30,2025/09/25,25
+0010,Solaris Prime,CINEMA004,16:00,18:15,2025/09/26,28
+0011,Midnight Bloom,CINEMA001,22:00,00:15,2025/09/27,35
+0012,Project Chimera,CINEMA002,15:30,17:45,2025/09/28,25
+0013,The Clockwork City,CINEMA003,18:45,21:00,2025/09/25,22
+0014,Whispers in the Void,CINEMA004,14:00,16:15,2025/09/26,20
+0015,Legacy of the Serpent,CINEMA004,21:45,00:00,2025/09/27,35
+0016,Ironclad Fury,CINEMA001,13:15,15:30,2025/09/28,20
+0017,Aetherium Gates,CINEMA002,19:30,21:45,2025/09/25,28
+0018,The Silent Cartographer,CINEMA003,16:45,19:00,2025/09/26,25
+0019,Zero Horizon,CINEMA004,22:30,00:45,2025/09/27,35
+0020,Chronoscape,CINEMA004,15:00,17:15,2025/09/28,22
+0021,Starlight Voyager,CINEMA001,19:45,22:00,2025/09/25,30
+0022,Echoes of Tomorrow,CINEMA002,14:15,16:30,2025/09/26,20
+0023,The Crimson Cipher,CINEMA003,21:00,23:15,2025/09/27,30
+0024,River of Secrets,CINEMA004,17:30,19:45,2025/09/28,25
+0025,Neon Dragons,CINEMA004,13:00,15:15,2025/09/25,20
+0026,The Glass Garden,CINEMA001,20:15,22:30,2025/09/26,30
+0027,Solaris Prime,CINEMA002,16:30,18:45,2025/09/27,25
+0028,Midnight Bloom,CINEMA003,14:45,17:00,2025/09/28,22
+0029,Project Chimera,CINEMA004,22:15,00:30,2025/09/25,35
+0030,The Clockwork City,CINEMA004,19:00,21:15,2025/09/26,28
+0031,Whispers in the Void,CINEMA001,15:45,18:00,2025/09/27,25
+0032,Legacy of the Serpent,CINEMA002,22:45,01:00,2025/09/28,35
+0033,Ironclad Fury,CINEMA003,13:30,15:45,2025/09/25,20
+0034,Aetherium Gates,CINEMA004,20:00,22:15,2025/09/26,30
+0035,The Silent Cartographer,CINEMA004,17:15,19:30,2025/09/27,25
+0036,Zero Horizon,CINEMA001,14:15,16:30,2025/09/28,22
+0037,Chronoscape,CINEMA002,21:30,23:45,2025/09/25,30
+0038,Starlight Voyager,CINEMA003,18:00,20:15,2025/09/26,28
+0039,Echoes of Tomorrow,CINEMA004,15:15,17:30,2025/09/27,25
+0040,The Crimson Cipher,CINEMA004,23:00,01:15,2025/09/28,35
+0041,River of Secrets,CINEMA001,13:00,15:15,2025/09/29,20
+0042,Neon Dragons,CINEMA002,20:45,23:00,2025/09/29,30
+0043,The Glass Garden,CINEMA003,17:45,20:00,2025/09/29,25
+0044,Solaris Prime,CINEMA004,15:00,17:15,2025/09/29,22
+0045,Midnight Bloom,CINEMA004,22:30,00:45,2025/09/29,35
+0046,Project Chimera,CINEMA001,19:30,21:45,2025/09/30,28
+0047,The Clockwork City,CINEMA002,16:15,18:30,2025/09/30,25
+0048,Whispers in the Void,CINEMA003,14:30,16:45,2025/09/30,20
+0049,Legacy of the Serpent,CINEMA004,21:00,23:15,2025/09/30,30
+0050,Ironclad Fury,CINEMA004,18:30,20:45,2025/09/30,28
+0051,Aetherium Gates,CINEMA001,15:15,17:30,2025/10/01,25
+0052,The Silent Cartographer,CINEMA002,22:00,00:15,2025/10/01,35
+0053,Zero Horizon,CINEMA003,13:45,16:00,2025/10/01,20
+0054,Chronoscape,CINEMA004,20:15,22:30,2025/10/01,30
+0055,Starlight Voyager,CINEMA004,17:00,19:15,2025/10/01,25
+0056,Echoes of Tomorrow,CINEMA001,14:45,17:00,2025/10/02,22
+0057,The Crimson Cipher,CINEMA002,21:45,00:00,2025/10/02,35
+0058,River of Secrets,CINEMA003,18:15,20:30,2025/10/02,28
+0059,Neon Dragons,CINEMA004,16:00,18:15,2025/10/02,25
+0060,The Glass Garden,CINEMA004,23:15,01:30,2025/10/02,35
+0061,Solaris Prime,CINEMA001,13:30,15:45,2025/10/03,20
+0062,Midnight Bloom,CINEMA002,20:00,22:15,2025/10/03,30
+0063,Project Chimera,CINEMA003,17:30,19:45,2025/10/03,25
+0064,The Clockwork City,CINEMA004,14:15,16:30,2025/10/03,22
+0065,Whispers in the Void,CINEMA004,21:30,23:45,2025/10/03,30
+0066,Legacy of the Serpent,CINEMA001,18:45,21:00,2025/10/04,28
+0067,Ironclad Fury,CINEMA002,15:45,18:00,2025/10/04,25
+0068,Aetherium Gates,CINEMA003,22:45,01:00,2025/10/04,35
+0069,The Silent Cartographer,CINEMA004,13:15,15:30,2025/10/04,20
+0070,Zero Horizon,CINEMA004,20:30,22:45,2025/10/04,30
+0071,Chronoscape,CINEMA001,16:45,19:00,2025/10/05,25
+0072,Starlight Voyager,CINEMA002,14:00,16:15,2025/10/05,22
+0073,Echoes of Tomorrow,CINEMA003,21:15,23:30,2025/10/05,30
+0074,The Crimson Cipher,CINEMA004,18:00,20:15,2025/10/05,28
+0075,River of Secrets,CINEMA004,15:30,17:45,2025/10/05,25
+0076,Neon Dragons,CINEMA001,22:15,00:30,2025/10/06,35
+0077,The Glass Garden,CINEMA002,19:15,21:30,2025/10/06,28
+0078,Solaris Prime,CINEMA003,16:30,18:45,2025/10/06,25
+0079,Midnight Bloom,CINEMA004,13:00,15:15,2025/10/06,20
+0080,Project Chimera,CINEMA004,20:45,23:00,2025/10/06,30
+0081,The Clockwork City,CINEMA001,17:45,20:00,2025/10/07,25
+0082,Whispers in the Void,CINEMA002,15:00,17:15,2025/10/07,22
+0083,Legacy of the Serpent,CINEMA003,22:30,00:45,2025/10/07,35
+0084,Ironclad Fury,CINEMA004,19:30,21:45,2025/10/07,28
+0085,Aetherium Gates,CINEMA004,16:15,18:30,2025/10/07,25
+0086,The Silent Cartographer,CINEMA001,14:30,16:45,2025/10/08,20
+0087,Zero Horizon,CINEMA002,21:00,23:15,2025/10/08,30
+0088,Chronoscape,CINEMA003,18:30,20:45,2025/10/08,28
+0089,Starlight Voyager,CINEMA004,15:15,17:30,2025/10/08,25
+0090,Echoes of Tomorrow,CINEMA004,22:00,00:15,2025/10/08,35
+0091,The Crimson Cipher,CINEMA001,13:45,16:00,2025/10/09,20
+0092,River of Secrets,CINEMA002,20:15,22:30,2025/10/09,30
+0093,Neon Dragons,CINEMA003,17:00,19:15,2025/10/09,25
+0094,The Glass Garden,CINEMA004,14:45,17:00,2025/10/09,22
+0095,Solaris Prime,CINEMA004,21:45,00:00,2025/10/09,35
+0096,Midnight Bloom,CINEMA001,18:15,20:30,2025/10/10,28
+0097,Project Chimera,CINEMA002,16:00,18:15,2025/10/10,25
+0098,The Clockwork City,CINEMA003,23:15,01:30,2025/10/10,35
+0099,Whispers in the Void,CINEMA004,13:30,15:45,2025/10/10,20
+0100,Legacy of the Serpent,CINEMA004,20:00,22:15,2025/10/10,30
+0101,Ironclad Fury,CINEMA001,17:30,19:45,2025/10/11,25
+0102,Aetherium Gates,CINEMA002,14:15,16:30,2025/10/11,22
+0103,The Silent Cartographer,CINEMA003,21:30,23:45,2025/10/11,30
+0104,Zero Horizon,CINEMA004,18:45,21:00,2025/10/11,28
+0105,Chronoscape,CINEMA004,15:45,18:00,2025/10/11,25
+0106,Starlight Voyager,CINEMA001,22:45,01:00,2025/10/12,35
+0107,Echoes of Tomorrow,CINEMA002,13:15,15:30,2025/10/12,20
+0108,The Crimson Cipher,CINEMA003,20:30,22:45,2025/10/12,30
+0109,River of Secrets,CINEMA004,16:45,19:00,2025/10/12,25
+0110,Neon Dragons,CINEMA004,14:00,16:15,2025/10/12,22
+0111,The Glass Garden,CINEMA001,21:15,23:30,2025/10/13,30
+0112,Solaris Prime,CINEMA002,18:00,20:15,2025/10/13,28
+0113,Midnight Bloom,CINEMA003,15:30,17:45,2025/10/13,25
+0114,Project Chimera,CINEMA004,22:15,00:30,2025/10/13,35
+0115,The Clockwork City,CINEMA004,19:15,21:30,2025/10/13,28
+0116,Whispers in the Void,CINEMA001,16:30,18:45,2025/10/14,25
+0117,Legacy of the Serpent,CINEMA002,13:00,15:15,2025/10/14,20
+0118,Ironclad Fury,CINEMA003,20:45,23:00,2025/10/14,30
+0119,Aetherium Gates,CINEMA004,17:45,20:00,2025/10/14,25
+0120,The Silent Cartographer,CINEMA004,15:00,17:15,2025/10/14,22
+0121,Zero Horizon,CINEMA001,22:30,00:45,2025/10/15,35
+0122,Chronoscape,CINEMA002,19:30,21:45,2025/10/15,28
+0123,Starlight Voyager,CINEMA003,16:15,18:30,2025/10/15,25
+0124,Echoes of Tomorrow,CINEMA004,14:30,16:45,2025/10/15,20
+0125,The Crimson Cipher,CINEMA004,21:00,23:15,2025/10/15,30
+0126,River of Secrets,CINEMA001,18:30,20:45,2025/10/16,28
+0127,Neon Dragons,CINEMA002,15:15,17:30,2025/10/16,25
+0128,The Glass Garden,CINEMA003,22:00,00:15,2025/10/16,35
+0129,Solaris Prime,CINEMA004,13:45,16:00,2025/10/16,20
+0130,Midnight Bloom,CINEMA004,20:15,22:30,2025/10/16,30
+0131,Project Chimera,CINEMA001,17:00,19:15,2025/10/17,25
+0132,The Clockwork City,CINEMA002,14:45,17:00,2025/10/17,22
+0133,Whispers in the Void,CINEMA003,21:45,00:00,2025/10/17,35
+0134,Legacy of the Serpent,CINEMA004,18:15,20:30,2025/10/17,28
+0135,Ironclad Fury,CINEMA004,16:00,18:15,2025/10/17,25
+0136,Aetherium Gates,CINEMA001,23:15,01:30,2025/10/18,35
+0137,The Silent Cartographer,CINEMA002,13:30,15:45,2025/10/18,20
+0138,Zero Horizon,CINEMA003,20:00,22:15,2025/10/18,30
+0139,Chronoscape,CINEMA004,17:30,19:45,2025/10/18,25
+0140,Starlight Voyager,CINEMA004,14:15,16:30,2025/10/18,22
+0141,Echoes of Tomorrow,CINEMA001,21:30,23:45,2025/10/19,30
+0142,The Crimson Cipher,CINEMA002,18:45,21:00,2025/10/19,28
+0143,River of Secrets,CINEMA003,15:45,18:00,2025/10/19,25
+0144,Neon Dragons,CINEMA004,22:45,01:00,2025/10/19,35
+0145,The Glass Garden,CINEMA004,13:15,15:30,2025/10/19,20
+0146,Solaris Prime,CINEMA001,20:30,22:45,2025/10/20,30
+0147,Midnight Bloom,CINEMA002,16:45,19:00,2025/10/20,25
+0148,Project Chimera,CINEMA003,14:00,16:15,2025/10/20,22
+0149,The Clockwork City,CINEMA004,21:15,23:30,2025/10/20,30
+0150,Whispers in the Void,CINEMA004,18:00,20:15,2025/10/20,28
+0151,Legacy of the Serpent,CINEMA001,15:30,17:45,2025/10/21,25
+0152,Ironclad Fury,CINEMA002,22:15,00:30,2025/10/21,35
+0153,Aetherium Gates,CINEMA003,19:15,21:30,2025/10/21,28
+0154,The Silent Cartographer,CINEMA004,16:30,18:45,2025/10/21,25
+0155,Zero Horizon,CINEMA004,13:00,15:15,2025/10/21,20
+0156,Chronoscape,CINEMA001,20:45,23:00,2025/10/22,30
+0157,Starlight Voyager,CINEMA002,17:45,20:00,2025/10/22,25
+0158,Echoes of Tomorrow,CINEMA003,15:00,17:15,2025/10/22,22
+0159,The Crimson Cipher,CINEMA004,22:30,00:45,2025/10/22,35
+0160,River of Secrets,CINEMA004,19:30,21:45,2025/10/22,28
+0161,Neon Dragons,CINEMA001,16:15,18:30,2025/10/23,25
+0162,The Glass Garden,CINEMA002,14:30,16:45,2025/10/23,20
+0163,Solaris Prime,CINEMA003,21:00,23:15,2025/10/23,30
+0164,Midnight Bloom,CINEMA004,18:30,20:45,2025/10/23,28
+0165,Project Chimera,CINEMA004,15:15,17:30,2025/10/23,25
+0166,The Clockwork City,CINEMA001,22:00,00:15,2025/10/24,35
+0167,Whispers in the Void,CINEMA002,13:45,16:00,2025/10/24,20
+0168,Legacy of the Serpent,CINEMA003,20:15,22:30,2025/10/24,30
+0169,Ironclad Fury,CINEMA004,17:00,19:15,2025/10/24,25
+0170,Aetherium Gates,CINEMA004,14:45,17:00,2025/10/24,22
+0171,The Silent Cartographer,CINEMA001,21:45,00:00,2025/10/25,35
+0172,Zero Horizon,CINEMA002,18:15,20:30,2025/10/25,28
+0173,Chronoscape,CINEMA003,16:00,18:15,2025/10/25,25
+0174,Starlight Voyager,CINEMA004,23:15,01:30,2025/10/25,35
+0175,Echoes of Tomorrow,CINEMA004,13:30,15:45,2025/10/25,20
+0176,The Crimson Cipher,CINEMA001,20:00,22:15,2025/10/26,30
+0177,River of Secrets,CINEMA002,17:30,19:45,2025/10/26,25
+0178,Neon Dragons,CINEMA003,14:15,16:30,2025/10/26,22
+0179,The Glass Garden,CINEMA004,21:30,23:45,2025/10/26,30
+0180,Solaris Prime,CINEMA004,18:45,21:00,2025/10/26,28
+0181,Midnight Bloom,CINEMA001,15:45,18:00,2025/10/27,25
+0182,Project Chimera,CINEMA002,22:45,01:00,2025/10/27,35
+0183,The Clockwork City,CINEMA003,13:15,15:30,2025/10/27,20
+0184,Whispers in the Void,CINEMA004,20:30,22:45,2025/10/27,30
+0185,Legacy of the Serpent,CINEMA004,16:45,19:00,2025/10/27,25
+0186,Ironclad Fury,CINEMA001,14:00,16:15,2025/10/28,22
+0187,Aetherium Gates,CINEMA002,21:15,23:30,2025/10/28,30
+0188,The Silent Cartographer,CINEMA003,18:00,20:15,2025/10/28,28
+0189,Zero Horizon,CINEMA004,15:30,17:45,2025/10/28,25
+0190,Chronoscape,CINEMA004,22:15,00:30,2025/10/28,35
+0191,Starlight Voyager,CINEMA001,19:15,21:30,2025/10/29,28
+0192,Echoes of Tomorrow,CINEMA002,16:30,18:45,2025/10/29,25
+0193,The Crimson Cipher,CINEMA003,13:00,15:15,2025/10/29,20
+0194,River of Secrets,CINEMA004,20:45,23:00,2025/10/29,30
+0195,Neon Dragons,CINEMA004,17:45,20:00,2025/10/29,25
+0196,The Glass Garden,CINEMA001,15:00,17:15,2025/10/30,22
+0197,Solaris Prime,CINEMA002,22:30,00:45,2025/10/30,35
+0198,Midnight Bloom,CINEMA003,19:30,21:45,2025/10/30,28
+0199,Project Chimera,CINEMA004,16:15,18:30,2025/10/30,25
+0200,The Clockwork City,CINEMA004,14:30,16:45,2025/10/30,20
+0201,Whispers in the Void,CINEMA001,21:00,23:15,2025/10/31,30
+0202,Legacy of the Serpent,CINEMA002,18:30,20:45,2025/10/31,28
+0203,Ironclad Fury,CINEMA003,15:15,17:30,2025/10/31,25
+0204,Aetherium Gates,CINEMA004,22:00,00:15,2025/10/31,35
+0205,The Silent Cartographer,CINEMA004,13:45,16:00,2025/10/31,20
+0206,Zero Horizon,CINEMA001,20:15,22:30,2025/11/01,30
+0207,Chronoscape,CINEMA002,17:00,19:15,2025/11/01,25
+0208,Starlight Voyager,CINEMA003,14:45,17:00,2025/11/01,22
+0209,Echoes of Tomorrow,CINEMA004,21:45,00:00,2025/11/01,35
+0210,The Crimson Cipher,CINEMA004,18:15,20:30,2025/11/01,28
+0211,River of Secrets,CINEMA001,16:00,18:15,2025/11/02,25
+0212,Neon Dragons,CINEMA002,23:15,01:30,2025/11/02,35
+0213,The Glass Garden,CINEMA003,13:30,15:45,2025/11/02,20
+0214,Solaris Prime,CINEMA004,20:00,22:15,2025/11/02,30
+0215,Midnight Bloom,CINEMA004,17:30,19:45,2025/11/02,25
+0216,Project Chimera,CINEMA001,14:15,16:30,2025/11/03,22
+0217,The Clockwork City,CINEMA002,21:30,23:45,2025/11/03,30
+0218,Whispers in the Void,CINEMA003,18:45,21:00,2025/11/03,28
+0219,Legacy of the Serpent,CINEMA004,15:45,18:00,2025/11/03,25
+0220,Ironclad Fury,CINEMA004,22:45,01:00,2025/11/03,35
+0221,Aetherium Gates,CINEMA001,13:15,15:30,2025/11/04,20
+0222,The Silent Cartographer,CINEMA002,20:30,22:45,2025/11/04,30
+0223,Zero Horizon,CINEMA003,16:45,19:00,2025/11/04,25
+0224,Chronoscape,CINEMA004,14:00,16:15,2025/11/04,22
+0225,Starlight Voyager,CINEMA004,21:15,23:30,2025/11/04,30
+0226,Echoes of Tomorrow,CINEMA001,18:00,20:15,2025/11/05,28
+0227,The Crimson Cipher,CINEMA002,15:30,17:45,2025/11/05,25
+0228,River of Secrets,CINEMA003,22:15,00:30,2025/11/05,35
+0229,Neon Dragons,CINEMA004,19:15,21:30,2025/11/05,28
+0230,The Glass Garden,CINEMA004,16:30,18:45,2025/11/05,25
+0231,Solaris Prime,CINEMA001,13:00,15:15,2025/11/06,20
+0232,Midnight Bloom,CINEMA002,20:45,23:00,2025/11/06,30
+0233,Project Chimera,CINEMA003,17:45,20:00,2025/11/06,25
+0234,The Clockwork City,CINEMA004,15:00,17:15,2025/11/06,22
+0235,Whispers in the Void,CINEMA004,22:30,00:45,2025/11/06,35
+0236,Legacy of the Serpent,CINEMA001,19:30,21:45,2025/11/07,28
+0237,Ironclad Fury,CINEMA002,16:15,18:30,2025/11/07,25
+0238,Aetherium Gates,CINEMA003,14:30,16:45,2025/11/07,20
+0239,The Silent Cartographer,CINEMA004,21:00,23:15,2025/11/07,30
+0240,Zero Horizon,CINEMA004,18:30,20:45,2025/11/07,28
+0241,Chronoscape,CINEMA001,15:15,17:30,2025/11/08,25
+0242,Starlight Voyager,CINEMA002,22:00,00:15,2025/11/08,35
+0243,Echoes of Tomorrow,CINEMA003,13:45,16:00,2025/11/08,20
+0244,The Crimson Cipher,CINEMA004,20:15,22:30,2025/11/08,30
+0245,River of Secrets,CINEMA004,17:00,19:15,2025/11/08,25
+0246,Neon Dragons,CINEMA001,14:45,17:00,2025/11/09,22
+0247,The Glass Garden,CINEMA002,21:45,00:00,2025/11/09,35
+0248,Solaris Prime,CINEMA003,18:15,20:30,2025/11/09,28
+0249,Midnight Bloom,CINEMA004,16:00,18:15,2025/11/09,25
+0250,Project Chimera,CINEMA004,23:15,01:30,2025/11/09,35
+0251,The Clockwork City,CINEMA001,13:30,15:45,2025/11/10,20
+0252,Whispers in the Void,CINEMA002,20:00,22:15,2025/11/10,30
+0253,Legacy of the Serpent,CINEMA003,17:30,19:45,2025/11/10,25
+0254,Ironclad Fury,CINEMA004,14:15,16:30,2025/11/10,22
+0255,Aetherium Gates,CINEMA004,21:30,23:45,2025/11/10,30
+0256,The Silent Cartographer,CINEMA001,18:45,21:00,2025/11/11,28
+0257,Zero Horizon,CINEMA002,15:45,18:00,2025/11/11,25
+0258,Chronoscape,CINEMA003,22:45,01:00,2025/11/11,35
+0259,Starlight Voyager,CINEMA004,13:15,15:30,2025/11/11,20
+0260,Echoes of Tomorrow,CINEMA004,20:30,22:45,2025/11/11,30
+0261,The Crimson Cipher,CINEMA001,16:45,19:00,2025/11/12,25
+0262,River of Secrets,CINEMA002,14:00,16:15,2025/11/12,22
+0263,Neon Dragons,CINEMA003,21:15,23:30,2025/11/12,30
+0264,The Glass Garden,CINEMA004,18:00,20:15,2025/11/12,28
+0265,Solaris Prime,CINEMA004,15:30,17:45,2025/11/12,25
+0266,Midnight Bloom,CINEMA001,22:15,00:30,2025/11/13,35
+0267,Project Chimera,CINEMA002,19:15,21:30,2025/11/13,28
+0268,The Clockwork City,CINEMA003,16:30,18:45,2025/11/13,25
+0269,Whispers in the Void,CINEMA004,13:00,15:15,2025/11/13,20
+0270,Legacy of the Serpent,CINEMA004,20:45,23:00,2025/11/13,30
+0271,Ironclad Fury,CINEMA001,17:45,20:00,2025/11/14,25
+0272,Aetherium Gates,CINEMA002,15:00,17:15,2025/11/14,22
+0273,The Silent Cartographer,CINEMA003,22:30,00:45,2025/11/14,35
+0274,Zero Horizon,CINEMA004,19:30,21:45,2025/11/14,28
+0275,Chronoscape,CINEMA004,16:15,18:30,2025/11/14,25
+0276,Starlight Voyager,CINEMA001,14:30,16:45,2025/11/15,20
+0277,Echoes of Tomorrow,CINEMA002,21:00,23:15,2025/11/15,30
+0278,The Crimson Cipher,CINEMA003,18:30,20:45,2025/11/15,28
+0279,River of Secrets,CINEMA004,15:15,17:30,2025/11/15,25
+0280,Neon Dragons,CINEMA004,22:00,00:15,2025/11/15,35
+0281,The Glass Garden,CINEMA001,13:45,16:00,2025/11/16,20
+0282,Solaris Prime,CINEMA002,20:15,22:30,2025/11/16,30
+0283,Midnight Bloom,CINEMA003,17:00,19:15,2025/11/16,25
+0284,Project Chimera,CINEMA004,14:45,17:00,2025/11/16,22
+0285,The Clockwork City,CINEMA004,21:45,00:00,2025/11/16,35
+0286,Whispers in the Void,CINEMA001,18:15,20:30,2025/11/17,28
+0287,Legacy of the Serpent,CINEMA002,16:00,18:15,2025/11/17,25
+0288,Ironclad Fury,CINEMA003,23:15,01:30,2025/11/17,35
+0289,Aetherium Gates,CINEMA004,13:30,15:45,2025/11/17,20
+0290,The Silent Cartographer,CINEMA004,20:00,22:15,2025/11/17,30
+0291,Zero Horizon,CINEMA001,17:30,19:45,2025/11/18,25
+0292,Chronoscape,CINEMA002,14:15,16:30,2025/11/18,22
+0293,Starlight Voyager,CINEMA003,21:30,23:45,2025/11/18,30
+0294,Echoes of Tomorrow,CINEMA004,18:45,21:00,2025/11/18,28
+0295,The Crimson Cipher,CINEMA004,15:45,18:00,2025/11/18,25
+0296,River of Secrets,CINEMA001,22:45,01:00,2025/11/19,35
+0297,Neon Dragons,CINEMA002,13:15,15:30,2025/11/19,20
+0298,The Glass Garden,CINEMA003,20:30,22:45,2025/11/19,30
+0299,Solaris Prime,CINEMA004,16:45,19:00,2025/11/19,25
+0300,Midnight Bloom,CINEMA004,14:00,16:15,2025/11/19,22
+0301,Project Chimera,CINEMA001,21:15,23:30,2025/11/20,30
+0302,The Clockwork City,CINEMA002,18:00,20:15,2025/11/20,28
+0303,Whispers in the Void,CINEMA003,15:30,17:45,2025/11/20,25
+0304,Legacy of the Serpent,CINEMA004,22:15,00:30,2025/11/20,35
+0305,Ironclad Fury,CINEMA004,19:15,21:30,2025/11/20,28
+0306,Aetherium Gates,CINEMA001,16:30,18:45,2025/11/21,25
+0307,The Silent Cartographer,CINEMA002,13:00,15:15,2025/11/21,20
+0308,Zero Horizon,CINEMA003,20:45,23:00,2025/11/21,30
+0309,Chronoscape,CINEMA004,17:45,20:00,2025/11/21,25
+0310,Starlight Voyager,CINEMA004,15:00,17:15,2025/11/21,22
+0311,Echoes of Tomorrow,CINEMA001,22:30,00:45,2025/11/22,35
+0312,The Crimson Cipher,CINEMA002,19:30,21:45,2025/11/22,28
+0313,River of Secrets,CINEMA003,16:15,18:30,2025/11/22,25
+0314,Neon Dragons,CINEMA004,14:30,16:45,2025/11/22,20
+0315,The Glass Garden,CINEMA004,21:00,23:15,2025/11/22,30
+0316,Solaris Prime,CINEMA001,18:30,20:45,2025/11/23,28
+0317,Midnight Bloom,CINEMA002,15:15,17:30,2025/11/23,25
+0318,Project Chimera,CINEMA003,22:00,00:15,2025/11/23,35
+0319,The Clockwork City,CINEMA004,13:45,16:00,2025/11/23,20
+0320,Whispers in the Void,CINEMA004,20:15,22:30,2025/11/23,30
+0321,Legacy of the Serpent,CINEMA001,17:00,19:15,2025/11/24,25
+0322,Ironclad Fury,CINEMA002,14:45,17:00,2025/11/24,22
+0323,Aetherium Gates,CINEMA003,21:45,00:00,2025/11/24,35
+0324,The Silent Cartographer,CINEMA004,18:15,20:30,2025/11/24,28
+0325,Zero Horizon,CINEMA004,16:00,18:15,2025/11/24,25
+0326,Chronoscape,CINEMA001,23:15,01:30,2025/11/25,35
+0327,Starlight Voyager,CINEMA002,13:30,15:45,2025/11/25,20
+0328,Echoes of Tomorrow,CINEMA003,20:00,22:15,2025/11/25,30
+0329,The Crimson Cipher,CINEMA004,17:30,19:45,2025/11/25,25
+0330,River of Secrets,CINEMA004,14:15,16:30,2025/11/25,22
+0331,Neon Dragons,CINEMA001,21:30,23:45,2025/11/26,30
+0332,The Glass Garden,CINEMA002,18:45,21:00,2025/11/26,28
+0333,Solaris Prime,CINEMA003,15:45,18:00,2025/11/26,25
+0334,Midnight Bloom,CINEMA004,22:45,01:00,2025/11/26,35
+0335,Project Chimera,CINEMA004,13:15,15:30,2025/11/26,20
+0336,The Clockwork City,CINEMA001,20:30,22:45,2025/11/27,30
+0337,Whispers in the Void,CINEMA002,16:45,19:00,2025/11/27,25
+0338,Legacy of the Serpent,CINEMA003,14:00,16:15,2025/11/27,22
+0339,Ironclad Fury,CINEMA004,21:15,23:30,2025/11/27,30
+0340,Aetherium Gates,CINEMA004,18:00,20:15,2025/11/27,28
+0341,The Silent Cartographer,CINEMA001,15:30,17:45,2025/11/28,25
+0342,Zero Horizon,CINEMA002,22:15,00:30,2025/11/28,35
+0343,Chronoscape,CINEMA003,19:15,21:30,2025/11/28,28
+0344,Starlight Voyager,CINEMA004,16:30,18:45,2025/11/28,25
+0345,Echoes of Tomorrow,CINEMA004,13:00,15:15,2025/11/28,20
+0346,The Crimson Cipher,CINEMA001,20:45,23:00,2025/11/29,30
+0347,River of Secrets,CINEMA002,17:45,20:00,2025/11/29,25
+0348,Neon Dragons,CINEMA003,15:00,17:15,2025/11/29,22
+0349,The Glass Garden,CINEMA004,22:30,00:45,2025/11/29,35
+0350,Solaris Prime,CINEMA004,19:30,21:45,2025/11/29,28
+0351,Midnight Bloom,CINEMA001,16:15,18:30,2025/11/30,25
+0352,Project Chimera,CINEMA002,14:30,16:45,2025/11/30,20
+0353,The Clockwork City,CINEMA003,21:00,23:15,2025/11/30,30
+0354,Whispers in the Void,CINEMA004,18:30,20:45,2025/11/30,28
+0355,Legacy of the Serpent,CINEMA004,15:15,17:30,2025/11/30,25
+0356,Ironclad Fury,CINEMA001,22:00,00:15,2025/12/01,35
+0357,Aetherium Gates,CINEMA002,13:45,16:00,2025/12/01,20
+0358,The Silent Cartographer,CINEMA003,20:15,22:30,2025/12/01,30
+0359,Zero Horizon,CINEMA004,17:00,19:15,2025/12/01,25
+0360,Chronoscape,CINEMA004,14:45,17:00,2025/12/01,22
+0361,Starlight Voyager,CINEMA001,21:45,00:00,2025/12/02,35
+0362,Echoes of Tomorrow,CINEMA002,18:15,20:30,2025/12/02,28
+0363,The Crimson Cipher,CINEMA003,16:00,18:15,2025/12/02,25
+0364,River of Secrets,CINEMA004,23:15,01:30,2025/12/02,35
+0365,Neon Dragons,CINEMA004,13:30,15:45,2025/12/02,20
+0366,The Glass Garden,CINEMA001,20:00,22:15,2025/12/03,30
+0367,Solaris Prime,CINEMA002,17:30,19:45,2025/12/03,25
+0368,Midnight Bloom,CINEMA003,14:15,16:30,2025/12/03,22
+0369,Project Chimera,CINEMA004,21:30,23:45,2025/12/03,30
+0370,The Clockwork City,CINEMA004,18:45,21:00,2025/12/03,28
+0371,Whispers in the Void,CINEMA001,15:45,18:00,2025/12/04,25
+0372,Legacy of the Serpent,CINEMA002,22:45,01:00,2025/12/04,35
+0373,Ironclad Fury,CINEMA003,13:15,15:30,2025/12/04,20
+0374,Aetherium Gates,CINEMA004,20:30,22:45,2025/12/04,30
+0375,The Silent Cartographer,CINEMA004,16:45,19:00,2025/12/04,25
+0376,Zero Horizon,CINEMA001,14:00,16:15,2025/12/05,22
+0377,Chronoscape,CINEMA002,21:15,23:30,2025/12/05,30
+0378,Starlight Voyager,CINEMA003,18:00,20:15,2025/12/05,28
+0379,Echoes of Tomorrow,CINEMA004,15:30,17:45,2025/12/05,25
+0380,The Crimson Cipher,CINEMA004,22:15,00:30,2025/12/05,35
+0381,River of Secrets,CINEMA001,19:15,21:30,2025/12/06,28
+0382,Neon Dragons,CINEMA002,16:30,18:45,2025/12/06,25
+0383,The Glass Garden,CINEMA003,13:00,15:15,2025/12/06,20
+0384,Solaris Prime,CINEMA004,20:45,23:00,2025/12/06,30
+0385,Midnight Bloom,CINEMA004,17:45,20:00,2025/12/06,25
+0386,Project Chimera,CINEMA001,15:00,17:15,2025/12/07,22
+0387,The Clockwork City,CINEMA002,22:30,00:45,2025/12/07,35
+0388,Whispers in the Void,CINEMA003,19:30,21:45,2025/12/07,28
+0389,Legacy of the Serpent,CINEMA004,16:15,18:30,2025/12/07,25
+0390,Ironclad Fury,CINEMA004,14:30,16:45,2025/12/07,20
+0391,Aetherium Gates,CINEMA001,21:00,23:15,2025/12/08,30
+0392,The Silent Cartographer,CINEMA002,18:30,20:45,2025/12/08,28
+0393,Zero Horizon,CINEMA003,15:15,17:30,2025/12/08,25
+0394,Chronoscape,CINEMA004,22:00,00:15,2025/12/08,35
+0395,Starlight Voyager,CINEMA004,13:45,16:00,2025/12/08,20
+0396,Echoes of Tomorrow,CINEMA001,20:15,22:30,2025/12/09,30
+0397,The Crimson Cipher,CINEMA002,17:00,19:15,2025/12/09,25
+0398,River of Secrets,CINEMA003,14:45,17:00,2025/12/09,22
+0399,Neon Dragons,CINEMA004,21:45,00:00,2025/12/09,35
+0400,The Glass Garden,CINEMA004,18:15,20:30,2025/12/09,28
+0401,Solaris Prime,CINEMA001,16:00,18:15,2025/12/10,25
+0402,Midnight Bloom,CINEMA002,23:15,01:30,2025/12/10,35
+0403,Project Chimera,CINEMA003,13:30,15:45,2025/12/10,20
+0404,The Clockwork City,CINEMA004,20:00,22:15,2025/12/10,30
+0405,Whispers in the Void,CINEMA004,17:30,19:45,2025/12/10,25
+0406,Legacy of the Serpent,CINEMA001,14:15,16:30,2025/12/11,22
+0407,Ironclad Fury,CINEMA002,21:30,23:45,2025/12/11,30
+0408,Aetherium Gates,CINEMA003,18:45,21:00,2025/12/11,28
+0409,The Silent Cartographer,CINEMA004,15:45,18:00,2025/12/11,25
+0410,Zero Horizon,CINEMA004,22:45,01:00,2025/12/11,35
+0411,Chronoscape,CINEMA001,13:15,15:30,2025/12/12,20
+0412,Starlight Voyager,CINEMA002,20:30,22:45,2025/12/12,30
+0413,Echoes of Tomorrow,CINEMA003,16:45,19:00,2025/12/12,25
+0414,The Crimson Cipher,CINEMA004,14:00,16:15,2025/12/12,22
+0415,River of Secrets,CINEMA004,21:15,23:30,2025/12/12,30
+0416,Neon Dragons,CINEMA001,18:00,20:15,2025/12/13,28
+0417,The Glass Garden,CINEMA002,15:30,17:45,2025/12/13,25
+0418,Solaris Prime,CINEMA003,22:15,00:30,2025/12/13,35
+0419,Midnight Bloom,CINEMA004,19:15,21:30,2025/12/13,28
+0420,Project Chimera,CINEMA004,16:30,18:45,2025/12/13,25
+0421,The Clockwork City,CINEMA001,13:00,15:15,2025/12/14,20
+0422,Whispers in the Void,CINEMA002,20:45,23:00,2025/12/14,30
+0423,Legacy of the Serpent,CINEMA003,17:45,20:00,2025/12/14,25
+0424,Ironclad Fury,CINEMA004,15:00,17:15,2025/12/14,22
+0425,Aetherium Gates,CINEMA004,22:30,00:45,2025/12/14,35
+0426,The Silent Cartographer,CINEMA001,19:30,21:45,2025/12/15,28
+0427,Zero Horizon,CINEMA002,16:15,18:30,2025/12/15,25
+0428,Chronoscape,CINEMA003,14:30,16:45,2025/12/15,20
+0429,Starlight Voyager,CINEMA004,21:00,23:15,2025/12/15,30
+0430,Echoes of Tomorrow,CINEMA004,18:30,20:45,2025/12/15,28
+0431,The Crimson Cipher,CINEMA001,15:15,17:30,2025/12/16,25
+0432,River of Secrets,CINEMA002,22:00,00:15,2025/12/16,35
+0433,Neon Dragons,CINEMA003,13:45,16:00,2025/12/16,20
+0434,The Glass Garden,CINEMA004,20:15,22:30,2025/12/16,30
+0435,Solaris Prime,CINEMA004,17:00,19:15,2025/12/16,25
+0436,Midnight Bloom,CINEMA001,14:45,17:00,2025/12/17,22
+0437,Project Chimera,CINEMA002,21:45,00:00,2025/12/17,35
+0438,The Clockwork City,CINEMA003,18:15,20:30,2025/12/17,28
+0439,Whispers in the Void,CINEMA004,16:00,18:15,2025/12/17,25
+0440,Legacy of the Serpent,CINEMA004,23:15,01:30,2025/12/17,35
+0441,Ironclad Fury,CINEMA001,13:30,15:45,2025/12/18,20
+0442,Aetherium Gates,CINEMA002,20:00,22:15,2025/12/18,30
+0443,The Silent Cartographer,CINEMA003,17:30,19:45,2025/12/18,25
+0444,Zero Horizon,CINEMA004,14:15,16:30,2025/12/18,22
+0445,Chronoscape,CINEMA004,21:30,23:45,2025/12/18,30
+0446,Starlight Voyager,CINEMA001,18:45,21:00,2025/12/19,28
+0447,Echoes of Tomorrow,CINEMA002,15:45,18:00,2025/12/19,25
+0448,The Crimson Cipher,CINEMA003,22:45,01:00,2025/12/19,35
+0449,River of Secrets,CINEMA004,13:15,15:30,2025/12/19,20
+0450,Neon Dragons,CINEMA004,20:30,22:45,2025/12/19,30
+0451,The Glass Garden,CINEMA001,16:45,19:00,2025/12/20,25
+0452,Solaris Prime,CINEMA002,14:00,16:15,2025/12/20,22
+0453,Midnight Bloom,CINEMA003,21:15,23:30,2025/12/20,30
+0454,Project Chimera,CINEMA004,18:00,20:15,2025/12/20,28
+0455,The Clockwork City,CINEMA004,15:30,17:45,2025/12/20,25
+0456,Whispers in the Void,CINEMA001,22:15,00:30,2025/12/21,35
+0457,Legacy of the Serpent,CINEMA002,19:15,21:30,2025/12/21,28
+0458,Ironclad Fury,CINEMA003,16:30,18:45,2025/12/21,25
+0459,Aetherium Gates,CINEMA004,13:00,15:15,2025/12/21,20
+0460,The Silent Cartographer,CINEMA004,20:45,23:00,2025/12/21,30
+0461,Zero Horizon,CINEMA001,17:45,20:00,2025/12/22,25
+0462,Chronoscape,CINEMA002,15:00,17:15,2025/12/22,22
+0463,Starlight Voyager,CINEMA003,22:30,00:45,2025/12/22,35
+0464,Echoes of Tomorrow,CINEMA004,19:30,21:45,2025/12/22,28
+0465,The Crimson Cipher,CINEMA004,16:15,18:30,2025/12/22,25
+0466,River of Secrets,CINEMA001,14:30,16:45,2025/12/23,20
+0467,Neon Dragons,CINEMA002,21:00,23:15,2025/12/23,30
+0468,The Glass Garden,CINEMA003,18:30,20:45,2025/12/23,28
+0469,Solaris Prime,CINEMA004,15:15,17:30,2025/12/23,25
+0470,Midnight Bloom,CINEMA004,22:00,00:15,2025/12/23,35
+0471,Project Chimera,CINEMA001,13:45,16:00,2025/12/24,20
+0472,The Clockwork City,CINEMA002,20:15,22:30,2025/12/24,30
+0473,Whispers in the Void,CINEMA003,17:00,19:15,2025/12/24,25
+0474,Legacy of the Serpent,CINEMA004,14:45,17:00,2025/12/24,22
+0475,Ironclad Fury,CINEMA004,21:45,00:00,2025/12/24,35
+0476,Aetherium Gates,CINEMA001,18:15,20:30,2025/12/25,28
+0477,The Silent Cartographer,CINEMA002,16:00,18:15,2025/12/25,25
+0478,Zero Horizon,CINEMA003,23:15,01:30,2025/12/25,35
+0479,Chronoscape,CINEMA004,13:30,15:45,2025/12/25,20
+0480,Starlight Voyager,CINEMA004,20:00,22:15,2025/12/25,30
+0481,Echoes of Tomorrow,CINEMA001,17:30,19:45,2025/12/26,25
+0482,The Crimson Cipher,CINEMA002,14:15,16:30,2025/12/26,22
+0483,River of Secrets,CINEMA003,21:30,23:45,2025/12/26,30
+0484,Neon Dragons,CINEMA004,18:45,21:00,2025/12/26,28
+0485,The Glass Garden,CINEMA004,15:45,18:00,2025/12/26,25
+0486,Solaris Prime,CINEMA001,22:45,01:00,2025/12/27,35
+0487,Midnight Bloom,CINEMA002,13:15,15:30,2025/12/27,20
+0488,Project Chimera,CINEMA003,20:30,22:45,2025/12/27,30
+0489,The Clockwork City,CINEMA004,16:45,19:00,2025/12/27,25
+0490,Whispers in the Void,CINEMA004,14:00,16:15,2025/12/27,22
+0491,Legacy of the Serpent,CINEMA001,21:15,23:30,2025/12/28,30
+0492,Ironclad Fury,CINEMA002,18:00,20:15,2025/12/28,28
+0493,Aetherium Gates,CINEMA003,15:30,17:45,2025/12/28,25
+0494,The Silent Cartographer,CINEMA004,22:15,00:30,2025/12/28,35
+0495,Zero Horizon,CINEMA004,19:15,21:30,2025/12/28,28
+0496,Chronoscape,CINEMA001,16:30,18:45,2025/12/29,25
+0497,Starlight Voyager,CINEMA002,13:00,15:15,2025/12/29,20
+0498,Echoes of Tomorrow,CINEMA003,20:45,23:00,2025/12/29,30
+0499,The Crimson Cipher,CINEMA004,17:45,20:00,2025/12/29,25
+0500,River of Secrets,CINEMA004,15:00,17:15,2025/12/29,22
+0501,Neon Dragons,CINEMA001,22:30,00:45,2025/12/30,35
+0502,The Glass Garden,CINEMA002,19:30,21:45,2025/12/30,28
+0503,Solaris Prime,CINEMA003,16:15,18:30,2025/12/30,25
+0504,Midnight Bloom,CINEMA004,14:30,16:45,2025/12/30,20
+0505,Project Chimera,CINEMA004,21:00,23:15,2025/12/30,30
+0506,The Clockwork City,CINEMA001,18:30,20:45,2025/12/31,28
+0507,Whispers in the Void,CINEMA002,15:15,17:30,2025/12/31,25
+0508,Legacy of the Serpent,CINEMA003,22:00,00:15,2025/12/31,35
+0509,Ironclad Fury,CINEMA004,13:45,16:00,2025/12/31,20
+0510,Aetherium Gates,CINEMA004,20:15,22:30,2025/12/31,30
+0511,The Silent Cartographer,CINEMA001,17:00,19:15,2026/01/01,25
+0512,Zero Horizon,CINEMA002,14:45,17:00,2026/01/01,22
+0513,Chronoscape,CINEMA003,21:45,00:00,2026/01/01,35
+0514,Starlight Voyager,CINEMA004,18:15,20:30,2026/01/01,28
+0515,Echoes of Tomorrow,CINEMA004,16:00,18:15,2026/01/01,25
+0516,The Crimson Cipher,CINEMA001,23:15,01:30,2026/01/02,35
+0517,River of Secrets,CINEMA002,13:30,15:45,2026/01/02,20
+0518,Neon Dragons,CINEMA003,20:00,22:15,2026/01/02,30
+0519,The Glass Garden,CINEMA004,17:30,19:45,2026/01/02,25
+0520,Solaris Prime,CINEMA004,14:15,16:30,2026/01/02,22
+0521,Midnight Bloom,CINEMA001,21:30,23:45,2026/01/03,30
+0522,Project Chimera,CINEMA002,18:45,21:00,2026/01/03,28
+0523,The Clockwork City,CINEMA003,15:45,18:00,2026/01/03,25
+0524,Whispers in the Void,CINEMA004,22:45,01:00,2026/01/03,35
+0525,Legacy of the Serpent,CINEMA004,13:15,15:30,2026/01/03,20
+0526,Ironclad Fury,CINEMA001,20:30,22:45,2026/01/04,30
+0527,Aetherium Gates,CINEMA002,16:45,19:00,2026/01/04,25
+0528,The Silent Cartographer,CINEMA003,14:00,16:15,2026/01/04,22
+0529,Zero Horizon,CINEMA004,21:15,23:30,2026/01/04,30
+0530,Chronoscape,CINEMA004,18:00,20:15,2026/01/04,28
+0531,Starlight Voyager,CINEMA001,15:30,17:45,2026/01/05,25
+0532,Echoes of Tomorrow,CINEMA002,22:15,00:30,2026/01/05,35
+0533,The Crimson Cipher,CINEMA003,19:15,21:30,2026/01/05,28
+0534,River of Secrets,CINEMA004,16:30,18:45,2026/01/05,25
+0535,Neon Dragons,CINEMA004,13:00,15:15,2026/01/05,20
+0536,The Glass Garden,CINEMA001,20:45,23:00,2026/01/06,30
+0537,Solaris Prime,CINEMA002,17:45,20:00,2026/01/06,25
+0538,Midnight Bloom,CINEMA003,15:00,17:15,2026/01/06,22
+0539,Project Chimera,CINEMA004,22:30,00:45,2026/01/06,35
+0540,The Clockwork City,CINEMA004,19:30,21:45,2026/01/06,28
+0541,Whispers in the Void,CINEMA001,16:15,18:30,2026/01/07,25
+0542,Legacy of the Serpent,CINEMA002,14:30,16:45,2026/01/07,20
+0543,Ironclad Fury,CINEMA003,21:00,23:15,2026/01/07,30
+0544,Aetherium Gates,CINEMA004,18:30,20:45,2026/01/07,28
+0545,The Silent Cartographer,CINEMA004,15:15,17:30,2026/01/07,25
+0546,Zero Horizon,CINEMA001,22:00,00:15,2026/01/08,35
+0547,Chronoscape,CINEMA002,13:45,16:00,2026/01/08,20
+0548,Starlight Voyager,CINEMA003,20:15,22:30,2026/01/08,30
+0549,Echoes of Tomorrow,CINEMA004,17:00,19:15,2026/01/08,25
+0550,The Crimson Cipher,CINEMA004,14:45,17:00,2026/01/08,22
+0551,River of Secrets,CINEMA001,21:45,00:00,2026/01/09,35
+0552,Neon Dragons,CINEMA002,18:15,20:30,2026/01/09,28
+0553,The Glass Garden,CINEMA003,16:00,18:15,2026/01/09,25
+0554,Solaris Prime,CINEMA004,23:15,01:30,2026/01/09,35
+0555,Midnight Bloom,CINEMA004,13:30,15:45,2026/01/09,20
+0556,Project Chimera,CINEMA001,20:00,22:15,2026/01/10,30
+0557,The Clockwork City,CINEMA002,17:30,19:45,2026/01/10,25
+0558,Whispers in the Void,CINEMA003,14:15,16:30,2026/01/10,22
+0559,Legacy of the Serpent,CINEMA004,21:30,23:45,2026/01/10,30
+0560,Ironclad Fury,CINEMA004,18:45,21:00,2026/01/10,28
+0561,Aetherium Gates,CINEMA001,15:45,18:00,2026/01/11,25
+0562,The Silent Cartographer,CINEMA002,22:45,01:00,2026/01/11,35
+0563,Zero Horizon,CINEMA003,13:15,15:30,2026/01/11,20
+0564,Chronoscape,CINEMA004,20:30,22:45,2026/01/11,30
+0565,Starlight Voyager,CINEMA004,16:45,19:00,2026/01/11,25
+0566,Echoes of Tomorrow,CINEMA001,14:00,16:15,2026/01/12,22
+0567,The Crimson Cipher,CINEMA002,21:15,23:30,2026/01/12,30
+0568,River of Secrets,CINEMA003,18:00,20:15,2026/01/12,28
+0569,Neon Dragons,CINEMA004,15:30,17:45,2026/01/12,25
+0570,The Glass Garden,CINEMA004,22:15,00:30,2026/01/12,35
+0571,Solaris Prime,CINEMA001,19:15,21:30,2026/01/13,28
+0572,Midnight Bloom,CINEMA002,16:30,18:45,2026/01/13,25
+0573,Project Chimera,CINEMA003,13:00,15:15,2026/01/13,20
+0574,The Clockwork City,CINEMA004,20:45,23:00,2026/01/13,30
+0575,Whispers in the Void,CINEMA004,17:45,20:00,2026/01/13,25
+0576,Legacy of the Serpent,CINEMA001,15:00,17:15,2026/01/14,22
+0577,Ironclad Fury,CINEMA002,22:30,00:45,2026/01/14,35
+0578,Aetherium Gates,CINEMA003,19:30,21:45,2026/01/14,28
+0579,The Silent Cartographer,CINEMA004,16:15,18:30,2026/01/14,25
+0580,Zero Horizon,CINEMA004,14:30,16:45,2026/01/14,20
+0581,Chronoscape,CINEMA001,21:00,23:15,2026/01/15,30
+0582,Starlight Voyager,CINEMA002,18:30,20:45,2026/01/15,28
+0583,Echoes of Tomorrow,CINEMA003,15:15,17:30,2026/01/15,25
+0584,The Crimson Cipher,CINEMA004,22:00,00:15,2026/01/15,35
+0585,River of Secrets,CINEMA004,13:45,16:00,2026/01/15,20
+0586,Neon Dragons,CINEMA001,20:15,22:30,2026/01/16,30
+0587,The Glass Garden,CINEMA002,17:00,19:15,2026/01/16,25
+0588,Solaris Prime,CINEMA003,14:45,17:00,2026/01/16,22
+0589,Midnight Bloom,CINEMA004,21:45,00:00,2026/01/16,35
+0590,Project Chimera,CINEMA004,18:15,20:30,2026/01/16,28
+0591,The Clockwork City,CINEMA001,16:00,18:15,2026/01/17,25
+0592,Whispers in the Void,CINEMA002,23:15,01:30,2026/01/17,35
+0593,Legacy of the Serpent,CINEMA003,13:30,15:45,2026/01/17,20
+0594,Ironclad Fury,CINEMA004,20:00,22:15,2026/01/17,30
+0595,Aetherium Gates,CINEMA004,17:30,19:45,2026/01/17,25
+0596,The Silent Cartographer,CINEMA001,14:15,16:30,2026/01/18,22
+0597,Zero Horizon,CINEMA002,21:30,23:45,2026/01/18,30
+0598,Chronoscape,CINEMA003,18:45,21:00,2026/01/18,28
+0599,Starlight Voyager,CINEMA004,15:45,18:00,2026/01/18,25
+0600,Echoes of Tomorrow,CINEMA004,22:45,01:00,2026/01/18,35
+0601,The Crimson Cipher,CINEMA001,13:15,15:30,2026/01/19,20
+0602,River of Secrets,CINEMA002,20:30,22:45,2026/01/19,30
+0603,Neon Dragons,CINEMA003,16:45,19:00,2026/01/19,25
+0604,The Glass Garden,CINEMA004,14:00,16:15,2026/01/19,22
+0605,Solaris Prime,CINEMA004,21:15,23:30,2026/01/19,30
+0606,Midnight Bloom,CINEMA001,18:00,20:15,2026/01/20,28
+0607,Project Chimera,CINEMA002,15:30,17:45,2026/01/20,25
+0608,The Clockwork City,CINEMA003,22:15,00:30,2026/01/20,35
+0609,Whispers in the Void,CINEMA004,19:15,21:30,2026/01/20,28
+0610,Legacy of the Serpent,CINEMA004,16:30,18:45,2026/01/20,25
+0611,Ironclad Fury,CINEMA001,13:00,15:15,2026/01/21,20
+0612,Aetherium Gates,CINEMA002,20:45,23:00,2026/01/21,30
+0613,The Silent Cartographer,CINEMA003,17:45,20:00,2026/01/21,25
+0614,Zero Horizon,CINEMA004,15:00,17:15,2026/01/21,22
+0615,Chronoscape,CINEMA004,22:30,00:45,2026/01/21,35
+0616,Starlight Voyager,CINEMA001,19:30,21:45,2026/01/22,28
+0617,Echoes of Tomorrow,CINEMA002,16:15,18:30,2026/01/22,25
+0618,The Crimson Cipher,CINEMA003,14:30,16:45,2026/01/22,20
+0619,River of Secrets,CINEMA004,21:00,23:15,2026/01/22,30
+0620,Neon Dragons,CINEMA004,18:30,20:45,2026/01/22,28
+0621,The Glass Garden,CINEMA001,15:15,17:30,2026/01/23,25
+0622,Solaris Prime,CINEMA002,22:00,00:15,2026/01/23,35
+0623,Midnight Bloom,CINEMA003,13:45,16:00,2026/01/23,20
+0624,Project Chimera,CINEMA004,20:15,22:30,2026/01/23,30
+0625,The Clockwork City,CINEMA004,17:00,19:15,2026/01/23,25
+0626,Whispers in the Void,CINEMA001,14:45,17:00,2026/01/24,22
+0627,Legacy of the Serpent,CINEMA002,21:45,00:00,2026/01/24,35
+0628,Ironclad Fury,CINEMA003,18:15,20:30,2026/01/24,28
+0629,Aetherium Gates,CINEMA004,16:00,18:15,2026/01/24,25
+0630,The Silent Cartographer,CINEMA004,23:15,01:30,2026/01/24,35
+0631,Zero Horizon,CINEMA001,13:30,15:45,2026/01/25,20
+0632,Chronoscape,CINEMA002,20:00,22:15,2026/01/25,30
+0633,Starlight Voyager,CINEMA003,17:30,19:45,2026/01/25,25
+0634,Echoes of Tomorrow,CINEMA004,14:15,16:30,2026/01/25,22
+0635,The Crimson Cipher,CINEMA004,21:30,23:45,2026/01/25,30
+0636,River of Secrets,CINEMA001,18:45,21:00,2026/01/26,28
+0637,Neon Dragons,CINEMA002,15:45,18:00,2026/01/26,25
+0638,The Glass Garden,CINEMA003,22:45,01:00,2026/01/26,35
+0639,Solaris Prime,CINEMA004,13:15,15:30,2026/01/26,20
+0640,Midnight Bloom,CINEMA004,20:30,22:45,2026/01/26,30
+0641,Project Chimera,CINEMA001,16:45,19:00,2026/01/27,25
+0642,The Clockwork City,CINEMA002,14:00,16:15,2026/01/27,22
+0643,Whispers in the Void,CINEMA003,21:15,23:30,2026/01/27,30
+0644,Legacy of the Serpent,CINEMA004,18:00,20:15,2026/01/27,28
+0645,Ironclad Fury,CINEMA004,15:30,17:45,2026/01/27,25
+0646,Aetherium Gates,CINEMA001,22:15,00:30,2026/01/28,35
+0647,The Silent Cartographer,CINEMA002,19:15,21:30,2026/01/28,28
+0648,Zero Horizon,CINEMA003,16:30,18:45,2026/01/28,25
+0649,Chronoscape,CINEMA004,13:00,15:15,2026/01/28,20
+0650,Starlight Voyager,CINEMA004,20:45,23:00,2026/01/28,30
+0651,Echoes of Tomorrow,CINEMA001,17:45,20:00,2026/01/29,25
+0652,The Crimson Cipher,CINEMA002,15:00,17:15,2026/01/29,22
+0653,River of Secrets,CINEMA003,22:30,00:45,2026/01/29,35
+0654,Neon Dragons,CINEMA004,19:30,21:45,2026/01/29,28
+0655,The Glass Garden,CINEMA004,16:15,18:30,2026/01/29,25
+0656,Solaris Prime,CINEMA001,14:30,16:45,2026/01/30,20
+0657,Midnight Bloom,CINEMA002,21:00,23:15,2026/01/30,30
+0658,Project Chimera,CINEMA003,18:30,20:45,2026/01/30,28
+0659,The Clockwork City,CINEMA004,15:15,17:30,2026/01/30,25
+0660,Whispers in the Void,CINEMA004,22:00,00:15,2026/01/30,35
+0661,Legacy of the Serpent,CINEMA001,13:45,16:00,2026/01/31,20
+0662,Ironclad Fury,CINEMA002,20:15,22:30,2026/01/31,30
+0663,Aetherium Gates,CINEMA003,17:00,19:15,2026/01/31,25
+0664,The Silent Cartographer,CINEMA004,14:45,17:00,2026/01/31,22
+0665,Zero Horizon,CINEMA004,21:45,00:00,2026/01/31,35
+0666,Chronoscape,CINEMA001,18:15,20:30,2026/02/01,28
+0667,Starlight Voyager,CINEMA002,16:00,18:15,2026/02/01,25
+0668,Echoes of Tomorrow,CINEMA003,23:15,01:30,2026/02/01,35
+0669,The Crimson Cipher,CINEMA004,13:30,15:45,2026/02/01,20
+0670,River of Secrets,CINEMA004,20:00,22:15,2026/02/01,30
+0671,Neon Dragons,CINEMA001,17:30,19:45,2026/02/02,25
+0672,The Glass Garden,CINEMA002,14:15,16:30,2026/02/02,22
+0673,Solaris Prime,CINEMA003,21:30,23:45,2026/02/02,30
+0674,Midnight Bloom,CINEMA004,18:45,21:00,2026/02/02,28
+0675,Project Chimera,CINEMA004,15:45,18:00,2026/02/02,25
+0676,The Clockwork City,CINEMA001,22:45,01:00,2026/02/03,35
+0677,Whispers in the Void,CINEMA002,13:15,15:30,2026/02/03,20
+0678,Legacy of the Serpent,CINEMA003,20:30,22:45,2026/02/03,30
+0679,Ironclad Fury,CINEMA004,16:45,19:00,2026/02/03,25
+0680,Aetherium Gates,CINEMA004,14:00,16:15,2026/02/03,22
+0681,The Silent Cartographer,CINEMA001,21:15,23:30,2026/02/04,30
+0682,Zero Horizon,CINEMA002,18:00,20:15,2026/02/04,28
+0683,Chronoscape,CINEMA003,15:30,17:45,2026/02/04,25
+0684,Starlight Voyager,CINEMA004,22:15,00:30,2026/02/04,35
+0685,Echoes of Tomorrow,CINEMA004,19:15,21:30,2026/02/04,28
+0686,The Crimson Cipher,CINEMA001,16:30,18:45,2026/02/05,25
+0687,River of Secrets,CINEMA002,13:00,15:15,2026/02/05,20
+0688,Neon Dragons,CINEMA003,20:45,23:00,2026/02/05,30
+0689,The Glass Garden,CINEMA004,17:45,20:00,2026/02/05,25
+0690,Solaris Prime,CINEMA004,15:00,17:15,2026/02/05,22
+0691,Midnight Bloom,CINEMA001,22:30,00:45,2026/02/06,35
+0692,Project Chimera,CINEMA002,19:30,21:45,2026/02/06,28
+0693,The Clockwork City,CINEMA003,16:15,18:30,2026/02/06,25
+0694,Whispers in the Void,CINEMA004,14:30,16:45,2026/02/06,20
+0695,Legacy of the Serpent,CINEMA004,21:00,23:15,2026/02/06,30
+0696,Ironclad Fury,CINEMA001,18:30,20:45,2026/02/07,28
+0697,Aetherium Gates,CINEMA002,15:15,17:30,2026/02/07,25
+0698,The Silent Cartographer,CINEMA003,22:00,00:15,2026/02/07,35
+0699,Zero Horizon,CINEMA004,13:45,16:00,2026/02/07,20
+0700,Chronoscape,CINEMA004,20:15,22:30,2026/02/07,30
+0701,Starlight Voyager,CINEMA001,17:00,19:15,2026/02/08,25
+0702,Echoes of Tomorrow,CINEMA002,14:45,17:00,2026/02/08,22
+0703,The Crimson Cipher,CINEMA003,21:45,00:00,2026/02/08,35
+0704,River of Secrets,CINEMA004,18:15,20:30,2026/02/08,28
+0705,Neon Dragons,CINEMA004,16:00,18:15,2026/02/08,25
+0706,The Glass Garden,CINEMA001,23:15,01:30,2026/02/09,35
+0707,Solaris Prime,CINEMA002,13:30,15:45,2026/02/09,20
+0708,Midnight Bloom,CINEMA003,20:00,22:15,2026/02/09,30
+0709,Project Chimera,CINEMA004,17:30,19:45,2026/02/09,25
+0710,The Clockwork City,CINEMA004,14:15,16:30,2026/02/09,22
+0711,Whispers in the Void,CINEMA001,21:30,23:45,2026/02/10,30
+0712,Legacy of the Serpent,CINEMA002,18:45,21:00,2026/02/10,28
+0713,Ironclad Fury,CINEMA003,15:45,18:00,2026/02/10,25
+0714,Aetherium Gates,CINEMA004,22:45,01:00,2026/02/10,35
+0715,The Silent Cartographer,CINEMA004,13:15,15:30,2026/02/10,20
+0716,Zero Horizon,CINEMA001,20:30,22:45,2026/02/11,30
+0717,Chronoscape,CINEMA002,16:45,19:00,2026/02/11,25
+0718,Starlight Voyager,CINEMA003,14:00,16:15,2026/02/11,22
+0719,Echoes of Tomorrow,CINEMA004,21:15,23:30,2026/02/11,30
+0720,The Crimson Cipher,CINEMA004,18:00,20:15,2026/02/11,28
+0721,River of Secrets,CINEMA001,15:30,17:45,2026/02/12,25
+0722,Neon Dragons,CINEMA002,22:15,00:30,2026/02/12,35
+0723,The Glass Garden,CINEMA003,19:15,21:30,2026/02/12,28
+0724,Solaris Prime,CINEMA004,16:30,18:45,2026/02/12,25
+0725,Midnight Bloom,CINEMA004,13:00,15:15,2026/02/12,20
+0726,Project Chimera,CINEMA001,20:45,23:00,2026/02/13,30
+0727,The Clockwork City,CINEMA002,17:45,20:00,2026/02/13,25
+0728,Whispers in the Void,CINEMA003,15:00,17:15,2026/02/13,22
+0729,Legacy of the Serpent,CINEMA004,22:30,00:45,2026/02/13,35
+0730,Ironclad Fury,CINEMA004,19:30,21:45,2026/02/13,28
+0731,Aetherium Gates,CINEMA001,16:15,18:30,2026/02/14,25
+0732,The Silent Cartographer,CINEMA002,14:30,16:45,2026/02/14,20
+0733,Zero Horizon,CINEMA003,21:00,23:15,2026/02/14,30
+0734,Chronoscape,CINEMA004,18:30,20:45,2026/02/14,28
+0735,Starlight Voyager,CINEMA004,15:15,17:30,2026/02/14,25
+0736,Echoes of Tomorrow,CINEMA001,22:00,00:15,2026/02/15,35
+0737,The Crimson Cipher,CINEMA002,13:45,16:00,2026/02/15,20
+0738,River of Secrets,CINEMA003,20:15,22:30,2026/02/15,30
+0739,Neon Dragons,CINEMA004,17:00,19:15,2026/02/15,25
+0740,The Glass Garden,CINEMA004,14:45,17:00,2026/02/15,22
+0741,Solaris Prime,CINEMA001,21:45,00:00,2026/02/16,35
+0742,Midnight Bloom,CINEMA002,18:15,20:30,2026/02/16,28
+0743,Project Chimera,CINEMA003,16:00,18:15,2026/02/16,25
+0744,The Clockwork City,CINEMA004,23:15,01:30,2026/02/16,35
+0745,Whispers in the Void,CINEMA004,13:30,15:45,2026/02/16,20
+0746,Legacy of the Serpent,CINEMA001,20:00,22:15,2026/02/17,30
+0747,Ironclad Fury,CINEMA002,17:30,19:45,2026/02/17,25
+0748,Aetherium Gates,CINEMA003,14:15,16:30,2026/02/17,22
+0749,The Silent Cartographer,CINEMA004,21:30,23:45,2026/02/17,30
+0750,Zero Horizon,CINEMA004,18:45,21:00,2026/02/17,28
+0751,Chronoscape,CINEMA001,15:45,18:00,2026/02/18,25
+0752,Starlight Voyager,CINEMA002,22:45,01:00,2026/02/18,35
+0753,Echoes of Tomorrow,CINEMA003,13:15,15:30,2026/02/18,20
+0754,The Crimson Cipher,CINEMA004,20:30,22:45,2026/02/18,30
+0755,River of Secrets,CINEMA004,16:45,19:00,2026/02/18,25
+0756,Neon Dragons,CINEMA001,14:00,16:15,2026/02/19,22
+0757,The Glass Garden,CINEMA002,21:15,23:30,2026/02/19,30
+0758,Solaris Prime,CINEMA003,18:00,20:15,2026/02/19,28
+0759,Midnight Bloom,CINEMA004,15:30,17:45,2026/02/19,25
+0760,Project Chimera,CINEMA004,22:15,00:30,2026/02/19,35
+0761,The Clockwork City,CINEMA001,19:15,21:30,2026/02/20,28
+0762,Whispers in the Void,CINEMA002,16:30,18:45,2026/02/20,25
+0763,Legacy of the Serpent,CINEMA003,13:00,15:15,2026/02/20,20
+0764,Ironclad Fury,CINEMA004,20:45,23:00,2026/02/20,30
+0765,Aetherium Gates,CINEMA004,17:45,20:00,2026/02/20,25
+0766,The Silent Cartographer,CINEMA001,15:00,17:15,2026/02/21,22
+0767,Zero Horizon,CINEMA002,22:30,00:45,2026/02/21,35
+0768,Chronoscape,CINEMA003,19:30,21:45,2026/02/21,28
+0769,Starlight Voyager,CINEMA004,16:15,18:30,2026/02/21,25
+0770,Echoes of Tomorrow,CINEMA004,14:30,16:45,2026/02/21,20
+0771,The Crimson Cipher,CINEMA001,21:00,23:15,2026/02/22,30
+0772,River of Secrets,CINEMA002,18:30,20:45,2026/02/22,28
+0773,Neon Dragons,CINEMA003,15:15,17:30,2026/02/22,25
+0774,The Glass Garden,CINEMA004,22:00,00:15,2026/02/22,35
+0775,Solaris Prime,CINEMA004,13:45,16:00,2026/02/22,20
+0776,Midnight Bloom,CINEMA001,20:15,22:30,2026/02/23,30
+0777,Project Chimera,CINEMA002,17:00,19:15,2026/02/23,25
+0778,The Clockwork City,CINEMA003,14:45,17:00,2026/02/23,22
+0779,Whispers in the Void,CINEMA004,21:45,00:00,2026/02/23,35
+0780,Legacy of the Serpent,CINEMA004,18:15,20:30,2026/02/23,28
+0781,Ironclad Fury,CINEMA001,16:00,18:15,2026/02/24,25
+0782,Aetherium Gates,CINEMA002,23:15,01:30,2026/02/24,35
+0783,The Silent Cartographer,CINEMA003,13:30,15:45,2026/02/24,20
+0784,Zero Horizon,CINEMA004,20:00,22:15,2026/02/24,30
+0785,Chronoscape,CINEMA004,17:30,19:45,2026/02/24,25
+0786,Starlight Voyager,CINEMA001,14:15,16:30,2026/02/25,22
+0787,Echoes of Tomorrow,CINEMA002,21:30,23:45,2026/02/25,30
+0788,The Crimson Cipher,CINEMA003,18:45,21:00,2026/02/25,28
+0789,River of Secrets,CINEMA004,15:45,18:00,2026/02/25,25
+0790,Neon Dragons,CINEMA004,22:45,01:00,2026/02/25,35
+0791,The Glass Garden,CINEMA001,13:15,15:30,2026/02/26,20
+0792,Solaris Prime,CINEMA002,20:30,22:45,2026/02/26,30
+0793,Midnight Bloom,CINEMA003,16:45,19:00,2026/02/26,25
+0794,Project Chimera,CINEMA004,14:00,16:15,2026/02/26,22
+0795,The Clockwork City,CINEMA004,21:15,23:30,2026/02/26,30
+0796,Whispers in the Void,CINEMA001,18:00,20:15,2026/02/27,28
+0797,Legacy of the Serpent,CINEMA002,15:30,17:45,2026/02/27,25
+0798,Ironclad Fury,CINEMA003,22:15,00:30,2026/02/27,35
+0799,Aetherium Gates,CINEMA004,19:15,21:30,2026/02/27,28
+0800,The Silent Cartographer,CINEMA004,16:30,18:45,2026/02/27,25
+0801,Zero Horizon,CINEMA001,13:00,15:15,2026/02/28,20
+0802,Chronoscape,CINEMA002,20:45,23:00,2026/02/28,30
+0803,Starlight Voyager,CINEMA003,17:45,20:00,2026/02/28,25
+0804,Echoes of Tomorrow,CINEMA004,15:00,17:15,2026/02/28,22
+0805,The Crimson Cipher,CINEMA004,22:30,00:45,2026/02/28,35
+0806,River of Secrets,CINEMA001,19:30,21:45,2026/03/01,28
+0807,Neon Dragons,CINEMA002,16:15,18:30,2026/03/01,25
+0808,The Glass Garden,CINEMA003,14:30,16:45,2026/03/01,20
+0809,Solaris Prime,CINEMA004,21:00,23:15,2026/03/01,30
+0810,Midnight Bloom,CINEMA004,18:30,20:45,2026/03/01,28
+0811,Project Chimera,CINEMA001,15:15,17:30,2026/03/02,25
+0812,The Clockwork City,CINEMA002,22:00,00:15,2026/03/02,35
+0813,Whispers in the Void,CINEMA003,13:45,16:00,2026/03/02,20
+0814,Legacy of the Serpent,CINEMA004,20:15,22:30,2026/03/02,30
+0815,Ironclad Fury,CINEMA004,17:00,19:15,2026/03/02,25
+0816,Aetherium Gates,CINEMA001,14:45,17:00,2026/03/03,22
+0817,The Silent Cartographer,CINEMA002,21:45,00:00,2026/03/03,35
+0818,Zero Horizon,CINEMA003,18:15,20:30,2026/03/03,28
+0819,Chronoscape,CINEMA004,16:00,18:15,2026/03/03,25
+0820,Starlight Voyager,CINEMA004,23:15,01:30,2026/03/03,35
+0821,Echoes of Tomorrow,CINEMA001,13:30,15:45,2026/03/04,20
+0822,The Crimson Cipher,CINEMA002,20:00,22:15,2026/03/04,30
+0823,River of Secrets,CINEMA003,17:30,19:45,2026/03/04,25
+0824,Neon Dragons,CINEMA004,14:15,16:30,2026/03/04,22
+0825,The Glass Garden,CINEMA004,21:30,23:45,2026/03/04,30
+0826,Solaris Prime,CINEMA001,18:45,21:00,2026/03/05,28
+0827,Midnight Bloom,CINEMA002,15:45,18:00,2026/03/05,25
+0828,Project Chimera,CINEMA003,22:45,01:00,2026/03/05,35
+0829,The Clockwork City,CINEMA004,13:15,15:30,2026/03/05,20
+0830,Whispers in the Void,CINEMA004,20:30,22:45,2026/03/05,30
+0831,Legacy of the Serpent,CINEMA001,16:45,19:00,2026/03/06,25
+0832,Ironclad Fury,CINEMA002,14:00,16:15,2026/03/06,22
+0833,Aetherium Gates,CINEMA003,21:15,23:30,2026/03/06,30
+0834,The Silent Cartographer,CINEMA004,18:00,20:15,2026/03/06,28
+0835,Zero Horizon,CINEMA004,15:30,17:45,2026/03/06,25
+0836,Chronoscape,CINEMA001,22:15,00:30,2026/03/07,35
+0837,Starlight Voyager,CINEMA002,19:15,21:30,2026/03/07,28
+0838,Echoes of Tomorrow,CINEMA003,16:30,18:45,2026/03/07,25
+0839,The Crimson Cipher,CINEMA004,13:00,15:15,2026/03/07,20
+0840,River of Secrets,CINEMA004,20:45,23:00,2026/03/07,30
+0841,Neon Dragons,CINEMA001,17:45,20:00,2026/03/08,25
+0842,The Glass Garden,CINEMA002,15:00,17:15,2026/03/08,22
+0843,Solaris Prime,CINEMA003,22:30,00:45,2026/03/08,35
+0844,Midnight Bloom,CINEMA004,19:30,21:45,2026/03/08,28
+0845,Project Chimera,CINEMA004,16:15,18:30,2026/03/08,25
+0846,The Clockwork City,CINEMA001,14:30,16:45,2026/03/09,20
+0847,Whispers in the Void,CINEMA002,21:00,23:15,2026/03/09,30
+0848,Legacy of the Serpent,CINEMA003,18:30,20:45,2026/03/09,28
+0849,Ironclad Fury,CINEMA004,15:15,17:30,2026/03/09,25
+0850,Aetherium Gates,CINEMA004,22:00,00:15,2026/03/09,35
+0851,The Silent Cartographer,CINEMA001,13:45,16:00,2026/03/10,20
+0852,Zero Horizon,CINEMA002,20:15,22:30,2026/03/10,30
+0853,Chronoscape,CINEMA003,17:00,19:15,2026/03/10,25
+0854,Starlight Voyager,CINEMA004,14:45,17:00,2026/03/10,22
+0855,Echoes of Tomorrow,CINEMA004,21:45,00:00,2026/03/10,35
+0856,The Crimson Cipher,CINEMA001,18:15,20:30,2026/03/11,28
+0857,River of Secrets,CINEMA002,16:00,18:15,2026/03/11,25
+0858,Neon Dragons,CINEMA003,23:15,01:30,2026/03/11,35
+0859,The Glass Garden,CINEMA004,13:30,15:45,2026/03/11,20
+0860,Solaris Prime,CINEMA004,20:00,22:15,2026/03/11,30
+0861,Midnight Bloom,CINEMA001,17:30,19:45,2026/03/12,25
+0862,Project Chimera,CINEMA002,14:15,16:30,2026/03/12,22
+0863,The Clockwork City,CINEMA003,21:30,23:45,2026/03/12,30
+0864,Whispers in the Void,CINEMA004,18:45,21:00,2026/03/12,28
+0865,Legacy of the Serpent,CINEMA004,15:45,18:00,2026/03/12,25
+0866,Ironclad Fury,CINEMA001,22:45,01:00,2026/03/13,35
+0867,Aetherium Gates,CINEMA002,13:15,15:30,2026/03/13,20
+0868,The Silent Cartographer,CINEMA003,20:30,22:45,2026/03/13,30
+0869,Zero Horizon,CINEMA004,16:45,19:00,2026/03/13,25
+0870,Chronoscape,CINEMA004,14:00,16:15,2026/03/13,22
+0871,Starlight Voyager,CINEMA001,21:15,23:30,2026/03/14,30
+0872,Echoes of Tomorrow,CINEMA002,18:00,20:15,2026/03/14,28
+0873,The Crimson Cipher,CINEMA003,15:30,17:45,2026/03/14,25
+0874,River of Secrets,CINEMA004,22:15,00:30,2026/03/14,35
+0875,Neon Dragons,CINEMA004,19:15,21:30,2026/03/14,28
+0876,The Glass Garden,CINEMA001,16:30,18:45,2026/03/15,25
+0877,Solaris Prime,CINEMA002,13:00,15:15,2026/03/15,20
+0878,Midnight Bloom,CINEMA003,20:45,23:00,2026/03/15,30
+0879,Project Chimera,CINEMA004,17:45,20:00,2026/03/15,25
+0880,The Clockwork City,CINEMA004,15:00,17:15,2026/03/15,22
+0881,Whispers in the Void,CINEMA001,22:30,00:45,2026/03/16,35
+0882,Legacy of the Serpent,CINEMA002,19:30,21:45,2026/03/16,28
+0883,Ironclad Fury,CINEMA003,16:15,18:30,2026/03/16,25
+0884,Aetherium Gates,CINEMA004,14:30,16:45,2026/03/16,20
+0885,The Silent Cartographer,CINEMA004,21:00,23:15,2026/03/16,30
+0886,Zero Horizon,CINEMA001,18:30,20:45,2026/03/17,28
+0887,Chronoscape,CINEMA002,15:15,17:30,2026/03/17,25
+0888,Starlight Voyager,CINEMA003,22:00,00:15,2026/03/17,35
+0889,Echoes of Tomorrow,CINEMA004,13:45,16:00,2026/03/17,20
+0890,The Crimson Cipher,CINEMA004,20:15,22:30,2026/03/17,30
+0891,River of Secrets,CINEMA001,17:00,19:15,2026/03/18,25
+0892,Neon Dragons,CINEMA002,14:45,17:00,2026/03/18,22
+0893,The Glass Garden,CINEMA003,21:45,00:00,2026/03/18,35
+0894,Solaris Prime,CINEMA004,18:15,20:30,2026/03/18,28
+0895,Midnight Bloom,CINEMA004,16:00,18:15,2026/03/18,25
+0896,Project Chimera,CINEMA001,23:15,01:30,2026/03/19,35
+0897,The Clockwork City,CINEMA002,13:30,15:45,2026/03/19,20
+0898,Whispers in the Void,CINEMA003,20:00,22:15,2026/03/19,30
+0899,Legacy of the Serpent,CINEMA004,17:30,19:45,2026/03/19,25
+0900,Ironclad Fury,CINEMA004,14:15,16:30,2026/03/19,22
+0901,Aetherium Gates,CINEMA001,21:30,23:45,2026/03/20,30
+0902,The Silent Cartographer,CINEMA002,18:45,21:00,2026/03/20,28
+0903,Zero Horizon,CINEMA003,15:45,18:00,2026/03/20,25
+0904,Chronoscape,CINEMA004,22:45,01:00,2026/03/20,35
+0905,Starlight Voyager,CINEMA004,13:15,15:30,2026/03/20,20
+0906,Echoes of Tomorrow,CINEMA001,20:30,22:45,2026/03/21,30
+0907,The Crimson Cipher,CINEMA002,16:45,19:00,2026/03/21,25
+0908,River of Secrets,CINEMA003,14:00,16:15,2026/03/21,22
+0909,Neon Dragons,CINEMA004,21:15,23:30,2026/03/21,30
+0910,The Glass Garden,CINEMA004,18:00,20:15,2026/03/21,28
+0911,Solaris Prime,CINEMA001,15:30,17:45,2026/03/22,25
+0912,Midnight Bloom,CINEMA002,22:15,00:30,2026/03/22,35
+0913,Project Chimera,CINEMA003,19:15,21:30,2026/03/22,28
+0914,The Clockwork City,CINEMA004,16:30,18:45,2026/03/22,25
+0915,Whispers in the Void,CINEMA004,13:00,15:15,2026/03/22,20
+0916,Legacy of the Serpent,CINEMA001,20:45,23:00,2026/03/23,30
+0917,Ironclad Fury,CINEMA002,17:45,20:00,2026/03/23,25
+0918,Aetherium Gates,CINEMA003,15:00,17:15,2026/03/23,22
+0919,The Silent Cartographer,CINEMA004,22:30,00:45,2026/03/23,35
+0920,Zero Horizon,CINEMA004,19:30,21:45,2026/03/23,28
+0921,Chronoscape,CINEMA001,16:15,18:30,2026/03/24,25
+0922,Starlight Voyager,CINEMA002,14:30,16:45,2026/03/24,20
+0923,Echoes of Tomorrow,CINEMA003,21:00,23:15,2026/03/24,30
+0924,The Crimson Cipher,CINEMA004,18:30,20:45,2026/03/24,28
+0925,River of Secrets,CINEMA004,15:15,17:30,2026/03/24,25
+0926,Neon Dragons,CINEMA001,22:00,00:15,2026/03/25,35
+0927,The Glass Garden,CINEMA002,13:45,16:00,2026/03/25,20
+0928,Solaris Prime,CINEMA003,20:15,22:30,2026/03/25,30
+0929,Midnight Bloom,CINEMA004,17:00,19:15,2026/03/25,25
+0930,Project Chimera,CINEMA004,14:45,17:00,2026/03/25,22
+0931,The Clockwork City,CINEMA001,21:45,00:00,2026/03/26,35
+0932,Whispers in the Void,CINEMA002,18:15,20:30,2026/03/26,28
+0933,Legacy of the Serpent,CINEMA003,16:00,18:15,2026/03/26,25
+0934,Ironclad Fury,CINEMA004,23:15,01:30,2026/03/26,35
+0935,Aetherium Gates,CINEMA004,13:30,15:45,2026/03/26,20
+0936,The Silent Cartographer,CINEMA001,20:00,22:15,2026/03/27,30
+0937,Zero Horizon,CINEMA002,17:30,19:45,2026/03/27,25
+0938,Chronoscape,CINEMA003,14:15,16:30,2026/03/27,22
+0939,Starlight Voyager,CINEMA004,21:30,23:45,2026/03/27,30
+0940,Echoes of Tomorrow,CINEMA004,18:45,21:00,2026/03/27,28
+0941,The Crimson Cipher,CINEMA001,15:45,18:00,2026/03/28,25
+0942,River of Secrets,CINEMA002,22:45,01:00,2026/03/28,35
+0943,Neon Dragons,CINEMA003,13:15,15:30,2026/03/28,20
+0944,The Glass Garden,CINEMA004,20:30,22:45,2026/03/28,30
+0945,Solaris Prime,CINEMA004,16:45,19:00,2026/03/28,25
+0946,Midnight Bloom,CINEMA001,14:00,16:15,2026/03/29,22
+0947,Project Chimera,CINEMA002,21:15,23:30,2026/03/29,30
+0948,The Clockwork City,CINEMA003,18:00,20:15,2026/03/29,28
+0949,Whispers in the Void,CINEMA004,15:30,17:45,2026/03/29,25
+0950,Legacy of the Serpent,CINEMA004,22:15,00:30,2026/03/29,35
+0951,Ironclad Fury,CINEMA001,19:15,21:30,2026/03/30,28
+0952,Aetherium Gates,CINEMA002,16:30,18:45,2026/03/30,25
+0953,The Silent Cartographer,CINEMA003,13:00,15:15,2026/03/30,20
+0954,Zero Horizon,CINEMA004,20:45,23:00,2026/03/30,30
+0955,Chronoscape,CINEMA004,17:45,20:00,2026/03/30,25
+0956,Starlight Voyager,CINEMA001,15:00,17:15,2026/03/31,22
+0957,Echoes of Tomorrow,CINEMA002,22:30,00:45,2026/03/31,35
+0958,The Crimson Cipher,CINEMA003,19:30,21:45,2026/03/31,28
+0959,River of Secrets,CINEMA004,16:15,18:30,2026/03/31,25
+0960,Neon Dragons,CINEMA004,14:30,16:45,2026/03/31,20
+0961,The Glass Garden,CINEMA001,21:00,23:15,2026/04/01,30
+0962,Solaris Prime,CINEMA002,18:30,20:45,2026/04/01,28
+0963,Midnight Bloom,CINEMA003,15:15,17:30,2026/04/01,25
+0964,Project Chimera,CINEMA004,22:00,00:15,2026/04/01,35
+0965,The Clockwork City,CINEMA004,13:45,16:00,2026/04/01,20
+0966,Whispers in the Void,CINEMA001,20:15,22:30,2026/04/02,30
+0967,Legacy of the Serpent,CINEMA002,17:00,19:15,2026/04/02,25
+0968,Ironclad Fury,CINEMA003,14:45,17:00,2026/04/02,22
+0969,Aetherium Gates,CINEMA004,21:45,00:00,2026/04/02,35
+0970,The Silent Cartographer,CINEMA004,18:15,20:30,2026/04/02,28
+0971,Zero Horizon,CINEMA001,16:00,18:15,2026/04/03,25
+0972,Chronoscape,CINEMA002,23:15,01:30,2026/04/03,35
+0973,Starlight Voyager,CINEMA003,13:30,15:45,2026/04/03,20
+0974,Echoes of Tomorrow,CINEMA004,20:00,22:15,2026/04/03,30
+0975,The Crimson Cipher,CINEMA004,17:30,19:45,2026/04/03,25
+0976,River of Secrets,CINEMA001,14:15,16:30,2026/04/04,22
+0977,Neon Dragons,CINEMA002,21:30,23:45,2026/04/04,30
+0978,The Glass Garden,CINEMA003,18:45,21:00,2026/04/04,28
+0979,Solaris Prime,CINEMA004,15:45,18:00,2026/04/04,25
+0980,Midnight Bloom,CINEMA004,22:45,01:00,2026/04/04,35
+0981,Project Chimera,CINEMA001,13:15,15:30,2026/04/05,20
+0982,The Clockwork City,CINEMA002,20:30,22:45,2026/04/05,30
+0983,Whispers in the Void,CINEMA003,16:45,19:00,2026/04/05,25
+0984,Legacy of the Serpent,CINEMA004,14:00,16:15,2026/04/05,22
+0985,Ironclad Fury,CINEMA004,21:15,23:30,2026/04/05,30
+0986,Aetherium Gates,CINEMA001,18:00,20:15,2026/04/06,28
+0987,The Silent Cartographer,CINEMA002,15:30,17:45,2026/04/06,25
+0988,Zero Horizon,CINEMA003,22:15,00:30,2026/04/06,35
+0989,Chronoscape,CINEMA004,19:15,21:30,2026/04/06,28
+0990,Starlight Voyager,CINEMA004,16:30,18:45,2026/04/06,25
+0991,Echoes of Tomorrow,CINEMA001,13:00,15:15,2026/04/07,20
+0992,The Crimson Cipher,CINEMA002,20:45,23:00,2026/04/07,30
+0993,River of Secrets,CINEMA003,17:45,20:00,2026/04/07,25
+0994,Neon Dragons,CINEMA004,15:00,17:15,2026/04/07,22
+0995,The Glass Garden,CINEMA004,22:30,00:45,2026/04/07,35
+0996,Solaris Prime,CINEMA001,19:30,21:45,2026/04/08,28
+0997,Midnight Bloom,CINEMA002,16:15,18:30,2026/04/08,25
+0998,Project Chimera,CINEMA003,14:30,16:45,2026/04/08,20
+0999,The Clockwork City,CINEMA004,21:00,23:15,2026/04/08,30
+1000,Joker3,CINEMA003,19:00,20:00,2025/12/23,20
