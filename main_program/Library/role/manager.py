@@ -6,7 +6,7 @@ from main_program.Library.cache_framework import data_dictionary_framework as dd
 from main_program.Library.movie_booking_framework import id_generator as idg
 from main_program.Library.movie_booking_framework import valid_checker as vc
 from main_program.Library.movie_booking_framework import framework_utils as fu
-from main_program.Library.movie_booking_framework import cinema_services as cs
+from main_program.Library.movie_booking_framework import cinema_services as cnsv
 from main_program.Library.movie_booking_framework.movie_seats_framework import get_capacity
 
 # #13/9/2025: validate time format
@@ -137,15 +137,6 @@ from main_program.Library.movie_booking_framework.movie_seats_framework import g
 #     List()
 #     code = input("Enter the movie code: ")
 #     Remove = False
-#     new_movie = []
-#     for movie in movies:
-#         if movie[0] == code:
-#             Remove = True
-#             continue
-#         new_movie.append(movie)
-#
-#     if Remove:
-#         with open(movie_list_csv,"w") as remove:
 #             remove.write(",".join(header)+"\n")
 #             for mov in new_movie:
 #                 remove.write(",".join(mov)+"\n")
@@ -212,24 +203,26 @@ def movie_list_print_with_format(data_list : list,
         print(f"{get_capacity(seat_list_temp): <{DEFAULT_WIDTH}}", end ="")
         print()
 
-def add_movie_operation (default_template_code : str,movie_list_dict:dict=None,movie_seats_dict:dict=None,cinema_device_dict:dict=None) -> None:
+def add_movie_operation (cinema_seats_dict:dict=None,movie_list_dict:dict=None,movie_seats_dict:dict=None,cinema_device_dict:dict=None) -> None:
+    if cinema_seats_dict is None: cinema_seats_dict = ddf.CINEMA_SEATS_DICTIONARY
     if movie_list_dict is None: movie_list_dict= ddf.MOVIE_LIST_DICTIONARY
     if movie_seats_dict is None: movie_seats_dict = ddf.MOVIE_SEATS_DICTIONARY
     if cinema_device_dict is None: cinema_device_dict = ddf.CINEMA_DEVICE_DICTIONARY
     movie_code_list = get_code_range(movie_list_dict)
+    cinema_code_range_filtered = sorted(list(set(get_code_range(cinema_seats_dict))))
     movie_list_header : list = movie_list_dict["header"]
     movie_code = idg.generate_code_id(movie_code_list,prefix_generate="",code_location=movie_list_dict["code_location"],
                                       number_of_prefix=0,prefix_got_digit= False,code_id_digit_count=4)
     added_movie_list : list = [movie_code]
     for i in movie_list_header[1:]:
-        if "date" in i: user_input = element_input(element_name= i, valid_check_func= vc.date_valid_check)
-        elif "time" in i: user_input = element_input(element_name= i, valid_check_func= vc.time_valid_check)
-        else: user_input = element_input(element_name= i)
+        if "date" in i: user_input = fu.element_input(element_name= i, valid_check_func= vc.date_valid_check)
+        elif "time" in i: user_input = fu.element_input(element_name= i, valid_check_func= vc.time_valid_check)
+        elif "CINEMA" in i: user_input = fu.element_input(element_name= i,input_range= cinema_code_range_filtered)
+        else: user_input = fu.element_input(element_name= i)
         added_movie_list.append(user_input)
 
     ccsf.list_dictionary_update(dictionary= movie_list_dict,list_to_add=added_movie_list)
-    cs.sync_all(movie_list_csv=movie_list_dict["base file name"],movie_seats_csv=movie_seats_dict["base file name"],
-                cinema_device_list_csv=cinema_device_dict["base file name"],default_template_code=default_template_code)
+    cnsv.sync_file()
 
 
 
@@ -239,18 +232,41 @@ def delete_movie_operation(movie_list_dict:dict=None,movie_seats_dict:dict=None,
     if cinema_device_dict is None: cinema_device_dict = ddf.CINEMA_DEVICE_DICTIONARY
     movie_list_header : list = movie_list_dict["header"]
     movie_code_range : list = get_code_range(movie_list_dict)
-    movie_code_to_delete = element_input(element_name=movie_list_header[0],input_range= movie_code_range)
+    movie_code_to_delete = fu.element_input(element_name=movie_list_header[0],input_range= movie_code_range)
     movie_list_print_with_format(data_list= [ccsf.read_list_from_cache(dictionary_cache= movie_list_dict,code=movie_code_to_delete)])
     print (f"Are You Sure You Want Delete Movie Code: {movie_code_to_delete}?")
-    user_operation :str = element_input(element_name= "command (Y/N)",input_range= ["Y","y","N","n"])
+    user_operation :str = fu.element_input(element_name= "command (Y/N)",input_range= ["Y","y","N","n"])
     if user_operation.lower() == "y":
         ccsf.dictionary_delete(dictionary=movie_list_dict,key_to_delete=movie_code_to_delete)
         # This is just for test,after compile,the sync all function will be placed at the bottom of manager()
-        cs.sync_all(movie_list_csv=movie_list_dict["base file name"],
-                    movie_seats_csv=movie_seats_dict["base file name"],
-                    cinema_device_list_csv=cinema_device_dict["base file name"],
-                    default_template_code= "TEMPLATE001")
+        cnsv.sync_all()
         print("delete successfully!")
+    if user_operation.lower() == "n":
+        return
+
+def modify_movie_operation(movie_list_dict:dict=None,movie_seats_dict:dict=None,cinema_device_dict:dict=None
+                           ,cinema_seats_dict:dict=None) -> None:
+    if movie_list_dict is None: movie_list_dict= ddf.MOVIE_LIST_DICTIONARY
+    if movie_seats_dict is None: movie_seats_dict = ddf.MOVIE_SEATS_DICTIONARY
+    if cinema_device_dict is None: cinema_device_dict = ddf.CINEMA_DEVICE_DICTIONARY
+    if cinema_seats_dict is None: cinema_seats_dict = ddf.CINEMA_SEATS_DICTIONARY
+    movie_list_header : list = movie_list_dict["header"]
+    movie_code_range : list = get_code_range(movie_list_dict)
+    cinema_code_range_filtered = sorted(list(set(get_code_range(cinema_seats_dict))))
+    movie_code_to_modify = fu.element_input(element_name=movie_list_header[0],input_range= movie_code_range)
+    movie_list_print_with_format(data_list= [ccsf.read_list_from_cache(dictionary_cache= movie_list_dict,code=movie_code_to_modify)])
+    print (f"Are You Sure You Want Modify Movie Code: {movie_code_to_modify}?")
+    user_operation: str = fu.element_input(element_name="command (Y/N)", input_range=["Y", "y", "N", "n"])
+    if user_operation.lower() == "y":
+        movie_list_specify : list = ccsf.read_list_from_cache(dictionary_cache= movie_list_dict,code=movie_code_to_modify)
+        selected_modify,header_to_modify = fu.element_input(element_name= "data that you want to modify", input_range= movie_list_header[1:],return_range_index=True)
+        if "time" in selected_modify: data_to_modify = fu.element_input(element_name= selected_modify, valid_check_func= vc.time_valid_check)
+        elif "date" in selected_modify: data_to_modify = fu.element_input(element_name= selected_modify, valid_check_func= vc.date_valid_check)
+        elif "CINEMA" in selected_modify: data_to_modify = fu.element_input(element_name= selected_modify,input_range=cinema_code_range_filtered)
+        else: data_to_modify = fu.element_input(element_name= selected_modify)
+        movie_list_specify[header_to_modify + 1] = data_to_modify
+        ccsf.list_dictionary_update(dictionary=movie_list_dict,list_to_add=movie_list_specify)
+        cnsv.sync_all()
     if user_operation.lower() == "n":
         return
 
@@ -259,26 +275,12 @@ def delete_movie_operation(movie_list_dict:dict=None,movie_seats_dict:dict=None,
 
 
 
-def element_input (element_name : str, input_range : list=None, valid_check_func=None) -> str:
-    while True:
-        element = str(input(f"Please enter the {element_name}:"))
-        if input_range is not None and element not in input_range:
-            print(f"{element} is invalid,it should be in {input_range}")
-            continue
-        if valid_check_func is None: break
-        valid,element_format = valid_check_func(element)
-        if not valid:
-            print(f"{element} is invalid,its format should be {element_format}")
-            continue
-        break
-    return element
-
-
 
 if __name__ == "__main__":
     ddf.init_all_dictionary()
-    #add_movie_operation(default_template_code= "TEMPLATE001")
-    delete_movie_operation()
+    #add_movie_operation()
+    #delete_movie_operation()
+    modify_movie_operation()
 
         
 
