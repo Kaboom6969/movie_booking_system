@@ -1,11 +1,14 @@
 from datetime import datetime
-from main_program.Library.movie_booking_framework.seat_visualizer import *
-from main_program.Library.movie_booking_framework.cinema_services import *
-from main_program.Library.movie_booking_framework.valid_checker import *
-from main_program.Library.movie_booking_framework.id_generator import *
+from main_program.Library.movie_booking_framework import seat_visualizer as sv
+from main_program.Library.movie_booking_framework import cinema_services as cnsv
+from main_program.Library.movie_booking_framework import valid_checker as vc
+from main_program.Library.movie_booking_framework import id_generator as idg
 from main_program.Library.payment_framework.payment_framework import pay_money
+from main_program.Library.movie_booking_framework import movie_seats_framework as msf
 from main_program.Library.system_login_framework.login_system import *
 from main_program.Library.data_communication_framework import cache_csv_sync_framework as ccsf
+from main_program.Library.cache_framework import data_dictionary_framework as ddf
+from main_program.Library.movie_booking_framework import framework_utils as fu
 
 
 
@@ -63,7 +66,7 @@ def generate_seat_axis(column, row):
 
 
 def check_booking_full(movie_seat_list):
-    capacity = get_capacity(movie_seat_list)
+    capacity = msf.get_capacity(movie_seat_list)
     if capacity == 0:
         return True
     return False
@@ -76,14 +79,14 @@ def select_seat(movie_seat_list):
         return
     while True:
         while True:
-            print_movie_seat_as_emojis(movie_seat_list)
+            sv.print_movie_seat_as_emojis(movie_seat_list)
             try:
                 print(f"\nrow should be between 1 and {len(movie_seat_list)}")
                 row = int(input("Please enter the row number: "))  # y_axis
                 if row < 1 or row > len(movie_seat_list):
                     print("Please enter a valid row number")
                 else:
-                    print_movie_seat_as_emojis(movie_seat_list, -1, row)
+                    sv.print_movie_seat_as_emojis(movie_seat_list, -1, row)
                     break
             except ValueError as e:
                 print(e)
@@ -94,24 +97,24 @@ def select_seat(movie_seat_list):
                 if column < 1 or column > len(movie_seat_list[0]):
                     print("Please enter a valid row number")  # x_axis
                 else:
-                    print_movie_seat_as_emojis(movie_seat_list, column, row)
+                    sv.print_movie_seat_as_emojis(movie_seat_list, column, row)
                     break
             except ValueError as e:
                 print(e)
 
-        if not movie_seats_pointer_valid_check(movie_seat_list, column, row):
+        if not sv.movie_seats_pointer_valid_check(movie_seat_list, column, row):
             print(f"Invalid seat, please try again")
             continue
         try:
-            seat_value = movie_seats_specify_value(movie_seat_list, column, row)
+            seat_value = sv.movie_seats_specify_value(movie_seat_list, column, row)
         except IndexError as e:
             print(e)
             continue
         if seat_value == '-1':
-            print_movie_seat_as_emojis(movie_seat_list, column, row)
+            sv.print_movie_seat_as_emojis(movie_seat_list, column, row)
             print("Invalid seat, please try again")
         elif seat_value == '1':
-            print_movie_seat_as_emojis(movie_seat_list, column, row)
+            sv.print_movie_seat_as_emojis(movie_seat_list, column, row)
             print("This seat is already taken. Please enter another one")
         else:
             return column, row
@@ -125,12 +128,12 @@ def booking(movie_seats_csv, booking_data_csv,movie_seat_list, input_movie_code,
     today = datetime.today().strftime('%Y/%m/%d')
     print("Purchased successfully")
     booking_data_list: list = ccsf.read_list_from_cache(booking_data_dict)
-    booking_id = generate_code_id(code_list=booking_data_list, prefix_generate="B", code_location=0, number_of_prefix=1
+    booking_id = idg.generate_code_id(code_list=booking_data_list, prefix_generate="B", code_location=0, number_of_prefix=1
                                   , prefix_got_digit=False, code_id_digit_count=4)
     data_row = [booking_id, user_id, input_movie_code, today, 2, column, row, 'Clerk']
     ccsf.list_dictionary_update(dictionary=booking_data_dict,list_to_add=data_row)
-    link_seats(movie_seats_csv=movie_seats_csv, booking_data_csv=booking_data_csv)
-    print_movie_seat_as_emojis(ccsf.read_seats_from_cache(cache_dictionary=movie_seats_dict,code=input_movie_code))
+    cnsv.sync_all()
+    sv.print_movie_seat_as_emojis(ccsf.read_seats_from_cache(cache_dictionary=movie_seats_dict,code=input_movie_code))
 
 
 def handle_booking(movie_seats_csv, booking_data_csv, template_seats_csv, customer_csv, movie_seat_list,
@@ -145,7 +148,7 @@ def handle_booking(movie_seats_csv, booking_data_csv, template_seats_csv, custom
                         user_id)
                 break
             elif choice == 2:
-                path = get_path(customer_csv)
+                path = fu.get_path(customer_csv)
                 customer_id = login(path)
                 if customer_id is not None:
                     price = '10'
@@ -162,8 +165,8 @@ def handle_booking(movie_seats_csv, booking_data_csv, template_seats_csv, custom
 def checking_movie(input_movie_code: str, movie_seats_dict : dict=None):
     if movie_seats_dict is None: movie_seats_dict = ddf.MOVIE_SEATS_DICTIONARY
     movie_seat_list = ccsf.read_seats_from_cache(cache_dictionary=movie_seats_dict,code=input_movie_code)
-    print_movie_seat_as_emojis(movie_seat_list)
-    capacity = get_capacity(movie_seat_list)
+    sv.print_movie_seat_as_emojis(movie_seat_list)
+    capacity = msf.get_capacity(movie_seat_list)
     print(f"\n This movie seat capacity is {capacity}")
 
 
@@ -247,22 +250,19 @@ def modify_booking(movie_seats_csv, booking_data_csv,movie_seat_list, input_movi
             if choice == 1:
                 ccsf.dictionary_delete(dictionary= booking_data_dict,key_to_delete=booking_id)
                 print('Cancel booking successfully')
-                link_seats(movie_seats_csv=movie_seats_csv, booking_data_csv=booking_data_csv,)
                 break
             elif choice == 2:
                 column, row = select_seat(movie_seat_list=movie_seat_list)
                 modify_booking_data(booking_id=booking_id, column=column, row=row)
-                link_seats(movie_seats_csv=movie_seats_csv, booking_data_csv=booking_data_csv)
                 print("Modify successfully")
-                movie_seat_list = ccsf.read_seats_from_cache(cache_dictionary=movie_seats_dict,code=input_movie_code)
-                print_movie_seat_as_emojis(movie_seat_list)
                 break
             elif choice == 3:
                 break
+        cnsv.sync_all()
 
 
 def modify_customer_seat(movie_seat_list):
-    print_movie_seat_as_emojis(movie_seat_list)
+    sv.print_movie_seat_as_emojis(movie_seat_list)
 
 
 def get_movie_list_data(movie_list: list, input_movie_code: str) -> list:

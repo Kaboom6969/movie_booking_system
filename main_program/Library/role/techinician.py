@@ -9,7 +9,7 @@ from main_program.Library.role.customer import DEFAULT_WIDTH
 #这个是利用movie_booking框架的例子，（请将后续的函数都修改至适配此框架）
 def view_upcoming_movies(movie_list_dict : dict=None):
     if movie_list_dict is None:movie_list_dict = ddf.MOVIE_LIST_DICTIONARY
-    movie_list : list = ccsf.read_list_from_cache(dictionary_cache= movie_list_dict,code_location= 0)
+    movie_list : list = ccsf.read_list_from_cache(dictionary_cache= movie_list_dict)
     movie_list_filtered : list = []
     time_now = datetime.date.today()
     for row in movie_list:

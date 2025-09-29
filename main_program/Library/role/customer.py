@@ -1,6 +1,8 @@
-from main_program.Library.movie_booking_framework.seat_visualizer import *
-from main_program.Library.movie_booking_framework.cinema_services import *
-from main_program.Library.cache_framework.data_dictionary_framework import *
+from main_program.Library.movie_booking_framework import seat_visualizer as sv
+from main_program.Library.movie_booking_framework import cinema_services as cnsv
+from main_program.Library.cache_framework import data_dictionary_framework as ddf
+from main_program.Library.movie_booking_framework import movie_seats_framework as msf
+from main_program.Library.movie_booking_framework import id_generator as idg
 from main_program.Library.data_communication_framework import cache_csv_sync_framework as ccsf
 import datetime
 
@@ -43,7 +45,7 @@ def movie_list_print_with_format(data_list : list,
         seat_list_temp : list = ccsf.read_seats_from_cache(cache_dictionary=movie_seats_dict, code=row[0])
         for data in row:
             print(f"{data: <{DEFAULT_WIDTH}}", end="")
-        print(f"{get_capacity(seat_list_temp): <{DEFAULT_WIDTH}}", end ="")
+        print(f"{msf.get_capacity(seat_list_temp): <{DEFAULT_WIDTH}}", end ="")
         print()
 
 def code_range_create(code_list : list,code_location : int) -> list:
@@ -52,14 +54,14 @@ def code_range_create(code_list : list,code_location : int) -> list:
         code_range_list.append(row[code_location])
     return code_range_list
 
-def book_movie_operation(movie_code : str,movie_seats_csv : str,booking_data_csv,user_id : str,
+def book_movie_operation(movie_code : str,movie_seats_csv : str,booking_data_csv,user_id : str,movie_list_csv : str,
                          booking_data_dict : dict=None) -> None:
     if booking_data_dict is None:booking_data_dict = ddf.BOOKING_DATA_DICTIONARY
     try:
-        link_seats(movie_seats_csv= movie_seats_csv, booking_data_csv= booking_data_csv)
+        cnsv.sync_all()
         booking_movie_seats = movie_list_to_movie_seats_print(movie_code=movie_code)
-        x_range = x_range_calculate(movie_seats=booking_movie_seats)
-        y_range = y_range_calculate(movie_seats=booking_movie_seats)
+        x_range = sv.x_range_calculate(movie_seats=booking_movie_seats)
+        y_range = sv.y_range_calculate(movie_seats=booking_movie_seats)
         first_attempt = True
         try_again = False
         while first_attempt or try_again:
@@ -68,17 +70,17 @@ def book_movie_operation(movie_code : str,movie_seats_csv : str,booking_data_csv
             movie_list_to_movie_seats_print(movie_code=movie_code,x_pointer=x_pointer)
             y_pointer = book_movie_input(range_list= y_range,name_in_input= "Row")
             movie_list_to_movie_seats_print(movie_code=movie_code,x_pointer=x_pointer,y_pointer=y_pointer)
-            seats_value =movie_seats_specify_value(movie_seats=booking_movie_seats, x_axis=x_pointer, y_axis=y_pointer)
+            seats_value =msf.movie_seats_specify_value(movie_seats=booking_movie_seats, x_axis=x_pointer, y_axis=y_pointer)
             booking_status =book_movie_buy(seats_value= seats_value)
             if booking_status:
                 booking_list : list = ccsf.read_list_from_cache(dictionary_cache=booking_data_dict)
-                book_id : str = generate_code_id(code_list= booking_list,prefix_generate= "B",code_location= 0,number_of_prefix= 1,prefix_got_digit= False,code_id_digit_count= 4)
+                book_id : str = idg.generate_code_id(code_list= booking_list,prefix_generate= "B",code_location= 0,number_of_prefix= 1,prefix_got_digit= False,code_id_digit_count= 4)
                 booking_data_list = _booking_data_create(book_id= book_id,user_id= user_id,movie_code= movie_code
                                                          ,booking_date= datetime.datetime.now().strftime('%Y/%m/%d')
                                                          ,booking_or_pay= "1",x_seat= str(x_pointer)
                                                          ,y_seat= str(y_pointer),source= "online")
                 ccsf.list_dictionary_update(dictionary= booking_data_dict,list_to_add= booking_data_list)
-                link_seats(movie_seats_csv=movie_seats_csv, booking_data_csv= booking_data_csv)
+                cnsv.sync_all()
 
             if not booking_status: try_again = True
             else: try_again = False
@@ -141,7 +143,7 @@ def movie_list_to_movie_seats_print(movie_code : str,movie_seats_dict : dict=Non
     movie_seats_list : list = ccsf.read_seats_from_cache(cache_dictionary=movie_seats_dict,code=movie_code)
     print()
     print("-" * int(DEFAULT_WIDTH * 1.8))
-    print_movie_seat_as_emojis(movie_seats_list,x_pointer,y_pointer)
+    sv.print_movie_seat_as_emojis(movie_seats_list,x_pointer,y_pointer)
     print("-" * int(DEFAULT_WIDTH * 1.8))
     print(f"Movie Code:{movie_code}")
     return movie_seats_list
@@ -173,7 +175,7 @@ def cancel_booking_operation(user_id : str, booking_data_csv : str, movie_seats_
             return
         if user_command.lower() == "y":
             ccsf.dictionary_delete(dictionary=booking_data_dict,key_to_delete=booking_code_cancel)
-            link_seats(movie_seats_csv= movie_seats_csv,booking_data_csv= booking_data_csv)
+            cnsv.sync_all()
             return
 
 
@@ -183,9 +185,9 @@ def cancel_booking_operation(user_id : str, booking_data_csv : str, movie_seats_
 
 #JUST TEST
 if __name__ == '__main__':
-    init_all_dictionary()
-    user_input = str(input("empty"))
-    check_all_movie_list()
+    ccsf.init_all_dictionary()
+    #user_input = str(input("empty"))
+    #check_all_movie_list()
     # valid_movie_code = check_ticket_bought(customer_code= "C001",return_booking_code= False)
     # user_input = str(input("Please enter the code: "))
     # booking_to_movie_list_print(movie_code_list= valid_movie_code,movie_code= user_input)
