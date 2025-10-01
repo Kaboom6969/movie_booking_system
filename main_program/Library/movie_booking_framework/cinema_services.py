@@ -1,10 +1,12 @@
+from importlib.metadata import pass_none
+
 from .id_generator import *
 from .movie_seats_framework import *
 from .movie_list_framework import *
 from main_program.Library.data_communication_framework import cache_csv_sync_framework as ccsf
 from main_program.Library.cache_framework import data_dictionary_framework as ddf
 from .valid_checker import movie_seats_csv_valid_check
-from ..cache_framework.data_dictionary_framework import primary_foreign_key_dictionary_init
+from ..cache_framework.data_dictionary_framework import primary_foreign_key_dictionary_init, read_list_from_cache
 
 
 def link_seats (booking_id_location : int = 0,
@@ -229,10 +231,70 @@ def sync_all(movie_list_dict : dict=None, movie_seats_dict : dict=None, cinema_d
     if mc_code_dict is None: mc_code_dict = ddf.MOVIE_CINEMA_CODE_DICTIONARY
     if md_code_dict is None: md_code_dict = ddf.MOVIE_DEVICE_CODE_DICTIONARY
     if booking_data_dict is None: booking_data_dict = ddf.BOOKING_DATA_DICTIONARY
-    ddf.MOVIE_CINEMA_CODE_DICTIONARY = primary_foreign_key_dictionary_init(list_csv = "movie_list.csv",PK_location=0,FK_location=1)
-    ddf.MOVIE_DEVICE_CODE_DICTIONARY = primary_foreign_key_dictionary_init(list_csv="cinema_device_list.csv", PK_location=1,
-                                                                       FK_location=0)
     sync_file()
+    ddf.MOVIE_CINEMA_CODE_DICTIONARY = primary_foreign_key_dictionary_init(list_csv="movie_list.csv", PK_location=0,
+                                                                           FK_location=1)
     link_status,link_conflict_data = link_seats()
     if not link_status:
         raise ValueError("Conflict detected:",link_conflict_data)
+
+
+def conflict_check_for_movie_schedule (movie_list_dict : dict=None) -> tuple[bool,list]:
+    if movie_list_dict is None: movie_list_dict = ddf.MOVIE_LIST_DICTIONARY
+    movie_list_header = read_list_from_cache(dictionary_cache=movie_list_dict, code="header", header_insert=False)
+    movie_list = read_list_from_cache(dictionary_cache=movie_list_dict)
+    header_dict = header_location_get(header_list=movie_list_header)
+    conflict_detect_status,conflict_dict = _conflict_detect_preliminary(header_dict=header_dict,movie_list=movie_list)
+
+
+def _conflict_detect_preliminary(header_dict : dict,movie_list : list) -> tuple[bool,dict]:
+    movie_code_location : int = header_dict["movie_code"]
+    cinema_location : int = header_dict["CINEMA_number"]
+    date_location : int = header_dict["date"]
+    group_dict : dict = {}
+    conflict_dict : dict = {}
+
+    for row in movie_list:
+        movie_code = row[movie_code_location]
+        cinema = row[cinema_location]
+        date = row[date_location]
+        if not group_dict.get(cinema + date): group_dict.update({cinema + date: []})
+        group_dict[cinema + date].append(movie_code)
+
+    for keys, values in group_dict.items():
+        if len(values) > 1: conflict_dict.update({keys: group_dict[keys]})
+
+    if not conflict_dict: return False, {}
+    return True, conflict_dict
+
+def _conflict_detect_meticulous (header_dict : dict,conflict_detect_preliminary:bool,conflict_dict : dict,movie_list_dict : dict=None) -> tuple[bool,list]:
+    if not conflict_detect_preliminary: return False,[]
+    if not movie_list_dict: movie_list_dict = ddf.MOVIE_LIST_DICTIONARY
+    start_time_location : int = header_dict["movie_time_start"]
+    end_time_location : int = header_dict["movie_time_end"]
+    conflict_time_list_three_dimension : list = []
+    for code_row in conflict_dict.values():
+        conflict_list_two_dimension : list = []
+        for code in code_row:
+            conflict_list_one_dimension : list = []
+            conflict_list_one_dimension.append(code)
+            conflict_list_one_dimension.append(_time_to_minute(movie_list_dict.get(code)[start_time_location]))
+            conflict_list_one_dimension.append(_time_to_minute(movie_list_dict.get(code)[end_time_location]))
+            conflict_list_two_dimension.append(conflict_list_one_dimension)
+        conflict_time_list_three_dimension.append(sorted(conflict_list_two_dimension, key= lambda movie:movie[1]))
+
+def _time_to_minute (time : str) -> int:
+    time_list = time.split(":")
+    hour = int(time_list[0])
+    minute = int(time_list[1])
+    minute += 60*hour
+    return minute
+
+
+
+
+def header_location_get (header_list : list) -> dict:
+    header_list_dict : dict = {}
+    for index, element in enumerate(header_list):
+        header_list_dict.update({element: index})
+    return header_list_dict
