@@ -72,11 +72,10 @@ def list_dictionary_init (list_csv : str, code_location : int) -> dict:
         raise Exception(f"LIST DICTIONARY INIT FAILED! ERROR:{str(e)}")
     return movie_list_dict_in_func
 
-def primary_foreign_key_dictionary_init (list_csv : str, PK_location : int, FK_location : int) -> dict:
+def primary_foreign_key_dictionary_init (list_dict : dict, PK_location : int, FK_location : int) -> dict:
     try:
-        list_temp : list = []
+        list_temp : list = read_list_from_cache(dictionary_cache= list_dict)
         dictionary_in_func : dict = {}
-        mlf.read_movie_list_csv(movie_list_csv= list_csv,movie_list= list_temp)
         try:
             for row in list_temp:
                 dictionary_in_func.update({row[PK_location]:row[FK_location]})
@@ -107,25 +106,25 @@ def init_all_dictionary():
     CINEMA_DEVICE_DICTIONARY = list_dictionary_init (list_csv="cinema_device_list.csv", code_location = 0)
     MOVIE_SEATS_DICTIONARY,_= seat_dictionary_init(seats_csv="movie_seat.csv")
     CINEMA_SEATS_DICTIONARY,_ = seat_dictionary_init(seats_csv="cinema_seats.csv")
-    MOVIE_DEVICE_CODE_DICTIONARY = primary_foreign_key_dictionary_init(list_csv="cinema_device_list.csv", PK_location = 1, FK_location = 0)
-    MOVIE_CINEMA_CODE_DICTIONARY = primary_foreign_key_dictionary_init(list_csv="movie_list.csv", PK_location = 0, FK_location = 2)
+    MOVIE_DEVICE_CODE_DICTIONARY = primary_foreign_key_dictionary_init(list_dict = MOVIE_LIST_DICTIONARY, PK_location = 1, FK_location = 0)
+    MOVIE_CINEMA_CODE_DICTIONARY = primary_foreign_key_dictionary_init(list_dict = CINEMA_DEVICE_DICTIONARY, PK_location = 0, FK_location = 2)
     DICTIONARY_INIT_STATUS = True
     # print (MOVIE_LIST_DICTIONARY)
     # print (BOOKING_DATA_DICTIONARY)
     # print (CINEMA_DEVICE_DICTIONARY)
     # print (MOVIE_SEATS_DICTIONARY)
 
-def read_list_from_cache (dictionary_cache : dict, code : str = "all") -> list:
+def read_list_from_cache (dictionary_cache : dict, code : str = "all",header_insert : bool = True,code_location:int=None) -> list:
     cache_list: list = []
     list_for_all : list = []
-    code_location : int = dictionary_cache.get("code_location")
+    if code_location is None: code_location : int = dictionary_cache.get("code_location")
     try:
         if code == "all":
             for key_element,value_element in dictionary_cache.items():
                 if key_element in ["header", "base file name", "code_location"]: continue
                 value_temp = value_element[:]
                 cache_list.extend(value_temp)
-                cache_list.insert(code_location,key_element)
+                if header_insert: cache_list.insert(code_location,key_element)
                 list_for_all.append(cache_list[:])
                 cache_list.clear()
             return list_for_all
@@ -133,7 +132,7 @@ def read_list_from_cache (dictionary_cache : dict, code : str = "all") -> list:
             keys : str = code
             values : list = dictionary_cache[code]
             cache_list.extend(values)
-            cache_list.insert(code_location,keys)
+            if header_insert: cache_list.insert(code_location,keys)
             return cache_list
     except KeyError:
         raise KeyError(f"Cannot Find the code:{code} in code location:{code_location}!")
