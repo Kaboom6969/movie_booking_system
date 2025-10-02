@@ -222,7 +222,7 @@ def add_movie_operation (cinema_seats_dict:dict=None,movie_list_dict:dict=None,m
         added_movie_list.append(user_input)
 
     ccsf.list_dictionary_update(dictionary= movie_list_dict,list_to_add=added_movie_list)
-    cnsv.sync_file()
+    cnsv.sync_all()
 
 
 
