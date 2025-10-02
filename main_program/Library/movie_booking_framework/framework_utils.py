@@ -193,6 +193,26 @@ def element_input (element_name : str, input_range : list=None, valid_check_func
                 return element,index
     return element
 
+def time_to_minute (time : str) -> int:
+    time_list = time.split(":")
+    hour = int(time_list[0])
+    minute = int(time_list[1])
+    minute += 60*hour
+    return minute
+
+def minute_to_time (minute : int) -> str:
+    if minute >= 1440: raise ValueError("Convert Failed! The minute is >= 1 day!")
+    hour : int = minute // 60
+    minute : int = minute % 60
+    time : list = [str(hour).zfill(2), str(minute).zfill(2)]
+    return ":".join(time)
+
+def header_location_get (header_list : list) -> dict:
+    header_list_dict : dict = {}
+    for index, element in enumerate(header_list):
+        header_list_dict.update({element: index})
+    return header_list_dict
+
 if __name__ == "__main__":
     list_test : list = ["idk_status","header","nihao_status","wtf_status","end"]
     print(keyword_erase_for_list(list_test,"status"))

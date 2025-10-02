@@ -5,6 +5,7 @@ from main_program.Library.data_communication_framework import cache_csv_sync_fra
 from main_program.Library.cache_framework import data_dictionary_framework as ddf
 from .valid_checker import movie_seats_csv_valid_check
 from ..cache_framework.data_dictionary_framework import primary_foreign_key_dictionary_init, read_list_from_cache
+from main_program.Library.movie_booking_framework import framework_utils as fu
 
 def sync_all(movie_list_dict : dict=None, movie_seats_dict : dict=None, cinema_device_dict : dict =None,
              cinema_seats_dict : dict=None, mc_code_dict : dict=None, md_code_dict : dict=None, booking_data_dict : dict=None) -> None:
@@ -243,7 +244,7 @@ def conflict_check_for_movie_schedule (movie_list_dict : dict=None) -> tuple[boo
     if movie_list_dict is None: movie_list_dict = ddf.MOVIE_LIST_DICTIONARY
     movie_list_header = read_list_from_cache(dictionary_cache=movie_list_dict, code="header", header_insert=False)
     movie_list = read_list_from_cache(dictionary_cache=movie_list_dict)
-    header_dict = header_location_get(header_list=movie_list_header)
+    header_dict = fu.header_location_get(header_list=movie_list_header)
     conflict_detect_status_preliminary,conflict_dict = _conflict_detect_preliminary(header_dict=header_dict,movie_list=movie_list)
     if not conflict_detect_status_preliminary: return True,[]
     conflict_final_detect_status,final_conflict_list = _conflict_detect_meticulous(header_dict= header_dict,
@@ -284,8 +285,8 @@ def _conflict_detect_meticulous (header_dict : dict,conflict_dict : dict,movie_l
         for code in code_row:
             conflict_list_one_dimension : list = []
             conflict_list_one_dimension.append(code)
-            conflict_list_one_dimension.append(_time_to_minute(movie_list_dict.get(code)[start_time_location]))
-            conflict_list_one_dimension.append(_time_to_minute(movie_list_dict.get(code)[end_time_location]))
+            conflict_list_one_dimension.append(fu.time_to_minute(movie_list_dict.get(code)[start_time_location]))
+            conflict_list_one_dimension.append(fu.time_to_minute(movie_list_dict.get(code)[end_time_location]))
             conflict_list_two_dimension.append(conflict_list_one_dimension)
         conflict_time_list_three_dimension.append(sorted(conflict_list_two_dimension, key= lambda movie:movie[1]))
     for conflict_data in conflict_time_list_three_dimension:
@@ -312,29 +313,55 @@ def conflict_check_light (minuteAEND : int, minuteBSTART: int) -> bool:
     return False
 
 
-def _time_to_minute (time : str) -> int:
-    time_list = time.split(":")
-    hour = int(time_list[0])
-    minute = int(time_list[1])
-    minute += 60*hour
-    return minute
-
-def _minute_to_time(minute : int) -> str:
-    if minute >= 1440: raise ValueError("Convert Failed! The minute is >= 1 day!")
-    hour : int = minute // 60
-    minute : int = minute % 60
-    time : list = [str(hour).zfill(2), str(minute).zfill(2)]
-    return ":".join(time)
-
-def header_location_get (header_list : list) -> dict:
-    header_list_dict : dict = {}
-    for index, element in enumerate(header_list):
-        header_list_dict.update({element: index})
-    return header_list_dict
 
 
-def conflict_data_auto_solve(schedule_conflict_list : list,movie_list_dict:dict = None) -> None:
+
+def conflict_data_auto_sort(schedule_conflict_list : list,movie_list_dict:dict = None) -> None:
     if movie_list_dict is None: movie_list_dict = ddf.MOVIE_LIST_DICTIONARY
-    for conflict_row in schedule_conflict_list:
+    header_location_dict : dict = header_location_get(ccsf.read_list_from_cache(dictionary_cache=movie_list_dict,
+                                                                                code="header",header_insert=False))
+    start_time_location : int = header_location_dict["movie_time_start"] - 1
+    end_time_location : int = header_location_dict["movie_time_end"] - 1
+    conflict_time_dict : dict = {}
+    conflict_list_auto_failed : list =[]
+    schedule_conflict_list_strip = fu.keyword_erase_for_list(any_dimension_list=schedule_conflict_list,keyword="**")
+    for conflict_row in schedule_conflict_list_strip:
+        for code in conflict_row:
+            conflict_time_dict.update({code:[fu.time_to_minute(movie_list_dict.get(code)[start_time_location])]})
+            conflict_time_dict[code].append(fu.time_to_minute(movie_list_dict.get(code)[end_time_location]))
+
+    for conflict_row in schedule_conflict_list_strip:
+        time_interval : int = 0
+        for i in range(len(conflict_row) - 1):
+            #
+            #整体原理讲解，先检测相邻的电影是否冲突（列表需已排列）
+            #如有冲突，把后面的电影推到第一个电影后面
+            #如此往复...
+            #
+            if not conflict_check_light(minuteAEND=conflict_time_dict[conflict_row[i]][1],minuteBSTART=conflict_time_dict[conflict_row[i+1]][0]):
+                time_interval = conflict_time_dict[conflict_row[i+1]][1] - conflict_time_dict[conflict_row[i+1]][0]
+                conflict_time_dict[conflict_row[i+1]][0] = conflict_time_dict[conflict_row[i]][1]
+                conflict_time_dict[conflict_row[i+1]][1] = conflict_time_dict[conflict_row[i]][1] + time_interval
+
+        if conflict_time_dict[conflict_row[-1]][1] > 1440: time_interval = conflict_time_dict[conflict_row[-1]][1] - 1440
+        conflict_time_dict[conflict_row[0]][0] -= time_interval
+        conflict_time_dict[conflict_row[0]][1] -= time_interval
+        if conflict_time_dict[conflict_row[0]][0] < 0 :
+            conflict_list_auto_failed.append(conflict_row)
+            continue
+        for i in range(1, len(conflict_row)):
+            conflict_time_dict[conflict_row[i]][0] -= time_interval
+            conflict_time_dict[conflict_row[i]][1] -= time_interval
+
+
+
+
+
+
+
+
+
+
+
 
 
