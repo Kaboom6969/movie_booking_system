@@ -244,7 +244,13 @@ def conflict_check_for_movie_schedule (movie_list_dict : dict=None) -> tuple[boo
     movie_list_header = read_list_from_cache(dictionary_cache=movie_list_dict, code="header", header_insert=False)
     movie_list = read_list_from_cache(dictionary_cache=movie_list_dict)
     header_dict = header_location_get(header_list=movie_list_header)
-    conflict_detect_status,conflict_dict = _conflict_detect_preliminary(header_dict=header_dict,movie_list=movie_list)
+    conflict_detect_status_preliminary,conflict_dict = _conflict_detect_preliminary(header_dict=header_dict,movie_list=movie_list)
+    if not conflict_detect_status_preliminary: return True,[]
+    conflict_final_detect_status,final_conflict_list = _conflict_detect_meticulous(header_dict= header_dict,
+                                                                                    conflict_dict= conflict_dict)
+    if not conflict_final_detect_status : return True,[]
+    return False,final_conflict_list
+
 
 
 def _conflict_detect_preliminary(header_dict : dict,movie_list : list) -> tuple[bool,dict]:
@@ -267,12 +273,12 @@ def _conflict_detect_preliminary(header_dict : dict,movie_list : list) -> tuple[
     if not conflict_dict: return False, {}
     return True, conflict_dict
 
-def _conflict_detect_meticulous (header_dict : dict,conflict_detect_preliminary:bool,conflict_dict : dict,movie_list_dict : dict=None) -> tuple[bool,list]:
-    if not conflict_detect_preliminary: return False,[]
+def _conflict_detect_meticulous (header_dict : dict,conflict_dict : dict,movie_list_dict : dict=None) -> tuple[bool,list]:
     if not movie_list_dict: movie_list_dict = ddf.MOVIE_LIST_DICTIONARY
     start_time_location : int = header_dict["movie_time_start"]
     end_time_location : int = header_dict["movie_time_end"]
     conflict_time_list_three_dimension : list = []
+    true_conflict_movie_code : list = []
     for code_row in conflict_dict.values():
         conflict_list_two_dimension : list = []
         for code in code_row:
@@ -282,6 +288,16 @@ def _conflict_detect_meticulous (header_dict : dict,conflict_detect_preliminary:
             conflict_list_one_dimension.append(_time_to_minute(movie_list_dict.get(code)[end_time_location]))
             conflict_list_two_dimension.append(conflict_list_one_dimension)
         conflict_time_list_three_dimension.append(sorted(conflict_list_two_dimension, key= lambda movie:movie[1]))
+    for conflict_data in conflict_time_list_three_dimension:
+        for i in range(len(conflict_data) - 1):
+            if conflict_data[i][2] <= conflict_data[i+1][1]: continue
+            true_conflict_one_dimension : list = []
+            for conflict_row in conflict_data:
+                true_conflict_one_dimension.append(conflict_row[0])
+            true_conflict_movie_code.append(true_conflict_one_dimension)
+
+    if not true_conflict_movie_code: return False,[]
+    return True,true_conflict_movie_code
 
 def _time_to_minute (time : str) -> int:
     time_list = time.split(":")
