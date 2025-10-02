@@ -184,7 +184,6 @@ def _sync_delete (seats_list_mismatched : list,
         for movie_code in seats_list_mismatched:
             # delete the movie seats that is extra
             ccsf.dictionary_delete(dictionary= movie_seats_dict,key_to_delete= movie_code)
-            ccsf.dictionary_delete(dictionary= mt_code_dict,key_to_delete= movie_code)
         # uncomment below if the delete function is broke
         # raise ValueError(f"movie seats file:{movie_seats_csv} GOT THE CODE:{seats_list_mismatched} BUT THE movie list "
         #                  f"file: {movie_list_csv} DONT GOT!\nPLEASE DELETE THE CODE IN THE movie "
@@ -192,7 +191,6 @@ def _sync_delete (seats_list_mismatched : list,
     if device_list_mismatched:
         for movie_code in device_list_mismatched:
             ccsf.dictionary_delete(dictionary= cinema_device_dict, key_to_delete= md_code_dict[movie_code])
-            ccsf.dictionary_delete(dictionary= md_code_dict,key_to_delete= movie_code)
         # uncomment below if the delete function is broke
         # raise ValueError(f"cinema device list file:{cinema_device_list_csv} GOT THE CODE:{device_list_mismatched} BUT "
         #                  f"THE movie list file: {movie_list_csv} DONT GOT!\nPLEASE DELETE THE CODE IN THE cinema device "
@@ -210,7 +208,6 @@ def _sync_add (list_seats_mismatched : list,list_device_mismatched : list,
                              movie_seats_dict= movie_seats_dict, mc_code_dict= mt_code_dict,
                              cinema_seats_dict= template_seats_dict)
             dictionary_for_mt : dict = {movie_code : cinema_code}
-            ccsf.dictionary_update_with_dict(dictionary= mt_code_dict,dictionary_to_add= dictionary_for_mt)
     if list_device_mismatched:
         #read the cinema device list to make sure the technician code generate is always the newest data
         #check the device list csv got what number of device
@@ -226,7 +223,6 @@ def _sync_add (list_seats_mismatched : list,list_device_mismatched : list,
             # add the device list that is lack
             ccsf.list_dictionary_update(dictionary= cinema_device_dict,list_to_add= device_list_new)
             dictionary_for_md : dict = {movie_code : tech_code}
-            ccsf.dictionary_update_with_dict(dictionary= md_code_dict,dictionary_to_add= dictionary_for_md)
 
 
 def conflict_detect_for_link_seats (current_movie_seats:list,bkid_mvcode_x_y_list:list,booking_data_dict:dict=None,movie_seats_dict:dict=None) -> tuple[bool,str]:
@@ -279,8 +275,8 @@ def _conflict_detect_preliminary(header_dict : dict,movie_list : list) -> tuple[
 
 def _conflict_detect_meticulous (header_dict : dict,conflict_dict : dict,movie_list_dict : dict=None) -> tuple[bool,list]:
     if not movie_list_dict: movie_list_dict = ddf.MOVIE_LIST_DICTIONARY
-    start_time_location : int = header_dict["movie_time_start"]
-    end_time_location : int = header_dict["movie_time_end"]
+    start_time_location : int = header_dict["movie_time_start"] - 1
+    end_time_location : int = header_dict["movie_time_end"] - 1
     conflict_time_list_three_dimension : list = []
     true_conflict_movie_code : list = []
     for code_row in conflict_dict.values():
@@ -293,15 +289,28 @@ def _conflict_detect_meticulous (header_dict : dict,conflict_dict : dict,movie_l
             conflict_list_two_dimension.append(conflict_list_one_dimension)
         conflict_time_list_three_dimension.append(sorted(conflict_list_two_dimension, key= lambda movie:movie[1]))
     for conflict_data in conflict_time_list_three_dimension:
+        conflict_code_set : set = set()
+        true_conflict_one_dimension: list = []
         for i in range(len(conflict_data) - 1):
-            if conflict_data[i][2] <= conflict_data[i+1][1]: continue
-            true_conflict_one_dimension : list = []
-            for conflict_row in conflict_data:
-                true_conflict_one_dimension.append(conflict_row[0])
-            true_conflict_movie_code.append(true_conflict_one_dimension)
+            if conflict_check_light(minuteAEND=conflict_data[i][2],minuteBSTART=conflict_data[i+1][1]):
+                continue
+            conflict_code_set.add(conflict_data[i][0])
+            conflict_code_set.add(conflict_data[i+1][0])
+        for i in range(len(conflict_data)):
+            if not conflict_code_set: break
+            if conflict_data[i][0] in conflict_code_set:
+                true_conflict_one_dimension.append(f"**{conflict_data[i][0]}**")
+                continue
+            true_conflict_one_dimension.append(conflict_data[i][0])
+        if conflict_code_set : true_conflict_movie_code.append(true_conflict_one_dimension)
 
     if not true_conflict_movie_code: return False,[]
     return True,true_conflict_movie_code
+
+def conflict_check_light (minuteAEND : int, minuteBSTART: int) -> bool:
+    if minuteAEND <= minuteBSTART: return True
+    return False
+
 
 def _time_to_minute (time : str) -> int:
     time_list = time.split(":")
@@ -310,8 +319,22 @@ def _time_to_minute (time : str) -> int:
     minute += 60*hour
     return minute
 
+def _minute_to_time(minute : int) -> str:
+    if minute >= 1440: raise ValueError("Convert Failed! The minute is >= 1 day!")
+    hour : int = minute // 60
+    minute : int = minute % 60
+    time : list = [str(hour).zfill(2), str(minute).zfill(2)]
+    return ":".join(time)
+
 def header_location_get (header_list : list) -> dict:
     header_list_dict : dict = {}
     for index, element in enumerate(header_list):
         header_list_dict.update({element: index})
     return header_list_dict
+
+
+def conflict_data_auto_solve(schedule_conflict_list : list,movie_list_dict:dict = None) -> None:
+    if movie_list_dict is None: movie_list_dict = ddf.MOVIE_LIST_DICTIONARY
+    for conflict_row in schedule_conflict_list:
+
+
