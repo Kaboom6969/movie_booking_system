@@ -1,6 +1,6 @@
 movie_code,movie_name,CINEMA_number,movie_time_start,movie_time_end,date,price
 0001,Joker,CINEMA001,18:00,21:00,2025/09/18,20
-0002,Joker2,CINEMA002,19:00,22:00,2025/09/19,30
+0002,Joker2,CINEMA002,19:00,22:00,2025/09/18,30
 0003,Superman,CINEMA003,20:00,22:00,2025/09/18,30
 0004,Starlight Voyager,CINEMA004,14:30,16:45,2025/09/25,25
 0005,Echoes of Tomorrow,CINEMA004,21:15,23:30,2025/09/26,28
