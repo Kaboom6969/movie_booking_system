@@ -235,3 +235,22 @@ refactor `device_count_for_device_list`,now the new name is `keyword_count_for_l
 ### Changed
 - now `generate_code_id` can handle one dimension list and two dimension list
 - now `date_valid_check` and `time_valid_check` will return tuple[bool,str] and not just a bool (a version)
+
+## [1.19.0] -2025-09-30
+### Added
+- add `sync_all` function,that is combine `sync_file`(old `sync_all`) and `link_seats`
+### Changed
+- updated `element_input` function,it can give you index of the range (a version)
+
+## [1.20.0] -2025-10-02
+### Added
+- now conflict detect for movie schedule is done!
+- added `conflict_check_for_movie_schedule` function
+- added `_conflict_detect_preliminary` function
+- added `_conflict_detect_meticulous` function
+- added `_time_to_minute` function
+- added `header_location_get` function
+### Changed
+- now `sync_all` function is link to the conflict_detect function (more robustness) (a version)
+### Fixed
+- fix an index bug in `sync_all` function (init the dict) (a version)

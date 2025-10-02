@@ -1,5 +1,3 @@
-from importlib.metadata import pass_none
-
 from .id_generator import *
 from .movie_seats_framework import *
 from .movie_list_framework import *
@@ -7,6 +5,26 @@ from main_program.Library.data_communication_framework import cache_csv_sync_fra
 from main_program.Library.cache_framework import data_dictionary_framework as ddf
 from .valid_checker import movie_seats_csv_valid_check
 from ..cache_framework.data_dictionary_framework import primary_foreign_key_dictionary_init, read_list_from_cache
+
+def sync_all(movie_list_dict : dict=None, movie_seats_dict : dict=None, cinema_device_dict : dict =None,
+             cinema_seats_dict : dict=None, mc_code_dict : dict=None, md_code_dict : dict=None, booking_data_dict : dict=None) -> None:
+    if movie_list_dict is None: movie_list_dict = ddf.MOVIE_LIST_DICTIONARY
+    if movie_seats_dict is None: movie_seats_dict = ddf.MOVIE_SEATS_DICTIONARY
+    if cinema_device_dict is None: cinema_device_dict = ddf.CINEMA_DEVICE_DICTIONARY
+    if cinema_seats_dict is None: cinema_seats_dict = ddf.CINEMA_SEATS_DICTIONARY
+    if mc_code_dict is None: mc_code_dict = ddf.MOVIE_CINEMA_CODE_DICTIONARY
+    if md_code_dict is None: md_code_dict = ddf.MOVIE_DEVICE_CODE_DICTIONARY
+    if booking_data_dict is None: booking_data_dict = ddf.BOOKING_DATA_DICTIONARY
+
+    movie_schedule_conflict_check_status,schedule_conflict_data = conflict_check_for_movie_schedule()
+    if not movie_schedule_conflict_check_status:
+        raise ValueError("Schedule conflict detected:",schedule_conflict_data)
+    sync_file()
+    ddf.MOVIE_CINEMA_CODE_DICTIONARY = primary_foreign_key_dictionary_init(list_dict= movie_list_dict, PK_location=0,
+                                                                           FK_location=2)
+    link_status,link_conflict_data = link_seats()
+    if not link_status:
+        raise ValueError("Link conflict detected:",link_conflict_data)
 
 
 def link_seats (booking_id_location : int = 0,
@@ -222,21 +240,7 @@ def conflict_detect_for_link_seats (current_movie_seats:list,bkid_mvcode_x_y_lis
     return False,""
 
 
-def sync_all(movie_list_dict : dict=None, movie_seats_dict : dict=None, cinema_device_dict : dict =None,
-             cinema_seats_dict : dict=None, mc_code_dict : dict=None, md_code_dict : dict=None, booking_data_dict : dict=None) -> None:
-    if movie_list_dict is None: movie_list_dict = ddf.MOVIE_LIST_DICTIONARY
-    if movie_seats_dict is None: movie_seats_dict = ddf.MOVIE_SEATS_DICTIONARY
-    if cinema_device_dict is None: cinema_device_dict = ddf.CINEMA_DEVICE_DICTIONARY
-    if cinema_seats_dict is None: cinema_seats_dict = ddf.CINEMA_SEATS_DICTIONARY
-    if mc_code_dict is None: mc_code_dict = ddf.MOVIE_CINEMA_CODE_DICTIONARY
-    if md_code_dict is None: md_code_dict = ddf.MOVIE_DEVICE_CODE_DICTIONARY
-    if booking_data_dict is None: booking_data_dict = ddf.BOOKING_DATA_DICTIONARY
-    sync_file()
-    ddf.MOVIE_CINEMA_CODE_DICTIONARY = primary_foreign_key_dictionary_init(list_csv="movie_list.csv", PK_location=0,
-                                                                           FK_location=1)
-    link_status,link_conflict_data = link_seats()
-    if not link_status:
-        raise ValueError("Conflict detected:",link_conflict_data)
+
 
 
 def conflict_check_for_movie_schedule (movie_list_dict : dict=None) -> tuple[bool,list]:
@@ -305,9 +309,6 @@ def _time_to_minute (time : str) -> int:
     minute = int(time_list[1])
     minute += 60*hour
     return minute
-
-
-
 
 def header_location_get (header_list : list) -> dict:
     header_list_dict : dict = {}

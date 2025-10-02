@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0ea8b363-fbeb-45e9-9d45-12a8498462b3" name="Changes" comment="-fix some name problem">
+    <list default="true" id="0ea8b363-fbeb-45e9-9d45-12a8498462b3" name="Changes" comment="- still working...">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main_program/Library/cache_framework/data_dictionary_framework.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/Library/cache_framework/data_dictionary_framework.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main_program/Library/movie_booking_framework/cinema_services.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/Library/movie_booking_framework/cinema_services.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -134,23 +133,9 @@
       <workItem from="1758968995691" duration="11679000" />
       <workItem from="1758998006412" duration="4301000" />
       <workItem from="1759127639245" duration="21487000" />
-      <workItem from="1759323292181" duration="8822000" />
-    </task>
-    <task id="LOCAL-00084" summary="data_communication_framework version 1.1.0 a&#10;- just change the import namespace">
-      <option name="closed" value="true" />
-      <created>1758666270951</created>
-      <option name="number" value="00084" />
-      <option name="presentableId" value="LOCAL-00084" />
-      <option name="project" value="LOCAL" />
-      <updated>1758666270951</updated>
-    </task>
-    <task id="LOCAL-00085" summary="Seat &amp; List FrameWork Version 1.18.0&#10;- now `link_seats` and `sync_all` function is support cache based system">
-      <option name="closed" value="true" />
-      <created>1758666490983</created>
-      <option name="number" value="00085" />
-      <option name="presentableId" value="LOCAL-00085" />
-      <option name="project" value="LOCAL" />
-      <updated>1758666490983</updated>
+      <workItem from="1759323292181" duration="9066000" />
+      <workItem from="1759377917287" duration="4000" />
+      <workItem from="1759379887358" duration="2354000" />
     </task>
     <task id="LOCAL-00086" summary="- sync data">
       <option name="closed" value="true" />
@@ -528,7 +513,23 @@
       <option name="project" value="LOCAL" />
       <updated>1759173594712</updated>
     </task>
-    <option name="localTasksCounter" value="133" />
+    <task id="LOCAL-00133" summary="cache_framework 1.0.2 b&#10;- now `primary_foreign_key_dictionary_init` will init by dict and not file&#10;&#10;-`read_list_for_cache` now is support enter code_location manually or auto">
+      <option name="closed" value="true" />
+      <created>1759332311224</created>
+      <option name="number" value="00133" />
+      <option name="presentableId" value="LOCAL-00133" />
+      <option name="project" value="LOCAL" />
+      <updated>1759332311224</updated>
+    </task>
+    <task id="LOCAL-00134" summary="- still working...">
+      <option name="closed" value="true" />
+      <created>1759332336574</created>
+      <option name="number" value="00134" />
+      <option name="presentableId" value="LOCAL-00134" />
+      <option name="project" value="LOCAL" />
+      <updated>1759332336574</updated>
+    </task>
+    <option name="localTasksCounter" value="135" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -546,8 +547,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="- workspace.xml update" />
-    <MESSAGE value="data_communication_framework version 1.1.0 b&#10;- delete all the sync function" />
     <MESSAGE value="- remove a comment" />
     <MESSAGE value="Seat &amp; List FrameWork Version 1.18.1&#10;- change the function name `parse_csv_line` and `format_csv_line` to `str_line_to_list` and `list_to_str_line`&#10;- `list_to_str_line` is now update a parameter that allow you to select add blank or not&#10;- move `data_convert_to_list` to `framework_utils.py`&#10;- refactor `device_count_for_device_list`,now the new name is `keyword_count_for_list`(more universal) and it is now moved to `framework_utils.py`&#10;- add `keyword_erase_for_list` function (check the comment of this function to know the function）&#10;- add `keyword_only_for_list` function (check the comment of this function to know the function）" />
     <MESSAGE value="- function call name change (other file)" />
@@ -571,14 +570,16 @@
     <MESSAGE value="- just test" />
     <MESSAGE value="Seat &amp; List FrameWork Version 1.19.0&#10;- add `sync_all` function,that is combine `sync_file`(old `sync_all`) and `link_seats`" />
     <MESSAGE value="-fix some name problem" />
-    <option name="LAST_COMMIT_MESSAGE" value="-fix some name problem" />
+    <MESSAGE value="cache_framework 1.0.2 b&#10;- now `primary_foreign_key_dictionary_init` will init by dict and not file&#10;&#10;-`read_list_for_cache` now is support enter code_location manually or auto" />
+    <MESSAGE value="- still working..." />
+    <option name="LAST_COMMIT_MESSAGE" value="- still working..." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main_program/Library/movie_booking_framework/cinema_services.py</url>
-          <line>115</line>
+          <line>133</line>
           <option name="timeStamp" value="5" />
         </line-breakpoint>
       </breakpoints>
