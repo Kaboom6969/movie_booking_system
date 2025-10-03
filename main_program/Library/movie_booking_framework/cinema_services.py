@@ -19,13 +19,15 @@ def sync_all(movie_list_dict : dict=None, movie_seats_dict : dict=None, cinema_d
 
     movie_schedule_conflict_check_status,schedule_conflict_data = conflict_check_for_movie_schedule()
     if not movie_schedule_conflict_check_status:
-        raise ValueError("Schedule conflict detected:",schedule_conflict_data)
+        raise ValueError("Conflict schedule detected!",schedule_conflict_data)
+    ddf.MOVIE_CINEMA_CODE_DICTIONARY = primary_foreign_key_dictionary_init(list_dict= movie_list_dict, PK_location=0,
+                                                                           FK_location=2)
     sync_file()
     ddf.MOVIE_CINEMA_CODE_DICTIONARY = primary_foreign_key_dictionary_init(list_dict= movie_list_dict, PK_location=0,
                                                                            FK_location=2)
     link_status,link_conflict_data = link_seats()
     if not link_status:
-        raise ValueError("Link conflict detected:",link_conflict_data)
+        raise ValueError("Conflict booking data detected",link_conflict_data)
 
 
 def link_seats (booking_id_location : int = 0,
@@ -120,12 +122,12 @@ def mismatched_calculate (main_list : list, compared_list : list) -> list:
 #sync the movie list,movie seats, and cinema device list
 #The SSOT is movie list
 def sync_file (movie_list_dict : dict=None, movie_seats_dict : dict=None, cinema_device_dict : dict =None,
-               template_seats_dict : dict=None, mt_code_dict : dict=None, md_code_dict : dict=None) -> None:
+               template_seats_dict : dict=None, mc_code_dict : dict=None, md_code_dict : dict=None) -> None:
     if movie_seats_dict is None: movie_seats_dict = ddf.MOVIE_SEATS_DICTIONARY
     if movie_list_dict is None: movie_list_dict = ddf.MOVIE_LIST_DICTIONARY
     if cinema_device_dict is None: cinema_device_dict = ddf.CINEMA_DEVICE_DICTIONARY
     if template_seats_dict is None: template_seats_dict = ddf.CINEMA_SEATS_DICTIONARY
-    if mt_code_dict is None: mt_code_dict = ddf.MOVIE_CINEMA_CODE_DICTIONARY
+    if mc_code_dict is None: mc_code_dict = ddf.MOVIE_CINEMA_CODE_DICTIONARY
     if md_code_dict is None: md_code_dict = ddf.MOVIE_DEVICE_CODE_DICTIONARY
 
     movie_list_csv = movie_list_dict["base file name"]
@@ -165,16 +167,16 @@ def sync_file (movie_list_dict : dict=None, movie_seats_dict : dict=None, cinema
                                                          compared_list= cinema_device_movie_code_list)
     #SYNC PART (delete first,then add)
     #sync delete part
-    _sync_delete(seats_list_mismatched= seats_list_mismatched,device_list_mismatched= device_list_mismatched,
-                 movie_seats_dict= movie_seats_dict,cinema_device_dict= cinema_device_dict,md_code_dict=md_code_dict,
-                 mt_code_dict= mt_code_dict)
+    _sync_delete(seats_list_mismatched= seats_list_mismatched, device_list_mismatched= device_list_mismatched,
+                 movie_seats_dict= movie_seats_dict, cinema_device_dict= cinema_device_dict, md_code_dict=md_code_dict,
+                 mt_code_dict= mc_code_dict)
     #sync add part
-    _sync_add(movie_list_dict= movie_list_dict,list_seats_mismatched= list_seats_mismatched,
-              list_device_mismatched= list_device_mismatched,movie_seats_dict= movie_seats_dict,
-              template_seats_dict= template_seats_dict,mt_code_dict= mt_code_dict, md_code_dict= md_code_dict,
+    _sync_add(movie_list_dict= movie_list_dict, list_seats_mismatched= list_seats_mismatched,
+              list_device_mismatched= list_device_mismatched, movie_seats_dict= movie_seats_dict,
+              template_seats_dict= template_seats_dict, mt_code_dict= mc_code_dict, md_code_dict= md_code_dict,
               cinema_device_dict= cinema_device_dict)
     ccsf.list_cache_write_to_csv(list_csv=movie_list_csv,list_dictionary_cache= movie_list_dict)
-    ccsf.seats_cache_write_to_csv(seats_csv=movie_seats_csv,seats_dictionary_cache= movie_seats_dict,mt_code_dictionary_cache= mt_code_dict)
+    ccsf.seats_cache_write_to_csv(seats_csv=movie_seats_csv, seats_dictionary_cache= movie_seats_dict, mt_code_dictionary_cache= mc_code_dict)
     ccsf.list_cache_write_to_csv(list_csv=cinema_device_list_csv,list_dictionary_cache= cinema_device_dict)
 
 
@@ -316,42 +318,74 @@ def conflict_check_light (minuteAEND : int, minuteBSTART: int) -> bool:
 
 
 
-def conflict_data_auto_sort(schedule_conflict_list : list,movie_list_dict:dict = None) -> None:
+def schedule_auto_sort(schedule_conflict_list : list,movie_list_dict:dict = None) -> tuple[bool,list]:
     if movie_list_dict is None: movie_list_dict = ddf.MOVIE_LIST_DICTIONARY
     header_location_dict : dict = header_location_get(ccsf.read_list_from_cache(dictionary_cache=movie_list_dict,
                                                                                 code="header",header_insert=False))
     start_time_location : int = header_location_dict["movie_time_start"] - 1
     end_time_location : int = header_location_dict["movie_time_end"] - 1
     conflict_time_dict : dict = {}
-    conflict_list_auto_failed : list =[]
     schedule_conflict_list_strip = fu.keyword_erase_for_list(any_dimension_list=schedule_conflict_list,keyword="**")
+    schedule_conflict_list_strip =fu.one_dimension_list_to_two_dimension_list(schedule_conflict_list_strip)
     for conflict_row in schedule_conflict_list_strip:
         for code in conflict_row:
-            conflict_time_dict.update({code:[fu.time_to_minute(movie_list_dict.get(code)[start_time_location])]})
-            conflict_time_dict[code].append(fu.time_to_minute(movie_list_dict.get(code)[end_time_location]))
+            conflict_time_dict.update({code:[movie_list_dict.get(code)[start_time_location]]})
+            conflict_time_dict[code].append(movie_list_dict.get(code)[end_time_location])
+    conflict_minute_dict : dict = dict_time_minute_convert(time_dict=conflict_time_dict,convert_func=fu.time_to_minute)
 
-    for conflict_row in schedule_conflict_list_strip:
-        time_interval : int = 0
+    conflict_minute_dict_after_sorted,conflict_list_failed_sorted = conflict_data_auto_sort(conflict_minute_dict=conflict_minute_dict
+                                                                                            , schedule_list_strip=schedule_conflict_list_strip)
+
+    conflict_time_dict_after_sorted : dict = dict_time_minute_convert(time_dict=conflict_minute_dict_after_sorted,convert_func=fu.minute_to_time)
+
+    for key,value in conflict_time_dict_after_sorted.items():
+        movie_list_dict[key][start_time_location] = value[0]
+        movie_list_dict[key][end_time_location] = value[1]
+
+    if conflict_list_failed_sorted : return False,conflict_list_failed_sorted
+    return True,[]
+
+
+
+
+
+def conflict_data_auto_sort(conflict_minute_dict : dict, schedule_list_strip : list) -> tuple[dict,list]:
+    conflict_minute_dict_copy : dict = conflict_minute_dict.copy()
+    conflict_list_auto_failed : list = []
+    for conflict_row in schedule_list_strip:
+        overflow_interval: int = 0
         for i in range(len(conflict_row) - 1):
             #
             #整体原理讲解，先检测相邻的电影是否冲突（列表需已排列）
-            #如有冲突，把后面的电影推到第一个电影后面
+            #如有冲突，把后面的电影推到第一部电影后面
             #如此往复...
             #
-            if not conflict_check_light(minuteAEND=conflict_time_dict[conflict_row[i]][1],minuteBSTART=conflict_time_dict[conflict_row[i+1]][0]):
-                time_interval = conflict_time_dict[conflict_row[i+1]][1] - conflict_time_dict[conflict_row[i+1]][0]
-                conflict_time_dict[conflict_row[i+1]][0] = conflict_time_dict[conflict_row[i]][1]
-                conflict_time_dict[conflict_row[i+1]][1] = conflict_time_dict[conflict_row[i]][1] + time_interval
+            if not conflict_check_light(minuteAEND=conflict_minute_dict_copy[conflict_row[i]][1], minuteBSTART=conflict_minute_dict_copy[conflict_row[i + 1]][0]):
+                time_interval = conflict_minute_dict_copy[conflict_row[i + 1]][1] - conflict_minute_dict_copy[conflict_row[i + 1]][0]
+                conflict_minute_dict_copy[conflict_row[i + 1]][0] = conflict_minute_dict_copy[conflict_row[i]][1]
+                conflict_minute_dict_copy[conflict_row[i + 1]][1] = conflict_minute_dict_copy[conflict_row[i]][1] + time_interval
 
-        if conflict_time_dict[conflict_row[-1]][1] > 1440: time_interval = conflict_time_dict[conflict_row[-1]][1] - 1440
-        conflict_time_dict[conflict_row[0]][0] -= time_interval
-        conflict_time_dict[conflict_row[0]][1] -= time_interval
-        if conflict_time_dict[conflict_row[0]][0] < 0 :
+        end_minute : int = 1380
+        if conflict_minute_dict_copy[conflict_row[-1]][1] >= end_minute:
+            overflow_interval = conflict_minute_dict_copy[conflict_row[-1]][1] - end_minute
+            conflict_minute_dict_copy[conflict_row[0]][0] -= overflow_interval
+            conflict_minute_dict_copy[conflict_row[0]][1] -= overflow_interval
+
+        if conflict_minute_dict_copy[conflict_row[0]][0] < 0 :
             conflict_list_auto_failed.append(conflict_row)
             continue
+
         for i in range(1, len(conflict_row)):
-            conflict_time_dict[conflict_row[i]][0] -= time_interval
-            conflict_time_dict[conflict_row[i]][1] -= time_interval
+            conflict_minute_dict_copy[conflict_row[i]][0] -= overflow_interval
+            conflict_minute_dict_copy[conflict_row[i]][1] -= overflow_interval
+    return conflict_minute_dict_copy,conflict_list_auto_failed
+
+def dict_time_minute_convert (time_dict : dict,convert_func) -> dict:
+    minute_dict : dict = time_dict.copy()
+    for key,value in minute_dict.items():
+        minute_dict[key] = [convert_func(value[0]), convert_func(value[1])]
+    return minute_dict
+
 
 
 
