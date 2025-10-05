@@ -1,7 +1,6 @@
 import os
 import csv
 from datetime import datetime
-Encapsulation
 from main_program.Library.cache_framework.data_dictionary_framework import init_all_dictionary
 from main_program.Library.data_communication_framework import cache_csv_sync_framework as ccsf
 from main_program.Library.cache_framework import data_dictionary_framework as ddf
@@ -93,6 +92,10 @@ def modify_movie_operation(movie_list_dict:dict=None,movie_seats_dict:dict=None,
         if "time" in selected_modify: data_to_modify = fu.element_input(element_name= selected_modify, valid_check_func= vc.time_valid_check)
         elif "date" in selected_modify: data_to_modify = fu.element_input(element_name= selected_modify, valid_check_func= vc.date_valid_check)
         elif "CINEMA" in selected_modify: data_to_modify = fu.element_input(element_name= selected_modify,input_range=cinema_code_range_filtered)
+        elif "price" in selected_modify: data_to_modify = fu.element_input(element_name= selected_modify,valid_check_func=vc.number_valid_check)
+        elif "discount" in selected_modify:
+            discount_percent_range : list =[str(i).join("%") for i in range(0,101)]
+            data_to_modify = fu.element_input(element_name= selected_modify,input_range= discount_percent_range)
         else: data_to_modify = fu.element_input(element_name= selected_modify)
         movie_list_specify[header_to_modify + 1] = data_to_modify
         ccsf.list_dictionary_update(dictionary=movie_list_dict,list_to_add=movie_list_specify)
@@ -118,7 +121,7 @@ def manager() -> None:
             case "4":
                 break
             case _:
-                raise ValueError("case _ isn't callable in normal progress!\nPlease Check your element_input parameters!")
+                raise ValueError("case '_' isn't callable in normal progress!\nPlease Check your element_input parameters!")
         try:
             cnsv.sync_all()
         except ValueError as e:
