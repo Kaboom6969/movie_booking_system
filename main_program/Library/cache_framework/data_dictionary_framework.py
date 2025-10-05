@@ -106,8 +106,8 @@ def init_all_dictionary():
     CINEMA_DEVICE_DICTIONARY = list_dictionary_init (list_csv="cinema_device_list.csv", code_location = 0)
     MOVIE_SEATS_DICTIONARY,_= seat_dictionary_init(seats_csv="movie_seat.csv")
     CINEMA_SEATS_DICTIONARY,_ = seat_dictionary_init(seats_csv="cinema_seats.csv")
-    MOVIE_DEVICE_CODE_DICTIONARY = primary_foreign_key_dictionary_init(list_dict = MOVIE_LIST_DICTIONARY, PK_location = 1, FK_location = 0)
-    MOVIE_CINEMA_CODE_DICTIONARY = primary_foreign_key_dictionary_init(list_dict = CINEMA_DEVICE_DICTIONARY, PK_location = 0, FK_location = 2)
+    MOVIE_DEVICE_CODE_DICTIONARY = primary_foreign_key_dictionary_init(list_dict = CINEMA_DEVICE_DICTIONARY, PK_location = 1, FK_location = 0)
+    MOVIE_CINEMA_CODE_DICTIONARY = primary_foreign_key_dictionary_init(list_dict = MOVIE_LIST_DICTIONARY, PK_location = 0, FK_location = 2)
     DICTIONARY_INIT_STATUS = True
     # print (MOVIE_LIST_DICTIONARY)
     # print (BOOKING_DATA_DICTIONARY)
