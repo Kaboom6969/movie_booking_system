@@ -2,6 +2,7 @@ from main_program.Library.movie_booking_framework import seat_visualizer as sv
 from main_program.Library.movie_booking_framework import cinema_services as cnsv
 from main_program.Library.cache_framework import data_dictionary_framework as ddf
 from main_program.Library.movie_booking_framework import movie_seats_framework as msf
+from main_program.Library.movie_booking_framework import  movie_list_framework as mlf
 from main_program.Library.movie_booking_framework import id_generator as idg
 from main_program.Library.data_communication_framework import cache_csv_sync_framework as ccsf
 import datetime
@@ -34,8 +35,10 @@ def booking_to_movie_list_print(movie_code_list : list, movie_code : str, movie_
         movie_list_print_with_format(data_list= booking_movie_list)
 
 def movie_list_print_with_format(data_list : list,
-                                 DEFAULT_WIDTH : int = DEFAULT_WIDTH,movie_seats_dict : dict = None) -> None:
+                                 DEFAULT_WIDTH : int = DEFAULT_WIDTH,
+                                 movie_list_dict : dict = None,movie_seats_dict : dict = None) -> None:
     if movie_seats_dict is None: movie_seats_dict = ddf.MOVIE_SEATS_DICTIONARY
+    if movie_list_dict is None: movie_list_dict = ddf.MOVIE_LIST_DICTIONARY
     print(f"{'Movie Code': <{DEFAULT_WIDTH}}{'Movie Name': <{DEFAULT_WIDTH}}"
           f"{'Cinema Location': <{DEFAULT_WIDTH}}{'Start Time': <{DEFAULT_WIDTH}}"
           f"{'End Time': <{DEFAULT_WIDTH}}{'Date': <{DEFAULT_WIDTH}}"
@@ -43,8 +46,9 @@ def movie_list_print_with_format(data_list : list,
     print("-" * (DEFAULT_WIDTH * 8 + 1))
     for row in data_list:
         seat_list_temp : list = ccsf.read_seats_from_cache(cache_dictionary=movie_seats_dict, code=row[0])
-        for data in row:
+        for data in row[0:6]:
             print(f"{data: <{DEFAULT_WIDTH}}", end="")
+        print(f"{mlf.get_price(movie_list_dict= movie_list_dict,code= row[0] ): <{DEFAULT_WIDTH}}",end= "")
         print(f"{msf.get_capacity(seat_list_temp): <{DEFAULT_WIDTH}}", end ="")
         print()
 
@@ -187,7 +191,7 @@ def cancel_booking_operation(user_id : str, booking_data_csv : str, movie_seats_
 if __name__ == '__main__':
     ccsf.init_all_dictionary()
     #user_input = str(input("empty"))
-    #check_all_movie_list()
+    check_all_movie_list()
     # valid_movie_code = check_ticket_bought(customer_code= "C001",return_booking_code= False)
     # user_input = str(input("Please enter the code: "))
     # booking_to_movie_list_print(movie_code_list= valid_movie_code,movie_code= user_input)
