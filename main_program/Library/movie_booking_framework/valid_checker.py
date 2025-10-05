@@ -108,3 +108,8 @@ def time_valid_check(time : str) -> tuple[bool, str]:
     if int(hour) > 23: return False,time_format
     if int(minute) > 59: return False,time_format
     return True,""
+
+def number_valid_check(number : str) -> tuple[bool, str]:
+    number_format : str = "Number"
+    if not number.isdigit(): return False,number_format
+    return True,""

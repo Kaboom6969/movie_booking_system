@@ -8,7 +8,8 @@ from ..cache_framework.data_dictionary_framework import primary_foreign_key_dict
 from main_program.Library.movie_booking_framework import framework_utils as fu
 
 def sync_all(movie_list_dict : dict=None, movie_seats_dict : dict=None, cinema_device_dict : dict =None,
-             cinema_seats_dict : dict=None, mc_code_dict : dict=None, md_code_dict : dict=None, booking_data_dict : dict=None) -> None:
+             cinema_seats_dict : dict=None, mc_code_dict : dict=None, md_code_dict : dict=None, booking_data_dict : dict=None
+             ,skip_conflict_test:bool=False) -> None:
     if movie_list_dict is None: movie_list_dict = ddf.MOVIE_LIST_DICTIONARY
     if movie_seats_dict is None: movie_seats_dict = ddf.MOVIE_SEATS_DICTIONARY
     if cinema_device_dict is None: cinema_device_dict = ddf.CINEMA_DEVICE_DICTIONARY
@@ -16,18 +17,19 @@ def sync_all(movie_list_dict : dict=None, movie_seats_dict : dict=None, cinema_d
     if mc_code_dict is None: mc_code_dict = ddf.MOVIE_CINEMA_CODE_DICTIONARY
     if md_code_dict is None: md_code_dict = ddf.MOVIE_DEVICE_CODE_DICTIONARY
     if booking_data_dict is None: booking_data_dict = ddf.BOOKING_DATA_DICTIONARY
-
-    movie_schedule_conflict_check_status,schedule_conflict_data = conflict_check_for_movie_schedule()
-    if not movie_schedule_conflict_check_status:
-        raise ValueError("Conflict schedule detected!",schedule_conflict_data)
+    if not skip_conflict_test:
+        movie_schedule_conflict_check_status,schedule_conflict_data = conflict_check_for_movie_schedule()
+        if not movie_schedule_conflict_check_status:
+            raise ValueError("Conflict schedule detected!",schedule_conflict_data)
     ddf.MOVIE_CINEMA_CODE_DICTIONARY = primary_foreign_key_dictionary_init(list_dict= movie_list_dict, PK_location=0,
                                                                            FK_location=2)
     sync_file()
     ddf.MOVIE_CINEMA_CODE_DICTIONARY = primary_foreign_key_dictionary_init(list_dict= movie_list_dict, PK_location=0,
                                                                            FK_location=2)
-    link_status,link_conflict_data = link_seats()
-    if not link_status:
-        raise ValueError("Conflict booking data detected",link_conflict_data)
+    if not skip_conflict_test :
+        link_status,link_conflict_data = link_seats()
+        if not link_status:
+            raise ValueError("Conflict booking data detected",link_conflict_data)
 
 
 def link_seats (booking_id_location : int = 0,
