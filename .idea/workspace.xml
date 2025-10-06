@@ -4,15 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0ea8b363-fbeb-45e9-9d45-12a8498462b3" name="Changes" comment="-sync data">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main_program/Data/booking_data.csv" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/Data/booking_data.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main_program/Data/movie_seat.csv" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/Data/movie_seat.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main_program/Library/movie_booking_framework/cinema_services.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/Library/movie_booking_framework/cinema_services.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main_program/Library/movie_booking_framework/framework_utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/Library/movie_booking_framework/framework_utils.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main_program/Library/role/clerk.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/Library/role/clerk.py" afterDir="false" />
+    <list default="true" id="0ea8b363-fbeb-45e9-9d45-12a8498462b3" name="Changes" comment="- sync data">
       <change beforePath="$PROJECT_DIR$/main_program/Library/role/customer.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/Library/role/customer.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main_program/Library/role/manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/Library/role/manager.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main_program/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -72,7 +65,7 @@
     "Python.framework_utils.executor": "Run",
     "Python.id_generator.executor": "Debug",
     "Python.login_system.executor": "Run",
-    "Python.main.executor": "Debug",
+    "Python.main.executor": "Run",
     "Python.main_program.Library.movie_booking_operation.user_operation.executor": "Run",
     "Python.manager.executor": "Debug",
     "Python.movie_booking_system.main_program.Library.movie_booking_operation.user_operation.executor": "Run",
@@ -151,39 +144,7 @@
       <workItem from="1759668935289" duration="2146000" />
       <workItem from="1759678387487" duration="15747000" />
       <workItem from="1759737038543" duration="4763000" />
-      <workItem from="1759774273911" duration="8614000" />
-    </task>
-    <task id="LOCAL-00099" summary="- sync data">
-      <option name="closed" value="true" />
-      <created>1758728940708</created>
-      <option name="number" value="00099" />
-      <option name="presentableId" value="LOCAL-00099" />
-      <option name="project" value="LOCAL" />
-      <updated>1758728940708</updated>
-    </task>
-    <task id="LOCAL-00100" summary="- just test">
-      <option name="closed" value="true" />
-      <created>1758728952869</created>
-      <option name="number" value="00100" />
-      <option name="presentableId" value="LOCAL-00100" />
-      <option name="project" value="LOCAL" />
-      <updated>1758728952869</updated>
-    </task>
-    <task id="LOCAL-00101" summary="Clerk Version 1.2.0&#10;- refactor most function in `clerk.py` so all the function is now support cache based system">
-      <option name="closed" value="true" />
-      <created>1758729607369</created>
-      <option name="number" value="00101" />
-      <option name="presentableId" value="LOCAL-00101" />
-      <option name="project" value="LOCAL" />
-      <updated>1758729607369</updated>
-    </task>
-    <task id="LOCAL-00102" summary="- add a new member for graveyard">
-      <option name="closed" value="true" />
-      <created>1758729619953</created>
-      <option name="number" value="00102" />
-      <option name="presentableId" value="LOCAL-00102" />
-      <option name="project" value="LOCAL" />
-      <updated>1758729619953</updated>
+      <workItem from="1759774273911" duration="8931000" />
     </task>
     <task id="LOCAL-00103" summary="- workspace.xml update">
       <option name="closed" value="true" />
@@ -545,7 +506,39 @@
       <option name="project" value="LOCAL" />
       <updated>1759702538199</updated>
     </task>
-    <option name="localTasksCounter" value="148" />
+    <task id="LOCAL-00148" summary="Seat &amp; List FrameWork Version 1.21.1 b&#10;- fix the bug that `sync_all` function will broke if run two times&#10;&#10;- add `get_operation_choice` function">
+      <option name="closed" value="true" />
+      <created>1759786698955</created>
+      <option name="number" value="00148" />
+      <option name="presentableId" value="LOCAL-00148" />
+      <option name="project" value="LOCAL" />
+      <updated>1759786698955</updated>
+    </task>
+    <task id="LOCAL-00149" summary="Clerk Version 1.2.0 a&#10;- using the universal `fu.get_operation_choice` instead of the customize function">
+      <option name="closed" value="true" />
+      <created>1759786768410</created>
+      <option name="number" value="00149" />
+      <option name="presentableId" value="LOCAL-00149" />
+      <option name="project" value="LOCAL" />
+      <updated>1759786768410</updated>
+    </task>
+    <task id="LOCAL-00150" summary="manager version 1.2.2 b&#10;- using the universal `fu.get_operation_choice` instead of the repeat print and element input">
+      <option name="closed" value="true" />
+      <created>1759786807498</created>
+      <option name="number" value="00150" />
+      <option name="presentableId" value="LOCAL-00150" />
+      <option name="project" value="LOCAL" />
+      <updated>1759786807498</updated>
+    </task>
+    <task id="LOCAL-00151" summary="- sync data">
+      <option name="closed" value="true" />
+      <created>1759786817282</created>
+      <option name="number" value="00151" />
+      <option name="presentableId" value="LOCAL-00151" />
+      <option name="project" value="LOCAL" />
+      <updated>1759786817282</updated>
+    </task>
+    <option name="localTasksCounter" value="152" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -563,9 +556,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="- fit the new update with function in cache_framework.py" />
-    <MESSAGE value="Seat &amp; List FrameWork Version 1.18.2 a&#10;- now `date_valid_check` and `time_valid_check` will return tuple[bool,str] and not just a bool" />
-    <MESSAGE value="Manager version 1.1.1&#10;- added `element_input` function&#10;- refactor `add_movie_operation` function with using `element_input` function and not just while loop" />
     <MESSAGE value="-sync the data" />
     <MESSAGE value="Manager version 1.2.0&#10;- add `delete_movie_operation` function" />
     <MESSAGE value="- now template_seats is turn to cinema_seats.&#10;- movie_seats's cinema code(template code) is now bind with movie_list's cinema" />
@@ -579,7 +569,6 @@
     <MESSAGE value="Seat &amp; List FrameWork Version 1.20.0 b&#10;- now `_conflict_detect_meticulous` will return the specify conflict code (using ** to flag)" />
     <MESSAGE value="Manager version 1.2.1 a&#10;- now `sync_all` is replace `sync_file` function (more stronger)" />
     <MESSAGE value="Seat &amp; List FrameWork Version 1.21.0&#10;- now `conflict_data_auto_sort` function is done!&#10;- it can auto sort the conflict data!&#10;- moved `time_to_minute` to framework_utils.py&#10;- moved `minute_to_time` to framework_utils.py&#10;- moved `header_location_get` to framework_utils.py" />
-    <MESSAGE value="- sync data" />
     <MESSAGE value="Seat &amp; List FrameWork Version 1.21.1&#10;- refactor the auto sort function (split to few function)" />
     <MESSAGE value="Manager version 1.2.2&#10;- add `manager` function (Encapsulation all the operation)" />
     <MESSAGE value="Seat &amp; List FrameWork Version 1.21.1 a&#10;- add `skip_conflict_test:bool` parameter for `sync_all`&#10;- add `dict_key_match:dict` parameter for `element_input`.&#10;- add `get_price` function&#10;- add `number_valid_check` function" />
@@ -588,7 +577,11 @@
     <MESSAGE value="- ready to refactor" />
     <MESSAGE value="Technician version 1.1.1&#10;- add `technician` function (wrap function)" />
     <MESSAGE value="-sync data" />
-    <option name="LAST_COMMIT_MESSAGE" value="-sync data" />
+    <MESSAGE value="Seat &amp; List FrameWork Version 1.21.1 b&#10;- fix the bug that `sync_all` function will broke if run two times&#10;&#10;- add `get_operation_choice` function" />
+    <MESSAGE value="Clerk Version 1.2.0 a&#10;- using the universal `fu.get_operation_choice` instead of the customize function" />
+    <MESSAGE value="manager version 1.2.2 b&#10;- using the universal `fu.get_operation_choice` instead of the repeat print and element input" />
+    <MESSAGE value="- sync data" />
+    <option name="LAST_COMMIT_MESSAGE" value="- sync data" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -637,7 +630,7 @@
     <SUITE FILE_PATH="coverage/movie_booking_system$manager.coverage" NAME="manager Coverage Results" MODIFIED="1759785099469" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/main_program/Library/role" />
     <SUITE FILE_PATH="coverage/movie_booking_system$id_generator.coverage" NAME="id_generator Coverage Results" MODIFIED="1758915214344" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/main_program/Library/movie_booking_framework" />
     <SUITE FILE_PATH="coverage/movie_booking_system$clerk.coverage" NAME="clerk Coverage Results" MODIFIED="1759777720028" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/main_program/Library/role" />
-    <SUITE FILE_PATH="coverage/movie_booking_system$main.coverage" NAME="main Coverage Results" MODIFIED="1759785992661" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/main_program" />
+    <SUITE FILE_PATH="coverage/movie_booking_system$main.coverage" NAME="main Coverage Results" MODIFIED="1759786601628" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/main_program" />
     <SUITE FILE_PATH="coverage/movie_booking_system$movie_seats_framework.coverage" NAME="movie_seats_framework Coverage Results" MODIFIED="1758548134663" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/main_program/Library/movie_booking_framework" />
     <SUITE FILE_PATH="coverage/movie_booking_system$techinician.coverage" NAME="techinician Coverage Results" MODIFIED="1759702196661" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/main_program/Library/role" />
   </component>
