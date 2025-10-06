@@ -34,19 +34,6 @@ def get_and_print_booking_data(input_movie_code,booking_data_dict : dict=None):
             filtered_list.append(row)
     return filtered_list
 
-def get_user_choice():
-    while True:
-        print("\nPlease enter your choice:")
-        try:
-            choice = int(input(
-                "\nbooking(1), cancel or modify booking(2), check movie seats(3), print receipt(4), quit(5)\n"))
-            if choice in [1, 2, 3, 4, 5]:
-                return choice
-            else:
-                print("Please enter a valid option (1-5).")
-        except ValueError as e:
-            print(e)
-
 
 def select_movie(movie_list):
     while True:
@@ -106,7 +93,7 @@ def select_seat(movie_seat_list):
             print(f"Invalid seat, please try again")
             continue
         try:
-            seat_value = sv.movie_seats_specify_value(movie_seat_list, column, row)
+            seat_value = msf.movie_seats_specify_value(movie_seat_list, column, row)
         except IndexError as e:
             print(e)
             continue
@@ -120,7 +107,7 @@ def select_seat(movie_seat_list):
             return column, row
 
 
-def booking(movie_seats_csv, booking_data_csv,movie_seat_list, input_movie_code, user_id,
+def booking(movie_seat_list, input_movie_code, user_id,
             booking_data_dict : dict=None, movie_seats_dict : dict=None):
     if booking_data_dict is None: booking_data_dict = ddf.BOOKING_DATA_DICTIONARY
     if movie_seats_dict is None:movie_seats_dict = ddf.MOVIE_SEATS_DICTIONARY
@@ -136,7 +123,7 @@ def booking(movie_seats_csv, booking_data_csv,movie_seat_list, input_movie_code,
     sv.print_movie_seat_as_emojis(ccsf.read_seats_from_cache(cache_dictionary=movie_seats_dict,code=input_movie_code))
 
 
-def handle_booking(movie_seats_csv, booking_data_csv, template_seats_csv, customer_csv, movie_seat_list,
+def handle_booking(movie_seats_csv, booking_data_csv, customer_csv, movie_seat_list,
                    input_movie_code, user_id):
     while True:
         print("\nPlease select your choice:")
@@ -198,18 +185,6 @@ def get_user_booking_axis_and_booking_id(booking_data_list):
     return column, row, booking_id
 
 
-def get_modify_choice():
-    while True:
-        print("\nPlease enter your choice:")
-        try:
-            choice = int(input(
-                "\ncancel booking(1), modify booking(2), quit(3)\n"))
-            if choice in [1, 2, 3]:
-                return choice
-            else:
-                print("Please enter a valid option (1-3).")
-        except ValueError as e:
-            print(e)
 
 
 
@@ -244,7 +219,7 @@ def modify_booking(movie_seats_csv, booking_data_csv,movie_seat_list, input_movi
         while True:
             booking_data_list = get_and_print_booking_data(input_movie_code)
             column, row, booking_id = get_user_booking_axis_and_booking_id(booking_data_list)
-            choice = get_modify_choice()
+            choice = fu.get_operation_choice('Please enter your choice','cancel booking','modify booking','quit')
             #
             # cancel booking(1), modify booking(2), quit(3)
             if choice == 1:
@@ -341,10 +316,9 @@ def clerk(user_id):
 
 
         while True:
-            choice = get_user_choice()
+            choice = fu.get_operation_choice('Please enter your choice','booking','cancel or modify booking','check movie seats','print receipt','quit')
             if choice == 1:
-                handle_booking(movie_seats_csv="movie_seat.csv", booking_data_csv="booking_data.csv",
-                               template_seats_csv="cinema_seats.csv", customer_csv="customer.csv",
+                handle_booking(movie_seats_csv="movie_seat.csv", booking_data_csv="booking_data.csv", customer_csv="customer.csv",
                                movie_seat_list=movie_seat_list, input_movie_code=input_movie_code, user_id=user_id)
 
             elif choice == 2:
