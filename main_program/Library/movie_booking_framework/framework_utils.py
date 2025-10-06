@@ -217,6 +217,13 @@ def header_location_get (header_list : list) -> dict:
         header_list_dict.update({element: index})
     return header_list_dict
 
+def get_operation_choice(title : str,*args) -> str:
+    print(title)
+    for i,operation in enumerate(args):
+        print(f"{i+1}. {operation}")
+    user_operation : str = element_input(element_name= "command",input_range=[str(i) for i in range(1,len(args)+1)])
+    return user_operation
+
 if __name__ == "__main__":
     list_test : list = ["idk_status","header","nihao_status","wtf_status","end"]
     print(keyword_erase_for_list(list_test,"status"))

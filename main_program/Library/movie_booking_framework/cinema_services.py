@@ -26,8 +26,8 @@ def sync_all(movie_list_dict : dict=None, movie_seats_dict : dict=None, cinema_d
     sync_file()
     ddf.MOVIE_CINEMA_CODE_DICTIONARY = primary_foreign_key_dictionary_init(list_dict= movie_list_dict, PK_location=0,
                                                                            FK_location=2)
+    link_status, link_conflict_data = link_seats()
     if not skip_conflict_test :
-        link_status,link_conflict_data = link_seats()
         if not link_status:
             raise ValueError("Conflict booking data detected",link_conflict_data)
 
@@ -78,9 +78,10 @@ def movie_seats_init(movie_code : str, cinema_code : str,
                      movie_seats_dict : dict, cinema_seats_dict : dict, mc_code_dict : dict) -> None:
     # read the template data
     cinema_seats : list = ccsf.read_seats_from_cache(cache_dictionary= cinema_seats_dict, code= cinema_code.upper())
+    cinema_seats_copy : list = [row[:] for row in cinema_seats]
     #overwrite the old data with template data
     ccsf.seat_dictionary_update(seats_dictionary= movie_seats_dict, mt_code_dictionary=mc_code_dict, code_to_update= movie_code,
-                                seats_data_to_add= cinema_seats)
+                                seats_data_to_add= cinema_seats_copy)
 
 
 
