@@ -108,10 +108,7 @@ def modify_movie_operation(movie_list_dict:dict=None,movie_seats_dict:dict=None,
 def manager() -> None:
     while True:
         print("Welcome to Movie Booking System")
-        print("Select Your Operation:")
-        print("1. Add Movie\n2. Delete Movie\n3. Modify Movie\n4. Exit")
-        user_input = element_input(element_name= "user_operation", input_range= ["1","2","3","4"])
-        match user_input:
+        match fu.get_operation_choice('Select Your Operation','Add Movie','Delete Movie','Modify Movie','Exit'):
             case "1":
                 add_movie_operation()
             case "2":
@@ -130,9 +127,7 @@ def manager() -> None:
                 conflict_data = e.args[1]
                 print(error_message)
                 print(f"conflict schedule:{conflict_data}\n")
-                print("Please Enter Your operation\n1. Manual Sort\n2. Auto Sort(Recommended)\n3. Discard this change")
-                user_operation = element_input(element_name= "operation", input_range= ["1", "2", "3"])
-                match user_operation:
+                match fu.get_operation_choice('Please enter Your Operation','Manual Sort','Auto Sort(Recommended)','Discard this change'):
                     case "1":
                         modify_movie_operation()
                     case "2":
