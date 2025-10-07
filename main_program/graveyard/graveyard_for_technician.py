@@ -12,7 +12,7 @@
 #         print(f"Movie Code: {row[movie_code_column_location]}")
 #
 #
-# def report_issue():
+# def report_issue_operation():
 #     movie_code = input("please enter movie code: ")
 #     issue_type = input("Update (aircond, speaker, projector) Status: ")
 #     status_input = input("Change equipment status? (0:good, 1:breakdown, 2:under maintainence): ")
@@ -79,4 +79,4 @@
 #     # view_upcoming_movies("cinema_device_list.csv")
 #     # check_equipment_status("cinema_device_list.csv")
 #     # update_equipment_status('001', 0, 0, 0,"cinema_device_list.csv")
-#     report_issue()
+#     report_issue_operation()

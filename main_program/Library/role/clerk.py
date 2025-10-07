@@ -1,7 +1,6 @@
 from datetime import datetime
 from main_program.Library.movie_booking_framework import seat_visualizer as sv
 from main_program.Library.movie_booking_framework import cinema_services as cnsv
-from main_program.Library.movie_booking_framework import valid_checker as vc
 from main_program.Library.movie_booking_framework import id_generator as idg
 from main_program.Library.payment_framework.payment_framework import pay_money
 from main_program.Library.movie_booking_framework import movie_seats_framework as msf

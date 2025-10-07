@@ -1,4 +1,3 @@
-from main_program.Library.movie_booking_framework import valid_checker as vc
 from main_program.Library.movie_booking_framework import movie_seats_framework as msf
 from main_program.Library.movie_booking_framework import movie_list_framework as mlf
 DICTIONARY_INIT_STATUS : bool = False

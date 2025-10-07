@@ -1,6 +1,3 @@
-import os
-import csv
-from datetime import datetime
 from main_program.Library.cache_framework.data_dictionary_framework import init_all_dictionary
 from main_program.Library.data_communication_framework import cache_csv_sync_framework as ccsf
 from main_program.Library.cache_framework import data_dictionary_framework as ddf
@@ -8,7 +5,6 @@ from main_program.Library.movie_booking_framework import id_generator as idg
 from main_program.Library.movie_booking_framework import valid_checker as vc
 from main_program.Library.movie_booking_framework import framework_utils as fu
 from main_program.Library.movie_booking_framework import cinema_services as cnsv
-from main_program.Library.movie_booking_framework.framework_utils import element_input
 from main_program.Library.movie_booking_framework.movie_seats_framework import get_capacity
 
 

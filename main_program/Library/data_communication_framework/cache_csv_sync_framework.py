@@ -1,5 +1,3 @@
-from main_program.Library.movie_booking_framework import movie_list_framework as mlf
-from main_program.Library.movie_booking_framework import movie_seats_framework as msf
 from main_program.Library.cache_framework.data_dictionary_framework import *
 
 
