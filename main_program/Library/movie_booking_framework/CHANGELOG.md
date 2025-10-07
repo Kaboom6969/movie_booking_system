@@ -252,5 +252,29 @@ refactor `device_count_for_device_list`,now the new name is `keyword_count_for_l
 - added `header_location_get` function
 ### Changed
 - now `sync_all` function is link to the conflict_detect function (more robustness) (a version)
+- now `_conflict_detect_meticulous` will return the specify conflict code (using ** to flag) (b version)
 ### Fixed
 - fix an index bug in `sync_all` function (init the dict) (a version)
+
+## [1.21.0] -2025-10-03
+### Added
+- now `conflict_data_auto_sort` function is done!
+- it can auto sort the conflict data!
+### Changed
+- moved `time_to_minute` to framework_utils.py
+- moved `minute_to_time` to framework_utils.py
+- moved `header_location_get` to framework_utils.py
+
+## [1.21.1] -2025-10-04
+### Added
+- add `skip_conflict_test:bool` parameter for `sync_all` (a version)
+- add `dict_key_match:dict` parameter for `element_input`. (a version)
+- add `get_price` function (a version)
+- add `number_valid_check` function (a version)
+- add `get_operation_choice` function (b version)
+- add `get_code_range` function (c version)
+### Changed
+- refactor the auto sort function (split to few function)
+- refactor `sync_file` function to let it can use in new format cinema_device_list.csv (c version)
+### Fixed
+- fix the bug that `sync_all` function will broke if run two times (b version)

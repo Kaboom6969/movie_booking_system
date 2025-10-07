@@ -26,3 +26,9 @@
 -  if the code location is out of range, `list_dictionary_init` and `primary_foreign_key_dictionary_list` will raise error\
 ### Changed
 - refactor `list_dictionary_init` function,now it will get the key location dynamic (with using the code_location key in the dictionary)
+- change `MOVIE_CINEMA_CODE_DICTIONARY` init way,it is now is link in movie_list.csv and not movie_seat.csv (a version)
+- now `primary_foreign_key_dictionary_init` will init by dict and not file (b version)
+- `read_list_for_cache` now is support enter code_location manually or auto (b version)
+- remove `MOVIE_DEVICE_CODE_DICTIONARY` (d version)
+### Fixed
+- fix the bug that `MOVIE_DEVICE_CODE_DICTIONARY` and `MOVIE_CINEMA_CODE_DICTIONARY` is swapped (c version)
