@@ -224,6 +224,14 @@ def get_operation_choice(title : str,*args) -> str:
     user_operation : str = element_input(element_name= "command",input_range=[str(i) for i in range(1,len(args)+1)])
     return user_operation
 
+def get_code_range (dictionary_cache : dict) -> list:
+    code_list : list = list(dictionary_cache.keys())
+    code_list_copy : list = code_list[:]
+    for i in code_list:
+        if i in ["header","base file name","code_location"]:
+            code_list_copy.remove(i)
+    return code_list_copy
+
 if __name__ == "__main__":
     list_test : list = ["idk_status","header","nihao_status","wtf_status","end"]
     print(keyword_erase_for_list(list_test,"status"))
