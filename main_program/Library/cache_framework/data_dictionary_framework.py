@@ -8,7 +8,6 @@ CINEMA_DEVICE_DICTIONARY : dict = {}
 MOVIE_SEATS_DICTIONARY : dict = {}
 CINEMA_SEATS_DICTIONARY : dict = {}
 MOVIE_CINEMA_CODE_DICTIONARY : dict = {}
-MOVIE_DEVICE_CODE_DICTIONARY : dict = {}
 
 def seat_dictionary_init (seats_csv : str) -> tuple[dict,dict]:
     key: str = ""
@@ -100,13 +99,12 @@ def list_dictionary_update(dictionary : dict,list_to_add : list) -> None:
 
 def init_all_dictionary():
     global MOVIE_LIST_DICTIONARY,BOOKING_DATA_DICTIONARY,CINEMA_DEVICE_DICTIONARY,MOVIE_SEATS_DICTIONARY,\
-        DICTIONARY_INIT_STATUS,CINEMA_SEATS_DICTIONARY,MOVIE_CINEMA_CODE_DICTIONARY,MOVIE_DEVICE_CODE_DICTIONARY
+        DICTIONARY_INIT_STATUS,CINEMA_SEATS_DICTIONARY,MOVIE_CINEMA_CODE_DICTIONARY
     MOVIE_LIST_DICTIONARY = list_dictionary_init (list_csv="movie_list.csv", code_location = 0)
     BOOKING_DATA_DICTIONARY = list_dictionary_init (list_csv="booking_data.csv", code_location = 0)
     CINEMA_DEVICE_DICTIONARY = list_dictionary_init (list_csv="cinema_device_list.csv", code_location = 0)
     MOVIE_SEATS_DICTIONARY,_= seat_dictionary_init(seats_csv="movie_seat.csv")
     CINEMA_SEATS_DICTIONARY,_ = seat_dictionary_init(seats_csv="cinema_seats.csv")
-    MOVIE_DEVICE_CODE_DICTIONARY = primary_foreign_key_dictionary_init(list_dict = CINEMA_DEVICE_DICTIONARY, PK_location = 1, FK_location = 0)
     MOVIE_CINEMA_CODE_DICTIONARY = primary_foreign_key_dictionary_init(list_dict = MOVIE_LIST_DICTIONARY, PK_location = 0, FK_location = 2)
     DICTIONARY_INIT_STATUS = True
     # print (MOVIE_LIST_DICTIONARY)
