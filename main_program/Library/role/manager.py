@@ -12,13 +12,6 @@ from main_program.Library.movie_booking_framework.framework_utils import element
 from main_program.Library.movie_booking_framework.movie_seats_framework import get_capacity
 
 
-def get_code_range (dictionary_cache : dict) -> list:
-    code_list : list = list(dictionary_cache.keys())
-    code_list_copy : list = code_list[:]
-    for i in code_list:
-        if i in ["header","base file name","code_location"]:
-            code_list_copy.remove(i)
-    return code_list_copy
 
 def movie_list_print_with_format(data_list : list,
                                  DEFAULT_WIDTH : int = 30,movie_seats_dict : dict = None) -> None:
@@ -40,8 +33,8 @@ def add_movie_operation (cinema_seats_dict:dict=None,movie_list_dict:dict=None,m
     if movie_list_dict is None: movie_list_dict= ddf.MOVIE_LIST_DICTIONARY
     if movie_seats_dict is None: movie_seats_dict = ddf.MOVIE_SEATS_DICTIONARY
     if cinema_device_dict is None: cinema_device_dict = ddf.CINEMA_DEVICE_DICTIONARY
-    movie_code_list = get_code_range(movie_list_dict)
-    cinema_code_range_filtered = sorted(list(set(get_code_range(cinema_seats_dict))))
+    movie_code_list = fu.get_code_range(movie_list_dict)
+    cinema_code_range_filtered = sorted(list(set(fu.get_code_range(cinema_seats_dict))))
     movie_list_header : list = movie_list_dict["header"]
     movie_code = idg.generate_code_id(movie_code_list,prefix_generate="",code_location=movie_list_dict["code_location"],
                                       number_of_prefix=0,prefix_got_digit= False,code_id_digit_count=4)
@@ -62,7 +55,7 @@ def delete_movie_operation(movie_list_dict:dict=None,movie_seats_dict:dict=None,
     if movie_seats_dict is None: movie_seats_dict = ddf.MOVIE_SEATS_DICTIONARY
     if cinema_device_dict is None: cinema_device_dict = ddf.CINEMA_DEVICE_DICTIONARY
     movie_list_header : list = movie_list_dict["header"]
-    movie_code_range : list = get_code_range(movie_list_dict)
+    movie_code_range : list = fu.get_code_range(movie_list_dict)
     movie_code_to_delete = fu.element_input(element_name=movie_list_header[0],input_range= movie_code_range)
     movie_list_print_with_format(data_list= [ccsf.read_list_from_cache(dictionary_cache= movie_list_dict,code=movie_code_to_delete)])
     print (f"Are You Sure You Want Delete Movie Code: {movie_code_to_delete}?")
@@ -80,8 +73,8 @@ def modify_movie_operation(movie_list_dict:dict=None,movie_seats_dict:dict=None,
     if cinema_device_dict is None: cinema_device_dict = ddf.CINEMA_DEVICE_DICTIONARY
     if cinema_seats_dict is None: cinema_seats_dict = ddf.CINEMA_SEATS_DICTIONARY
     movie_list_header : list = movie_list_dict["header"]
-    movie_code_range : list = get_code_range(movie_list_dict)
-    cinema_code_range_filtered = sorted(list(set(get_code_range(cinema_seats_dict))))
+    movie_code_range : list = fu.get_code_range(movie_list_dict)
+    cinema_code_range_filtered = sorted(list(set(fu.get_code_range(cinema_seats_dict))))
     movie_code_to_modify = fu.element_input(element_name=movie_list_header[0],input_range= movie_code_range)
     movie_list_print_with_format(data_list= [ccsf.read_list_from_cache(dictionary_cache= movie_list_dict,code=movie_code_to_modify)])
     print (f"Are You Sure You Want Modify Movie Code: {movie_code_to_modify}?")
