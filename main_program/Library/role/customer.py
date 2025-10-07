@@ -14,6 +14,7 @@ DEFAULT_WIDTH = 30
 def check_ticket_bought(customer_code : str,return_booking_code : bool,booking_data_dict : dict = None) -> list:
     if booking_data_dict is None: booking_data_dict = ddf.BOOKING_DATA_DICTIONARY
     # format: ['B001','C001', '001','2025/8/13','2','3','3','Online']
+    booking_header : dict = fu.header_location_get(booking_data_dict["header"])
     booking_list : list = ccsf.read_list_from_cache(dictionary_cache= booking_data_dict)
     booking_list_filtered : list = [row for row in booking_list if row[1]==customer_code]
     booking_code_list : list = []         #format:'B001'
@@ -21,9 +22,9 @@ def check_ticket_bought(customer_code : str,return_booking_code : bool,booking_d
     print("-" * (DEFAULT_WIDTH * 4 + 1))
     for row in booking_list_filtered:
         if return_booking_code:
-            booking_code_list.append(row[0])
+            booking_code_list.append(row[booking_header['Book ID']])
         else:
-            booking_code_list.append(row[2])
+            booking_code_list.append(row[booking_header['Movie Code']])
         print(f"{row[0]: <{DEFAULT_WIDTH}}{row[1]: <{DEFAULT_WIDTH}}{str(row[2]): <{DEFAULT_WIDTH}}{str(row[3]): <{DEFAULT_WIDTH}}")
     return booking_code_list
 
@@ -172,10 +173,7 @@ def cancel_booking_operation(user_id : str, booking_data_dict : dict = None,book
     if booking_data_dict is None: booking_data_dict = ddf.BOOKING_DATA_DICTIONARY
     if booking_code_range is None: booking_code_range : list = check_ticket_bought(customer_code= user_id,booking_data_dict= booking_data_dict,return_booking_code= True)
     while True:
-        booking_code_cancel : str = str(input("Please Enter the code that you want to cancel: "))
-        if booking_code_cancel not in booking_code_range:
-            print("Please enter a valid code!")
-            continue
+        booking_code_cancel : str = fu.element_input(element_name= 'code that you want to cancel',input_range= booking_code_range)
         while True:
             user_command : str = str(input("Are you sure you want to cancel the booking? (y/n)"))
             if user_command.lower() != 'y' and user_command.lower() != 'n':
@@ -198,7 +196,7 @@ def customer(customer_id : str) -> None:
     while True:
         match fu.get_operation_choice("Select Your Operation","check ticket bought","check all movie_List",'exit'):
             case "1":
-                booking_code_range : list = check_ticket_bought(customer_code=customer_id,return_booking_code=False)
+                booking_code_range : list = check_ticket_bought(customer_code=customer_id,return_booking_code=True)
                 match fu.get_operation_choice("Select Your Operation",'cancel booking','exit'):
                     case "1":
                         cancel_booking_operation(user_id= customer_id,booking_code_range= booking_code_range)
