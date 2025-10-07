@@ -38,18 +38,16 @@ def movie_list_print_technician_ver(data_list : list) -> None:
         print()
 
 
-def report_issue(cinema_device_dict : dict=None,md_code_dict : dict = None) -> None:
+def report_issue_operation(cinema_device_dict : dict=None) -> None:
     if cinema_device_dict is None: cinema_device_dict = ddf.CINEMA_DEVICE_DICTIONARY
-    if md_code_dict is None: md_code_dict = ddf.MOVIE_DEVICE_CODE_DICTIONARY
-    cinema_device_csv : str = cinema_device_dict.get("file base name")
     device_list = device_actual_list_get(cinema_device_dict= cinema_device_dict)
+    cinema_code_range : list = fu.get_code_range(dictionary_cache= cinema_device_dict)
+    cinema_code : str = fu.element_input(element_name= "cinema number",input_range= cinema_code_range)
     device_str = fu.list_to_str_line(data_list=device_list,blank_need=False)
-    movie_code = fu.element_input(element_name= "movie code",dict_key_match=md_code_dict)
     print(f"Update ({device_str}) Status")
     issue_device = fu.element_input(element_name="command",input_range=device_list)
-    update_status(movie_code= movie_code,issue_device= issue_device,
-                  issue_status= '1',device_list= device_list,cinema_device_dict= cinema_device_dict,
-                  md_code_dict= md_code_dict)
+    update_status(cinema_number= cinema_code,issue_device= issue_device,
+                  issue_status= '1',device_list= device_list,cinema_device_dict= cinema_device_dict)
 
 def device_actual_list_get (cinema_device_dict : dict=None) -> list:
     if cinema_device_dict is None: cinema_device_dict = ddf.CINEMA_DEVICE_DICTIONARY
@@ -58,53 +56,103 @@ def device_actual_list_get (cinema_device_dict : dict=None) -> list:
     device_list : list = fu.keyword_erase_for_list(any_dimension_list= cinema_device_filtered,keyword= "_status")
     return device_list
 
-def update_status(movie_code : str,issue_device : str,issue_status : str,device_list : list,
-                  cinema_device_dict : dict=None,md_code_dict : dict=None) -> None:
+def update_status(cinema_number : str,issue_device : str,issue_status : str,device_list : list,
+                  cinema_device_dict : dict=None) -> None:
     if cinema_device_dict is None: cinema_device_dict = ddf.CINEMA_DEVICE_DICTIONARY
-    if md_code_dict is None: md_code_dict = ddf.MOVIE_DEVICE_CODE_DICTIONARY
-    cinema_device_csv : str = cinema_device_dict.get("base file name")
     device_location : int = 0
     for index,device in enumerate(device_list):
         if device == issue_device:
-            device_location = index + 2
+            device_location = index + 1
             break
-    technician_code : str = md_code_dict.get(movie_code)
     cinema_device_list_specify : list = ccsf.read_list_from_cache(dictionary_cache= cinema_device_dict,
-                                                                  code=technician_code)
+                                                                  code=cinema_number)
     cinema_device_list_specify[device_location] = issue_status
     ccsf.list_dictionary_update(dictionary= cinema_device_dict,list_to_add= cinema_device_list_specify)
 
-def check_equipment_status(cinema_device_dict : dict =None,cinema_code : str = "all") -> list:
+def check_equipment_status(cinema_device_dict : dict =None, cinema_number : str = "all") -> list:
     if cinema_device_dict is None: cinema_device_dict = ddf.CINEMA_DEVICE_DICTIONARY
     cinema_device_header : list = cinema_device_dict.get("header")
-    if cinema_code == "all": cinema_device_list : list = ccsf.read_list_from_cache(dictionary_cache= cinema_device_dict)
-    else: cinema_device_list : list = ccsf.read_list_from_cache(dictionary_cache= cinema_device_dict,code=cinema_code)
+    if cinema_number == "all": cinema_device_list : list = ccsf.read_list_from_cache(dictionary_cache= cinema_device_dict)
+    else: cinema_device_list : list = ccsf.read_list_from_cache(dictionary_cache= cinema_device_dict, code=cinema_number)
     status_dictionary : dict = {'0' : 'good', '1' : 'breakdown', '2' : 'under maintenance'}
     cinema_device_list = fu.one_dimension_list_to_two_dimension_list(any_dimension_list= cinema_device_list)
     for row in cinema_device_list:
         print(*(f"{cinema_device_header[i]}:{status_dictionary.get(row[i],row[i])}\n" for i in range(len(cinema_device_header))))
     return cinema_device_list
 
-def confirm_equipment_status(cinema_code : str,cinema_device_dict : dict =None) -> None:
+def check_equipment_status_operation(cinema_device_dict : dict =None) -> None:
+    if cinema_device_dict is None: cinema_device_dict = ddf.CINEMA_DEVICE_DICTIONARY
+    technician_code_range : list = fu.get_code_range(dictionary_cache= cinema_device_dict)
+    cinema_device_code : str = fu.element_input(element_name= "cinema number",input_range=technician_code_range)
+    check_equipment_status(cinema_number= cinema_device_code)
+    input ("\nEnter Any key to continue...")
+
+
+def confirm_equipment_status(cinema_device_dict : dict =None) -> None:
     if cinema_device_dict is None : cinema_device_dict = ddf.CINEMA_DEVICE_DICTIONARY
-    cinema_device_list : list = check_equipment_status(cinema_device_dict=cinema_device_dict)
+    cinema_device_list : list = ddf.read_list_from_cache(dictionary_cache= cinema_device_dict)
+    cinema_header_location : dict = fu.header_location_get(header_list= cinema_device_dict["header"])
+    for row in cinema_device_list:
+        good_status : bool = cinema_status_check(cinema_device_list_one_dimension= row)
+        if good_status :
+            print (f"{row[cinema_header_location["cinema_number"]]} is all good!")
+        else:
+            print(f"{row[cinema_header_location["cinema_number"]]} got problem!")
+    input ("\nEnter Any key to continue...")
+
+def cinema_status_check(cinema_device_list_one_dimension : list) -> bool:
+    for element in cinema_device_list_one_dimension:
+        if element == '1' or element == '2': return False
+    return True
+
+def update_issue_status_operation(cinema_device_dict : dict = None) -> None:
+    if cinema_device_dict is None : cinema_device_dict = ddf.CINEMA_DEVICE_DICTIONARY
+    cinema_device_list : list = ddf.read_list_from_cache(dictionary_cache= cinema_device_dict)
+    cinema_header_location : dict = fu.header_location_get(header_list= cinema_device_dict["header"])
+    device_list = device_actual_list_get(cinema_device_dict=cinema_device_dict)
+    problem_cinema : list = []
+    for row in cinema_device_list:
+        if not cinema_status_check(cinema_device_list_one_dimension= row):
+            problem_cinema.append(row[cinema_header_location["cinema_number"]])
+    print(f"Problem Cinema: {problem_cinema}")
+    user_cinema : str = fu.element_input(element_name= "cinema number with problem",input_range=problem_cinema)
+    user_cinema_device_status : list = cinema_device_dict[user_cinema]
+    device_list_filtered : list = device_list_filtered_for_problem_device(device_actual_list= device_list,device_status=user_cinema_device_status)
+    print(f"Problem Device: {device_list_filtered}")
+    device_to_update = fu.element_input(element_name="command", input_range=device_list_filtered)
+    status_to_update : str  = str(int(fu.get_operation_choice('Please Select Your Status','good','breakdown','under maintenance')) - 1)
+    update_status(cinema_number= user_cinema,issue_device= device_to_update,issue_status=status_to_update,device_list= device_list)
+
+
+def device_list_filtered_for_problem_device (device_actual_list : list,device_status : list) -> list:
+    device_list_filtered : list = []
+    for status,device in zip(device_status,device_actual_list):
+        if status == '0': continue
+        device_list_filtered.append(device)
+    return device_list_filtered
+
+
 
 
 
 def technician() -> None:
     print("Welcome to Movie Booking System")
     while True:
-        print("Select Your Operation:")
-        print("1. view_upcoming_movies\n2. report issue\n3. check equipment status")
-        user_command : str = fu.element_input(element_name="command",input_range=['1','2','3'])
         try:
-            match user_command:
+            match fu.get_operation_choice("Select Your Operation",'View Upcoming Movie','Report Issue',
+                                          'Check Equipment Status','Confirm Equipment Status','Update Issue Status','Exit'):
                 case '1':
                     view_upcoming_movies()
                 case '2':
-                    report_issue()
+                    report_issue_operation()
                 case '3':
-                    check_equipment_status()
+                    check_equipment_status_operation()
+                case '4':
+                    confirm_equipment_status()
+                case '5':
+                    update_issue_status_operation()
+                case '6':
+                    break
         except Exception as e:
             raise Exception("ERROR DETECTED,ERROR:",e)
         try:
