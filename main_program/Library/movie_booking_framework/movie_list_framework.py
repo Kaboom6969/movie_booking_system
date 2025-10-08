@@ -122,18 +122,6 @@ def delete_movie_list_csv (movie_list_csv : str,movie_code : str,code_location :
     #dictionary_delete(dictionary= dictionary,key_to_delete= movie_code,skip_key_not_found_error = True)
     overwrite_file(overwrited_file_csv=movie_list_csv, original_file_csv=f"{movie_list_csv}.temp")
 
-def get_price(movie_list_dict: dict,code : str) -> int:
-    movie_header_list : list = movie_list_dict["header"]
-    movie_header_location_dict : dict = fu.header_location_get(movie_header_list)
-    movie_list_specify : list = ddf.read_list_from_cache(dictionary_cache= movie_list_dict,code= code)
-    movie_price_location = movie_header_location_dict["original price"]
-    movie_discount_location = movie_header_location_dict["discount"]
-    movie_original_price : int = int(movie_list_specify[movie_price_location])
-    movie_discount : float = float(movie_list_specify[movie_discount_location].strip("%"))
-    movie_real_price : float = movie_original_price * (1 - movie_discount/100)
-    return round(movie_real_price)
-
-
 
 if __name__ == '__main__':
     pass
