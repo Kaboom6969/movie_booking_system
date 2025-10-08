@@ -1,10 +1,11 @@
 from datetime import datetime
+from secrets import choice
+
 from main_program.Library.movie_booking_framework import seat_visualizer as sv
 from main_program.Library.movie_booking_framework import cinema_services as cnsv
 from main_program.Library.movie_booking_framework import id_generator as idg
-from main_program.Library.payment_framework.payment_framework import pay_money
+from main_program.Library.payment_framework import  payment_framework as pf
 from main_program.Library.movie_booking_framework import movie_seats_framework as msf
-from main_program.Library.movie_booking_framework import movie_list_framework as mlf
 from main_program.Library.system_login_framework.login_system import *
 from main_program.Library.data_communication_framework import cache_csv_sync_framework as ccsf
 from main_program.Library.cache_framework import data_dictionary_framework as ddf
@@ -107,20 +108,39 @@ def select_seat(movie_seat_list):
             return column, row
 
 
-def booking(movie_seat_list, input_movie_code, user_id,
-            booking_data_dict : dict=None, movie_seats_dict : dict=None, movie_list_dict : dict=None):
+def booking(movie_seat_list, input_movie_code, user_id : str = None,customer_id : str = None,booking_method : str = '1',
+            booking_data_dict : dict=None, movie_seats_dict : dict=None, movie_list_dict : dict=None,customer_dict : dict=None):
     if booking_data_dict is None: booking_data_dict = ddf.BOOKING_DATA_DICTIONARY
     if movie_seats_dict is None:movie_seats_dict = ddf.MOVIE_SEATS_DICTIONARY
     if movie_list_dict is None:movie_list_dict = ddf.MOVIE_LIST_DICTIONARY
+    if customer_dict is None: customer_dict = ddf.CUSTOMER_DATA_DICTIONARY
     column, row = select_seat(movie_seat_list=movie_seat_list)
     today = datetime.today().strftime('%Y/%m/%d')
-    print("Purchased successfully")
     booking_data_list: list = ccsf.read_list_from_cache(booking_data_dict)
-    booking_id = idg.generate_code_id(code_list=booking_data_list, prefix_generate="B", code_location=0, number_of_prefix=1
-                                  , prefix_got_digit=False, code_id_digit_count=4)
-    book_price = mlf.get_price(movie_list_dict= movie_list_dict,code= input_movie_code)
-    data_row = [booking_id, user_id, input_movie_code, today, 2, column, row,book_price, 'Clerk']
-    ccsf.list_dictionary_update(dictionary=booking_data_dict,list_to_add=data_row)
+    if booking_method == '1':
+        booking_id = idg.generate_code_id(code_list=booking_data_list, prefix_generate="B", code_location=0,
+                                          number_of_prefix=1
+                                          , prefix_got_digit=False, code_id_digit_count=4)
+        book_price = pf.get_price(movie_list_dict=movie_list_dict, code=input_movie_code)
+        data_row = [booking_id, user_id, input_movie_code, today, 2, column, row, book_price, 'Clerk']
+        ccsf.list_dictionary_update(dictionary=booking_data_dict, list_to_add=data_row)
+        print("Purchased successfully")
+    else:
+        book_price = pf.get_price(movie_list_dict=movie_list_dict, code=input_movie_code)
+        flag = pf.pay_money(customer_dict=customer_dict, customer_id=customer_id, price=book_price)
+        if flag:
+            booking_id = idg.generate_code_id(code_list=booking_data_list, prefix_generate="B", code_location=0,
+                                              number_of_prefix=1
+                                              , prefix_got_digit=False, code_id_digit_count=4)
+            book_price = pf.get_price(movie_list_dict=movie_list_dict, code=input_movie_code)
+            data_row = [booking_id, user_id, input_movie_code, today, 2, column, row, book_price, 'Clerk']
+            ccsf.list_dictionary_update(dictionary=booking_data_dict, list_to_add=data_row)
+            data_row = [booking_id, user_id, input_movie_code, today, 2, column, row, book_price, 'Clerk']
+            ccsf.list_dictionary_update(dictionary=booking_data_dict, list_to_add=data_row)
+            print("Purchased successfully")
+        else:
+            print("Purchase failed")
+
 
 
 def handle_booking(movie_seats_csv, booking_data_csv, customer_csv, movie_seat_list,
@@ -129,15 +149,14 @@ def handle_booking(movie_seats_csv, booking_data_csv, customer_csv, movie_seat_l
         try:
             choice = fu.get_operation_choice("Please Select Your Choice",'cash','account balance','quit')
             if choice == '1':
-                booking(movie_seat_list, input_movie_code,
-                        user_id)
+                booking(movie_seat_list=movie_seat_list,input_movie_code=input_movie_code,user_id=user_id)
                 break
             elif choice == '2':
                 path = fu.get_path(customer_csv)
                 customer_id = login(path)
                 if customer_id is not None:
-                    price = '10'
-
+                    booking(movie_seat_list=movie_seat_list, input_movie_code=input_movie_code,user_id=user_id,
+                            customer_id=customer_id,booking_method=choice)
             elif choice == '3':
                 break
         except ValueError as e:
@@ -314,13 +333,13 @@ def clerk(user_id):
 
         while True:
             choice = fu.get_operation_choice('Please enter your choice','booking','cancel or modify booking','check movie seats','print receipt','quit')
+            print(choice)
             if choice == '1':
                 handle_booking(movie_seats_csv="movie_seat.csv", booking_data_csv="booking_data.csv", customer_csv="customer.csv",
                                movie_seat_list=movie_seat_list, input_movie_code=input_movie_code, user_id=user_id)
 
             elif choice == '2':
-                modify_booking(movie_seats_csv="movie_seat.csv", booking_data_csv="booking_data.csv",
-                               movie_seat_list=movie_seat_list, input_movie_code=input_movie_code, user_id=user_id)
+                modify_booking(movie_seat_list=movie_seat_list, input_movie_code=input_movie_code, user_id=user_id)
             elif choice == '3':
                 checking_movie(input_movie_code=input_movie_code)
             elif choice == '4':

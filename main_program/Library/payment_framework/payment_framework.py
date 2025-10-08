@@ -1,30 +1,19 @@
 from main_program.Library.movie_booking_framework import framework_utils as fu
 from main_program.Library.cache_framework import data_dictionary_framework as ddf
-def pay_money(customer_csv: str,customer_id:str,price:int) -> bool:
-    customer_csv_path = fu.get_path(customer_csv)
+from main_program.Library.data_communication_framework import  cache_csv_sync_framework as ccsf
+def pay_money(customer_dict: dict,customer_id:str,price:int) -> bool:
     content_list = []
-    with open(customer_csv_path,'r', newline="") as r:
-        header = r.readline()
-        content = r.read().strip().split('\n')
-        for row_data in content:
-            content_list.append(row_data.split(','))
-    for list_data in content_list:
-        if list_data[0] == customer_id:
-            customer_balance = int(list_data[3])
-            if price > customer_balance:
-                #balance not enough
-                return False
-            else:
-                customer_balance = customer_balance - price
-                list_data[3] = str(customer_balance)
-                with open(customer_csv_path, 'w', newline="") as w:
-                    w.write(header)
-                    for i in content_list:
-                        line = ",".join(x.strip() for x in i)
-                        w.write(line + "\n")
-                    #payment successful
-                    return True
-    raise ValueError("Invalid customer_id")
+    customer_header_location : dict = fu.header_location_get(customer_dict["header"])
+    customer_balance = int(customer_dict[customer_id][customer_header_location["user_balance"] - 1])
+    if price > customer_balance:
+        #balance not enough
+        return False
+    else:
+        customer_balance -= price
+        customer_dict[customer_id][customer_header_location["user_balance"] - 1] = customer_balance
+        ccsf.list_cache_write_to_csv(list_csv=customer_dict["base file name"],list_dictionary_cache=customer_dict)
+        return True
+
 
 def get_price(movie_list_dict: dict,code : str) -> int:
     movie_header_list : list = movie_list_dict["header"]
