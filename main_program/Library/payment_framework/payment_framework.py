@@ -1,6 +1,7 @@
-from main_program.Library.movie_booking_framework.framework_utils import get_path
+from main_program.Library.movie_booking_framework import framework_utils as fu
+from main_program.Library.cache_framework import data_dictionary_framework as ddf
 def pay_money(customer_csv: str,customer_id:str,price:int) -> bool:
-    customer_csv_path = get_path(customer_csv)
+    customer_csv_path = fu.get_path(customer_csv)
     content_list = []
     with open(customer_csv_path,'r', newline="") as r:
         header = r.readline()
