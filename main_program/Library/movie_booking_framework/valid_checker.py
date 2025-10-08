@@ -87,26 +87,37 @@ def date_valid_check(date : str) -> tuple[bool, str]:
         if year % 400 == 0: return True
         return False
 
-    if not re.fullmatch(r"(\d{4})/(\d{2})/(\d{2})", date): return False,date_format
+    date_list : list = date.split('/')
+    if len(date_list) != 3 : return False,date_format
+    for element in date_list:
+        if not element.isdigit(): return False,date_format
+    if len(date_list[0]) != 4: return False,date_format
+    if len(date_list[1]) != 2: return False, date_format
+    if len(date_list[2]) != 2: return False, date_format
 
-    date_after_split = re.search(r"(\d{4})/(\d{2})/(\d{2})", date)
-    year, month, day = date_after_split.groups()
+    year = int(date_list[0])
+    month = int(date_list[1])
+    day = int(date_list[2])
+
     month_30_day : list =[4,6,9,11]
-    if int(month) > 12: return False,date_format
-    if int(day) > 31: return False,date_format
-    if int(month) in month_30_day and int(day) > 30:return False,date_format
-    if int(month) == 2 and not leap_year_check(int(year)) and int(day) > 28: return False,date_format
-    if int(month) == 2 and leap_year_check(int(year)) and int(day) > 29: return False,date_format
+    if month > 12 or month <= 0: return False,date_format
+    if day > 31 or day <= 0: return False,date_format
+    if month in month_30_day and day > 30:return False,date_format
+    if month == 2 and not leap_year_check(year) and day > 28: return False,date_format
+    if month == 2 and leap_year_check(year) and day > 29: return False,date_format
     return True,""
 
 def time_valid_check(time : str) -> tuple[bool, str]:
     time_format : str = "HH:MM"
-    if not re.fullmatch(r"(\d{2}):(\d{2})",time) : return False,time_format
-
-    time_after_split = re.search(r"(\d{2}):(\d{2})",time)
-    hour,minute = time_after_split.groups()
-    if int(hour) > 23: return False,time_format
-    if int(minute) > 59: return False,time_format
+    time_list : list = time.split(':')
+    if len(time_list) != 2 : return False,time_format
+    for element in time_list:
+        if not element.isdigit(): return False,time_format
+    if len(time_list[0]) != 2 or len(time_list[1]) != 2: return False,time_format
+    hour = int(time_list[0])
+    minute = int(time_list[1])
+    if hour > 23: return False,time_format
+    if minute > 59: return False,time_format
     return True,""
 
 def number_valid_check(number : str) -> tuple[bool, str]:
