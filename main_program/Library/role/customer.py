@@ -66,8 +66,9 @@ def book_movie_operation(user_id : str,code_range : list) -> None:
     book_movie_system(movie_code= movie_code,user_id= user_id)
 
 def book_movie_system(movie_code : str,user_id : str,
-                         booking_data_dict : dict=None) -> None:
+                         booking_data_dict : dict=None,movie_list_dict : dict=None) -> None:
     if booking_data_dict is None:booking_data_dict = ddf.BOOKING_DATA_DICTIONARY
+    if movie_list_dict is None: movie_list_dict = ddf.MOVIE_LIST_DICTIONARY
     try:
         cnsv.sync_all()
         booking_movie_seats = movie_list_to_movie_seats_print(movie_code=movie_code)
@@ -86,10 +87,11 @@ def book_movie_system(movie_code : str,user_id : str,
             if booking_status:
                 booking_list : list = ccsf.read_list_from_cache(dictionary_cache=booking_data_dict)
                 book_id : str = idg.generate_code_id(code_list= booking_list,prefix_generate= "B",code_location= 0,number_of_prefix= 1,prefix_got_digit= False,code_id_digit_count= 4)
+                book_price : str = mlf.get_price(movie_list_dict= movie_list_dict,code = movie_code)
                 booking_data_list = _booking_data_create(book_id= book_id,user_id= user_id,movie_code= movie_code
                                                          ,booking_date= datetime.datetime.now().strftime('%Y/%m/%d')
                                                          ,booking_or_pay= "1",x_seat= str(x_pointer)
-                                                         ,y_seat= str(y_pointer),source= "online")
+                                                         ,y_seat= str(y_pointer),price= book_price,source= "online")
                 ccsf.list_dictionary_update(dictionary= booking_data_dict,list_to_add= booking_data_list)
                 cnsv.sync_all()
 
@@ -134,7 +136,7 @@ def book_movie_buy(seats_value : str)-> bool:
 
 
 def _booking_data_create (book_id : str,user_id : str,movie_code : str,booking_date : str
-                         ,booking_or_pay : str,x_seat : str, y_seat : str,source : str) -> list:
+                         ,booking_or_pay : str,x_seat : str, y_seat : str,price : str,source : str) -> list:
     booking_data_list : list = []
     booking_data_list.append(book_id)
     booking_data_list.append(user_id)
@@ -143,6 +145,7 @@ def _booking_data_create (book_id : str,user_id : str,movie_code : str,booking_d
     booking_data_list.append(booking_or_pay)
     booking_data_list.append(x_seat)
     booking_data_list.append(y_seat)
+    booking_data_list.append(price)
     booking_data_list.append(source)
     return booking_data_list
 

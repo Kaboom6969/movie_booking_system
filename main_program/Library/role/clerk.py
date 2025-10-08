@@ -4,6 +4,7 @@ from main_program.Library.movie_booking_framework import cinema_services as cnsv
 from main_program.Library.movie_booking_framework import id_generator as idg
 from main_program.Library.payment_framework.payment_framework import pay_money
 from main_program.Library.movie_booking_framework import movie_seats_framework as msf
+from main_program.Library.movie_booking_framework import movie_list_framework as mlf
 from main_program.Library.system_login_framework.login_system import *
 from main_program.Library.data_communication_framework import cache_csv_sync_framework as ccsf
 from main_program.Library.cache_framework import data_dictionary_framework as ddf
@@ -107,42 +108,38 @@ def select_seat(movie_seat_list):
 
 
 def booking(movie_seat_list, input_movie_code, user_id,
-            booking_data_dict : dict=None, movie_seats_dict : dict=None):
+            booking_data_dict : dict=None, movie_seats_dict : dict=None, movie_list_dict : dict=None):
     if booking_data_dict is None: booking_data_dict = ddf.BOOKING_DATA_DICTIONARY
     if movie_seats_dict is None:movie_seats_dict = ddf.MOVIE_SEATS_DICTIONARY
+    if movie_list_dict is None:movie_list_dict = ddf.MOVIE_LIST_DICTIONARY
     column, row = select_seat(movie_seat_list=movie_seat_list)
     today = datetime.today().strftime('%Y/%m/%d')
     print("Purchased successfully")
     booking_data_list: list = ccsf.read_list_from_cache(booking_data_dict)
     booking_id = idg.generate_code_id(code_list=booking_data_list, prefix_generate="B", code_location=0, number_of_prefix=1
                                   , prefix_got_digit=False, code_id_digit_count=4)
-    data_row = [booking_id, user_id, input_movie_code, today, 2, column, row, 'Clerk']
+    book_price = mlf.get_price(movie_list_dict= movie_list_dict,code= input_movie_code)
+    data_row = [booking_id, user_id, input_movie_code, today, 2, column, row,book_price, 'Clerk']
     ccsf.list_dictionary_update(dictionary=booking_data_dict,list_to_add=data_row)
-    cnsv.sync_all()
-    sv.print_movie_seat_as_emojis(ccsf.read_seats_from_cache(cache_dictionary=movie_seats_dict,code=input_movie_code))
 
 
 def handle_booking(movie_seats_csv, booking_data_csv, customer_csv, movie_seat_list,
                    input_movie_code, user_id):
     while True:
-        print("\nPlease select your choice:")
         try:
-            choice = int(input(
-                "\ncash(1), account balance(2), quit(3)\n"))
-            if choice == 1:
-                booking(movie_seats_csv, booking_data_csv,movie_seat_list, input_movie_code,
+            choice = fu.get_operation_choice("Please Select Your Choice",'cash','account balance','quit')
+            if choice == '1':
+                booking(movie_seat_list, input_movie_code,
                         user_id)
                 break
-            elif choice == 2:
+            elif choice == '2':
                 path = fu.get_path(customer_csv)
                 customer_id = login(path)
                 if customer_id is not None:
                     price = '10'
 
-            elif choice == 3:
+            elif choice == '3':
                 break
-            else:
-                print("Please enter a valid option (1-3).")
         except ValueError as e:
             print(e)
 
@@ -209,7 +206,7 @@ def modify_booking_data(booking_id, column, row, code_location=0,
     ccsf.list_dictionary_update(dictionary=booking_data_dict,list_to_add=updated_list)
 
 
-def modify_booking(movie_seats_csv, booking_data_csv,movie_seat_list, input_movie_code, user_id
+def modify_booking(movie_seat_list, input_movie_code, user_id
                    ,booking_data_dict=None,movie_seats_dict=None):
     if booking_data_dict is None: booking_data_dict = ddf.BOOKING_DATA_DICTIONARY
     if movie_seats_dict is None: movie_seats_dict = ddf.MOVIE_SEATS_DICTIONARY
@@ -302,6 +299,7 @@ def generate_receipt(input_movie_code,movie_list_dict : dict=None):
 
 
 def clerk(user_id):
+    cnsv.sync_all()
     while True:
         # 订票
         # get movie list
@@ -316,19 +314,20 @@ def clerk(user_id):
 
         while True:
             choice = fu.get_operation_choice('Please enter your choice','booking','cancel or modify booking','check movie seats','print receipt','quit')
-            if choice == 1:
+            if choice == '1':
                 handle_booking(movie_seats_csv="movie_seat.csv", booking_data_csv="booking_data.csv", customer_csv="customer.csv",
                                movie_seat_list=movie_seat_list, input_movie_code=input_movie_code, user_id=user_id)
 
-            elif choice == 2:
+            elif choice == '2':
                 modify_booking(movie_seats_csv="movie_seat.csv", booking_data_csv="booking_data.csv",
                                movie_seat_list=movie_seat_list, input_movie_code=input_movie_code, user_id=user_id)
-            elif choice == 3:
+            elif choice == '3':
                 checking_movie(input_movie_code=input_movie_code)
-            elif choice == 4:
+            elif choice == '4':
                 generate_receipt(input_movie_code=input_movie_code)
-            elif choice == 5:
+            elif choice == '5':
                 break
+            cnsv.sync_all()
 
 
 # 取消或修改booking

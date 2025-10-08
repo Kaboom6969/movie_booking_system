@@ -91,6 +91,10 @@ def modify_movie_operation(movie_list_dict:dict=None,movie_seats_dict:dict=None,
     if user_operation.lower() == "n":
         return
 
+def total_money_earn (booking_data_dict : dict = None) -> int:
+    if booking_data_dict is None : booking_data_dict = ddf.BOOKING_DATA_DICTIONARY
+    booking_data_header_location : dict = fu.header_location_get(booking_data_dict["header"])
+
 
 
 
