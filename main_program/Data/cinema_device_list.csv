@@ -1,6 +1,6 @@
 cinema_number,aircond_status,speaker_status,projector_status,sound system_status,light system_status
-CINEMA001,2,0,0,0,0
-CINEMA002,0,0,0,0,0
-CINEMA003,2,0,0,0,0
+CINEMA001,1,0,0,0,0
+CINEMA002,1,0,0,0,0
+CINEMA003,0,0,0,0,0
 CINEMA004,0,0,0,0,0
 CINEMA005,0,0,0,0,0
