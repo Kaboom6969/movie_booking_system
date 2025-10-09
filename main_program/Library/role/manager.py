@@ -1,3 +1,5 @@
+from operator import truediv
+
 from main_program.Library.cache_framework.data_dictionary_framework import init_all_dictionary
 from main_program.Library.data_communication_framework import cache_csv_sync_framework as ccsf
 from main_program.Library.cache_framework import data_dictionary_framework as ddf
@@ -5,6 +7,7 @@ from main_program.Library.movie_booking_framework import id_generator as idg
 from main_program.Library.movie_booking_framework import valid_checker as vc
 from main_program.Library.movie_booking_framework import framework_utils as fu
 from main_program.Library.movie_booking_framework import cinema_services as cnsv
+from main_program.Library.movie_booking_framework.framework_utils import empty_input
 from main_program.Library.movie_booking_framework.movie_seats_framework import get_capacity
 
 
@@ -211,7 +214,46 @@ def survey_generate(booking_data_dict: dict= None) -> None:
     print(f'|{MCBS}{highest_movie_code_sell: <{SURVEY_WIDTH - len(MCBS)}}|')
     print('+', '-' *(SURVEY_WIDTH - 2), '+')
 
+def set_discount (movie_list_dict : dict,discount_rate: int,movie_code: str="all") -> None:
+    movie_list_header_location : dict = fu.header_location_get(
+        header_list= movie_list_dict["header"],
+        dict_version= True
+    )
+    if movie_code == "all":
+        for key in movie_list_dict.keys():
+            if key in ["header", "base file name", "code_location"]: continue
+            movie_list_dict[key][movie_list_header_location["discount"]] = discount_rate
+    else:
+        movie_list_dict[movie_code][movie_list_header_location["discount"]] = discount_rate
 
+
+def set_discount_operation(movie_list_dict : dict = None) -> None:
+
+    def temp_func_for_percent(discount) -> tuple[bool,str]:
+        if 0 > int(discount) > 100: return False,"1 - 100"
+        return True,""
+
+
+    if movie_list_dict is None: movie_list_dict=ddf.MOVIE_LIST_DICTIONARY
+    match fu.get_operation_choice(
+        "Discount Operation",
+        "Set Specify Movie Code",
+        "Set All"
+    ):
+        case '1':
+            movie_code = fu.element_input(element_name= "Movie Code",input_range=list(movie_list_dict.keys()))
+            discount_rate = fu.element_input(element_name= "Discount Rate",valid_check_func= temp_func_for_percent)
+            set_discount(
+                movie_list_dict=movie_list_dict,
+                discount_rate=int(discount_rate),
+                movie_code=movie_code
+            )
+        case '2':
+            discount_rate = fu.element_input(element_name= "Discount Rate",valid_check_func= temp_func_for_percent)
+            set_discount(
+                movie_list_dict=movie_list_dict,
+                discount_rate=int(discount_rate)
+            )
 
 def manager() -> None:
     while True:
@@ -221,6 +263,8 @@ def manager() -> None:
             'Add Movie',
             'Delete Movie',
             'Modify Movie',
+            'Set Discount',
+            'Generate Survey',
             'Exit'
         ):
             case "1":
@@ -230,12 +274,17 @@ def manager() -> None:
             case "3":
                 modify_movie_operation()
             case "4":
+                set_discount_operation()
+            case "5":
+                survey_generate()
+            case "6":
                 break
             case _:
                 raise ValueError(
                     "case '_' isn't callable in normal progress!\n"
                     "Please Check your element_input parameters!"
                 )
+        fu.empty_input(message="Press Enter to continue...")
         try:
             cnsv.sync_all()
         except ValueError as e:
@@ -273,9 +322,7 @@ def manager() -> None:
 
 if __name__ == "__main__":
     init_all_dictionary()
-    survey_generate()
-    # #manager()
-    # print(total_money_earn())
+    manager()
 
         
 
