@@ -106,3 +106,9 @@ Added optional real-time seat refresh display after successful booking.
 ## [1.2.1] - 2025-10-09
 ### Fixed
 - Fixed data synchronization issue
+
+## [1.2.2] - 2025-10-10
+### Fixed
+- Fixed `modify_booking_data()` indexing issue.
+- Changed from `original_row[code_location][5]` to `original_row[5]` since the returned data is a 1D list.
+- Prevented `TypeError` caused by incorrect nested list access.

@@ -1,9 +1,9 @@
 from datetime import datetime
-from secrets import choice
 
 from main_program.Library.movie_booking_framework import seat_visualizer as sv
 from main_program.Library.movie_booking_framework import cinema_services as cnsv
 from main_program.Library.movie_booking_framework import id_generator as idg
+from main_program.Library.movie_booking_framework.framework_utils import header_location_get
 from main_program.Library.payment_framework import payment_framework as pf
 from main_program.Library.movie_booking_framework import movie_seats_framework as msf
 from main_program.Library.system_login_framework.login_system import *
@@ -26,13 +26,13 @@ def get_and_print_booking_data(input_movie_code, booking_data_dict: dict = None)
     # header = [Book ID,User ID,Movie Code,Date,(1:booking 2:paid),seat(x-axis),seat(y-axis),Source]
     header: list = booking_data_dict.get("header")
     print(
-        f"{header[0]:<10}{header[1]:<10}{header[2]:<13}{header[3]:<13}{header[4]:<21}{header[5]:<15}{header[6]:<15}{header[7]:<15}")
+        f"{header[0]:<10}{header[1]:<10}{header[2]:<13}{header[3]:<13}{header[4]:<21}{header[5]:<15}{header[6]:<15}{header[7]:<15}{header[8]:<15}")
     filtered_list = []
     for row in booking_data_list:
-        booking_id, user_id, movie_code, date, status, x_axis, y_axis, source = row
+        booking_id, user_id, movie_code, date, status, x_axis, y_axis, price, source = row
         if input_movie_code == movie_code:
             print(
-                f"{booking_id:<10}{user_id:<10}{movie_code:<13}{date:<13}{status:<21}{x_axis:<15}{y_axis:<15}{source:<15}")
+                f"{booking_id:<10}{user_id:<10}{movie_code:<13}{date:<13}{status:<21}{x_axis:<15}{y_axis:<15}{price:<15}{source:<15}")
             filtered_list.append(row)
     return filtered_list
 
@@ -177,6 +177,11 @@ def get_user_seat_axis(booking_data_list, input_booking_id):
             return booking_data[5], booking_data[6]
     return None
 
+def get_customer_id(booking_data_list, input_booking_id):
+    for booking_data in booking_data_list:
+        if input_booking_id == booking_data[0]:
+            return booking_data[1]
+    return None
 
 def get_user_booking_axis_and_booking_id(booking_data_list):
     while True:
@@ -206,30 +211,35 @@ def modify_booking_data(booking_id, column, row, code_location=0,
                         booking_data_dict=None):
     if booking_data_dict is None: booking_data_dict = ddf.BOOKING_DATA_DICTIONARY
     original_row: list = ccsf.read_list_from_cache(dictionary_cache=booking_data_dict, code=booking_id)
-    original_row[code_location][5] = str(column)
-    original_row[code_location][6] = str(row)
-    original_row[code_location][7] = 'Clerk'
-    updated_list: list = original_row[code_location]
+    original_row[5] = str(column)
+    original_row[6] = str(row)
+    original_row[8] = 'Clerk'
+    updated_list: list = original_row
     ccsf.list_dictionary_update(dictionary=booking_data_dict, list_to_add=updated_list)
 
 
 def modify_booking(movie_seat_list, input_movie_code, user_id
-                   , booking_data_dict=None, movie_seats_dict=None):
+                   , booking_data_dict=None, movie_seats_dict=None,customer_dict=None):
     if booking_data_dict is None: booking_data_dict = ddf.BOOKING_DATA_DICTIONARY
     if movie_seats_dict is None: movie_seats_dict = ddf.MOVIE_SEATS_DICTIONARY
+    if customer_dict is None:customer_dict = ddf.CUSTOMER_DATA_DICTIONARY
     booking_data_exist = check_booking_data(input_movie_code)
     if booking_data_exist:
         while True:
             booking_data_list = get_and_print_booking_data(input_movie_code)
             column, row, booking_id = get_user_booking_axis_and_booking_id(booking_data_list)
+            customer_id = get_customer_id(booking_data_list, booking_id)
             choice = fu.get_operation_choice('Please enter your choice', 'cancel booking', 'modify booking', 'quit')
-            #
             # cancel booking(1), modify booking(2), quit(3)
-            if choice == 1:
+            if choice == '1':
+                start_with_c = user_id_start_with_c(customer_id)
+                if start_with_c:
+                    pf.return_money(booking_data_dict, customer_dict, booking_id, customer_id)
+                    print('Your money has been returned')
                 ccsf.dictionary_delete(dictionary=booking_data_dict, key_to_delete=booking_id)
                 print('Cancel booking successfully')
                 break
-            elif choice == 2:
+            elif choice == '2':
                 column, row = select_seat(movie_seat_list=movie_seat_list)
                 modify_booking_data(booking_id=booking_id, column=column, row=row)
                 print("Modify successfully")
@@ -332,6 +342,8 @@ def clerk(user_id):
                 break
             cnsv.sync_all()
 
+def user_id_start_with_c(user_id:str) -> bool:
+    return bool(user_id.startswith('C') and user_id[1:].isdigit())
 
 # 取消或修改booking
 # 查看电影列表
@@ -339,10 +351,6 @@ def clerk(user_id):
 
 def main():
     clerk(user_id='K001')
-    #dictionary = ddf.BOOKING_DATA_DICTIONARY
-    #header_location_dict = fu.header_location_get(dictionary[1])
-    #print(header_location_dict)
-    #print(dictionary)
 
 
 if __name__ == '__main__':

@@ -14,6 +14,15 @@ def pay_money(customer_dict: dict,customer_id:str,price:int) -> bool:
         ccsf.list_cache_write_to_csv(list_csv=customer_dict["base file name"],list_dictionary_cache=customer_dict)
         return True
 
+def return_money(booking_dict: dict,customer_dict: dict,booking_id:str,customer_id:str) -> bool:
+    booking_header_location = fu.header_location_get(booking_dict["header"])
+    customer_header_location = fu.header_location_get(customer_dict["header"])
+    customer_balance = int(customer_dict[customer_id][customer_header_location['user_balance'] - 1])
+    price = int(booking_dict[booking_id][booking_header_location['price'] - 1])
+    customer_balance += price
+    customer_dict[customer_id][customer_header_location["user_balance"] - 1] = customer_balance
+    ccsf.list_cache_write_to_csv(list_csv=customer_dict["base file name"], list_dictionary_cache=customer_dict)
+    return True
 
 def get_price(movie_list_dict: dict,code : str) -> int:
     movie_header_list : list = movie_list_dict["header"]
