@@ -97,7 +97,6 @@ def check_equipment_status_operation(cinema_device_dict: dict =None) -> None:
     technician_code_range: list = fu.get_code_range(dictionary_cache= cinema_device_dict)
     cinema_device_code: str = fu.element_input(element_name= "cinema number",input_range=technician_code_range)
     check_equipment_status(cinema_number= cinema_device_code)
-    input ("\nEnter Any key to continue...")
 
 
 def confirm_equipment_status(cinema_device_dict: dict =None) -> None:
@@ -110,7 +109,6 @@ def confirm_equipment_status(cinema_device_dict: dict =None) -> None:
             print (f"{row[cinema_header_location["cinema_number"]]} is all good!")
         else:
             print(f"{row[cinema_header_location["cinema_number"]]} got problem!")
-    input ("\nEnter Any key to continue...")
 
 def cinema_status_check(cinema_device_list_one_dimension: list) -> bool:
     for element in cinema_device_list_one_dimension:
@@ -185,6 +183,7 @@ def technician() -> None:
                     update_issue_status_operation()
                 case '6':
                     break
+            fu.empty_input("Press Enter to continue...")
         except Exception as e:
             raise Exception("ERROR DETECTED,ERROR:",e)
         try:
