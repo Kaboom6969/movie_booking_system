@@ -7,6 +7,7 @@ from main_program.Library.movie_booking_framework import  movie_list_framework a
 from main_program.Library.movie_booking_framework import id_generator as idg
 from main_program.Library.data_communication_framework import cache_csv_sync_framework as ccsf
 from main_program.Library.movie_booking_framework import framework_utils as fu
+from main_program.Library.payment_framework import payment_framework as pf
 import datetime
 
 DEFAULT_WIDTH = 30
@@ -69,7 +70,7 @@ def movie_list_print_with_format(
         for data in row[0:6]:
             print(f"{data: <{DEFAULT_WIDTH}}", end="")
 
-        print(f"{mlf.get_price(movie_list_dict= movie_list_dict,code= row[0] ): <{DEFAULT_WIDTH}}",end= "")
+        print(f"{pf.get_price(movie_list_dict= movie_list_dict,code= row[0] ): <{DEFAULT_WIDTH}}",end= "")
         print(f"{msf.get_capacity(seat_list_temp): <{DEFAULT_WIDTH}}", end ="")
         print()
 
@@ -83,8 +84,12 @@ def book_movie_operation(user_id : str,code_range : list) -> None:
     movie_code : str = fu.element_input(element_name= "movie code",input_range= code_range)
     book_movie_system(movie_code= movie_code,user_id= user_id)
 
-def book_movie_system(movie_code : str,user_id : str,
-                         booking_data_dict : dict=None,movie_list_dict : dict=None) -> None:
+def book_movie_system(
+        movie_code : str,
+        user_id : str,
+        booking_data_dict : dict=None,
+        movie_list_dict : dict=None
+) -> None:
     if booking_data_dict is None:booking_data_dict = ddf.BOOKING_DATA_DICTIONARY
     if movie_list_dict is None: movie_list_dict = ddf.MOVIE_LIST_DICTIONARY
     try:
@@ -120,6 +125,13 @@ def book_movie_system(movie_code : str,user_id : str,
             )
             booking_status =book_movie_buy(seats_value= seats_value)
             if booking_status:
+                book_price : int = pf.get_price(
+                    movie_list_dict= movie_list_dict,
+                    code = movie_code
+                )
+                if not pf.pay_money(customer_id=user_id,price=book_price):
+                    print ("Purchased Failed,No Enough Money!")
+                    return
                 booking_list : list = ccsf.read_list_from_cache(dictionary_cache=booking_data_dict)
                 book_id : str = idg.generate_code_id(
                     code_list= booking_list,
@@ -129,10 +141,6 @@ def book_movie_system(movie_code : str,user_id : str,
                     prefix_got_digit= False,
                     code_id_digit_count= 4
                 )
-                book_price : str = mlf.get_price(
-                    movie_list_dict= movie_list_dict,
-                    code = movie_code
-                )
                 booking_data_list = _booking_data_create(
                     book_id= book_id,
                     user_id= user_id,
@@ -141,7 +149,7 @@ def book_movie_system(movie_code : str,user_id : str,
                     booking_or_pay= "1",
                     x_seat= str(x_pointer),
                     y_seat= str(y_pointer),
-                    price= book_price,source= "online"
+                    price= str(book_price),source= "online"
                 )
                 ccsf.list_dictionary_update(dictionary= booking_data_dict,list_to_add= booking_data_list)
                 cnsv.sync_all()
@@ -285,12 +293,13 @@ def customer(customer_id : str) -> None:
                         pass
             case "3":
                 break
+        fu.empty_input("Press Enter to continue...")
 
 
 
 #JUST TEST
 if __name__ == '__main__':
-    ccsf.init_all_dictionary()
+    ddf.init_all_dictionary()
     customer(customer_id = "C001")
     #user_input = str(input("empty"))
     #check_all_movie_list()
