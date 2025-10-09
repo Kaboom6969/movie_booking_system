@@ -6,9 +6,15 @@ from main_program.Library.movie_booking_framework import  movie_seats_framework 
 from ..cache_framework.data_dictionary_framework import primary_foreign_key_dictionary_init, read_list_from_cache
 from main_program.Library.movie_booking_framework import framework_utils as fu
 
-def sync_all(movie_list_dict : dict=None, movie_seats_dict : dict=None, cinema_device_dict : dict =None,
-             cinema_seats_dict : dict=None, mc_code_dict : dict=None,booking_data_dict : dict=None
-             ,skip_conflict_test:bool=False) -> None:
+def sync_all(
+        movie_list_dict : dict=None,
+        movie_seats_dict : dict=None,
+        cinema_device_dict : dict =None,
+        cinema_seats_dict : dict=None,
+        mc_code_dict : dict=None,
+        booking_data_dict : dict=None,
+        skip_conflict_test:bool=False
+) -> None:
     if movie_list_dict is None: movie_list_dict = ddf.MOVIE_LIST_DICTIONARY
     if movie_seats_dict is None: movie_seats_dict = ddf.MOVIE_SEATS_DICTIONARY
     if cinema_device_dict is None: cinema_device_dict = ddf.CINEMA_DEVICE_DICTIONARY
@@ -19,20 +25,33 @@ def sync_all(movie_list_dict : dict=None, movie_seats_dict : dict=None, cinema_d
         movie_schedule_conflict_check_status,schedule_conflict_data = conflict_check_for_movie_schedule()
         if not movie_schedule_conflict_check_status:
             raise ValueError("Conflict schedule detected!",schedule_conflict_data)
-    ddf.MOVIE_CINEMA_CODE_DICTIONARY = primary_foreign_key_dictionary_init(list_dict= movie_list_dict, PK_location=0,
-                                                                           FK_location=2)
+    ddf.MOVIE_CINEMA_CODE_DICTIONARY = primary_foreign_key_dictionary_init(
+        list_dict= movie_list_dict,
+        PK_location=0,
+        FK_location=2)
+
     sync_file()
-    ddf.MOVIE_CINEMA_CODE_DICTIONARY = primary_foreign_key_dictionary_init(list_dict= movie_list_dict, PK_location=0,
-                                                                           FK_location=2)
+    ddf.MOVIE_CINEMA_CODE_DICTIONARY = primary_foreign_key_dictionary_init(
+        list_dict= movie_list_dict,
+        PK_location=0,
+        FK_location=2
+    )
     link_status, link_conflict_data = link_seats()
     if not skip_conflict_test :
         if not link_status:
             raise ValueError("Conflict booking data detected",link_conflict_data)
 
 
-def link_seats (booking_id_location : int = 0,
-                book_movie_code_location : int = 2, book_x_seats_location : int = 5, book_y_seats_location : int = 6,
-                movie_seats_dict=None, booking_data_dict=None, cinema_seats_dict=None, mc_code_dict=None) -> tuple[bool,list]:
+def link_seats (
+        booking_id_location : int = 0,
+        book_movie_code_location : int = 2,
+        book_x_seats_location : int = 5,
+        book_y_seats_location : int = 6,
+        movie_seats_dict=None,
+        booking_data_dict=None,
+        cinema_seats_dict=None,
+        mc_code_dict=None
+) -> tuple[bool,list]:
     if booking_data_dict is None: booking_data_dict = ddf.BOOKING_DATA_DICTIONARY
     if cinema_seats_dict is None: cinema_seats_dict = ddf.CINEMA_SEATS_DICTIONARY
     if movie_seats_dict is None: movie_seats_dict = ddf.MOVIE_SEATS_DICTIONARY
@@ -42,51 +61,99 @@ def link_seats (booking_id_location : int = 0,
     booking_data_list : list = ccsf.read_list_from_cache(dictionary_cache= booking_data_dict)
     conflict_booking_id_list : list = []
     #First init the seats file (all the data of seats clear)
-    movie_seats_cache_whole_init(movie_seats_dict= movie_seats_dict, cinema_seats_dict= cinema_seats_dict, mc_code_dict= mc_code_dict)
+    movie_seats_cache_whole_init(
+        movie_seats_dict= movie_seats_dict,
+        cinema_seats_dict= cinema_seats_dict,
+        mc_code_dict= mc_code_dict
+    )
     for row in booking_data_list:
         #get the data of booking (movie code,x,y) from booking data list)
         #[movie_code,x_axis,y_axis]
-        bkid_mvcode_x_y_list : list = get_booking_id_movie_code_x_y_value_list(booking_data_array= row,booking_id_location= booking_id_location,
-                                                               movie_code_location= book_movie_code_location,
-                                                               x_seats_location= book_x_seats_location,
-                                                               y_seats_location= book_y_seats_location)
+        bkid_mvcode_x_y_list : list = get_booking_id_movie_code_x_y_value_list(
+            booking_data_array= row,
+            booking_id_location= booking_id_location,
+            movie_code_location= book_movie_code_location,
+            x_seats_location= book_x_seats_location,
+            y_seats_location= book_y_seats_location
+        )
         #read the current movie seats (from the bkid_mvcode_x_y_list)
-        current_movie_seats : list = ccsf.read_seats_from_cache(cache_dictionary= movie_seats_dict,code= bkid_mvcode_x_y_list[1])
-        conflict_detect,conflict_data = conflict_detect_for_link_seats(current_movie_seats= current_movie_seats,bkid_mvcode_x_y_list= bkid_mvcode_x_y_list)
+        current_movie_seats : list = ccsf.read_seats_from_cache(
+            cache_dictionary= movie_seats_dict,
+            code= bkid_mvcode_x_y_list[1]
+        )
+        conflict_detect,conflict_data = conflict_detect_for_link_seats(
+            current_movie_seats= current_movie_seats,
+            bkid_mvcode_x_y_list= bkid_mvcode_x_y_list
+        )
         if not conflict_detect:
-            msf.modify_movie_seats_list(movie_seat_list=current_movie_seats,x_axis=bkid_mvcode_x_y_list[2],y_axis=bkid_mvcode_x_y_list[3],target_number= 1)
+            msf.modify_movie_seats_list(
+                movie_seat_list=current_movie_seats,
+                x_axis=bkid_mvcode_x_y_list[2],
+                y_axis=bkid_mvcode_x_y_list[3],
+                target_number= 1
+            )
             # update it to the movie seats csv
-            ccsf.seat_dictionary_update(seats_dictionary= movie_seats_dict, mt_code_dictionary=mc_code_dict,
-                                        code_to_update=bkid_mvcode_x_y_list[1], seats_data_to_add=current_movie_seats)
+            ccsf.seat_dictionary_update(
+                seats_dictionary= movie_seats_dict,
+                mt_code_dictionary=mc_code_dict,
+                code_to_update=bkid_mvcode_x_y_list[1],
+                seats_data_to_add=current_movie_seats
+            )
         else:conflict_booking_id_list.append(conflict_data)
-    ccsf.list_cache_write_to_csv(list_csv= booking_data_csv,list_dictionary_cache= booking_data_dict)
-    ccsf.seats_cache_write_to_csv(seats_csv= movie_seats_csv, seats_dictionary_cache= movie_seats_dict,
-                                  mt_code_dictionary_cache= mc_code_dict)
+    ccsf.list_cache_write_to_csv(
+        list_csv= booking_data_csv,
+        list_dictionary_cache= booking_data_dict
+    )
+    ccsf.seats_cache_write_to_csv(
+        seats_csv= movie_seats_csv,
+        seats_dictionary_cache= movie_seats_dict,
+        mt_code_dictionary_cache= mc_code_dict
+    )
     if conflict_booking_id_list: return False,conflict_booking_id_list
     else: return True,[]
 
 def movie_seats_cache_whole_init (movie_seats_dict : dict, cinema_seats_dict : dict, mc_code_dict : dict) -> None:
     for movie_code,cinema_code in mc_code_dict.items():
         #init the movie seats(one only,but using for loop so can init all the file)
-        movie_seats_init(movie_code= movie_code, cinema_code= cinema_code.upper(), movie_seats_dict= movie_seats_dict,
-                         cinema_seats_dict= cinema_seats_dict, mc_code_dict= mc_code_dict)
+        movie_seats_init(
+            movie_code= movie_code,
+            cinema_code= cinema_code.upper(),
+            movie_seats_dict= movie_seats_dict,
+            cinema_seats_dict= cinema_seats_dict,
+            mc_code_dict= mc_code_dict
+        )
 
 
-def movie_seats_init(movie_code : str, cinema_code : str,
-                     movie_seats_dict : dict, cinema_seats_dict : dict, mc_code_dict : dict) -> None:
+def movie_seats_init(
+        movie_code : str,
+        cinema_code : str,
+        movie_seats_dict : dict,
+        cinema_seats_dict : dict,
+        mc_code_dict : dict
+) -> None:
     # read the template data
     cinema_seats : list = ccsf.read_seats_from_cache(cache_dictionary= cinema_seats_dict, code= cinema_code.upper())
     cinema_seats_copy : list = [row[:] for row in cinema_seats]
     #overwrite the old data with template data
-    ccsf.seat_dictionary_update(seats_dictionary= movie_seats_dict, mt_code_dictionary=mc_code_dict, code_to_update= movie_code,
-                                seats_data_to_add= cinema_seats_copy)
+    ccsf.seat_dictionary_update(
+        seats_dictionary= movie_seats_dict,
+        mt_code_dictionary=mc_code_dict,
+        code_to_update= movie_code,
+        seats_data_to_add= cinema_seats_copy
+    )
 
 
 
 
 #IMPORTANT:please check the movie_code_location,x_seats_location,and y_seats_location is the correct location or not!
 #I have no error detection for this EXCEPTION!!!!!!
-def get_booking_id_movie_code_x_y_value_list (booking_data_array : list,booking_id_location : int,movie_code_location : int, x_seats_location : int, y_seats_location : int) -> list:
+def get_booking_id_movie_code_x_y_value_list (
+        booking_data_array : list,
+        booking_id_location : int,
+        movie_code_location : int,
+        x_seats_location : int,
+        y_seats_location : int
+) -> list:
     #check the booking_data_array is one dimension list or not (no 2d list allow)
     if any(isinstance(element, (list,tuple)) for element in booking_data_array):
         #if the booking_data_array is 2d list,interrupt the action and raise error
@@ -122,8 +189,13 @@ def mismatched_calculate (main_list : list, compared_list : list) -> list:
 
 #sync the movie list,movie seats, and cinema device list
 #The SSOT is movie list
-def sync_file (movie_list_dict : dict=None, movie_seats_dict : dict=None, cinema_device_dict : dict =None,
-               cinema_seats_dict : dict=None, mc_code_dict : dict=None) -> None:
+def sync_file (
+        movie_list_dict : dict=None,
+        movie_seats_dict : dict=None,
+        cinema_device_dict : dict =None,
+        cinema_seats_dict : dict=None,
+        mc_code_dict : dict=None
+) -> None:
     if movie_seats_dict is None: movie_seats_dict = ddf.MOVIE_SEATS_DICTIONARY
     if movie_list_dict is None: movie_list_dict = ddf.MOVIE_LIST_DICTIONARY
     if cinema_device_dict is None: cinema_device_dict = ddf.CINEMA_DEVICE_DICTIONARY
@@ -154,34 +226,59 @@ def sync_file (movie_list_dict : dict=None, movie_seats_dict : dict=None, cinema
     #calculate the mismatched from those movie code
     #
     # calculate mismatched of movie seats and movie list (for delete part)
-    seats_list_mismatched : list = mismatched_calculate(main_list= movie_seats_code_list,
-                                                        compared_list= movie_list_code_list)
+    seats_list_mismatched : list = mismatched_calculate(
+        main_list= movie_seats_code_list,
+        compared_list= movie_list_code_list
+    )
     # calculate mismatched of device list and movie list (for delete part)
-    device_list_mismatched: list = mismatched_calculate(main_list=cinema_device_code_list,
-                                                        compared_list=cinema_seats_code_list)
+    device_list_mismatched: list = mismatched_calculate(
+        main_list=cinema_device_code_list,
+        compared_list=cinema_seats_code_list
+    )
     # calculate mismatched of movie list and device list (for add part)
-    list_seats_mismatched : list = mismatched_calculate(main_list= movie_list_code_list,
-                                                        compared_list= movie_seats_code_list)
+    list_seats_mismatched : list = mismatched_calculate(
+        main_list= movie_list_code_list,
+        compared_list= movie_seats_code_list
+    )
     # calculate mismatched of  movie list and device list (for add part)
-    list_device_mismatched : list = mismatched_calculate(main_list= cinema_seats_code_list,
-                                                         compared_list= cinema_device_code_list)
+    list_device_mismatched : list = mismatched_calculate(
+        main_list= cinema_seats_code_list,
+        compared_list= cinema_device_code_list
+    )
     #SYNC PART (delete first,then add)
     #sync delete part
-    _sync_delete(seats_list_mismatched= seats_list_mismatched, device_list_mismatched= device_list_mismatched,
-                 movie_seats_dict= movie_seats_dict, cinema_device_dict= cinema_device_dict)
+    _sync_delete(
+        seats_list_mismatched= seats_list_mismatched,
+        device_list_mismatched= device_list_mismatched,
+        movie_seats_dict= movie_seats_dict,
+        cinema_device_dict= cinema_device_dict
+    )
     #sync add part
-    _sync_add(movie_list_dict= movie_list_dict, list_seats_mismatched= list_seats_mismatched,
-              list_device_mismatched= list_device_mismatched, movie_seats_dict= movie_seats_dict,
-              template_seats_dict= cinema_seats_dict, mt_code_dict= mc_code_dict,
-              cinema_device_dict= cinema_device_dict)
+    _sync_add(
+        movie_list_dict= movie_list_dict,
+        list_seats_mismatched= list_seats_mismatched,
+        list_device_mismatched= list_device_mismatched,
+        movie_seats_dict= movie_seats_dict,
+        template_seats_dict= cinema_seats_dict,
+        mt_code_dict= mc_code_dict,
+        cinema_device_dict= cinema_device_dict
+    )
     ccsf.list_cache_write_to_csv(list_csv=movie_list_csv,list_dictionary_cache= movie_list_dict)
-    ccsf.seats_cache_write_to_csv(seats_csv=movie_seats_csv, seats_dictionary_cache= movie_seats_dict, mt_code_dictionary_cache= mc_code_dict)
+
+    ccsf.seats_cache_write_to_csv(
+        seats_csv=movie_seats_csv,
+        seats_dictionary_cache= movie_seats_dict,
+        mt_code_dictionary_cache= mc_code_dict
+    )
     ccsf.list_cache_write_to_csv(list_csv=cinema_device_list_csv,list_dictionary_cache= cinema_device_dict)
 
 
-def _sync_delete (seats_list_mismatched : list,
-                  device_list_mismatched : list, movie_seats_dict : dict,
-                  cinema_device_dict : dict) -> None:
+def _sync_delete (
+        seats_list_mismatched : list,
+        device_list_mismatched : list,
+        movie_seats_dict : dict,
+        cinema_device_dict : dict
+) -> None:
     if seats_list_mismatched:
         for movie_code in seats_list_mismatched:
             # delete the movie seats that is extra
@@ -199,16 +296,26 @@ def _sync_delete (seats_list_mismatched : list,
         #                  f"list file: {cinema_device_list_csv} manually!")
 
 
-def _sync_add (list_seats_mismatched : list,list_device_mismatched : list,
-               movie_seats_dict :dict,template_seats_dict :dict,mt_code_dict : dict,
-               cinema_device_dict : dict,movie_list_dict:dict) -> None:
+def _sync_add (
+        list_seats_mismatched : list,
+        list_device_mismatched : list,
+        movie_seats_dict :dict,
+        template_seats_dict :dict,
+        mt_code_dict : dict,
+        cinema_device_dict : dict,
+        movie_list_dict:dict
+) -> None:
     if list_seats_mismatched:
          for movie_code in list_seats_mismatched:
             # add the movie seats that is lack
             cinema_code = movie_list_dict[movie_code][1].upper()
-            movie_seats_init(movie_code= movie_code, cinema_code= cinema_code,
-                             movie_seats_dict= movie_seats_dict, mc_code_dict= mt_code_dict,
-                             cinema_seats_dict= template_seats_dict)
+            movie_seats_init(
+                movie_code= movie_code,
+                cinema_code= cinema_code,
+                movie_seats_dict= movie_seats_dict,
+                mc_code_dict= mt_code_dict,
+                cinema_seats_dict= template_seats_dict
+            )
     if list_device_mismatched:
         #read the cinema device list to make sure the technician code generate is always the newest data
         #check the device list csv got what number of device
@@ -217,17 +324,28 @@ def _sync_add (list_seats_mismatched : list,list_device_mismatched : list,
         for cinema_code in list_device_mismatched:
             temp_list: list = ccsf.read_list_from_cache(dictionary_cache=cinema_device_dict)
             #generate the new device list
-            device_list_new : list = fu.data_convert_to_list(cinema_code,*(0 for _ in range(default_device_status)))
+            device_list_new : list = fu.data_convert_to_list(
+                cinema_code,
+                *(0 for _ in range(default_device_status))
+            )
             # add the device list that is lack
             ccsf.list_dictionary_update(dictionary= cinema_device_dict,list_to_add= device_list_new)
 
 
-def conflict_detect_for_link_seats (current_movie_seats:list,bkid_mvcode_x_y_list:list,booking_data_dict:dict=None,movie_seats_dict:dict=None) -> tuple[bool,str]:
+def conflict_detect_for_link_seats (
+        current_movie_seats:list,
+        bkid_mvcode_x_y_list:list,
+        booking_data_dict:dict=None,
+        movie_seats_dict:dict=None
+) -> tuple[bool,str]:
     if booking_data_dict is None: booking_data_dict = ddf.BOOKING_DATA_DICTIONARY
     if movie_seats_dict is None: movie_seats_dict = ddf.MOVIE_SEATS_DICTIONARY
     # detect the actually seat is available or not
-    movie_seat_value = msf.movie_seats_specify_value(movie_seats=current_movie_seats, x_axis=bkid_mvcode_x_y_list[2],
-                                 y_axis=bkid_mvcode_x_y_list[3])
+    movie_seat_value = msf.movie_seats_specify_value(
+        movie_seats=current_movie_seats,
+        x_axis=bkid_mvcode_x_y_list[2],
+        y_axis=bkid_mvcode_x_y_list[3]
+    )
     if  movie_seat_value == "-1" or movie_seat_value == "1":
         return True,bkid_mvcode_x_y_list[0]
     return False,""
@@ -241,10 +359,15 @@ def conflict_check_for_movie_schedule (movie_list_dict : dict=None) -> tuple[boo
     movie_list_header = read_list_from_cache(dictionary_cache=movie_list_dict, code="header", header_insert=False)
     movie_list = read_list_from_cache(dictionary_cache=movie_list_dict)
     header_dict = fu.header_location_get(header_list=movie_list_header)
-    conflict_detect_status_preliminary,conflict_dict = _conflict_detect_preliminary(header_dict=header_dict,movie_list=movie_list)
+    conflict_detect_status_preliminary,conflict_dict = _conflict_detect_preliminary(
+        header_dict=header_dict,
+        movie_list=movie_list
+    )
     if not conflict_detect_status_preliminary: return True,[]
-    conflict_final_detect_status,final_conflict_list = _conflict_detect_meticulous(header_dict= header_dict,
-                                                                                    conflict_dict= conflict_dict)
+    conflict_final_detect_status,final_conflict_list = _conflict_detect_meticulous(
+        header_dict= header_dict,
+        conflict_dict= conflict_dict
+    )
     if not conflict_final_detect_status : return True,[]
     return False,final_conflict_list
 
@@ -271,7 +394,11 @@ def _conflict_detect_preliminary(header_dict : dict,movie_list : list) -> tuple[
     if not conflict_dict: return False, {}
     return True, conflict_dict
 
-def _conflict_detect_meticulous (header_dict : dict,conflict_dict : dict,movie_list_dict : dict=None) -> tuple[bool,list]:
+def _conflict_detect_meticulous (
+        header_dict : dict,
+        conflict_dict : dict,
+        movie_list_dict : dict=None
+) -> tuple[bool,list]:
     if not movie_list_dict: movie_list_dict = ddf.MOVIE_LIST_DICTIONARY
     start_time_location : int = header_dict["movie_time_start"] - 1
     end_time_location : int = header_dict["movie_time_end"] - 1
@@ -315,8 +442,10 @@ def conflict_check_light (minuteAEND : int, minuteBSTART: int) -> bool:
 
 def schedule_auto_sort(schedule_conflict_list : list,movie_list_dict:dict = None) -> tuple[bool,list]:
     if movie_list_dict is None: movie_list_dict = ddf.MOVIE_LIST_DICTIONARY
-    header_location_dict : dict = fu.header_location_get(ccsf.read_list_from_cache(dictionary_cache=movie_list_dict,
-                                                                                code="header",header_insert=False))
+    header_location_dict : dict = fu.header_location_get(ccsf.read_list_from_cache(
+        dictionary_cache=movie_list_dict,
+        code="header",header_insert=False)
+    )
     start_time_location : int = header_location_dict["movie_time_start"] - 1
     end_time_location : int = header_location_dict["movie_time_end"] - 1
     conflict_time_dict : dict = {}
@@ -328,18 +457,20 @@ def schedule_auto_sort(schedule_conflict_list : list,movie_list_dict:dict = None
             conflict_time_dict[code].append(movie_list_dict.get(code)[end_time_location])
     conflict_minute_dict : dict = dict_time_minute_convert(time_dict=conflict_time_dict,convert_func=fu.time_to_minute)
 
-    conflict_minute_dict_after_sorted,conflict_list_failed_sorted = conflict_data_auto_sort(conflict_minute_dict=conflict_minute_dict
-                                                                                            , schedule_list_strip=schedule_conflict_list_strip)
-
-    conflict_time_dict_after_sorted : dict = dict_time_minute_convert(time_dict=conflict_minute_dict_after_sorted,convert_func=fu.minute_to_time)
-
+    conflict_minute_dict_after_sorted,conflict_list_failed_sorted = conflict_data_auto_sort(
+        conflict_minute_dict=conflict_minute_dict,
+        schedule_list_strip=schedule_conflict_list_strip
+    )
+    conflict_time_dict_after_sorted : dict = dict_time_minute_convert(
+        time_dict=conflict_minute_dict_after_sorted,
+        convert_func=fu.minute_to_time
+    )
     for key,value in conflict_time_dict_after_sorted.items():
         movie_list_dict[key][start_time_location] = value[0]
         movie_list_dict[key][end_time_location] = value[1]
 
     if conflict_list_failed_sorted : return False,conflict_list_failed_sorted
     return True,[]
-
 
 
 
@@ -355,7 +486,10 @@ def conflict_data_auto_sort(conflict_minute_dict : dict, schedule_list_strip : l
             #如有冲突，把后面的电影推到第一部电影后面
             #如此往复...
             #
-            if not conflict_check_light(minuteAEND=conflict_minute_dict_copy[conflict_row[i]][1], minuteBSTART=conflict_minute_dict_copy[conflict_row[i + 1]][0]):
+            if not conflict_check_light(
+                    minuteAEND=conflict_minute_dict_copy[conflict_row[i]][1],
+                    minuteBSTART=conflict_minute_dict_copy[conflict_row[i + 1]][0]
+            ):
                 time_interval = conflict_minute_dict_copy[conflict_row[i + 1]][1] - conflict_minute_dict_copy[conflict_row[i + 1]][0]
                 conflict_minute_dict_copy[conflict_row[i + 1]][0] = conflict_minute_dict_copy[conflict_row[i]][1]
                 conflict_minute_dict_copy[conflict_row[i + 1]][1] = conflict_minute_dict_copy[conflict_row[i]][1] + time_interval
