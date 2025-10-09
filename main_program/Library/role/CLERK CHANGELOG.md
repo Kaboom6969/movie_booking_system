@@ -91,3 +91,14 @@
 ## [1.2.0] - 2025-09-24
 ### Added
 - refactor most function in `clerk.py` so all the function is now support cache based system
+
+## [1.2.1] - 2025-10-09
+### Changed
+- Replaced seat update mechanism from CSV write-based to in-memory dictionary update.
+- Added new function update_seat_value_in_cache in central_cache_system_framework.py.
+- Updated booking() logic to use update_seat_value_in_cache instead of update_movie_seats_csv.
+- Seat status now updates instantly after booking without reloading or writing files.
+
+### Added
+Added optional real-time seat refresh display after successful booking.
+`msf.print_seats(movie_seats_dict[input_movie_code])`
