@@ -117,7 +117,12 @@ def booking(movie_seat_list, input_movie_code, user_id : str = None,customer_id 
     column, row = select_seat(movie_seat_list=movie_seat_list)
     today = datetime.today().strftime('%Y/%m/%d')
     booking_data_list: list = ccsf.read_list_from_cache(booking_data_dict)
-    if booking_method == '1':
+    book_price : int = pf.get_price(movie_list_dict=movie_list_dict, code=input_movie_code)
+    if customer_id is not None:
+        purchased_status = pf.pay_money(customer_dict= customer_dict,customer_id= customer_id,price= book_price)
+        if not purchased_status:
+            print("Purchased Failed")
+            return
         booking_id = idg.generate_code_id(code_list=booking_data_list, prefix_generate="B", code_location=0,
                                           number_of_prefix=1
                                           , prefix_got_digit=False, code_id_digit_count=4)
@@ -125,22 +130,6 @@ def booking(movie_seat_list, input_movie_code, user_id : str = None,customer_id 
         data_row = [booking_id, user_id, input_movie_code, today, 2, column, row, book_price, 'Clerk']
         ccsf.list_dictionary_update(dictionary=booking_data_dict, list_to_add=data_row)
         print("Purchased successfully")
-    else:
-        book_price = pf.get_price(movie_list_dict=movie_list_dict, code=input_movie_code)
-        flag = pf.pay_money(customer_dict=customer_dict, customer_id=customer_id, price=book_price)
-        if flag:
-            booking_id = idg.generate_code_id(code_list=booking_data_list, prefix_generate="B", code_location=0,
-                                              number_of_prefix=1
-                                              , prefix_got_digit=False, code_id_digit_count=4)
-            book_price = pf.get_price(movie_list_dict=movie_list_dict, code=input_movie_code)
-            data_row = [booking_id, user_id, input_movie_code, today, 2, column, row, book_price, 'Clerk']
-            ccsf.list_dictionary_update(dictionary=booking_data_dict, list_to_add=data_row)
-            data_row = [booking_id, user_id, input_movie_code, today, 2, column, row, book_price, 'Clerk']
-            ccsf.list_dictionary_update(dictionary=booking_data_dict, list_to_add=data_row)
-            print("Purchased successfully")
-        else:
-            print("Purchase failed")
-
 
 
 def handle_booking(movie_seats_csv, booking_data_csv, customer_csv, movie_seat_list,
