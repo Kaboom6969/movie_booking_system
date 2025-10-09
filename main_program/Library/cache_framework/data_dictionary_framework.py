@@ -94,7 +94,15 @@ def list_dictionary_update(dictionary : dict,list_to_add : list) -> None:
     dictionary.update({key:list_to_add_temp})
 
 
-
+def update_seat_value_in_cacha(dictionary_cache: dict, movie_code: str, x_axis: int, y_axis: int, target_number: int):
+    try:
+        movie_seat_list = dictionary_cache[movie_code]
+        movie_seat_list[len(movie_seat_list) - y_axis][x_axis - 1] = str(target_number)
+        dictionary_cache[movie_code] = movie_seat_list
+    except KeyError:
+        raise KeyError(f"Movie code '{movie_code}' not found in cache.")
+    except IndexError:
+        raise IndexError(f"Invalid seat position ({x_axis}, {y_axis}).")
 
 
 def init_all_dictionary():
