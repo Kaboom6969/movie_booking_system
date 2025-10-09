@@ -91,10 +91,51 @@ def modify_movie_operation(movie_list_dict:dict=None,movie_seats_dict:dict=None,
     if user_operation.lower() == "n":
         return
 
-def total_money_earn (booking_data_dict : dict = None) -> int:
+def total_and_average_money_earn (booking_data_dict : dict = None) -> tuple[int,float]:
     if booking_data_dict is None : booking_data_dict = ddf.BOOKING_DATA_DICTIONARY
     booking_data_header_location : dict = fu.header_location_get(booking_data_dict["header"])
+    total_money : int = 0
+    booking_data_list : list = ddf.read_list_from_cache(dictionary_cache= booking_data_dict)
+    for row in booking_data_list:
+        total_money += int(row[booking_data_header_location["price"]])
+    average_money : float = total_money/len(booking_data_list)
+    return total_money,average_money
 
+def total_booking_count (booking_data_dict : dict =None) -> int:
+    if booking_data_dict is None : booking_data_dict = ddf.BOOKING_DATA_DICTIONARY
+    booking_data_header_location : dict = fu.header_location_get(booking_data_dict["header"])
+    booking_data_list : list = ddf.read_list_from_cache(dictionary_cache= booking_data_dict)
+    return len(booking_data_list)
+
+def highest_movie_code_booking (booking_data_dict : dict =None) -> str:
+    if booking_data_dict is None : booking_data_dict = ddf.BOOKING_DATA_DICTIONARY
+    booking_data_header_location : dict = fu.header_location_get(booking_data_dict["header"])
+    booking_data_list : list = ddf.read_list_from_cache(dictionary_cache= booking_data_dict)
+    movie_code_booking : dict = {}
+    for row in booking_data_list :
+        if movie_code_booking.get(row[booking_data_header_location["Movie Code"]]) is None:
+            movie_code_booking[row[booking_data_header_location["Movie Code"]]] = 0
+        movie_code_booking[row[booking_data_header_location["Movie Code"]]] += 1
+    movie_code_highest : str = max(movie_code_booking,key=movie_code_booking.get)
+    return movie_code_highest
+
+def survey_generate() -> None:
+    STARTER_WIDTH = 4
+    CONTENT_WIDTH = 25
+    SURVEY_WIDTH = 100
+    TME : str = f"{'':<{STARTER_WIDTH}}{'Total Money Earn:':<{CONTENT_WIDTH}}"
+    AME : str = f"{'':<{STARTER_WIDTH}}{'Average Money Earn:':<{CONTENT_WIDTH}}"
+    TBC : str = f"{'':<{STARTER_WIDTH}}{'Total Booking Count:':<{CONTENT_WIDTH}}"
+    MCBS : str = f"{'':<{STARTER_WIDTH}}{'Movie Code Best Seller:':<{CONTENT_WIDTH}}"
+    total_money,average_money = total_and_average_money_earn()
+    total_booking = total_booking_count()
+    highest_movie_code_sell = highest_movie_code_booking()
+    print('+','-'*(SURVEY_WIDTH - 2),'+')
+    print(f'|{TBC}{total_booking : <{SURVEY_WIDTH - len(TBC)}}|')
+    print(f'|{TME}{total_money : <{SURVEY_WIDTH - len(TME)}}|')
+    print(f'|{AME}{average_money : <{SURVEY_WIDTH - len(AME)}}|')
+    print(f'|{MCBS}{highest_movie_code_sell: <{SURVEY_WIDTH - len(MCBS)}}|')
+    print('+', '-' *(SURVEY_WIDTH - 2), '+')
 
 
 
@@ -142,7 +183,9 @@ def manager() -> None:
 
 if __name__ == "__main__":
     init_all_dictionary()
-    manager()
+    survey_generate()
+    # #manager()
+    # print(total_money_earn())
 
         
 
