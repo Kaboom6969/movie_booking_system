@@ -219,10 +219,14 @@ def minute_to_time (minute : int) -> str:
     time : list = [str(hour).zfill(2), str(minute).zfill(2)]
     return ":".join(time)
 
-def header_location_get (header_list : list) -> dict:
+def header_location_get (header_list : list,dict_version: bool=False) -> dict:
     header_list_dict : dict = {}
     for index, element in enumerate(header_list):
-        header_list_dict.update({element: index})
+        if dict_version:
+            if not index : continue
+            header_list_dict.update({element: index - 1})
+        else:
+            header_list_dict.update({element: index})
     return header_list_dict
 
 def get_operation_choice(title : str,*args) -> str:
@@ -239,6 +243,9 @@ def get_code_range (dictionary_cache : dict) -> list:
         if i in ["header","base file name","code_location"]:
             code_list_copy.remove(i)
     return code_list_copy
+
+def empty_input (message: str) -> None:
+    input(message)
 
 if __name__ == "__main__":
     list_test : list = ["idk_status","header","nihao_status","wtf_status","end"]

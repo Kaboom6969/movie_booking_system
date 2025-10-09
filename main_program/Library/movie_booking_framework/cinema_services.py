@@ -13,6 +13,7 @@ def sync_all(
         cinema_seats_dict : dict=None,
         mc_code_dict : dict=None,
         booking_data_dict : dict=None,
+        customer_data_dict : dict=None,
         skip_conflict_test:bool=False
 ) -> None:
     if movie_list_dict is None: movie_list_dict = ddf.MOVIE_LIST_DICTIONARY
@@ -21,17 +22,18 @@ def sync_all(
     if cinema_seats_dict is None: cinema_seats_dict = ddf.CINEMA_SEATS_DICTIONARY
     if mc_code_dict is None: mc_code_dict = ddf.MOVIE_CINEMA_CODE_DICTIONARY
     if booking_data_dict is None: booking_data_dict = ddf.BOOKING_DATA_DICTIONARY
+    if customer_data_dict is None: customer_data_dict = ddf.CUSTOMER_DATA_DICTIONARY
     if not skip_conflict_test:
         movie_schedule_conflict_check_status,schedule_conflict_data = conflict_check_for_movie_schedule()
         if not movie_schedule_conflict_check_status:
             raise ValueError("Conflict schedule detected!",schedule_conflict_data)
-    ddf.MOVIE_CINEMA_CODE_DICTIONARY = primary_foreign_key_dictionary_init(
+    mc_code_dict = primary_foreign_key_dictionary_init(
         list_dict= movie_list_dict,
         PK_location=0,
         FK_location=2)
 
     sync_file()
-    ddf.MOVIE_CINEMA_CODE_DICTIONARY = primary_foreign_key_dictionary_init(
+    mc_code_dict = primary_foreign_key_dictionary_init(
         list_dict= movie_list_dict,
         PK_location=0,
         FK_location=2
@@ -40,6 +42,7 @@ def sync_all(
     if not skip_conflict_test :
         if not link_status:
             raise ValueError("Conflict booking data detected",link_conflict_data)
+    ccsf.list_cache_write_to_csv(list_csv=customer_data_dict["base file name"],list_dictionary_cache=customer_data_dict)
 
 
 def link_seats (
@@ -514,7 +517,6 @@ def dict_time_minute_convert (time_dict : dict,convert_func) -> dict:
     for key,value in minute_dict.items():
         minute_dict[key] = [convert_func(value[0]), convert_func(value[1])]
     return minute_dict
-
 
 
 
