@@ -31,3 +31,11 @@
 - add `manager` function (Encapsulation all the operation)
 - add more limit when adding movie (a version)
 - moved `get_code_range` fucntion to framework_utils.py (c version)
+
+## [2.0.0] - 2025-10-10
+### Information
+- This is the final version (if no exceptions)
+- now all function of manager is done!
+### Added
+- add `set_discount` function
+- add `set_discount_operation` function

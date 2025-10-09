@@ -52,6 +52,7 @@
 ## [1.3.1] -2025-10-07
 ### Added
 - add a wrap function `customer` for this file
+- add `pay_money` for `book_movie_system` (b version)
 ### Changed
 - small refactor in `check_ticket_bought` function (change the index to dynamic) (a version)
 - `cancel_booking_operation` now is using `fu.element_input` instead of print and input (a version)
