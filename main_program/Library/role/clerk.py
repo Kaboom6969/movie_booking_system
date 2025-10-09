@@ -123,13 +123,13 @@ def booking(movie_seat_list, input_movie_code, user_id : str = None,customer_id 
         if not purchased_status:
             print("Purchased Failed")
             return
-        booking_id = idg.generate_code_id(code_list=booking_data_list, prefix_generate="B", code_location=0,
-                                          number_of_prefix=1
-                                          , prefix_got_digit=False, code_id_digit_count=4)
-        book_price = pf.get_price(movie_list_dict=movie_list_dict, code=input_movie_code)
-        data_row = [booking_id, user_id, input_movie_code, today, 2, column, row, book_price, 'Clerk']
-        ccsf.list_dictionary_update(dictionary=booking_data_dict, list_to_add=data_row)
-        print("Purchased successfully")
+    booking_id = idg.generate_code_id(code_list=booking_data_list, prefix_generate="B", code_location=0,
+                                      number_of_prefix=1
+                                      , prefix_got_digit=False, code_id_digit_count=4)
+    book_price = pf.get_price(movie_list_dict=movie_list_dict, code=input_movie_code)
+    data_row = [booking_id, user_id, input_movie_code, today, 2, column, row, book_price, 'Clerk']
+    ccsf.list_dictionary_update(dictionary=booking_data_dict, list_to_add=data_row)
+    print("Purchased successfully")
 
 
 def handle_booking(movie_seats_csv, booking_data_csv, customer_csv, movie_seat_list,
