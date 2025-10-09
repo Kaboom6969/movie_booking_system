@@ -26,13 +26,19 @@ def get_and_print_booking_data(input_movie_code, booking_data_dict: dict = None)
     # header = [Book ID,User ID,Movie Code,Date,(1:booking 2:paid),seat(x-axis),seat(y-axis),Source]
     header: list = booking_data_dict.get("header")
     print(
-        f"{header[0]:<10}{header[1]:<10}{header[2]:<13}{header[3]:<13}{header[4]:<21}{header[5]:<15}{header[6]:<15}{header[7]:<15}{header[8]:<15}")
+        f"{header[0]:<10}{header[1]:<10}{header[2]:<13}"
+        f"{header[3]:<13}{header[4]:<21}{header[5]:<15}"
+        f"{header[6]:<15}{header[7]:<15}{header[8]:<15}"
+    )
     filtered_list = []
     for row in booking_data_list:
         booking_id, user_id, movie_code, date, status, x_axis, y_axis, price, source = row
         if input_movie_code == movie_code:
             print(
-                f"{booking_id:<10}{user_id:<10}{movie_code:<13}{date:<13}{status:<21}{x_axis:<15}{y_axis:<15}{price:<15}{source:<15}")
+                f"{booking_id:<10}{user_id:<10}{movie_code:<13}"
+                f"{date:<13}{status:<21}{x_axis:<15}"
+                f"{y_axis:<15}{price:<15}{source:<15}"
+            )
             filtered_list.append(row)
     return filtered_list
 
@@ -109,9 +115,17 @@ def select_seat(movie_seat_list):
             return column, row
 
 
-def booking(movie_seat_list, input_movie_code, user_id: str = None, customer_id: str = None, booking_method: str = '1',
-            booking_data_dict: dict = None, movie_seats_dict: dict = None, movie_list_dict: dict = None,
-            customer_dict: dict = None):
+def booking(
+        movie_seat_list,
+        input_movie_code,
+        user_id: str = None,
+        customer_id: str = None,
+        booking_method: str = '1',
+        booking_data_dict: dict = None,
+        movie_seats_dict: dict = None,
+        movie_list_dict: dict = None,
+        customer_dict: dict = None
+):
     if booking_data_dict is None: booking_data_dict = ddf.BOOKING_DATA_DICTIONARY
     if movie_seats_dict is None: movie_seats_dict = ddf.MOVIE_SEATS_DICTIONARY
     if movie_list_dict is None: movie_list_dict = ddf.MOVIE_LIST_DICTIONARY
@@ -125,9 +139,14 @@ def booking(movie_seat_list, input_movie_code, user_id: str = None, customer_id:
         if not purchased_status:
             print("Purchased Failed")
             return
-    booking_id = idg.generate_code_id(code_list=booking_data_list, prefix_generate="B", code_location=0,
-                                      number_of_prefix=1
-                                      , prefix_got_digit=False, code_id_digit_count=4)
+    booking_id = idg.generate_code_id(
+        code_list=booking_data_list,
+        prefix_generate="B",
+        code_location=0,
+        number_of_prefix=1,
+        prefix_got_digit=False,
+        code_id_digit_count=4
+    )
     book_price = pf.get_price(movie_list_dict=movie_list_dict, code=input_movie_code)
     data_row = [booking_id, user_id, input_movie_code, today, 2, column, row, book_price, 'Clerk']
     ccsf.list_dictionary_update(dictionary=booking_data_dict, list_to_add=data_row)
@@ -147,8 +166,13 @@ def handle_booking(movie_seats_csv, booking_data_csv, customer_csv, movie_seat_l
                 path = fu.get_path(customer_csv)
                 customer_id = login(path)
                 if customer_id is not None:
-                    booking(movie_seat_list=movie_seat_list, input_movie_code=input_movie_code, user_id=user_id,
-                            customer_id=customer_id, booking_method=choice)
+                    booking(
+                        movie_seat_list=movie_seat_list,
+                        input_movie_code=input_movie_code,
+                        user_id=user_id,
+                        customer_id=customer_id,
+                        booking_method=choice
+                    )
                     break
             elif choice == '3':
                 break
@@ -207,8 +231,13 @@ def check_booking_data(input_movie_code, booking_data_dict: dict = None):
     return False
 
 
-def modify_booking_data(booking_id, column, row, code_location=0,
-                        booking_data_dict=None):
+def modify_booking_data(
+        booking_id,
+        column,
+        row,
+        code_location=0,
+        booking_data_dict=None
+):
     if booking_data_dict is None: booking_data_dict = ddf.BOOKING_DATA_DICTIONARY
     original_row: list = ccsf.read_list_from_cache(dictionary_cache=booking_data_dict, code=booking_id)
     original_row[5] = str(column)
@@ -218,8 +247,14 @@ def modify_booking_data(booking_id, column, row, code_location=0,
     ccsf.list_dictionary_update(dictionary=booking_data_dict, list_to_add=updated_list)
 
 
-def modify_booking(movie_seat_list, input_movie_code, user_id
-                   , booking_data_dict=None, movie_seats_dict=None,customer_dict=None):
+def modify_booking(
+        movie_seat_list,
+        input_movie_code,
+        user_id,
+        booking_data_dict=None,
+        movie_seats_dict=None,
+        customer_dict=None
+):
     if booking_data_dict is None: booking_data_dict = ddf.BOOKING_DATA_DICTIONARY
     if movie_seats_dict is None: movie_seats_dict = ddf.MOVIE_SEATS_DICTIONARY
     if customer_dict is None:customer_dict = ddf.CUSTOMER_DATA_DICTIONARY
@@ -229,7 +264,12 @@ def modify_booking(movie_seat_list, input_movie_code, user_id
             booking_data_list = get_and_print_booking_data(input_movie_code)
             column, row, booking_id = get_user_booking_axis_and_booking_id(booking_data_list)
             customer_id = get_customer_id(booking_data_list, booking_id)
-            choice = fu.get_operation_choice('Please enter your choice', 'cancel booking', 'modify booking', 'quit')
+            choice = fu.get_operation_choice(
+                'Please enter your choice',
+                'cancel booking',
+                'modify booking',
+                'quit'
+            )
             # cancel booking(1), modify booking(2), quit(3)
             if choice == '1':
                 start_with_c = user_id_start_with_c(customer_id)
@@ -324,16 +364,33 @@ def clerk(user_id):
         input_movie_code = select_movie(movie_list)
         while True:
             # get movie seat list
-            movie_seat_list = ccsf.read_seats_from_cache(cache_dictionary=ddf.MOVIE_SEATS_DICTIONARY,
-                                                         code=input_movie_code)
-            choice = fu.get_operation_choice('Please enter your choice', 'booking', 'cancel or modify booking',
-                                             'check movie seats', 'print receipt', 'quit')
+            movie_seat_list = ccsf.read_seats_from_cache(
+                cache_dictionary=ddf.MOVIE_SEATS_DICTIONARY,
+                code=input_movie_code
+            )
+            choice = fu.get_operation_choice(
+                'Please enter your choice',
+                'booking',
+                'cancel or modify booking',
+                'check movie seats',
+                'print receipt',
+                'quit'
+            )
             if choice == '1':
-                handle_booking(movie_seats_csv="movie_seat.csv", booking_data_csv="booking_data.csv",
-                               customer_csv="customer.csv",
-                               movie_seat_list=movie_seat_list, input_movie_code=input_movie_code, user_id=user_id)
+                handle_booking(
+                    movie_seats_csv="movie_seat.csv",
+                    booking_data_csv="booking_data.csv",
+                    customer_csv="customer.csv",
+                    movie_seat_list=movie_seat_list,
+                    input_movie_code=input_movie_code,
+                    user_id=user_id
+                )
             elif choice == '2':
-                modify_booking(movie_seat_list=movie_seat_list, input_movie_code=input_movie_code, user_id=user_id)
+                modify_booking(
+                    movie_seat_list=movie_seat_list,
+                    input_movie_code=input_movie_code,
+                    user_id=user_id
+                )
             elif choice == '3':
                 checking_movie(input_movie_code=input_movie_code)
             elif choice == '4':

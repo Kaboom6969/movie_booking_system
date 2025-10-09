@@ -5,8 +5,14 @@ from main_program.Library.movie_booking_framework import framework_utils as fu
 from main_program.Library.cache_framework import data_dictionary_framework as ddf
 
 
-def read_movie_list_csv(movie_list_csv: str, movie_list: list, movie_code: str = "all", movie_mode: bool = True,
-                        code_location: int = 0,read_header : bool = False) -> None:
+def read_movie_list_csv(
+        movie_list_csv: str,
+        movie_list: list,
+        movie_code: str = "all",
+        movie_mode: bool = True,
+        code_location: int = 0,
+        read_header: bool = False
+) -> None:
     try:
         movie_list_csv_path = get_path(movie_list_csv)
         with open(movie_list_csv_path, 'r') as mv_csvfile:
@@ -38,8 +44,12 @@ def read_movie_list_csv(movie_list_csv: str, movie_list: list, movie_code: str =
         raise ValueError(f"READ LIST FAILED! ERROR: {str(e)}")
 
 
-def update_movie_list_csv(movie_list_csv: str, movie_list: list, movie_code: str,
-                          code_location: int = 0) -> None:
+def update_movie_list_csv(
+        movie_list_csv: str,
+        movie_list: list,
+        movie_code: str,
+        code_location: int = 0
+) -> None:
     movie_list_csv_path = get_path(movie_list_csv)
     movie_list_csv_temp_path = os.path.dirname(movie_list_csv_path)
 
@@ -67,7 +77,12 @@ def update_movie_list_csv(movie_list_csv: str, movie_list: list, movie_code: str
         raise Exception(f"UPDATE LIST ERROR!ERROR:{e}")
     overwrite_file(overwrited_file_csv=movie_list_csv, original_file_csv=f"{movie_list_csv}.temp")
 
-def add_movie_list_csv(movie_list_csv: str, movie_list: list,movie_code: str, code_location: int = 0) -> None:
+def add_movie_list_csv(
+        movie_list_csv: str,
+        movie_list: list,
+        movie_code: str,
+        code_location: int = 0
+) -> None:
     try:
         if movie_code == "all": raise ValueError("'all' isn't supported in this function!")
         movie_list = one_dimension_list_to_two_dimension_list(movie_list)
@@ -79,7 +94,10 @@ def add_movie_list_csv(movie_list_csv: str, movie_list: list,movie_code: str, co
                 if code_list_matcher == 0: movie_list_for_add.append(movie_list_dict[row_key])
                 code_list_matcher += 1
         if code_list_matcher == 0: raise ValueError(f"Movie Code is not matched in {movie_list}!")
-        if code_list_matcher > 1: warnings.warn(f"More than 2 Movie Code Founded in {movie_list}! System will use the First one")
+        if code_list_matcher > 1: warnings.warn(
+            f"More than 2 Movie Code Founded in {movie_list}!"
+            f" System will use the First one"
+        )
         movie_list_csv_path: str = get_path(movie_list_csv)
         movie_list_csv_temp_path: str = os.path.dirname(movie_list_csv_path)
         with (open(movie_list_csv_path, 'r') as mvl_csv_r,
@@ -93,7 +111,6 @@ def add_movie_list_csv(movie_list_csv: str, movie_list: list,movie_code: str, co
             for row_to_add in movie_list_for_add:
                 line_to_write = list_to_str_line(row_to_add)
                 mvl_csv_w.write(line_to_write)
-                #list_dictionary_update(dictionary= dictionary,key_location= code_location,list_to_add= row_to_add)
     except FileNotFoundError as e:
         raise FileNotFoundError(f"ADD MOVIE FAILED! ERROR:{e}")
     except ValueError as e:
@@ -102,7 +119,11 @@ def add_movie_list_csv(movie_list_csv: str, movie_list: list,movie_code: str, co
         raise Exception(f"ADD MOVIE FAILED! UNKNOWN ERROR:{e}")
     overwrite_file(overwrited_file_csv=movie_list_csv, original_file_csv=f"{movie_list_csv}.temp")
 
-def delete_movie_list_csv (movie_list_csv : str,movie_code : str,code_location : int = 0) -> None:
+def delete_movie_list_csv (
+        movie_list_csv: str,
+        movie_code: str,
+        code_location: int = 0
+) -> None:
     movie_list_csv_path = get_path(movie_list_csv)
     movie_list_csv_temp_path = os.path.dirname(movie_list_csv_path)
     with (open(movie_list_csv_path,'r') as mvl_csv_r,

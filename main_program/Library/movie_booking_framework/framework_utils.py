@@ -26,8 +26,8 @@ def overwrite_file(overwrited_file_csv: str, original_file_csv: str, delete_afte
         #step:
         #1) read data from the file that is overwriting
         #2) write the data to the overwritted file
-        with open(original_file_csv_path, 'r', newline='') as ori_file_r, open(overwrited_file_csv_path, 'w',
-                                                                               newline='') as overwrited_file_w:
+        with (open(original_file_csv_path, 'r', newline='') as ori_file_r,
+              open(overwrited_file_csv_path, 'w',newline='') as overwrited_file_w):
             #write the data to the overwritted file
             for line in ori_file_r:
                 overwrited_file_w.write(line)
@@ -35,7 +35,10 @@ def overwrite_file(overwrited_file_csv: str, original_file_csv: str, delete_afte
     except FileNotFoundError:
         #show error
         raise FileNotFoundError(
-            f"OVERWRITE FILE FAILED! NO FILE FOUND! OVERWRITED FILE:{overwrited_file_csv}\nORIGINAL FILE:{original_file_csv}")
+            f"OVERWRITE FILE FAILED! NO FILE FOUND! "
+            f"OVERWRITED FILE:{overwrited_file_csv}\n"
+            f"ORIGINAL FILE:{original_file_csv}"
+        )
     # don't care any situation,the action in below must be done
     finally:
         #if you want to delete the file after overwriting (use for temp file)
@@ -172,8 +175,13 @@ def data_convert_to_list (*args):
     #return the list
     return target_list
 
-def element_input (element_name : str, input_range : list=None, valid_check_func=None,dict_key_match : dict = None,
-                   return_range_index : bool = False) -> str | tuple[str, int]:
+def element_input (
+        element_name : str,
+        input_range : list=None,
+        valid_check_func=None,
+        dict_key_match : dict = None,
+        return_range_index : bool = False
+) -> str | tuple[str, int]:
     while True:
         element = str(input(f"Please enter the {element_name}:"))
         valid,element_format = True,""

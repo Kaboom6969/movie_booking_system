@@ -1,6 +1,6 @@
 from .valid_checker import *
 from .movie_seats_framework import find_longest_list
-def print_movie_seat (movie_seats : list) -> None:
+def print_movie_seat (movie_seats: list) -> None:
     try:
         movie_seats_valid_check(movie_seats_list=movie_seats)
     except ValueError as e:
@@ -11,7 +11,7 @@ def print_movie_seat (movie_seats : list) -> None:
             print(second_list,end= " ")
 
 #Print seat list as emojis
-def print_movie_seat_as_emojis (movie_seats : list,x_pointer : int = -1,y_pointer : int = -1) -> None:
+def print_movie_seat_as_emojis (movie_seats: list,x_pointer: int = -1,y_pointer: int = -1) -> None:
     try:
         movie_seats_valid_check(movie_seats_list=movie_seats)
     except ValueError as e:
@@ -42,12 +42,12 @@ def print_movie_seat_as_emojis (movie_seats : list,x_pointer : int = -1,y_pointe
         print()
         #⬆⬅
 
-def _x_location_add(movie_seats : list,x_pointer : int) -> list:
+def _x_location_add(movie_seats: list,x_pointer: int) -> list:
     max_width = x_range_calculate(movie_seats)[1]
     if x_pointer > max_width:
         raise IndexError(f"{x_pointer} is out of range of {movie_seats}!")
-    movie_seats_with_x_location : list = movie_seats
-    x_location_head : list = []
+    movie_seats_with_x_location: list = movie_seats
+    x_location_head: list = []
     for index in range(max_width):
         if index == x_pointer - 1:
             x_location_head.append("3")
@@ -56,10 +56,10 @@ def _x_location_add(movie_seats : list,x_pointer : int) -> list:
     movie_seats_with_x_location.append(x_location_head)
     return movie_seats_with_x_location
 
-def _y_location_add(movie_seats : list,y_pointer : int) -> list:
+def _y_location_add(movie_seats: list,y_pointer: int) -> list:
     if y_pointer > y_range_calculate(movie_seats)[1]:
         raise IndexError(f"{y_pointer} is out of range of {movie_seats}!")
-    movie_seats_with_y_location : list = []
+    movie_seats_with_y_location: list = []
     for index,row in enumerate(movie_seats):
         row_as_list = list(row)
         if (len(movie_seats) - index) == y_pointer:
@@ -70,12 +70,12 @@ def _y_location_add(movie_seats : list,y_pointer : int) -> list:
             movie_seats_with_y_location.append(row_as_list)
     return movie_seats_with_y_location
 
-def x_range_calculate(movie_seats : list) -> list:
+def x_range_calculate(movie_seats: list) -> list:
     x_max = len(find_longest_list(nested_list= movie_seats))
     x_min = 1
     return [x_min,x_max]
 
-def y_range_calculate(movie_seats : list) -> list:
+def y_range_calculate(movie_seats: list) -> list:
     if not movie_seats: raise ValueError(f"{movie_seats} is empty!")
     y_max = len(movie_seats)
     y_min = 1
