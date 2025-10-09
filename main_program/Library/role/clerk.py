@@ -18,16 +18,6 @@ def get_Data_Directory_path(path):
     return data_path
 
 
-def update_seat_value_in_cacha(dictionary_cache: dict, movie_code: str, x_axis: int, y_axis: int, target_number: int):
-    try:
-        movie_seat_list = dictionary_cache[movie_code]
-        movie_seat_list[len(movie_seat_list) - y_axis][x_axis - 1] = str(target_number)
-        dictionary_cache[movie_code] = movie_seat_list
-    except KeyError:
-        raise KeyError(f"Movie code '{movie_code}' not found in cache.")
-    except IndexError:
-        raise IndexError(f"Invalid seat position ({x_axis}, {y_axis}).")
-
 
 
 def get_and_print_booking_data(input_movie_code, booking_data_dict: dict = None):
@@ -141,8 +131,6 @@ def booking(movie_seat_list, input_movie_code, user_id: str = None, customer_id:
     book_price = pf.get_price(movie_list_dict=movie_list_dict, code=input_movie_code)
     data_row = [booking_id, user_id, input_movie_code, today, 2, column, row, book_price, 'Clerk']
     ccsf.list_dictionary_update(dictionary=booking_data_dict, list_to_add=data_row)
-    msf.modify_movie_seats_list(movie_seat_list, x_axis=column, y_axis=row, target_number=1)
-    update_seat_value_in_cacha(dictionary_cache=movie_seats_dict,movie_code=input_movie_code,x_axis=column, y_axis=row,target_number=1)
     print("Purchased successfully")
 
 
@@ -320,24 +308,20 @@ def generate_receipt(input_movie_code, movie_list_dict: dict = None):
 def clerk(user_id):
     cnsv.sync_all()
     while True:
-        # 订票
         # get movie list
         movie_list = ccsf.read_list_from_cache(dictionary_cache=ddf.MOVIE_LIST_DICTIONARY)
-
         # get user movie input
         input_movie_code = select_movie(movie_list)
-
-        # get movie seat list
-        movie_seat_list = ccsf.read_seats_from_cache(cache_dictionary=ddf.MOVIE_SEATS_DICTIONARY, code=input_movie_code)
-
         while True:
+            # get movie seat list
+            movie_seat_list = ccsf.read_seats_from_cache(cache_dictionary=ddf.MOVIE_SEATS_DICTIONARY,
+                                                         code=input_movie_code)
             choice = fu.get_operation_choice('Please enter your choice', 'booking', 'cancel or modify booking',
                                              'check movie seats', 'print receipt', 'quit')
             if choice == '1':
                 handle_booking(movie_seats_csv="movie_seat.csv", booking_data_csv="booking_data.csv",
                                customer_csv="customer.csv",
                                movie_seat_list=movie_seat_list, input_movie_code=input_movie_code, user_id=user_id)
-
             elif choice == '2':
                 modify_booking(movie_seat_list=movie_seat_list, input_movie_code=input_movie_code, user_id=user_id)
             elif choice == '3':
@@ -355,6 +339,11 @@ def clerk(user_id):
 
 def main():
     clerk(user_id='K001')
+    #dictionary = ddf.BOOKING_DATA_DICTIONARY
+    #header_location_dict = fu.header_location_get(dictionary[1])
+    #print(header_location_dict)
+    #print(dictionary)
+
 
 if __name__ == '__main__':
     ddf.init_all_dictionary()

@@ -102,3 +102,7 @@
 ### Added
 Added optional real-time seat refresh display after successful booking.
 `msf.print_seats(movie_seats_dict[input_movie_code])`
+
+## [1.2.1] - 2025-10-09
+### Fixed
+- Fixed data synchronization issue
