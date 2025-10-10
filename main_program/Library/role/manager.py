@@ -1,6 +1,3 @@
-from operator import truediv
-
-from main_program.Library.cache_framework.data_dictionary_framework import init_all_dictionary
 from main_program.Library.data_communication_framework import cache_csv_sync_framework as ccsf
 from main_program.Library.cache_framework import data_dictionary_framework as ddf
 from main_program.Library.movie_booking_framework import id_generator as idg
@@ -255,7 +252,7 @@ def set_discount_operation(movie_list_dict : dict = None) -> None:
                 discount_rate=int(discount_rate)
             )
 
-def manager() -> None:
+def manager(manager_id : str) -> None:
     while True:
         print("Welcome to Movie Booking System")
         match fu.get_operation_choice(

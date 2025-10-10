@@ -357,7 +357,7 @@ def role(
                 if choice == 1:
                     user_id = login(customer_data)
                     if user_id is not None:
-                        customer_function()
+                        customer_function(user_id)
                     break
                 elif choice == 2:
                     register(customer_data,'C')
@@ -372,19 +372,19 @@ def role(
     elif role_num == 1:
         user_id = login(clerk_data)
         if user_id is not None:
-            clerk_function()
+            clerk_function(user_id)
 
 
     elif role_num == 2:
         user_id = login(clerk_data)
         if user_id is not None:
-            manager_function()
+            manager_function(user_id)
 
 
     elif role_num == 3:
         user_id = login(clerk_data)
         if user_id is not None:
-            technician_function()
+            technician_function(user_id)
 
     else:
         print("invalid number, please try again")

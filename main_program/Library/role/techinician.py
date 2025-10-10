@@ -1,13 +1,11 @@
 import datetime
 import warnings
 
-from main_program.Library.cache_framework.data_dictionary_framework import init_all_dictionary
 from main_program.Library.movie_booking_framework import framework_utils as fu
 from main_program.Library.cache_framework import data_dictionary_framework as ddf
 from main_program.Library.data_communication_framework import cache_csv_sync_framework as ccsf
 from main_program.Library.movie_booking_framework import cinema_services as cnsv
 from main_program.Library.role.customer import DEFAULT_WIDTH
-
 
 #这个是利用movie_booking框架的例子，（请将后续的函数都修改至适配此框架）
 def view_upcoming_movies(movie_list_dict: dict=None):
@@ -158,7 +156,7 @@ def device_list_filtered_for_problem_device (device_actual_list: list,device_sta
 
 
 
-def technician() -> None:
+def technician(technician_id : str) -> None:
     print("Welcome to Movie Booking System")
     while True:
         try:
