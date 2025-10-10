@@ -335,7 +335,16 @@ def user_input_role():
             print(e)
 
 
-def role(customer_data, clerk_data, manager_data, technician_data):
+def role(
+        customer_data,
+        clerk_data,
+        manager_data,
+        technician_data,
+        customer_function,
+        clerk_function,
+        manager_function,
+        technician_function
+):
     """
     Main role dispatcher.
     Different role leads to different login/register logic.
@@ -348,7 +357,7 @@ def role(customer_data, clerk_data, manager_data, technician_data):
                 if choice == 1:
                     user_id = login(customer_data)
                     if user_id is not None:
-                        print('customer function')
+                        customer_function()
                     break
                 elif choice == 2:
                     register(customer_data,'C')
@@ -363,19 +372,19 @@ def role(customer_data, clerk_data, manager_data, technician_data):
     elif role_num == 1:
         user_id = login(clerk_data)
         if user_id is not None:
-            clerk(user_id)
+            clerk_function()
 
 
     elif role_num == 2:
         user_id = login(clerk_data)
         if user_id is not None:
-            print("manager function")
+            manager_function()
 
 
     elif role_num == 3:
         user_id = login(clerk_data)
         if user_id is not None:
-            print("technician function")
+            technician_function()
 
     else:
         print("invalid number, please try again")
@@ -389,8 +398,12 @@ def main():
     clerk_csv = get_data_directory('clerk.csv')
     manager_csv = get_data_directory('manager.csv')
     technician_csv = get_data_directory('technician.csv')
-    role(customer_data=customer_csv, clerk_data=clerk_csv,
-         manager_data=manager_csv, technician_data=technician_csv)
+    role(
+        customer_data=customer_csv,
+        clerk_data=clerk_csv,
+        manager_data=manager_csv,
+        technician_data=technician_csv,
+    )
 
 
 if __name__ == '__main__':
