@@ -14,13 +14,10 @@ def get_content(path):
     Read file content if exists.
     If file does not exist, create an empty file and return ''
     """
-    if os.path.exists(path):
-        with open(path, 'r', newline='') as role_file:
-            role_file.readline()
-            content = role_file.read().strip()
-            return content
-    else:
-        return ''
+    with open(path, 'r', newline='') as role_file:
+        role_file.readline()
+        content = role_file.read().strip()
+        return content
 
 
 def get_data(path):
@@ -376,13 +373,13 @@ def role(
 
 
     elif role_num == 2:
-        user_id = login(clerk_data)
+        user_id = login(manager_data)
         if user_id is not None:
             manager_function(user_id)
 
 
     elif role_num == 3:
-        user_id = login(clerk_data)
+        user_id = login(technician_data)
         if user_id is not None:
             technician_function(user_id)
 
