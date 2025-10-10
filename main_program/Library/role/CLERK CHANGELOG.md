@@ -136,3 +136,9 @@ Added optional real-time seat refresh display after successful booking.
 - Valid ID → proceed and return column, row, booking_id
 ### Fixed
 - Prevented potential UnboundLocalError when user presses Enter without entering a booking ID.
+
+## [1.2.4] - 2025-10-10
+### Added
+- Added `get_discount` function to get discount
+- Added `get_booking_data` function to get booking data, function will return a booking_data_2d_list
+- Added `discount` and `discount price` at `generate_receipt_text` function

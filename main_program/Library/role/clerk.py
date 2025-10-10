@@ -188,8 +188,8 @@ def checking_movie(input_movie_code: str, movie_seats_dict: dict = None):
     print(f"\n This movie seat capacity is {capacity}")
 
 
-def check_booking_id(booking_data_list, input_booking_id):
-    for booking_data in booking_data_list:
+def check_booking_id(booking_data_2d_list, input_booking_id):
+    for booking_data in booking_data_2d_list:
         if input_booking_id == booking_data[0]:
             return input_booking_id
     return None
@@ -297,9 +297,9 @@ def modify_customer_seat(movie_seat_list):
     sv.print_movie_seat_as_emojis(movie_seat_list)
 
 
-def get_movie_list_data(movie_list: list, input_movie_code: str) -> list:
+def get_movie_list_data(movie_2d_list: list, input_movie_code: str) -> list:
     movie_data_list = []
-    for data in movie_list:
+    for data in movie_2d_list:
         if data[0] == input_movie_code:
             movie_data_list = data
     return movie_data_list
@@ -317,46 +317,79 @@ def generate_receipt_text(movie_list_data, booking_data_dict, booking_id):
     booking_date = booking_data_dict[booking_id][3]
     column = booking_data_dict[booking_id][5]
     row = booking_data_dict[booking_id][6]
+    movie_price_discount = booking_data_dict[booking_id][7]
+
+    discount = round(get_discount(discount_price=movie_price_discount,original_price=movie_price),2) * 100
 
     receipt = f"""
 ========================================
               MOVIE RECEIPT
 ========================================
-Booking ID   : {booking_id}
-User ID      : {user_id}
-Booking Date : {booking_date}
+Booking ID     : {booking_id}
+User ID        : {user_id}
+Booking Date   : {booking_date}
 ----------------------------------------
-Movie Name   : {movie_name}
-Cinema       : {cinema}
-Date         : {movie_date}
-Start Time   : {start}
-End Time     : {end}
-Seat         : [{column},{row}]
+Movie Name     : {movie_name}
+Cinema         : {cinema}
+Date           : {movie_date}
+Start Time     : {start}
+End Time       : {end}
+Seat           : [{column},{row}]
 ----------------------------------------
-Price        : RM {movie_price}
+Original Price : RM {movie_price}
+Discount       : {discount} %
+Final Price    : {movie_price_discount}
 ========================================
 """
     return receipt
 
+def print_booking_data(booking_data_dict: dict = None):
+    if booking_data_dict is None: booking_data_dict = ddf.BOOKING_DATA_DICTIONARY
+    booking_data_list = ccsf.read_list_from_cache(dictionary_cache=booking_data_dict)
+    # header = [Book ID,User ID,Movie Code,Date,(1:booking 2:paid),seat(x-axis),seat(y-axis),Source]
+    header: list = booking_data_dict.get("header")
+    print(
+        f"{header[0]:<10}{header[1]:<10}{header[2]:<13}"
+        f"{header[3]:<13}{header[4]:<21}{header[5]:<15}"
+        f"{header[6]:<15}{header[7]:<15}{header[8]:<15}"
+    )
+    filtered_list = []
+    for row in booking_data_list:
+        booking_id, user_id, movie_code, date, status, x_axis, y_axis, price, source = row
+        print(
+            f"{booking_id:<10}{user_id:<10}{movie_code:<13}"
+            f"{date:<13}{status:<21}{x_axis:<15}"
+            f"{y_axis:<15}{price:<15}{source:<15}"
+        )
+        filtered_list.append(row)#[['B0001', 'C001', '0001', '2025/10/08', '1', '1', '1', '20', 'online'], ['B0002', 'K001', '0001', '2025/10/08', '2', '2', '2', '20', 'Clerk']]
+    return filtered_list
 
-def generate_receipt(input_movie_code, movie_list_dict: dict = None):
+def get_discount(original_price: str,discount_price: str) -> float:
+    return 1 - int(discount_price) / int(original_price)
+
+def generate_receipt(movie_list_dict: dict = None,booking_data_dict: dict = None,customer_data_dict: dict = None,):
     if movie_list_dict is None: movie_list_dict = ddf.MOVIE_LIST_DICTIONARY
-    # get movie list
-    movie_list = ccsf.read_list_from_cache(dictionary_cache=movie_list_dict)
-    booking_data_exist = check_booking_data(input_movie_code)
-    if booking_data_exist:
-        booking_data_list = get_and_print_booking_data(input_movie_code)
-        booking_data_dict: dict = {row[0]: row for row in booking_data_list}
-        while True:
-            booking_id = input('Please enter your booking id: \n')
-            booking_id = check_booking_id(booking_data_list, booking_id)
-            if booking_id is not None:
-                break
-            else:
-                print("Invalid booking id, please try again")
-        movie_list_data = get_movie_list_data(movie_list, input_movie_code)
-        get_receipt = generate_receipt_text(movie_list_data, booking_data_dict, booking_id)
-        print(get_receipt)
+    if booking_data_dict is None: booking_list_dict = ddf.BOOKING_DATA_DICTIONARY
+    if customer_data_dict is None: customer_list_dict = ddf.CUSTOMER_DATA_DICTIONARY
+    #get movie list
+    movie_2d_list = ccsf.read_list_from_cache(dictionary_cache=movie_list_dict)
+    #booking_data_exist = check_booking_data(input_movie_code)
+    booking_data_2d_list = print_booking_data()
+    while True:
+        booking_id = input('Please enter your booking id: \n')
+        booking_id = check_booking_id(booking_data_2d_list, booking_id)
+        if booking_id is not None:
+            break
+        else:
+            print("Invalid booking id, please try again")
+    #if booking_data_exist:
+    booking_data_dict: dict = {row[0]: row for row in booking_data_2d_list}
+    print(booking_data_dict)
+    user_movie_code = booking_data_dict[booking_id][2]
+    movie_list_data = get_movie_list_data(movie_2d_list, user_movie_code)
+
+    get_receipt = generate_receipt_text(movie_list_data, booking_data_dict, booking_id)
+    print(get_receipt)
 
 
 def clerk(user_id):
@@ -370,6 +403,9 @@ def clerk(user_id):
             'print receipt',
             'quit'
         )
+        if choice == '4':
+            generate_receipt()
+            input('Press enter to continue')
         if choice == '5':
             break
 
@@ -390,18 +426,17 @@ def clerk(user_id):
                 input_movie_code=input_movie_code,
                 user_id=user_id
             )
+            input('Press enter to continue')
         elif choice == '2':
             modify_booking(
                 movie_seat_list=movie_seat_list,
                 input_movie_code=input_movie_code,
                 user_id=user_id
             )
+            input('Press enter to continue')
         elif choice == '3':
             checking_movie(input_movie_code=input_movie_code)
-        elif choice == '4':
-            generate_receipt(input_movie_code=input_movie_code)
-        elif choice == '5':
-            break
+            input('Press enter to continue')
         cnsv.sync_all()
 
 def user_id_start_with_c(user_id:str) -> bool:
@@ -409,10 +444,11 @@ def user_id_start_with_c(user_id:str) -> bool:
 
 # 取消或修改booking
 # 查看电影列表
-# 打印订单
+# 打印订单3
 
 def main():
     clerk(user_id='K001')
+
 
 
 if __name__ == '__main__':
