@@ -1,6 +1,8 @@
 import os
 import warnings
 
+DEFAULT_WIDTH = 30
+
 TARGET_DIRECTORY = "Data"
 # turn the string with ',' to list
 # "hello,test,data,data" -> ["hello","test","data","data]

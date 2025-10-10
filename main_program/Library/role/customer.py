@@ -10,7 +10,7 @@ from main_program.Library.movie_booking_framework import framework_utils as fu
 from main_program.Library.payment_framework import payment_framework as pf
 import datetime
 
-DEFAULT_WIDTH = 30
+
 
 def check_ticket_bought(customer_code : str,return_booking_code : bool,booking_data_dict : dict = None) -> list:
     if booking_data_dict is None: booking_data_dict = ddf.BOOKING_DATA_DICTIONARY
@@ -20,22 +20,22 @@ def check_ticket_bought(customer_code : str,return_booking_code : bool,booking_d
     booking_list_filtered : list = [row for row in booking_list if row[1]==customer_code]
     booking_code_list : list = []         #format:'B001'
     print(
-        f"{'booking_id' : <{DEFAULT_WIDTH}}"
-        f"{'User_id': <{DEFAULT_WIDTH}}"
-        f"{'Movie Code': <{DEFAULT_WIDTH}}"
-        f"{'Booking Date': <{DEFAULT_WIDTH}}"
+        f"{'booking_id' : <{fu.DEFAULT_WIDTH}}"
+        f"{'User_id': <{fu.DEFAULT_WIDTH}}"
+        f"{'Movie Code': <{fu.DEFAULT_WIDTH}}"
+        f"{'Booking Date': <{fu.DEFAULT_WIDTH}}"
     )
-    print("-" * (DEFAULT_WIDTH * 4 + 1))
+    print("-" * (fu.DEFAULT_WIDTH * 4 + 1))
     for row in booking_list_filtered:
         if return_booking_code:
             booking_code_list.append(row[booking_header['Book ID']])
         else:
             booking_code_list.append(row[booking_header['Movie Code']])
         print(
-            f"{row[0]: <{DEFAULT_WIDTH}}"
-            f"{row[1]: <{DEFAULT_WIDTH}}"
-            f"{str(row[2]): <{DEFAULT_WIDTH}}"
-            f"{str(row[3]): <{DEFAULT_WIDTH}}"
+            f"{row[0]: <{fu.DEFAULT_WIDTH}}"
+            f"{row[1]: <{fu.DEFAULT_WIDTH}}"
+            f"{str(row[2]): <{fu.DEFAULT_WIDTH}}"
+            f"{str(row[3]): <{fu.DEFAULT_WIDTH}}"
         )
     return booking_code_list
 
@@ -50,28 +50,28 @@ def booking_to_movie_list_print(movie_code_list : list, movie_code : str, movie_
 
 def movie_list_print_with_format(
         data_list : list,
-        DEFAULT_WIDTH : int = DEFAULT_WIDTH,
+        DEFAULT_WIDTH : int = fu.DEFAULT_WIDTH,
         movie_list_dict : dict = None,
         movie_seats_dict : dict = None
 ) -> None:
     if movie_seats_dict is None: movie_seats_dict = ddf.MOVIE_SEATS_DICTIONARY
     if movie_list_dict is None: movie_list_dict = ddf.MOVIE_LIST_DICTIONARY
-    print(f"{'Movie Code': <{DEFAULT_WIDTH}}"
-          f"{'Movie Name': <{DEFAULT_WIDTH}}"
-          f"{'Cinema Location': <{DEFAULT_WIDTH}}"
-          f"{'Start Time': <{DEFAULT_WIDTH}}"
-          f"{'End Time': <{DEFAULT_WIDTH}}"
-          f"{'Date': <{DEFAULT_WIDTH}}"
-          f"{'Price': <{DEFAULT_WIDTH}}"
-          f"{'Capacity': <{DEFAULT_WIDTH}}")
-    print("-" * (DEFAULT_WIDTH * 8 + 1))
+    print(f"{'Movie Code': <{fu.DEFAULT_WIDTH}}"
+          f"{'Movie Name': <{fu.DEFAULT_WIDTH}}"
+          f"{'Cinema Location': <{fu.DEFAULT_WIDTH}}"
+          f"{'Start Time': <{fu.DEFAULT_WIDTH}}"
+          f"{'End Time': <{fu.DEFAULT_WIDTH}}"
+          f"{'Date': <{fu.DEFAULT_WIDTH}}"
+          f"{'Price': <{fu.DEFAULT_WIDTH}}"
+          f"{'Capacity': <{fu.DEFAULT_WIDTH}}")
+    print("-" * (fu.DEFAULT_WIDTH * 8 + 1))
     for row in data_list:
         seat_list_temp : list = ccsf.read_seats_from_cache(cache_dictionary=movie_seats_dict, code=row[0])
         for data in row[0:6]:
-            print(f"{data: <{DEFAULT_WIDTH}}", end="")
+            print(f"{data: <{fu.DEFAULT_WIDTH}}", end="")
 
-        print(f"{pf.get_price(movie_list_dict= movie_list_dict,code= row[0] ): <{DEFAULT_WIDTH}}",end= "")
-        print(f"{msf.get_capacity(seat_list_temp): <{DEFAULT_WIDTH}}", end ="")
+        print(f"{pf.get_price(movie_list_dict= movie_list_dict,code= row[0] ): <{fu.DEFAULT_WIDTH}}",end= "")
+        print(f"{msf.get_capacity(seat_list_temp): <{fu.DEFAULT_WIDTH}}", end ="")
         print()
 
 def code_range_create(code_list : list,code_location : int) -> list:
@@ -197,8 +197,17 @@ def book_movie_buy(seats_value : str)-> bool:
 
 
 
-def _booking_data_create (book_id : str,user_id : str,movie_code : str,booking_date : str
-                         ,booking_or_pay : str,x_seat : str, y_seat : str,price : str,source : str) -> list:
+def _booking_data_create (
+        book_id : str,
+        user_id : str,
+        movie_code : str,
+        booking_date : str,
+        booking_or_pay : str,
+        x_seat : str,
+        y_seat : str,
+        price : str,
+        source : str
+) -> list:
     booking_data_list : list = []
     booking_data_list.append(book_id)
     booking_data_list.append(user_id)
@@ -223,9 +232,9 @@ def movie_list_to_movie_seats_print(
     if movie_seats_dict is None: movie_seats_dict = ddf.MOVIE_SEATS_DICTIONARY
     movie_seats_list : list = ccsf.read_seats_from_cache(cache_dictionary=movie_seats_dict,code=movie_code)
     print()
-    print("-" * int(DEFAULT_WIDTH * 1.8))
+    print("-" * int(fu.DEFAULT_WIDTH * 1.8))
     sv.print_movie_seat_as_emojis(movie_seats_list,x_pointer,y_pointer)
-    print("-" * int(DEFAULT_WIDTH * 1.8))
+    print("-" * int(fu.DEFAULT_WIDTH * 1.8))
     print(f"Movie Code:{movie_code}")
     return movie_seats_list
 

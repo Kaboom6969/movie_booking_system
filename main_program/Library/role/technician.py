@@ -5,7 +5,6 @@ from main_program.Library.movie_booking_framework import framework_utils as fu
 from main_program.Library.cache_framework import data_dictionary_framework as ddf
 from main_program.Library.data_communication_framework import cache_csv_sync_framework as ccsf
 from main_program.Library.movie_booking_framework import cinema_services as cnsv
-from main_program.Library.role.customer import DEFAULT_WIDTH
 
 #这个是利用movie_booking框架的例子，（请将后续的函数都修改至适配此框架）
 def view_upcoming_movies(movie_list_dict: dict=None):
@@ -25,13 +24,13 @@ def split_date (date: str,separate_symbol: str):
 
 
 def movie_list_print_technician_ver(data_list: list) -> None:
-    print(f"{'Movie Code': <{DEFAULT_WIDTH}}{'Movie Name': <{DEFAULT_WIDTH}}"
-          f"{'Cinema Location': <{DEFAULT_WIDTH}}{'Start Time': <{DEFAULT_WIDTH}}"
-          f"{'End Time': <{DEFAULT_WIDTH}}{'Date': <{DEFAULT_WIDTH}}")
-    print("-" * (DEFAULT_WIDTH * 6 + 1))
+    print(f"{'Movie Code': <{fu.DEFAULT_WIDTH}}{'Movie Name': <{fu.DEFAULT_WIDTH}}"
+          f"{'Cinema Location': <{fu.DEFAULT_WIDTH}}{'Start Time': <{fu.DEFAULT_WIDTH}}"
+          f"{'End Time': <{fu.DEFAULT_WIDTH}}{'Date': <{fu.DEFAULT_WIDTH}}")
+    print("-" * (fu.DEFAULT_WIDTH * 6 + 1))
     for row in data_list:
         for data in row[0:6]:
-            print(f"{data: <{DEFAULT_WIDTH}}", end="")
+            print(f"{data: <{fu.DEFAULT_WIDTH}}", end="")
         print()
 
 
