@@ -112,3 +112,27 @@ Added optional real-time seat refresh display after successful booking.
 - Fixed `modify_booking_data()` indexing issue.
 - Changed from `original_row[code_location][5]` to `original_row[5]` since the returned data is a 1D list.
 - Prevented `TypeError` caused by incorrect nested list access.
+
+## [1.2.3] - 2025-10-10
+### Changed
+- Updated clerk() logic flow:
+- User now selects an operation first (e.g., booking, modify, check, print) before selecting a movie.
+-Simplified loop structure by moving get_operation_choice() before select_movie().
+- Added early break when user selects “quit” to exit the main loop cleanly.
+- Improved clarity and code structure by separating operation and movie selection logic.
+### Fixed
+- Fixed issue where operation order caused redundant movie selection when user wanted to quit.
+### Improved
+- Enhanced user experience by providing a more intuitive interaction flow (“choose action → choose movie”).
+## [1.2.4] - 2025-10-10
+-Changed
+- Updated get_user_booking_axis_and_booking_id() input logic.
+- Replaced invalid check if input_booking_id.split() is None: with if input_booking_id == '' for accurate Enter-key detection.
+- Added .strip() to handle whitespace-only inputs.
+- Added safe return (None, None, None) when user cancels input.
+- Improved overall input validation:
+- Empty input → cancel
+- Invalid ID → prompt again
+- Valid ID → proceed and return column, row, booking_id
+### Fixed
+- Prevented potential UnboundLocalError when user presses Enter without entering a booking ID.

@@ -209,16 +209,18 @@ def get_customer_id(booking_data_list, input_booking_id):
 
 def get_user_booking_axis_and_booking_id(booking_data_list):
     while True:
-        input_booking_id = input('Please enter your booking id: \n')
+        input_booking_id = input('Please enter your booking id (press Enter to cancel): \n')
+        if input_booking_id.strip() == '':
+            break
         booking_id = check_booking_id(booking_data_list, input_booking_id)
         if booking_id is not None:
             column, row = get_user_seat_axis(booking_data_list, input_booking_id)  # x_axis  # y_axis
-            break
+            return column, row, booking_id
         else:
             print("Please enter valid booking id")
             continue
 
-    return column, row, booking_id
+    return None, None, None
 
 
 def check_booking_data(input_movie_code, booking_data_dict: dict = None):
@@ -263,6 +265,8 @@ def modify_booking(
         while True:
             booking_data_list = get_and_print_booking_data(input_movie_code)
             column, row, booking_id = get_user_booking_axis_and_booking_id(booking_data_list)
+            if booking_id is None:
+                break
             customer_id = get_customer_id(booking_data_list, booking_id)
             choice = fu.get_operation_choice(
                 'Please enter your choice',
@@ -358,46 +362,47 @@ def generate_receipt(input_movie_code, movie_list_dict: dict = None):
 def clerk(user_id):
     cnsv.sync_all()
     while True:
+        choice = fu.get_operation_choice(
+            'Please enter your choice',
+            'booking',
+            'cancel or modify booking',
+            'check movie seats',
+            'print receipt',
+            'quit'
+        )
+        if choice == '5':
+            break
+
         # get movie list
         movie_list = ccsf.read_list_from_cache(dictionary_cache=ddf.MOVIE_LIST_DICTIONARY)
         # get user movie input
         input_movie_code = select_movie(movie_list)
-        while True:
-            # get movie seat list
-            movie_seat_list = ccsf.read_seats_from_cache(
-                cache_dictionary=ddf.MOVIE_SEATS_DICTIONARY,
-                code=input_movie_code
+        # get movie seat list
+        movie_seat_list = ccsf.read_seats_from_cache(
+            cache_dictionary=ddf.MOVIE_SEATS_DICTIONARY,
+            code=input_movie_code)
+        if choice == '1':
+            handle_booking(
+                movie_seats_csv="movie_seat.csv",
+                booking_data_csv="booking_data.csv",
+                customer_csv="customer.csv",
+                movie_seat_list=movie_seat_list,
+                input_movie_code=input_movie_code,
+                user_id=user_id
             )
-            choice = fu.get_operation_choice(
-                'Please enter your choice',
-                'booking',
-                'cancel or modify booking',
-                'check movie seats',
-                'print receipt',
-                'quit'
+        elif choice == '2':
+            modify_booking(
+                movie_seat_list=movie_seat_list,
+                input_movie_code=input_movie_code,
+                user_id=user_id
             )
-            if choice == '1':
-                handle_booking(
-                    movie_seats_csv="movie_seat.csv",
-                    booking_data_csv="booking_data.csv",
-                    customer_csv="customer.csv",
-                    movie_seat_list=movie_seat_list,
-                    input_movie_code=input_movie_code,
-                    user_id=user_id
-                )
-            elif choice == '2':
-                modify_booking(
-                    movie_seat_list=movie_seat_list,
-                    input_movie_code=input_movie_code,
-                    user_id=user_id
-                )
-            elif choice == '3':
-                checking_movie(input_movie_code=input_movie_code)
-            elif choice == '4':
-                generate_receipt(input_movie_code=input_movie_code)
-            elif choice == '5':
-                break
-            cnsv.sync_all()
+        elif choice == '3':
+            checking_movie(input_movie_code=input_movie_code)
+        elif choice == '4':
+            generate_receipt(input_movie_code=input_movie_code)
+        elif choice == '5':
+            break
+        cnsv.sync_all()
 
 def user_id_start_with_c(user_id:str) -> bool:
     return bool(user_id.startswith('C') and user_id[1:].isdigit())
