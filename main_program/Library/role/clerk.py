@@ -1,4 +1,5 @@
 from datetime import datetime
+from xmlrpc.client import FastParser
 
 from main_program.Library.movie_booking_framework import seat_visualizer as sv
 from main_program.Library.movie_booking_framework import cinema_services as cnsv
@@ -249,16 +250,53 @@ def modify_booking_data(
     ccsf.list_dictionary_update(dictionary=booking_data_dict, list_to_add=updated_list)
 
 
+def get_customer_paid_status(
+        booking_data_list,
+        input_booking_id
+):
+    for booking_data in booking_data_list:
+        if input_booking_id == booking_data[0]:
+            if int(booking_data[4]) == 2:
+                return True
+    return False
+
+def get_booking_date(
+        booking_data_list,
+        input_booking_id
+):
+    for booking_data in booking_data_list:
+        if input_booking_id == booking_data[0]:
+            return datetime.strptime(booking_data[3],"%Y/%m/%d").date()
+    return None
+
+def get_movie_date(
+        movie_list_dict,
+        input_movie_code
+):
+    movie_header_location: dict = fu.header_location_get(movie_list_dict["header"])
+    movie_date = movie_list_dict[input_movie_code][movie_header_location["date"] - 1]
+    return datetime.strptime(movie_date, "%Y/%m/%d").date()
+
+def check_date_expired(
+        movie_date,
+):
+    today = datetime.now().date()
+    if today > movie_date:
+        return True
+    return False
+
 def modify_booking(
         movie_seat_list,
         input_movie_code,
         user_id,
         booking_data_dict=None,
         movie_seats_dict=None,
-        customer_dict=None
+        movie_list_dict=None,
+        customer_dict=None,
 ):
     if booking_data_dict is None: booking_data_dict = ddf.BOOKING_DATA_DICTIONARY
     if movie_seats_dict is None: movie_seats_dict = ddf.MOVIE_SEATS_DICTIONARY
+    if movie_list_dict is None:movie_list_dict = ddf.MOVIE_LIST_DICTIONARY
     if customer_dict is None:customer_dict = ddf.CUSTOMER_DATA_DICTIONARY
     booking_data_exist = check_booking_data(input_movie_code)
     if booking_data_exist:
@@ -268,6 +306,7 @@ def modify_booking(
             if booking_id is None:
                 break
             customer_id = get_customer_id(booking_data_list, booking_id)
+            movie_date = get_movie_date(movie_list_dict, input_movie_code)
             choice = fu.get_operation_choice(
                 'Please enter your choice',
                 'cancel booking',
@@ -277,7 +316,9 @@ def modify_booking(
             # cancel booking(1), modify booking(2), quit(3)
             if choice == '1':
                 start_with_c = user_id_start_with_c(customer_id)
-                if start_with_c:
+                paid = get_customer_paid_status(booking_data_list, booking_id)
+                expired = check_date_expired(movie_date)
+                if start_with_c and paid and not expired:
                     pf.return_money(booking_data_dict, customer_dict, booking_id, customer_id)
                     print('Your money has been returned')
                 ccsf.dictionary_delete(dictionary=booking_data_dict, key_to_delete=booking_id)
@@ -338,7 +379,7 @@ Seat           : [{column},{row}]
 ----------------------------------------
 Original Price : RM {movie_price}
 Discount       : {discount} %
-Final Price    : {movie_price_discount}
+Final Price    : RM {movie_price_discount}
 ========================================
 """
     return receipt
@@ -447,7 +488,7 @@ def user_id_start_with_c(user_id:str) -> bool:
 # 打印订单3
 
 def main():
-    clerk(user_id='K001')
+   clerk(user_id='K001')
 
 
 

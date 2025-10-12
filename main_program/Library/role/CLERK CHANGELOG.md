@@ -142,3 +142,14 @@ Added optional real-time seat refresh display after successful booking.
 - Added `get_discount` function to get discount
 - Added `get_booking_data` function to get booking data, function will return a booking_data_2d_list
 - Added `discount` and `discount price` at `generate_receipt_text` function
+
+## [1.2.5] - 2025-10-13
+### Added
+- Added `get_customer_paid_status` function to check if a booking is paid
+- Added `get_booking_date` function to get booking date from booking data list
+- Added `get_movie_date` function to get movie date from movie list dictionary
+- Added `check_date_expired` function to check if a movie date has expired
+- Added booking validation logic in `modify_booking`:
+  - Now checks if booking ID starts with 'C'
+  - Ensures booking is paid
+  - Ensures movie date is not expired before modification
