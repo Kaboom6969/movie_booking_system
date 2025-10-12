@@ -237,8 +237,12 @@ def set_discount_operation(movie_list_dict : dict = None) -> None:
         "Set Specify Movie Code",
         "Set All"
     ):
+
         case '1':
-            movie_code = fu.element_input(element_name= "Movie Code",input_range=list(movie_list_dict.keys()))
+            movie_code = fu.element_input(
+                element_name= "Movie Code",
+                input_range=[i for i in movie_list_dict.keys() if i not in ["base file name","header","code_location"]]
+            )
             discount_rate = fu.element_input(element_name= "Discount Rate",valid_check_func= temp_func_for_percent)
             set_discount(
                 movie_list_dict=movie_list_dict,
