@@ -319,11 +319,11 @@ def user_input_role():
     Let user choose role by number.
     1 = Clerk, 2 = Manager, 3 = Technician, 4 = Customer
     """
-    print("Ticketing Clerk(1), Cinema manager(2), Technician(3), Customer(4)")
+    print("1. Ticketing Clerk\n2. Cinema manager\n3. Technician\n4. Customer\n5. Exit")
     while True:
         try:
             role = int(input("please input your role by number\n"))
-            if role in (1, 2, 3, 4):
+            if role in (1, 2, 3, 4, 5):
                 return role
             else:
                 raise ValueError("invalid number, please try again")
@@ -346,9 +346,12 @@ def role(
     Main role dispatcher.
     Different role leads to different login/register logic.
     """
-    role_num = user_input_role()
-    if role_num == 4:
-        while True:
+    while True:
+        role_num = user_input_role()
+        if role_num == 5:
+            print ("Thank you for using this system")
+            break
+        elif role_num == 4:
             try:
                 choice = int(input("please input login(1) or register(2) by number\n"))
                 if choice == 1:
@@ -365,49 +368,34 @@ def role(
             except ValueError as e:
                 print(e)
 
-
-    elif role_num == 1:
-        user_id = login(clerk_data)
-        if user_id is not None:
-            clerk_function(user_id)
-
-
-    elif role_num == 2:
-        user_id = login(manager_data)
-        if user_id is not None:
-            manager_function(user_id)
+        elif role_num == 1:
+            user_id = login(clerk_data)
+            if user_id is not None:
+                clerk_function(user_id)
 
 
-    elif role_num == 3:
-        user_id = login(technician_data)
-        if user_id is not None:
-            technician_function(user_id)
-
-    else:
-        print("invalid number, please try again")
+        elif role_num == 2:
+            user_id = login(manager_data)
+            if user_id is not None:
+                manager_function(user_id)
 
 
-def main():
-    """
-    Entry point: assign file paths for different roles.
-    """
-    customer_csv = get_data_directory('customer.csv')
-    clerk_csv = get_data_directory('clerk.csv')
-    manager_csv = get_data_directory('manager.csv')
-    technician_csv = get_data_directory('technician.csv')
-    role(
-        customer_data=customer_csv,
-        clerk_data=clerk_csv,
-        manager_data=manager_csv,
-        technician_data=technician_csv,
-    )
+        elif role_num == 3:
+            user_id = login(technician_data)
+            if user_id is not None:
+                technician_function(user_id)
+
+        else:
+            print("invalid number, please try again")
+
 
 
 if __name__ == '__main__':
-    main()
-    while True:
-        try:
-            main()
-            pass
-        except ValueError as e:
-            print(e)
+     pass
+    # main()
+    # while True:
+    #     try:
+    #         main()
+    #         pass
+    #     except ValueError as e:
+    #         print(e)
