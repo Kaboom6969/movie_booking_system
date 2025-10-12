@@ -14,14 +14,14 @@ MANAGER_CSV = fu.get_path("manager.csv")
 TECHNICIAN_CSV = fu.get_path("technician.csv")
 if __name__ == '__main__':
     ddf.init_all_dictionary()
-    while True:
-        ls.role(
-            customer_data= CUSTOMER_CSV,
-            clerk_data= CLERK_CSV,
-            manager_data= MANAGER_CSV,
-            technician_data= TECHNICIAN_CSV,
-            customer_function= CTM.customer,
-            clerk_function= CLK.clerk,
-            manager_function= MNG.manager,
-            technician_function= TNC.technician
-        )
+    ls.role(
+        customer_data= CUSTOMER_CSV,
+        clerk_data= CLERK_CSV,
+        manager_data= MANAGER_CSV,
+        technician_data= TECHNICIAN_CSV,
+        customer_function= CTM.customer,
+        clerk_function= CLK.clerk,
+        manager_function= MNG.manager,
+        technician_function= TNC.technician
+    )
+
