@@ -3,7 +3,6 @@ from main_program.Library.movie_booking_framework import seat_visualizer as sv
 from main_program.Library.movie_booking_framework import cinema_services as cnsv
 from main_program.Library.cache_framework import data_dictionary_framework as ddf
 from main_program.Library.movie_booking_framework import movie_seats_framework as msf
-from main_program.Library.movie_booking_framework import  movie_list_framework as mlf
 from main_program.Library.movie_booking_framework import id_generator as idg
 from main_program.Library.data_communication_framework import cache_csv_sync_framework as ccsf
 from main_program.Library.movie_booking_framework import framework_utils as fu
@@ -12,8 +11,7 @@ import datetime
 
 
 
-def check_ticket_bought(customer_code : str,return_booking_code : bool,booking_data_dict : dict = None) -> list:
-    if booking_data_dict is None: booking_data_dict = ddf.BOOKING_DATA_DICTIONARY
+def check_ticket_bought(customer_code : str,return_booking_code : bool,booking_data_dict : dict) -> list:
     # format: ['B001','C001', '001','2025/8/13','2','3','3','Online']
     booking_header : dict = fu.header_location_get(booking_data_dict["header"])
     booking_list : list = ccsf.read_list_from_cache(dictionary_cache= booking_data_dict)
@@ -39,23 +37,28 @@ def check_ticket_bought(customer_code : str,return_booking_code : bool,booking_d
         )
     return booking_code_list
 
-def booking_to_movie_list_print(movie_code_list : list, movie_code : str, movie_list_dict : dict = None) -> None:
-    if movie_list_dict is None: movie_list_dict = ddf.MOVIE_LIST_DICTIONARY
+def booking_to_movie_list_print(
+        movie_code_list : list,
+        movie_code : str,
+        movie_list_dict : dict,
+        movie_seats_dict : dict,
+    ) -> None:
     if movie_code not in movie_code_list:
         raise ValueError("Please enter the valid movie code!")
     else:
         #format: [['002', 'Joker', 'cinema002', '19:00', '22:00']]
         booking_movie_list : list = ccsf.read_list_from_cache(dictionary_cache= movie_list_dict,code= movie_code)
-        movie_list_print_with_format(data_list= booking_movie_list)
+        movie_list_print_with_format(
+            data_list= booking_movie_list,
+            movie_list_dict= movie_list_dict,
+            movie_seats_dict= movie_seats_dict
+        )
 
 def movie_list_print_with_format(
         data_list : list,
-        DEFAULT_WIDTH : int = fu.DEFAULT_WIDTH,
-        movie_list_dict : dict = None,
-        movie_seats_dict : dict = None
-) -> None:
-    if movie_seats_dict is None: movie_seats_dict = ddf.MOVIE_SEATS_DICTIONARY
-    if movie_list_dict is None: movie_list_dict = ddf.MOVIE_LIST_DICTIONARY
+        movie_list_dict: dict,
+        movie_seats_dict: dict
+    ) -> None:
     print(f"{'Movie Code': <{fu.DEFAULT_WIDTH}}"
           f"{'Movie Name': <{fu.DEFAULT_WIDTH}}"
           f"{'Cinema Location': <{fu.DEFAULT_WIDTH}}"
@@ -80,21 +83,38 @@ def code_range_create(code_list : list,code_location : int) -> list:
         code_range_list.append(row[code_location])
     return code_range_list
 
-def book_movie_operation(user_id : str,code_range : list) -> None:
+def book_movie_operation(
+        user_id : str,
+        code_range : list,
+        movie_list_dict:dict,
+        booking_data_dict:dict,
+        movie_seats_dict:dict,
+        customer_data_dict:dict,
+    ) -> None:
     movie_code : str = fu.element_input(element_name= "movie code",input_range= code_range)
-    book_movie_system(movie_code= movie_code,user_id= user_id)
+    book_movie_system(
+        movie_code= movie_code,
+        user_id= user_id,
+        booking_data_dict= booking_data_dict,
+        movie_list_dict= movie_list_dict,
+        movie_seats_dict= movie_seats_dict,
+        customer_data_dict= customer_data_dict,
+    )
 
 def book_movie_system(
         movie_code : str,
         user_id : str,
-        booking_data_dict : dict=None,
-        movie_list_dict : dict=None
-) -> None:
-    if booking_data_dict is None:booking_data_dict = ddf.BOOKING_DATA_DICTIONARY
-    if movie_list_dict is None: movie_list_dict = ddf.MOVIE_LIST_DICTIONARY
+        booking_data_dict : dict,
+        movie_list_dict : dict,
+        movie_seats_dict : dict,
+        customer_data_dict : dict,
+    ) -> None:
+
     try:
-        cnsv.sync_all()
-        booking_movie_seats = movie_list_to_movie_seats_print(movie_code=movie_code)
+        booking_movie_seats = movie_list_to_movie_seats_print(
+            movie_code=movie_code,
+            movie_seats_dict= movie_seats_dict
+        )
         x_range = sv.x_range_calculate(movie_seats=booking_movie_seats)
         y_range = sv.y_range_calculate(movie_seats=booking_movie_seats)
         first_attempt = True
@@ -107,7 +127,8 @@ def book_movie_system(
             )
             movie_list_to_movie_seats_print(
                 movie_code=movie_code,
-                x_pointer=x_pointer
+                x_pointer=x_pointer,
+                movie_seats_dict= movie_seats_dict
             )
             y_pointer = book_movie_input(
                 range_list= y_range,
@@ -116,7 +137,8 @@ def book_movie_system(
             movie_list_to_movie_seats_print(
                 movie_code=movie_code,
                 x_pointer=x_pointer,
-                y_pointer=y_pointer
+                y_pointer=y_pointer,
+                movie_seats_dict= movie_seats_dict
             )
             seats_value =msf.movie_seats_specify_value(
                 movie_seats=booking_movie_seats,
@@ -129,7 +151,11 @@ def book_movie_system(
                     movie_list_dict= movie_list_dict,
                     code = movie_code
                 )
-                if not pf.pay_money(customer_id=user_id,price=book_price):
+                if not pf.pay_money(
+                        customer_id=user_id,
+                        price=book_price,
+                        customer_dict= customer_data_dict
+                ):
                     print ("Purchased Failed,No Enough Money!")
                     return
                 booking_list : list = ccsf.read_list_from_cache(dictionary_cache=booking_data_dict)
@@ -152,7 +178,6 @@ def book_movie_system(
                     price= str(book_price),source= "online"
                 )
                 ccsf.list_dictionary_update(dictionary= booking_data_dict,list_to_add= booking_data_list)
-                cnsv.sync_all()
 
             if not booking_status: try_again = True
             else: try_again = False
@@ -207,7 +232,7 @@ def _booking_data_create (
         y_seat : str,
         price : str,
         source : str
-) -> list:
+    ) -> list:
     booking_data_list : list = []
     booking_data_list.append(book_id)
     booking_data_list.append(user_id)
@@ -225,11 +250,11 @@ def _booking_data_create (
 
 def movie_list_to_movie_seats_print(
         movie_code : str,
-        movie_seats_dict : dict=None,
+        movie_seats_dict : dict,
         x_pointer = -1,
         y_pointer = -1
-) -> list:
-    if movie_seats_dict is None: movie_seats_dict = ddf.MOVIE_SEATS_DICTIONARY
+    ) -> list:
+
     movie_seats_list : list = ccsf.read_seats_from_cache(cache_dictionary=movie_seats_dict,code=movie_code)
     print()
     print("-" * int(fu.DEFAULT_WIDTH * 1.8))
@@ -238,18 +263,19 @@ def movie_list_to_movie_seats_print(
     print(f"Movie Code:{movie_code}")
     return movie_seats_list
 
-def check_all_movie_list(movie_list_dict : dict=None,movie_seats_dict : dict=None) -> list:
-    if movie_list_dict is None: movie_list_dict = ddf.MOVIE_LIST_DICTIONARY
-    if movie_seats_dict is None: movie_seats_dict = ddf.MOVIE_SEATS_DICTIONARY
+def check_all_movie_list(movie_list_dict : dict,movie_seats_dict : dict) -> list:
     movie_header_list : list = movie_list_dict["header"]
     header_dict : dict = fu.header_location_get(movie_header_list)
     movie_list_all : list = ccsf.read_list_from_cache(dictionary_cache=movie_list_dict)
-    movie_list_print_with_format(data_list= movie_list_all,movie_seats_dict=movie_seats_dict)
+    movie_list_print_with_format(
+        data_list= movie_list_all,
+        movie_list_dict= movie_list_dict,
+        movie_seats_dict=movie_seats_dict,
+    )
     return code_range_create(code_list= movie_list_all,code_location= header_dict["movie_code"])
 
 
-def cancel_booking_operation(user_id : str, booking_data_dict : dict = None,booking_code_range : list = None) -> None:
-    if booking_data_dict is None: booking_data_dict = ddf.BOOKING_DATA_DICTIONARY
+def cancel_booking_operation(user_id : str, booking_data_dict : dict,booking_code_range : list= None) -> None:
     if booking_code_range is None: booking_code_range : list = check_ticket_bought(
         customer_code= user_id,
         booking_data_dict= booking_data_dict,
@@ -277,7 +303,16 @@ def cancel_booking_operation(user_id : str, booking_data_dict : dict = None,book
 
 
 
-def customer(customer_id : str) -> None:
+def customer(customer_id : str,
+             booking_data_dict= None,
+             movie_list_dict= None,
+             movie_seats_dict= None,
+             customer_data_dict= None,
+    ) -> None:
+    if booking_data_dict is None: booking_data_dict = ddf.BOOKING_DATA_DICTIONARY
+    if movie_list_dict is None:  movie_list_dict = ddf.MOVIE_LIST_DICTIONARY
+    if movie_seats_dict is None: movie_seats_dict = ddf.MOVIE_SEATS_DICTIONARY
+    if customer_data_dict is None: customer_data_dict = ddf.CUSTOMER_DATA_DICTIONARY
     print("Welcome to the Movie Booking System!")
     while True:
         match fu.get_operation_choice(
@@ -287,17 +322,35 @@ def customer(customer_id : str) -> None:
             'exit'
         ):
             case "1":
-                booking_code_range : list = check_ticket_bought(customer_code=customer_id,return_booking_code=True)
+                booking_code_range : list = check_ticket_bought(
+                    customer_code=customer_id,
+                    return_booking_code=True,
+                    booking_data_dict= booking_data_dict,
+                )
                 match fu.get_operation_choice("Select Your Operation",'cancel booking','exit'):
                     case "1":
-                        cancel_booking_operation(user_id= customer_id,booking_code_range= booking_code_range)
+                        cancel_booking_operation(
+                            user_id= customer_id,
+                            booking_data_dict= booking_data_dict,
+                            booking_code_range= booking_code_range,
+                        )
                     case '2':
                         pass
             case "2":
-                code_range = check_all_movie_list()
+                code_range = check_all_movie_list(
+                    movie_list_dict= movie_list_dict,
+                    movie_seats_dict= movie_seats_dict,
+                )
                 match fu.get_operation_choice("Select Your Operation",'book movie','exit'):
                     case "1":
-                        book_movie_operation(user_id= customer_id,code_range= code_range)
+                        book_movie_operation(
+                            user_id= customer_id,
+                            code_range= code_range,
+                            movie_list_dict= movie_list_dict,
+                            booking_data_dict= booking_data_dict,
+                            movie_seats_dict= movie_seats_dict,
+                            customer_data_dict= customer_data_dict,
+                        )
                     case "2":
                         pass
             case "3":

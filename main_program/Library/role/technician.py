@@ -7,8 +7,7 @@ from main_program.Library.data_communication_framework import cache_csv_sync_fra
 from main_program.Library.movie_booking_framework import cinema_services as cnsv
 
 #这个是利用movie_booking框架的例子，（请将后续的函数都修改至适配此框架）
-def view_upcoming_movies(movie_list_dict: dict=None):
-    if movie_list_dict is None:movie_list_dict = ddf.MOVIE_LIST_DICTIONARY
+def view_upcoming_movies(movie_list_dict: dict):
     movie_list: list = ccsf.read_list_from_cache(dictionary_cache= movie_list_dict)
     movie_list_filtered: list = []
     time_now = datetime.date.today()
@@ -34,8 +33,7 @@ def movie_list_print_technician_ver(data_list: list) -> None:
         print()
 
 
-def report_issue_operation(cinema_device_dict: dict=None) -> None:
-    if cinema_device_dict is None: cinema_device_dict = ddf.CINEMA_DEVICE_DICTIONARY
+def report_issue_operation(cinema_device_dict: dict) -> None:
     device_list = device_actual_list_get(cinema_device_dict= cinema_device_dict)
     cinema_code_range: list = fu.get_code_range(dictionary_cache= cinema_device_dict)
     cinema_code: str = fu.element_input(element_name= "cinema number",input_range= cinema_code_range)
@@ -45,8 +43,7 @@ def report_issue_operation(cinema_device_dict: dict=None) -> None:
     update_status(cinema_number= cinema_code,issue_device= issue_device,
                   issue_status= '1',device_list= device_list,cinema_device_dict= cinema_device_dict)
 
-def device_actual_list_get (cinema_device_dict: dict=None) -> list:
-    if cinema_device_dict is None: cinema_device_dict = ddf.CINEMA_DEVICE_DICTIONARY
+def device_actual_list_get (cinema_device_dict: dict) -> list:
     cinema_device_header: list = cinema_device_dict.get("header")
     cinema_device_filtered: list = fu.keyword_only_for_list(
         any_dimension_list= cinema_device_header,
@@ -56,8 +53,7 @@ def device_actual_list_get (cinema_device_dict: dict=None) -> list:
     return device_list
 
 def update_status(cinema_number: str,issue_device: str,issue_status: str,device_list: list,
-                  cinema_device_dict: dict=None) -> None:
-    if cinema_device_dict is None: cinema_device_dict = ddf.CINEMA_DEVICE_DICTIONARY
+                  cinema_device_dict: dict) -> None:
     device_location: int = 0
     for index,device in enumerate(device_list):
         if device == issue_device:
@@ -68,8 +64,7 @@ def update_status(cinema_number: str,issue_device: str,issue_status: str,device_
     cinema_device_list_specify[device_location] = issue_status
     ccsf.list_dictionary_update(dictionary= cinema_device_dict,list_to_add= cinema_device_list_specify)
 
-def check_equipment_status(cinema_device_dict: dict =None, cinema_number: str = "all") -> list:
-    if cinema_device_dict is None: cinema_device_dict = ddf.CINEMA_DEVICE_DICTIONARY
+def check_equipment_status(cinema_device_dict: dict, cinema_number: str = "all") -> list:
     cinema_device_header: list = cinema_device_dict.get("header")
     if cinema_number == "all": cinema_device_list: list = ccsf.read_list_from_cache(
         dictionary_cache= cinema_device_dict
@@ -89,15 +84,13 @@ def check_equipment_status(cinema_device_dict: dict =None, cinema_number: str = 
         )
     return cinema_device_list
 
-def check_equipment_status_operation(cinema_device_dict: dict =None) -> None:
-    if cinema_device_dict is None: cinema_device_dict = ddf.CINEMA_DEVICE_DICTIONARY
+def check_equipment_status_operation(cinema_device_dict: dict) -> None:
     technician_code_range: list = fu.get_code_range(dictionary_cache= cinema_device_dict)
     cinema_device_code: str = fu.element_input(element_name= "cinema number",input_range=technician_code_range)
-    check_equipment_status(cinema_number= cinema_device_code)
+    check_equipment_status(cinema_device_dict= cinema_device_dict,cinema_number= cinema_device_code)
 
 
-def confirm_equipment_status(cinema_device_dict: dict =None) -> None:
-    if cinema_device_dict is None: cinema_device_dict = ddf.CINEMA_DEVICE_DICTIONARY
+def confirm_equipment_status(cinema_device_dict: dict) -> None:
     cinema_device_list: list = ddf.read_list_from_cache(dictionary_cache= cinema_device_dict)
     cinema_header_location: dict = fu.header_location_get(header_list= cinema_device_dict["header"])
     for row in cinema_device_list:
@@ -112,8 +105,7 @@ def cinema_status_check(cinema_device_list_one_dimension: list) -> bool:
         if element == '1' or element == '2': return False
     return True
 
-def update_issue_status_operation(cinema_device_dict: dict = None) -> None:
-    if cinema_device_dict is None: cinema_device_dict = ddf.CINEMA_DEVICE_DICTIONARY
+def update_issue_status_operation(cinema_device_dict: dict) -> None:
     cinema_device_list: list = ddf.read_list_from_cache(dictionary_cache= cinema_device_dict)
     cinema_header_location: dict = fu.header_location_get(header_list= cinema_device_dict["header"])
     device_list = device_actual_list_get(cinema_device_dict=cinema_device_dict)
@@ -140,7 +132,8 @@ def update_issue_status_operation(cinema_device_dict: dict = None) -> None:
         cinema_number= user_cinema,
         issue_device= device_to_update,
         issue_status=status_to_update,
-        device_list= device_list
+        device_list= device_list,
+        cinema_device_dict= cinema_device_dict,
     )
 
 
@@ -155,7 +148,13 @@ def device_list_filtered_for_problem_device (device_actual_list: list,device_sta
 
 
 
-def technician(technician_id : str) -> None:
+def technician(technician_id : str,
+               movie_list_dict:dict= None,
+               cinema_device_dict:dict= None,
+    ) -> None:
+    if movie_list_dict is None: movie_list_dict= ddf.MOVIE_LIST_DICTIONARY
+    if cinema_device_dict is None: cinema_device_dict= ddf.CINEMA_DEVICE_DICTIONARY
+
     print("Welcome to Movie Booking System")
     while True:
         try:
@@ -169,15 +168,25 @@ def technician(technician_id : str) -> None:
                 'Exit'
             ):
                 case '1':
-                    view_upcoming_movies()
+                    view_upcoming_movies(
+                        movie_list_dict= movie_list_dict
+                    )
                 case '2':
-                    report_issue_operation()
+                    report_issue_operation(
+                        cinema_device_dict= cinema_device_dict
+                    )
                 case '3':
-                    check_equipment_status_operation()
+                    check_equipment_status_operation(
+                        cinema_device_dict= cinema_device_dict
+                    )
                 case '4':
-                    confirm_equipment_status()
+                    confirm_equipment_status(
+                        cinema_device_dict= cinema_device_dict
+                    )
                 case '5':
-                    update_issue_status_operation()
+                    update_issue_status_operation(
+                        cinema_device_dict= cinema_device_dict
+                    )
                 case '6':
                     break
             fu.empty_input("Press Enter to continue...")
@@ -203,11 +212,11 @@ def technician(technician_id : str) -> None:
                             continue
                         case '2':
                             print("Please call Manager to solve it.")
-                            init_all_dictionary()
+                            ccsf.init_all_dictionary()
                     break
 
 
 
 if __name__ == "__main__":
-    init_all_dictionary()
+    ccsf.init_all_dictionary()
     technician()

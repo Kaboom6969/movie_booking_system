@@ -1,8 +1,7 @@
 from main_program.Library.movie_booking_framework import framework_utils as fu
 from main_program.Library.cache_framework import data_dictionary_framework as ddf
 from main_program.Library.data_communication_framework import  cache_csv_sync_framework as ccsf
-def pay_money(customer_id:str,price:int,customer_dict: dict= None) -> bool:
-    if customer_dict is None: customer_dict = ddf.CUSTOMER_DATA_DICTIONARY
+def pay_money(customer_id:str,price:int,customer_dict: dict) -> bool:
     content_list = []
     customer_header_location : dict = fu.header_location_get(customer_dict["header"])
     customer_balance = int(customer_dict[customer_id][customer_header_location["user_balance"] - 1])

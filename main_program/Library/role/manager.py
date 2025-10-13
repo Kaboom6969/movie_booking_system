@@ -11,10 +11,9 @@ from main_program.Library.movie_booking_framework.movie_seats_framework import g
 
 def movie_list_print_with_format(
         data_list: list,
+        movie_seats_dict: dict,
         DEFAULT_WIDTH: int = 30,
-        movie_seats_dict: dict = None
 ) -> None:
-    if movie_seats_dict is None: movie_seats_dict = ddf.MOVIE_SEATS_DICTIONARY
     print(
         f"{'Movie Code': <{DEFAULT_WIDTH}}"
         f"{'Movie Name': <{DEFAULT_WIDTH}}"
@@ -34,15 +33,11 @@ def movie_list_print_with_format(
         print()
 
 def add_movie_operation (
-        cinema_seats_dict:dict=None,
-        movie_list_dict:dict=None,
-        movie_seats_dict:dict=None,
-        cinema_device_dict:dict=None
+        cinema_seats_dict:dict,
+        movie_list_dict:dict,
+        movie_seats_dict:dict,
+        cinema_device_dict:dict
 ) -> None:
-    if cinema_seats_dict is None: cinema_seats_dict = ddf.CINEMA_SEATS_DICTIONARY
-    if movie_list_dict is None: movie_list_dict= ddf.MOVIE_LIST_DICTIONARY
-    if movie_seats_dict is None: movie_seats_dict = ddf.MOVIE_SEATS_DICTIONARY
-    if cinema_device_dict is None: cinema_device_dict = ddf.CINEMA_DEVICE_DICTIONARY
     movie_code_list = fu.get_code_range(movie_list_dict)
     cinema_code_range_filtered = sorted(list(set(fu.get_code_range(cinema_seats_dict))))
     movie_list_header: list = movie_list_dict["header"]
@@ -66,10 +61,7 @@ def add_movie_operation (
 
 
 
-def delete_movie_operation(movie_list_dict:dict=None,movie_seats_dict:dict=None,cinema_device_dict:dict=None) -> None:
-    if movie_list_dict is None: movie_list_dict= ddf.MOVIE_LIST_DICTIONARY
-    if movie_seats_dict is None: movie_seats_dict = ddf.MOVIE_SEATS_DICTIONARY
-    if cinema_device_dict is None: cinema_device_dict = ddf.CINEMA_DEVICE_DICTIONARY
+def delete_movie_operation(movie_list_dict:dict,movie_seats_dict:dict,cinema_device_dict:dict) -> None:
     movie_list_header: list = movie_list_dict["header"]
     movie_code_range: list = fu.get_code_range(movie_list_dict)
     movie_code_to_delete = fu.element_input(element_name=movie_list_header[0],input_range= movie_code_range)
@@ -79,7 +71,8 @@ def delete_movie_operation(movie_list_dict:dict=None,movie_seats_dict:dict=None,
             dictionary_cache= movie_list_dict,
             code=movie_code_to_delete
             )
-        ]
+        ],
+        movie_seats_dict= movie_seats_dict,
     )
     print (f"Are You Sure You Want Delete Movie Code: {movie_code_to_delete}?")
     user_operation:str = fu.element_input(element_name= "command (Y/N)",input_range= ["Y","y","N","n"])
@@ -90,15 +83,11 @@ def delete_movie_operation(movie_list_dict:dict=None,movie_seats_dict:dict=None,
         return
 
 def modify_movie_operation(
-        movie_list_dict:dict=None,
-        movie_seats_dict:dict=None,
-        cinema_device_dict:dict=None,
-        cinema_seats_dict:dict=None
+        movie_list_dict:dict,
+        movie_seats_dict:dict,
+        cinema_device_dict:dict,
+        cinema_seats_dict:dict
 ) -> None:
-    if movie_list_dict is None: movie_list_dict= ddf.MOVIE_LIST_DICTIONARY
-    if movie_seats_dict is None: movie_seats_dict = ddf.MOVIE_SEATS_DICTIONARY
-    if cinema_device_dict is None: cinema_device_dict = ddf.CINEMA_DEVICE_DICTIONARY
-    if cinema_seats_dict is None: cinema_seats_dict = ddf.CINEMA_SEATS_DICTIONARY
     movie_list_header: list = movie_list_dict["header"]
     movie_code_range: list = fu.get_code_range(movie_list_dict)
     cinema_code_range_filtered = sorted(list(set(fu.get_code_range(cinema_seats_dict))))
@@ -109,7 +98,8 @@ def modify_movie_operation(
                 dictionary_cache= movie_list_dict,
                 code=movie_code_to_modify
             )
-        ]
+        ],
+        movie_seats_dict= movie_seats_dict
     )
     print (f"Are You Sure You Want Modify Movie Code: {movie_code_to_modify}?")
     user_operation: str = fu.element_input(element_name="command (Y/N)", input_range=["Y", "y", "N", "n"])
@@ -170,8 +160,7 @@ def booking_data_source_count (source: str,booking_data_list: list,booking_data_
         if row[booking_data_header_location["Source"]] == source: source_count += 1
     return source_count
 
-def survey_generate(booking_data_dict: dict= None) -> None:
-    if booking_data_dict is None: booking_data_dict = ddf.BOOKING_DATA_DICTIONARY
+def survey_generate(booking_data_dict: dict) -> None:
     booking_data_header_location: dict = fu.header_location_get(booking_data_dict["header"])
     booking_data_list: list = ddf.read_list_from_cache(dictionary_cache=booking_data_dict)
     STARTER_WIDTH = 4
@@ -224,7 +213,7 @@ def set_discount (movie_list_dict : dict,discount_rate: int,movie_code: str="all
         movie_list_dict[movie_code][movie_list_header_location["discount"]] = discount_rate
 
 
-def set_discount_operation(movie_list_dict : dict = None) -> None:
+def set_discount_operation(movie_list_dict : dict) -> None:
 
     def temp_func_for_percent(discount) -> tuple[bool,str]:
         if 0 > int(discount) > 100: return False,"1 - 100"
@@ -256,7 +245,19 @@ def set_discount_operation(movie_list_dict : dict = None) -> None:
                 discount_rate=int(discount_rate)
             )
 
-def manager(manager_id : str) -> None:
+def manager(manager_id : str,
+            movie_list_dict= None,
+            movie_seats_dict= None,
+            cinema_device_dict= None,
+            cinema_seats_dict= None,
+            booking_data_dict= None,
+    ) -> None:
+    if movie_list_dict is None: movie_list_dict=ddf.MOVIE_LIST_DICTIONARY
+    if movie_seats_dict is None: movie_seats_dict=ddf.MOVIE_SEATS_DICTIONARY
+    if cinema_device_dict is None: cinema_device_dict=ddf.CINEMA_DEVICE_DICTIONARY
+    if cinema_seats_dict is None: cinema_seats_dict=ddf.CINEMA_SEATS_DICTIONARY
+    if booking_data_dict is None: booking_data_dict=ddf.BOOKING_DATA_DICTIONARY
+
     while True:
         print("Welcome to Movie Booking System")
         match fu.get_operation_choice(
@@ -269,15 +270,33 @@ def manager(manager_id : str) -> None:
             'Exit'
         ):
             case "1":
-                add_movie_operation()
+                add_movie_operation(
+                    cinema_seats_dict= cinema_seats_dict,
+                    movie_list_dict= movie_list_dict,
+                    movie_seats_dict= movie_seats_dict,
+                    cinema_device_dict= cinema_device_dict,
+                )
             case "2":
-                delete_movie_operation()
+                delete_movie_operation(
+                    movie_list_dict= movie_list_dict,
+                    movie_seats_dict= movie_seats_dict,
+                    cinema_device_dict= cinema_device_dict,
+                )
             case "3":
-                modify_movie_operation()
+                modify_movie_operation(
+                    movie_list_dict= movie_list_dict,
+                    movie_seats_dict= movie_seats_dict,
+                    cinema_device_dict= cinema_device_dict,
+                    cinema_seats_dict= cinema_seats_dict,
+                )
             case "4":
-                set_discount_operation()
+                set_discount_operation(
+                    movie_list_dict= movie_list_dict,
+                )
             case "5":
-                survey_generate()
+                survey_generate(
+                    booking_data_dict= booking_data_dict,
+                )
             case "6":
                 break
             case _:
@@ -301,7 +320,12 @@ def manager(manager_id : str) -> None:
                     'Discard this change'
                 ):
                     case "1":
-                        modify_movie_operation()
+                        modify_movie_operation(
+                            movie_list_dict= movie_list_dict,
+                            movie_seats_dict= movie_seats_dict,
+                            cinema_device_dict= cinema_device_dict,
+                            cinema_seats_dict= cinema_seats_dict,
+                        )
                     case "2":
                         auto_sort_status,still_conflict_data = cnsv.schedule_auto_sort(
                             schedule_conflict_list= conflict_data
@@ -322,8 +346,9 @@ def manager(manager_id : str) -> None:
 
 
 if __name__ == "__main__":
-    init_all_dictionary()
+    ccsf.init_all_dictionary()
     manager()
 
-        
+
+
 
