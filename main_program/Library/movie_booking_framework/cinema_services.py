@@ -32,13 +32,13 @@ def sync_all(
         PK_location=0,
         FK_location=2)
 
-    sync_file()
+    sync_file(mc_code_dict= mc_code_dict)
     mc_code_dict = primary_foreign_key_dictionary_init(
         list_dict= movie_list_dict,
         PK_location=0,
         FK_location=2
     )
-    link_status, link_conflict_data = link_seats()
+    link_status, link_conflict_data = link_seats(mc_code_dict= mc_code_dict)
     if not skip_conflict_test :
         if not link_status:
             raise ValueError("Conflict booking data detected",link_conflict_data)
@@ -308,6 +308,7 @@ def _sync_add (
         cinema_device_dict : dict,
         movie_list_dict:dict
 ) -> None:
+    if mt_code_dict is None : mt_code_dict = ddf.MOVIE_CINEMA_CODE_DICTIONARY
     if list_seats_mismatched:
          for movie_code in list_seats_mismatched:
             # add the movie seats that is lack

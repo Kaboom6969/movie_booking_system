@@ -156,6 +156,7 @@ def booking(
 
 def handle_booking(movie_seats_csv, booking_data_csv, customer_csv, movie_seat_list,
                    input_movie_code, user_id):
+    from main_program.Library.system_login_framework.login_system import login
     while True:
         try:
             choice = fu.get_operation_choice("Please Select Your Choice", 'cash', 'account balance', 'quit')
@@ -483,9 +484,6 @@ def clerk(user_id):
 def user_id_start_with_c(user_id:str) -> bool:
     return bool(user_id.startswith('C') and user_id[1:].isdigit())
 
-# 取消或修改booking
-# 查看电影列表
-# 打印订单3
 
 def main():
    clerk(user_id='K001')
