@@ -448,6 +448,7 @@ def clerk(user_id):
         if choice == '4':
             generate_receipt()
             input('Press enter to continue')
+            continue
         if choice == '5':
             break
 
