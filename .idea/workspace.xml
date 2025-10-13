@@ -4,14 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0ea8b363-fbeb-45e9-9d45-12a8498462b3" name="Changes" comment="- sync data">
+    <list default="true" id="0ea8b363-fbeb-45e9-9d45-12a8498462b3" name="Changes" comment="- fix the bug that system will show choose movie code if generate receipt">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main_program/Data/cinema_device_list.csv" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/Data/cinema_device_list.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main_program/Data/customer.csv" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/Data/customer.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main_program/Data/movie_list.csv" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/Data/movie_list.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main_program/Data/movie_seat.csv" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/Data/movie_seat.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main_program/Library/movie_booking_framework/valid_checker.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/Library/movie_booking_framework/valid_checker.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main_program/Library/movie_booking_framework/cinema_services.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/Library/movie_booking_framework/cinema_services.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main_program/Library/payment_framework/payment_framework.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/Library/payment_framework/payment_framework.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main_program/Library/role/customer.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/Library/role/customer.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main_program/Library/role/manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/Library/role/manager.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main_program/Library/system_login_framework/login_system.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/Library/system_login_framework/login_system.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main_program/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main_program/Library/role/technician.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/Library/role/technician.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -153,47 +156,8 @@
       <workItem from="1759809903698" duration="548000" />
       <workItem from="1759838372369" duration="6520000" />
       <workItem from="1759852461353" duration="14141000" />
-      <workItem from="1760266835775" duration="8706000" />
-    </task>
-    <task id="LOCAL-00117" summary="- sync data">
-      <option name="closed" value="true" />
-      <created>1758922637072</created>
-      <option name="number" value="00117" />
-      <option name="presentableId" value="LOCAL-00117" />
-      <option name="project" value="LOCAL" />
-      <updated>1758922637072</updated>
-    </task>
-    <task id="LOCAL-00118" summary="- update CHANGELOG.md">
-      <option name="closed" value="true" />
-      <created>1758922753607</created>
-      <option name="number" value="00118" />
-      <option name="presentableId" value="LOCAL-00118" />
-      <option name="project" value="LOCAL" />
-      <updated>1758922753607</updated>
-    </task>
-    <task id="LOCAL-00119" summary="- update workspace.xml">
-      <option name="closed" value="true" />
-      <created>1758922763361</created>
-      <option name="number" value="00119" />
-      <option name="presentableId" value="LOCAL-00119" />
-      <option name="project" value="LOCAL" />
-      <updated>1758922763361</updated>
-    </task>
-    <task id="LOCAL-00120" summary="cache_framework 1.0.2&#10;- added error handling for `list_dictionary_init` and `primary_foreign_key_dictionary_init` functions&#10;-  if the code location is out of range, `list_dictionary_init` and `primary_foreign_key_dictionary_list` will raise error&#10;- refactor `list_dictionary_init` function,now it will get the key location dynamic (with using the code_location key in the dictionary)">
-      <option name="closed" value="true" />
-      <created>1758981603209</created>
-      <option name="number" value="00120" />
-      <option name="presentableId" value="LOCAL-00120" />
-      <option name="project" value="LOCAL" />
-      <updated>1758981603209</updated>
-    </task>
-    <task id="LOCAL-00121" summary="- fit the new update with function in cache_framework.py">
-      <option name="closed" value="true" />
-      <created>1758981686017</created>
-      <option name="number" value="00121" />
-      <option name="presentableId" value="LOCAL-00121" />
-      <option name="project" value="LOCAL" />
-      <updated>1758981686017</updated>
+      <workItem from="1760266835775" duration="18859000" />
+      <workItem from="1760355122258" duration="5243000" />
     </task>
     <task id="LOCAL-00122" summary="Seat &amp; List FrameWork Version 1.18.2 a&#10;- now `date_valid_check` and `time_valid_check` will return tuple[bool,str] and not just a bool">
       <option name="closed" value="true" />
@@ -547,7 +511,47 @@
       <option name="project" value="LOCAL" />
       <updated>1760044213007</updated>
     </task>
-    <option name="localTasksCounter" value="166" />
+    <task id="LOCAL-00166" summary="- fix a bug that the range of movie code of set discount got header,base file name...">
+      <option name="closed" value="true" />
+      <created>1760281528534</created>
+      <option name="number" value="00166" />
+      <option name="presentableId" value="LOCAL-00166" />
+      <option name="project" value="LOCAL" />
+      <updated>1760281528534</updated>
+    </task>
+    <task id="LOCAL-00167" summary="-move while True to role">
+      <option name="closed" value="true" />
+      <created>1760281544463</created>
+      <option name="number" value="00167" />
+      <option name="presentableId" value="LOCAL-00167" />
+      <option name="project" value="LOCAL" />
+      <updated>1760281544463</updated>
+    </task>
+    <task id="LOCAL-00168" summary="-change format of print selection">
+      <option name="closed" value="true" />
+      <created>1760281560678</created>
+      <option name="number" value="00168" />
+      <option name="presentableId" value="LOCAL-00168" />
+      <option name="project" value="LOCAL" />
+      <updated>1760281560678</updated>
+    </task>
+    <task id="LOCAL-00169" summary="- sync data">
+      <option name="closed" value="true" />
+      <created>1760281572708</created>
+      <option name="number" value="00169" />
+      <option name="presentableId" value="LOCAL-00169" />
+      <option name="project" value="LOCAL" />
+      <updated>1760281572708</updated>
+    </task>
+    <task id="LOCAL-00170" summary="- fix the bug that system will show choose movie code if generate receipt">
+      <option name="closed" value="true" />
+      <created>1760362688227</created>
+      <option name="number" value="00170" />
+      <option name="presentableId" value="LOCAL-00170" />
+      <option name="project" value="LOCAL" />
+      <updated>1760362688227</updated>
+    </task>
+    <option name="localTasksCounter" value="171" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -565,10 +569,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Seat &amp; List FrameWork Version 1.21.0&#10;- now `conflict_data_auto_sort` function is done!&#10;- it can auto sort the conflict data!&#10;- moved `time_to_minute` to framework_utils.py&#10;- moved `minute_to_time` to framework_utils.py&#10;- moved `header_location_get` to framework_utils.py" />
-    <MESSAGE value="Seat &amp; List FrameWork Version 1.21.1&#10;- refactor the auto sort function (split to few function)" />
-    <MESSAGE value="Manager version 1.2.2&#10;- add `manager` function (Encapsulation all the operation)" />
-    <MESSAGE value="Seat &amp; List FrameWork Version 1.21.1 a&#10;- add `skip_conflict_test:bool` parameter for `sync_all`&#10;- add `dict_key_match:dict` parameter for `element_input`.&#10;- add `get_price` function&#10;- add `number_valid_check` function" />
     <MESSAGE value="cache_framework 1.0.2 c&#10;- fix the bug that `MOVIE_DEVICE_CODE_DICTIONARY` and `MOVIE_CINEMA_CODE_DICTIONARY` is swapped" />
     <MESSAGE value="manager version 1.2.2 a&#10;- add more limit when adding movie" />
     <MESSAGE value="- ready to refactor" />
@@ -589,8 +589,12 @@
     <MESSAGE value="- small update ( no need to write )" />
     <MESSAGE value="- add if customer_dict is None: customer_dict = ddf.CUSTOMER_DATA_DICTIONARY (for test)" />
     <MESSAGE value="manager version 2.0.0&#10;- This is the final version (if no exceptions)&#10;- now all function of manager is done!&#10;- add `set_discount` function&#10;- add `set_discount_operation` function" />
+    <MESSAGE value="- fix a bug that the range of movie code of set discount got header,base file name..." />
+    <MESSAGE value="-move while True to role" />
+    <MESSAGE value="-change format of print selection" />
     <MESSAGE value="- sync data" />
-    <option name="LAST_COMMIT_MESSAGE" value="- sync data" />
+    <MESSAGE value="- fix the bug that system will show choose movie code if generate receipt" />
+    <option name="LAST_COMMIT_MESSAGE" value="- fix the bug that system will show choose movie code if generate receipt" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -617,7 +621,7 @@
     <SUITE FILE_PATH="coverage/movie_booking_system$manager.coverage" NAME="manager Coverage Results" MODIFIED="1760280574900" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/main_program/Library/role" />
     <SUITE FILE_PATH="coverage/movie_booking_system$id_generator.coverage" NAME="id_generator Coverage Results" MODIFIED="1758915214344" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/main_program/Library/movie_booking_framework" />
     <SUITE FILE_PATH="coverage/movie_booking_system$clerk.coverage" NAME="clerk Coverage Results" MODIFIED="1760043902122" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/main_program/Library/role" />
-    <SUITE FILE_PATH="coverage/movie_booking_system$main.coverage" NAME="main Coverage Results" MODIFIED="1760281033435" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/main_program" />
+    <SUITE FILE_PATH="coverage/movie_booking_system$main.coverage" NAME="main Coverage Results" MODIFIED="1760362587150" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/main_program" />
     <SUITE FILE_PATH="coverage/movie_booking_system$movie_seats_framework.coverage" NAME="movie_seats_framework Coverage Results" MODIFIED="1758548134663" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/main_program/Library/movie_booking_framework" />
     <SUITE FILE_PATH="coverage/movie_booking_system$techinician.coverage" NAME="techinician Coverage Results" MODIFIED="1760041186213" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/main_program/Library/role" />
   </component>
