@@ -5,16 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0ea8b363-fbeb-45e9-9d45-12a8498462b3" name="Changes" comment="- fix the bug that system will show choose movie code if generate receipt">
+      <change beforePath="$PROJECT_DIR$/.idea/movie_booking_system.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/movie_booking_system.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main_program/Data/cinema_device_list.csv" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/Data/cinema_device_list.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main_program/Data/customer.csv" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/Data/customer.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main_program/Data/movie_list.csv" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/Data/movie_list.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main_program/Data/movie_seat.csv" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/Data/movie_seat.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main_program/Library/movie_booking_framework/cinema_services.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/Library/movie_booking_framework/cinema_services.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main_program/Library/payment_framework/payment_framework.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/Library/payment_framework/payment_framework.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main_program/Library/role/customer.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/Library/role/customer.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main_program/Library/role/manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/Library/role/manager.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main_program/Library/role/technician.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/Library/role/technician.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,12 +38,12 @@
     &quot;assignee&quot;: &quot;Kaboom6969&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;git@github.com:/Kaboom6969/movie_booking_system.git&quot;,
-    &quot;accountId&quot;: &quot;8ce9614f-261f-4a99-8797-6c7bf4f50d25&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/Kaboom6969/movie_booking_system.git",
+    "accountId": "b6f6194d-e82c-40fa-923b-6c349cf167a4"
   }
-}</component>
+}]]></component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 2
 }</component>
@@ -59,44 +52,44 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;Python.__movie_framework__.executor&quot;: &quot;Run&quot;,
-    &quot;Python.__movie_list_framework__.executor&quot;: &quot;Run&quot;,
-    &quot;Python.__movie_seats_framework__.executor&quot;: &quot;Run&quot;,
-    &quot;Python._movie_seats_framework_.executor&quot;: &quot;Run&quot;,
-    &quot;Python.cinema_services.executor&quot;: &quot;Debug&quot;,
-    &quot;Python.clerk.executor&quot;: &quot;Run&quot;,
-    &quot;Python.customer.executor&quot;: &quot;Run&quot;,
-    &quot;Python.data_dictionary.executor&quot;: &quot;Run&quot;,
-    &quot;Python.framework_utils.executor&quot;: &quot;Run&quot;,
-    &quot;Python.id_generator.executor&quot;: &quot;Debug&quot;,
-    &quot;Python.login_system.executor&quot;: &quot;Run&quot;,
-    &quot;Python.main.executor&quot;: &quot;Run&quot;,
-    &quot;Python.main_program.Library.movie_booking_operation.user_operation.executor&quot;: &quot;Run&quot;,
-    &quot;Python.manager.executor&quot;: &quot;Run&quot;,
-    &quot;Python.movie_booking_system.main_program.Library.movie_booking_operation.user_operation.executor&quot;: &quot;Run&quot;,
-    &quot;Python.movie_list_framework.executor&quot;: &quot;Run&quot;,
-    &quot;Python.movie_list_test.executor&quot;: &quot;Debug&quot;,
-    &quot;Python.movie_seats_framework.executor&quot;: &quot;Run&quot;,
-    &quot;Python.techinician.executor&quot;: &quot;Run&quot;,
-    &quot;Python.user_operation.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;test&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/leezh/PycharmProjects/movie_booking_system/Main Program/Library/system_login_framework/Login/login_system&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.IDE.editor.colors.Python&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "Python.__movie_framework__.executor": "Run",
+    "Python.__movie_list_framework__.executor": "Run",
+    "Python.__movie_seats_framework__.executor": "Run",
+    "Python._movie_seats_framework_.executor": "Run",
+    "Python.cinema_services.executor": "Debug",
+    "Python.clerk.executor": "Run",
+    "Python.customer.executor": "Run",
+    "Python.data_dictionary.executor": "Run",
+    "Python.framework_utils.executor": "Run",
+    "Python.id_generator.executor": "Debug",
+    "Python.login_system.executor": "Run",
+    "Python.main.executor": "Run",
+    "Python.main_program.Library.movie_booking_operation.user_operation.executor": "Run",
+    "Python.manager.executor": "Run",
+    "Python.movie_booking_system.main_program.Library.movie_booking_operation.user_operation.executor": "Run",
+    "Python.movie_list_framework.executor": "Run",
+    "Python.movie_list_test.executor": "Debug",
+    "Python.movie_seats_framework.executor": "Run",
+    "Python.techinician.executor": "Run",
+    "Python.user_operation.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "master",
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "C:/Users/leezh/PycharmProjects/movie_booking_system/Main Program/Library/system_login_framework/Login/login_system",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "reference.settingsdialog.IDE.editor.colors.Python",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\leezh\PycharmProjects\movie_booking_system\Main Program\Library\system_login_framework\Login\login_system" />

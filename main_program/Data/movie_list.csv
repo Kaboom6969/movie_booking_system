@@ -1,5 +1,5 @@
 movie_code,movie_name,CINEMA_number,movie_time_start,movie_time_end,date,original price,discount
-0001,Joker,CINEMA001,18:01,21:01,2025/09/18,20,0
+0001,Joker,CINEMA001,18:00,21:01,2025/09/18,20,10
 0002,Joker2,CINEMA002,15:01,18:01,2025/09/18,30,0
 0003,Superman,CINEMA003,21:00,23:00,2025/09/18,30,0
 0004,Starlight Voyager,CINEMA004,15:15,17:30,2025/09/25,25,0
