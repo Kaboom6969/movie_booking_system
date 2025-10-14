@@ -358,7 +358,6 @@ def role(
                     user_id = login(customer_data)
                     if user_id is not None:
                         customer_function(user_id)
-                    break
                 elif choice == 2:
                     register(customer_data,'C')
                     print('customer register success')
