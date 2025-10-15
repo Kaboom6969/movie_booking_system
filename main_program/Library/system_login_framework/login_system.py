@@ -57,6 +57,7 @@ def generate_verification_code() -> str:
             upper_list.append(chr(ord('A') + i - 26))
         elif i >= 52:
             number_list.append(chr(ord('0') + i - 52))
+    #get random index
     r_lower = random.randint(0, len(lower_list) - 1)
     r_upper = random.randint(0, len(upper_list) - 1)
     r_num = random.randint(0, len(number_list) - 1)
