@@ -14,6 +14,7 @@ MANAGER_CSV = fu.get_path("manager.csv")
 TECHNICIAN_CSV = fu.get_path("technician.csv")
 if __name__ == '__main__':
     ddf.init_all_dictionary()
+    cnsv.sync_all()
     ls.role(
         customer_data= CUSTOMER_CSV,
         clerk_data= CLERK_CSV,

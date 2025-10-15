@@ -145,7 +145,9 @@ def check_data(path, name_or_id, password):
     if content == '':
         return False
     else:
+        #final_data = ['C001', 'zhihao', '123', '814', 'C002', 'victor', 'Abcde@1', '220', 'C003', 'caixukun', '@Aa11', '9', 'C004', 'menglei', 'Mingda0@', '0']
         final_data = get_data(path)
+        #column_count = 3
         column_count = get_column_count(path)
         # judge userid correct or not
         for i in range(0, len(final_data), column_count):
@@ -249,7 +251,6 @@ def register(path,role_prefix):
         try:
             new_password = input("input password\n")
             check_password(new_password, 5)
-            print("register success")
             break
         except ValueError as e:
             print(e)
@@ -361,7 +362,6 @@ def role(
                 elif choice == 2:
                     register(customer_data,'C')
                     print('customer register success')
-                    break
                 else:
                     raise ValueError("invalid number, please try again")
             except ValueError as e:

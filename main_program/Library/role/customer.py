@@ -203,21 +203,22 @@ def book_movie_input(range_list : list,name_in_input : str) -> int:
 
 #need to refractor
 def book_movie_buy(seats_value : str)-> bool:
-    if seats_value == "0":
-        user_input = str(input("This seat is available. Are you (S)ure to book? or (C)ancel? "))
-        if user_input.lower() == 's':
-            print("Booking successful!")
-            return True
-        elif user_input.lower() == 'c':
-            print("Booking cancelled.")
+    while True:
+        if seats_value == "0":
+            user_input = str(input("This seat is available. Are you (S)ure to book? or (C)ancel? "))
+            if user_input.lower() == 's':
+                print("Booking successful!")
+                return True
+            elif user_input.lower() == 'c':
+                print("Booking cancelled.")
+                return False
+            else: print("Please Enter S(s) or C(c)")
+        elif seats_value == "1":
+            print("This seat is already booked. Please choose another one.")
             return False
-        else: raise ValueError("Please Enter S(s) or C(c)")
-    elif seats_value == "1":
-        print("This seat is already booked. Please choose another one.")
-        return False
-    else:
-        print("This is an invalid seat (e.g., an aisle). Please choose another one.")
-        return False
+        else:
+            print("This is an invalid seat (e.g., an aisle). Please choose another one.")
+            return False
 
 
 
@@ -317,9 +318,9 @@ def customer(customer_id : str,
     while True:
         match fu.get_operation_choice(
             "Select Your Operation",
-            "check ticket bought",
-            "check all movie_List",
-            'exit'
+            "Check Ticket Bought",
+            "Check All Movie",
+            'Exit'
         ):
             case "1":
                 booking_code_range : list = check_ticket_bought(
@@ -327,7 +328,7 @@ def customer(customer_id : str,
                     return_booking_code=True,
                     booking_data_dict= booking_data_dict,
                 )
-                match fu.get_operation_choice("Select Your Operation",'cancel booking','exit'):
+                match fu.get_operation_choice("Select Your Operation",'Cancel Booking','Exit'):
                     case "1":
                         cancel_booking_operation(
                             user_id= customer_id,

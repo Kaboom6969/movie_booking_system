@@ -19,10 +19,9 @@ def get_Data_Directory_path(path):
     return data_path
 
 
-
-
 def get_and_print_booking_data(input_movie_code, booking_data_dict: dict = None):
     if booking_data_dict is None: booking_data_dict = ddf.BOOKING_DATA_DICTIONARY
+    #get booking_data(2d) from cache
     booking_data_list = ccsf.read_list_from_cache(dictionary_cache=booking_data_dict)
     # header = [Book ID,User ID,Movie Code,Date,(1:booking 2:paid),seat(x-axis),seat(y-axis),Source]
     header: list = booking_data_dict.get("header")
@@ -33,13 +32,16 @@ def get_and_print_booking_data(input_movie_code, booking_data_dict: dict = None)
     )
     filtered_list = []
     for row in booking_data_list:
+        #row = ['B0001', 'C001', '0001', '2025/10/08', '1', '1', '1', '20', 'online']
         booking_id, user_id, movie_code, date, status, x_axis, y_axis, price, source = row
+        #judge the movie code is equal or not
         if input_movie_code == movie_code:
             print(
                 f"{booking_id:<10}{user_id:<10}{movie_code:<13}"
                 f"{date:<13}{status:<21}{x_axis:<15}"
                 f"{y_axis:<15}{price:<15}{source:<15}"
             )
+            #add the data into the filtered list
             filtered_list.append(row)
     return filtered_list
 
@@ -69,6 +71,12 @@ def check_booking_full(movie_seat_list):
 
 
 def select_seat(movie_seat_list):
+    #movie_seat_list = [
+    #['-1', '-1', '0', '1', '0', '0', '0', '0', '0', '-1', '-1'],
+    #['-1', '1', '1', '1', '0', '0', '0', '0', '0', '0', '-1'],
+    #['1', '1', '1', '0', '0', '0', '0', '0', '0', '0', '0'],
+    #['1', '1', '1', '0', '0', '0', '0', '0', '0', '0', '0']
+    # ]
     booking_full = check_booking_full(movie_seat_list)
     if booking_full:
         print("Booking is full")
@@ -98,6 +106,7 @@ def select_seat(movie_seat_list):
             except ValueError as e:
                 print(e)
 
+        #check row and column is valid or not if indexError return false
         if not sv.movie_seats_pointer_valid_check(movie_seat_list, column, row):
             print(f"Invalid seat, please try again")
             continue
@@ -159,7 +168,7 @@ def handle_booking(movie_seats_csv, booking_data_csv, customer_csv, movie_seat_l
     from main_program.Library.system_login_framework.login_system import login
     while True:
         try:
-            choice = fu.get_operation_choice("Please Select Your Choice", 'cash', 'account balance', 'quit')
+            choice = fu.get_operation_choice("Please Select Your Choice", 'Cash', 'Account balance', 'Exit')
             if choice == '1':
                 path = fu.get_path(movie_seats_csv)
                 booking(movie_seat_list=movie_seat_list, input_movie_code=input_movie_code, user_id=user_id)
@@ -310,9 +319,9 @@ def modify_booking(
             movie_date = get_movie_date(movie_list_dict, input_movie_code)
             choice = fu.get_operation_choice(
                 'Please enter your choice',
-                'cancel booking',
-                'modify booking',
-                'quit'
+                'Cancel booking',
+                'Modify booking',
+                'Exit'
             )
             # cancel booking(1), modify booking(2), quit(3)
             if choice == '1':
@@ -426,7 +435,7 @@ def generate_receipt(movie_list_dict: dict = None,booking_data_dict: dict = None
             print("Invalid booking id, please try again")
     #if booking_data_exist:
     booking_data_dict: dict = {row[0]: row for row in booking_data_2d_list}
-    print(booking_data_dict)
+    #{'B0001': ['B0001', 'C001', '0001', '2025/10/08', '1', '1', '1', '20', 'online'], 'B0002': ['B0002', 'K001', '0001', '2025/10/08', '2', '2', '2', '20', 'Clerk']
     user_movie_code = booking_data_dict[booking_id][2]
     movie_list_data = get_movie_list_data(movie_2d_list, user_movie_code)
 
@@ -439,11 +448,11 @@ def clerk(user_id):
     while True:
         choice = fu.get_operation_choice(
             'Please enter your choice',
-            'booking',
-            'cancel or modify booking',
-            'check movie seats',
-            'print receipt',
-            'quit'
+            'Booking',
+            'Cancel or Modify booking',
+            'Check Movie Seats',
+            'Print Receipt',
+            'Exit'
         )
         if choice == '4':
             generate_receipt()
@@ -487,7 +496,8 @@ def user_id_start_with_c(user_id:str) -> bool:
 
 
 def main():
-   clerk(user_id='K001')
+   #clerk(user_id='K001')
+    get_and_print_booking_data("0001")
 
 
 
