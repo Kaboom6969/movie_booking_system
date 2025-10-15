@@ -129,7 +129,6 @@ def modify_movie_operation(
         elif "discount" in selected_modify:
             discount_percent_range: list =[str(i) for i in range(0,101)]
             data_to_modify = fu.element_input(element_name= selected_modify,input_range= discount_percent_range)
-            data_to_modify = "%".join(data_to_modify)
         else: data_to_modify = fu.element_input(element_name= selected_modify)
         movie_list_specify[header_to_modify + 1] = data_to_modify
         ccsf.list_dictionary_update(dictionary=movie_list_dict,list_to_add=movie_list_specify)
