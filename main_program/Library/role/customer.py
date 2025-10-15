@@ -109,7 +109,6 @@ def book_movie_system(
         movie_seats_dict : dict,
         customer_data_dict : dict,
     ) -> None:
-
     try:
         booking_movie_seats = movie_list_to_movie_seats_print(
             movie_code=movie_code,
@@ -147,6 +146,7 @@ def book_movie_system(
             )
             booking_status =book_movie_buy(seats_value= seats_value)
             if booking_status:
+                try_again = False
                 book_price : int = pf.get_price(
                     movie_list_dict= movie_list_dict,
                     code = movie_code
@@ -179,8 +179,7 @@ def book_movie_system(
                 )
                 ccsf.list_dictionary_update(dictionary= booking_data_dict,list_to_add= booking_data_list)
 
-            if not booking_status: try_again = True
-            else: try_again = False
+            else: try_again = True
 
     except Exception as e:
         raise Exception(f"UNKNOWN ERROR,ERROR:{e}")
@@ -313,6 +312,7 @@ def customer(customer_id : str,
     if movie_list_dict is None:  movie_list_dict = ddf.MOVIE_LIST_DICTIONARY
     if movie_seats_dict is None: movie_seats_dict = ddf.MOVIE_SEATS_DICTIONARY
     if customer_data_dict is None: customer_data_dict = ddf.CUSTOMER_DATA_DICTIONARY
+    cnsv.sync_all()
     print("Welcome to the Movie Booking System!")
     while True:
         match fu.get_operation_choice(
@@ -356,6 +356,7 @@ def customer(customer_id : str,
             case "3":
                 break
         fu.empty_input("Press Enter to continue...")
+        cnsv.sync_all()
 
 
 
