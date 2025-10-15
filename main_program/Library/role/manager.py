@@ -159,7 +159,7 @@ def modify_movie_operation(
                 valid_check_func=vc.number_valid_check
             )
         elif "discount" in selected_modify:
-            discount_percent_range: list = [str(i).join("%") for i in range(0, 101)]
+            discount_percent_range: list = [str(i) for i in range(0, 101)]
             data_to_modify = fu.element_input(element_name=selected_modify, input_range=discount_percent_range)
         else:
             data_to_modify = fu.element_input(element_name=selected_modify)
