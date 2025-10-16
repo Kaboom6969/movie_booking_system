@@ -4,12 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0ea8b363-fbeb-45e9-9d45-12a8498462b3" name="Changes" comment="- change the comment">
+    <list default="true" id="0ea8b363-fbeb-45e9-9d45-12a8498462b3" name="Changes" comment="-sync data">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main_program/Data/booking_data.csv" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/Data/booking_data.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main_program/Data/customer.csv" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/Data/customer.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main_program/Data/movie_seat.csv" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/Data/movie_seat.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main_program/Library/role/customer.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/Library/role/customer.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main_program/Library/movie_booking_framework/cinema_services.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/Library/movie_booking_framework/cinema_services.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -160,23 +157,7 @@
       <workItem from="1760520645114" duration="10943000" />
       <workItem from="1760559778326" duration="2810000" />
       <workItem from="1760592770411" duration="156000" />
-      <workItem from="1760612708715" duration="313000" />
-    </task>
-    <task id="LOCAL-00128" summary="- now template_seats is turn to cinema_seats.&#10;- movie_seats's cinema code(template code) is now bind with movie_list's cinema">
-      <option name="closed" value="true" />
-      <created>1759152660473</created>
-      <option name="number" value="00128" />
-      <option name="presentableId" value="LOCAL-00128" />
-      <option name="project" value="LOCAL" />
-      <updated>1759152660473</updated>
-    </task>
-    <task id="LOCAL-00129" summary="- just change the name (template to cinema)">
-      <option name="closed" value="true" />
-      <created>1759152712577</created>
-      <option name="number" value="00129" />
-      <option name="presentableId" value="LOCAL-00129" />
-      <option name="project" value="LOCAL" />
-      <updated>1759152712577</updated>
+      <workItem from="1760612708715" duration="2482000" />
     </task>
     <task id="LOCAL-00130" summary="- just test">
       <option name="closed" value="true" />
@@ -554,7 +535,23 @@
       <option name="project" value="LOCAL" />
       <updated>1760613003949</updated>
     </task>
-    <option name="localTasksCounter" value="177" />
+    <task id="LOCAL-00177" summary="Customer 1.3.1 c&#10;- now cancel booking can return money">
+      <option name="closed" value="true" />
+      <created>1760613046304</created>
+      <option name="number" value="00177" />
+      <option name="presentableId" value="LOCAL-00177" />
+      <option name="project" value="LOCAL" />
+      <updated>1760613046306</updated>
+    </task>
+    <task id="LOCAL-00178" summary="-sync data">
+      <option name="closed" value="true" />
+      <created>1760613056925</created>
+      <option name="number" value="00178" />
+      <option name="presentableId" value="LOCAL-00178" />
+      <option name="project" value="LOCAL" />
+      <updated>1760613056925</updated>
+    </task>
+    <option name="localTasksCounter" value="179" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -572,8 +569,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="-sync data" />
-    <MESSAGE value="Seat &amp; List FrameWork Version 1.21.1 b&#10;- fix the bug that `sync_all` function will broke if run two times&#10;&#10;- add `get_operation_choice` function" />
     <MESSAGE value="Clerk Version 1.2.0 a&#10;- using the universal `fu.get_operation_choice` instead of the customize function" />
     <MESSAGE value="manager version 1.2.2 b&#10;- using the universal `fu.get_operation_choice` instead of the repeat print and element input" />
     <MESSAGE value="Customer version 1.3.1&#10;- add a wrap function `customer` for this file" />
@@ -597,7 +592,9 @@
     <MESSAGE value="-fix the bug that if customer exit, the whole program will stop" />
     <MESSAGE value="- sync data" />
     <MESSAGE value="- change the comment" />
-    <option name="LAST_COMMIT_MESSAGE" value="- change the comment" />
+    <MESSAGE value="Customer 1.3.1 c&#10;- now cancel booking can return money" />
+    <MESSAGE value="-sync data" />
+    <option name="LAST_COMMIT_MESSAGE" value="-sync data" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -627,7 +624,7 @@
     <SUITE FILE_PATH="coverage/movie_booking_system$data_dictionary.coverage" NAME="data_dictionary Coverage Results" MODIFIED="1758560507379" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/main_program/Library/movie_booking_framework" />
     <SUITE FILE_PATH="coverage/movie_booking_system$cinema_services.coverage" NAME="cinema_services Coverage Results" MODIFIED="1759385073926" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/main_program/Library/movie_booking_framework" />
     <SUITE FILE_PATH="coverage/movie_booking_system$framework_utils.coverage" NAME="framework_utils Coverage Results" MODIFIED="1758809851315" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/main_program/Library/movie_booking_framework" />
-    <SUITE FILE_PATH="coverage/movie_booking_system$customer.coverage" NAME="customer Coverage Results" MODIFIED="1760043870076" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/main_program/Library/role" />
+    <SUITE FILE_PATH="coverage/movie_booking_system$customer.coverage" NAME="customer Coverage Results" MODIFIED="1760612953073" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/main_program/Library/role" />
     <SUITE FILE_PATH="coverage/movie_booking_system$manager.coverage" NAME="manager Coverage Results" MODIFIED="1760280574900" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/main_program/Library/role" />
     <SUITE FILE_PATH="coverage/movie_booking_system$id_generator.coverage" NAME="id_generator Coverage Results" MODIFIED="1758915214344" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/main_program/Library/movie_booking_framework" />
     <SUITE FILE_PATH="coverage/movie_booking_system$clerk.coverage" NAME="clerk Coverage Results" MODIFIED="1760043902122" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/main_program/Library/role" />

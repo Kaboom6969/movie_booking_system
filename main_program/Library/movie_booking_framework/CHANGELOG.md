@@ -277,6 +277,7 @@ refactor `device_count_for_device_list`,now the new name is `keyword_count_for_l
 - refactor the auto sort function (split to few function)
 - refactor `sync_file` function to let it can use in new format cinema_device_list.csv (c version)
 - `header_location_get` function now got dictionary_mode! (d version)
+- add the comment for cinema_services.py (e version)
 ### Fixed
 - fix the bug that `sync_all` function will broke if run two times (b version)
 - add a sync for customer.csv in `sync_all` (d version)
