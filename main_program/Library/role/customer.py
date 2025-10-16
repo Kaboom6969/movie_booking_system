@@ -275,7 +275,7 @@ def check_all_movie_list(movie_list_dict : dict,movie_seats_dict : dict) -> list
     return code_range_create(code_list= movie_list_all,code_location= header_dict["movie_code"])
 
 
-def cancel_booking_operation(user_id : str, booking_data_dict : dict,booking_code_range : list= None) -> None:
+def cancel_booking_operation(user_id : str, booking_data_dict : dict,customer_data_dict : dict,booking_code_range : list= None) -> None:
     if booking_code_range is None: booking_code_range : list = check_ticket_bought(
         customer_code= user_id,
         booking_data_dict= booking_data_dict,
@@ -286,15 +286,12 @@ def cancel_booking_operation(user_id : str, booking_data_dict : dict,booking_cod
             element_name= 'code that you want to cancel',
             input_range= booking_code_range
         )
-        while True:
-            user_command : str = str(input("Are you sure you want to cancel the booking? (y/n)"))
-            if user_command.lower() != 'y' and user_command.lower() != 'n':
-                print("Please enter a valid command!(y/n)")
-            else:
-                break
+        print("Are you sure you want to cancel the booking? (y/n)")
+        user_command : str = fu.element_input(element_name="command",input_range=['Y','y','N','n'])
         if user_command.lower() == "n":
             return
         if user_command.lower() == "y":
+            pf.return_money(booking_dict= booking_data_dict,customer_dict= customer_data_dict,booking_id=booking_code_cancel,customer_id=user_id )
             ccsf.dictionary_delete(dictionary=booking_data_dict,key_to_delete=booking_code_cancel)
             cnsv.sync_all()
             return
@@ -333,6 +330,7 @@ def customer(customer_id : str,
                         cancel_booking_operation(
                             user_id= customer_id,
                             booking_data_dict= booking_data_dict,
+                            customer_data_dict= customer_data_dict,
                             booking_code_range= booking_code_range,
                         )
                     case '2':
