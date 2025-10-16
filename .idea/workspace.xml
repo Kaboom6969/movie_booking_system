@@ -4,14 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0ea8b363-fbeb-45e9-9d45-12a8498462b3" name="Changes" comment="- fix the bug that manager cannot modify the discount (range set wrong)">
+    <list default="true" id="0ea8b363-fbeb-45e9-9d45-12a8498462b3" name="Changes" comment="- change the comment">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main_program/Data/booking_data.csv" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/Data/booking_data.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main_program/Data/customer.csv" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/Data/customer.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main_program/Data/movie_list.csv" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/Data/movie_list.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main_program/Data/movie_seat.csv" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/Data/movie_seat.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main_program/Library/role/customer.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/Library/role/customer.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main_program/Library/system_login_framework/login_system.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_program/Library/system_login_framework/login_system.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -158,31 +156,11 @@
       <workItem from="1760369301241" duration="86000" />
       <workItem from="1760372753232" duration="190000" />
       <workItem from="1760373516147" duration="2951000" />
-      <workItem from="1760460310939" duration="3050000" />
-    </task>
-    <task id="LOCAL-00125" summary="-sync the data">
-      <option name="closed" value="true" />
-      <created>1758982400000</created>
-      <option name="number" value="00125" />
-      <option name="presentableId" value="LOCAL-00125" />
-      <option name="project" value="LOCAL" />
-      <updated>1758982400000</updated>
-    </task>
-    <task id="LOCAL-00126" summary="-sync the data">
-      <option name="closed" value="true" />
-      <created>1759000156602</created>
-      <option name="number" value="00126" />
-      <option name="presentableId" value="LOCAL-00126" />
-      <option name="project" value="LOCAL" />
-      <updated>1759000156602</updated>
-    </task>
-    <task id="LOCAL-00127" summary="Manager version 1.2.0&#10;- add `delete_movie_operation` function">
-      <option name="closed" value="true" />
-      <created>1759000246019</created>
-      <option name="number" value="00127" />
-      <option name="presentableId" value="LOCAL-00127" />
-      <option name="project" value="LOCAL" />
-      <updated>1759000246019</updated>
+      <workItem from="1760460310939" duration="5748000" />
+      <workItem from="1760520645114" duration="10943000" />
+      <workItem from="1760559778326" duration="2810000" />
+      <workItem from="1760592770411" duration="156000" />
+      <workItem from="1760612708715" duration="313000" />
     </task>
     <task id="LOCAL-00128" summary="- now template_seats is turn to cinema_seats.&#10;- movie_seats's cinema code(template code) is now bind with movie_list's cinema">
       <option name="closed" value="true" />
@@ -552,7 +530,31 @@
       <option name="project" value="LOCAL" />
       <updated>1760365648162</updated>
     </task>
-    <option name="localTasksCounter" value="174" />
+    <task id="LOCAL-00174" summary="-fix the bug that if customer exit, the whole program will stop">
+      <option name="closed" value="true" />
+      <created>1760464404069</created>
+      <option name="number" value="00174" />
+      <option name="presentableId" value="LOCAL-00174" />
+      <option name="project" value="LOCAL" />
+      <updated>1760464404069</updated>
+    </task>
+    <task id="LOCAL-00175" summary="- sync data">
+      <option name="closed" value="true" />
+      <created>1760464413376</created>
+      <option name="number" value="00175" />
+      <option name="presentableId" value="LOCAL-00175" />
+      <option name="project" value="LOCAL" />
+      <updated>1760464413376</updated>
+    </task>
+    <task id="LOCAL-00176" summary="- change the comment">
+      <option name="closed" value="true" />
+      <created>1760613003949</created>
+      <option name="number" value="00176" />
+      <option name="presentableId" value="LOCAL-00176" />
+      <option name="project" value="LOCAL" />
+      <updated>1760613003949</updated>
+    </task>
+    <option name="localTasksCounter" value="177" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -570,8 +572,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="- ready to refactor" />
-    <MESSAGE value="Technician version 1.1.1&#10;- add `technician` function (wrap function)" />
     <MESSAGE value="-sync data" />
     <MESSAGE value="Seat &amp; List FrameWork Version 1.21.1 b&#10;- fix the bug that `sync_all` function will broke if run two times&#10;&#10;- add `get_operation_choice` function" />
     <MESSAGE value="Clerk Version 1.2.0 a&#10;- using the universal `fu.get_operation_choice` instead of the customize function" />
@@ -593,37 +593,19 @@
     <MESSAGE value="-change format of print selection" />
     <MESSAGE value="- fix the bug that system will show choose movie code if generate receipt" />
     <MESSAGE value="- refactor the file with using Dependency Injection (dictionary)" />
-    <MESSAGE value="- sync data" />
     <MESSAGE value="- fix the bug that manager cannot modify the discount (range set wrong)" />
-    <option name="LAST_COMMIT_MESSAGE" value="- fix the bug that manager cannot modify the discount (range set wrong)" />
+    <MESSAGE value="-fix the bug that if customer exit, the whole program will stop" />
+    <MESSAGE value="- sync data" />
+    <MESSAGE value="- change the comment" />
+    <option name="LAST_COMMIT_MESSAGE" value="- change the comment" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main_program/Library/role/customer.py</url>
-          <line>304</line>
+          <line>302</line>
           <option name="timeStamp" value="1" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/main_program/Library/role/customer.py</url>
-          <line>338</line>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/main_program/Library/role/customer.py</url>
-          <line>339</line>
-          <option name="timeStamp" value="3" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/main_program/Library/role/customer.py</url>
-          <line>147</line>
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/main_program/Library/role/customer.py</url>
-          <line>148</line>
-          <option name="timeStamp" value="5" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
