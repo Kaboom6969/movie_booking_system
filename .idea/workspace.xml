@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0ea8b363-fbeb-45e9-9d45-12a8498462b3" name="Changes" comment="- add the comment for cinema_services.py" />
+    <list default="true" id="0ea8b363-fbeb-45e9-9d45-12a8498462b3" name="Changes" comment="- add some code to make sure VSC can run the program easily" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -154,15 +154,7 @@
       <workItem from="1760520645114" duration="10943000" />
       <workItem from="1760559778326" duration="2810000" />
       <workItem from="1760592770411" duration="156000" />
-      <workItem from="1760612708715" duration="2900000" />
-    </task>
-    <task id="LOCAL-00132" summary="-fix some name problem">
-      <option name="closed" value="true" />
-      <created>1759173594712</created>
-      <option name="number" value="00132" />
-      <option name="presentableId" value="LOCAL-00132" />
-      <option name="project" value="LOCAL" />
-      <updated>1759173594712</updated>
+      <workItem from="1760612708715" duration="3247000" />
     </task>
     <task id="LOCAL-00133" summary="cache_framework 1.0.2 b&#10;- now `primary_foreign_key_dictionary_init` will init by dict and not file&#10;&#10;-`read_list_for_cache` now is support enter code_location manually or auto">
       <option name="closed" value="true" />
@@ -548,7 +540,15 @@
       <option name="project" value="LOCAL" />
       <updated>1760615574921</updated>
     </task>
-    <option name="localTasksCounter" value="181" />
+    <task id="LOCAL-00181" summary="- add some code to make sure VSC can run the program easily">
+      <option name="closed" value="true" />
+      <created>1760616114952</created>
+      <option name="number" value="00181" />
+      <option name="presentableId" value="LOCAL-00181" />
+      <option name="project" value="LOCAL" />
+      <updated>1760616114952</updated>
+    </task>
+    <option name="localTasksCounter" value="182" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -566,7 +566,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="manager version 1.2.2 b&#10;- using the universal `fu.get_operation_choice` instead of the repeat print and element input" />
     <MESSAGE value="Customer version 1.3.1&#10;- add a wrap function `customer` for this file" />
     <MESSAGE value="Seat &amp; List FrameWork Version 1.21.1 c&#10;- refactor `sync_file` function to let it can use in new format cinema_device_list.csv&#10;- add `get_code_range` function" />
     <MESSAGE value="Customer version 1.3.1 a&#10;- small refactor in `check_ticket_bought` function (change the index to dynamic)&#10;- `cancel_booking_operation` now is using `fu.element_input` instead of print and input" />
@@ -591,7 +590,8 @@
     <MESSAGE value="Customer 1.3.1 c&#10;- now cancel booking can return money" />
     <MESSAGE value="-sync data" />
     <MESSAGE value="- add the comment for cinema_services.py" />
-    <option name="LAST_COMMIT_MESSAGE" value="- add the comment for cinema_services.py" />
+    <MESSAGE value="- add some code to make sure VSC can run the program easily" />
+    <option name="LAST_COMMIT_MESSAGE" value="- add some code to make sure VSC can run the program easily" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -618,7 +618,7 @@
     <SUITE FILE_PATH="coverage/movie_booking_system$manager.coverage" NAME="manager Coverage Results" MODIFIED="1760280574900" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/main_program/Library/role" />
     <SUITE FILE_PATH="coverage/movie_booking_system$id_generator.coverage" NAME="id_generator Coverage Results" MODIFIED="1758915214344" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/main_program/Library/movie_booking_framework" />
     <SUITE FILE_PATH="coverage/movie_booking_system$clerk.coverage" NAME="clerk Coverage Results" MODIFIED="1760043902122" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/main_program/Library/role" />
-    <SUITE FILE_PATH="coverage/movie_booking_system$main.coverage" NAME="main Coverage Results" MODIFIED="1760463354172" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/main_program" />
+    <SUITE FILE_PATH="coverage/movie_booking_system$main.coverage" NAME="main Coverage Results" MODIFIED="1760616126814" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/main_program" />
     <SUITE FILE_PATH="coverage/movie_booking_system$movie_seats_framework.coverage" NAME="movie_seats_framework Coverage Results" MODIFIED="1758548134663" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/main_program/Library/movie_booking_framework" />
     <SUITE FILE_PATH="coverage/movie_booking_system$techinician.coverage" NAME="techinician Coverage Results" MODIFIED="1760041186213" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/main_program/Library/role" />
   </component>
