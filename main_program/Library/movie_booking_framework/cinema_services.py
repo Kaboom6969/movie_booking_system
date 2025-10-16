@@ -96,7 +96,7 @@ def link_seats (
                 y_axis=bkid_mvcode_x_y_list[3],
                 target_number= 1
             )
-            # update it to the movie seats csv
+            # update it to the movie seats cache
             ccsf.seat_dictionary_update(
                 seats_dictionary= movie_seats_dict,
                 mt_code_dictionary=mc_code_dict,
