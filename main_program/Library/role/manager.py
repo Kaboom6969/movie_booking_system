@@ -67,6 +67,11 @@ def add_movie_operation(
             user_input = fu.element_input(element_name=i, valid_check_func=vc.time_valid_check)
         elif "CINEMA" in i:
             user_input = fu.element_input(element_name=i, input_range=cinema_code_range_filtered)
+        elif "original price" in i:
+            user_input = fu.element_input(element_name=i, valid_check_func=vc.number_valid_check)
+        elif "discount" in i:
+            discount_percent_range: list = [str(i) for i in range(0, 101)]
+            user_input = fu.element_input(element_name=i, input_range=discount_percent_range)
         else:
             user_input = fu.element_input(element_name=i)
         added_movie_list.append(user_input)
@@ -153,7 +158,7 @@ def modify_movie_operation(
                 element_name=selected_modify,
                 input_range=cinema_code_range_filtered
             )
-        elif "price" in selected_modify:
+        elif "original price" in selected_modify:
             data_to_modify = fu.element_input(
                 element_name=selected_modify,
                 valid_check_func=vc.number_valid_check
