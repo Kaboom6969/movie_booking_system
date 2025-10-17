@@ -1000,3 +1000,4 @@ movie_code,movie_name,CINEMA_number,movie_time_start,movie_time_end,date,origina
 0999,The Clockwork City,CINEMA004,21:00,23:15,2026/04/08,30,0
 1000,Joker3,CINEMA003,20:45,21:45,2025/12/23,20,0
 1001,Jurassic World,CINEMA001,12:01,15:01,2025/09/18,30,20
+1002,Joker,CINEMA003,18:00,20:00,2025/10/17,40,0
