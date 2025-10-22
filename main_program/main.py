@@ -1,38 +1,25 @@
-#This One is to make sure it can open in VSC (no need to manual set the source root)
-#Yup this one is fully made by AI (this one only)
-import sys
-import os
-current_dir = os.path.dirname(os.path.abspath(__file__))
-project_root = os.path.abspath(os.path.join(current_dir, '..'))
-if project_root not in sys.path:
-    sys.path.insert(0, project_root)
-
-#The main Progress
-from main_program.Library.movie_booking_framework import framework_utils as fu
-from main_program.Library.cache_framework import data_dictionary_framework as ddf
-from main_program.Library.data_communication_framework import cache_csv_sync_framework as ccsf
-from main_program.Library.movie_booking_framework import cinema_services as cnsv, cinema_services
-from main_program.Library.system_login_framework import login_system as ls
-from main_program.Library.role import customer as CTM
-from main_program.Library.role import clerk as CLK
-from main_program.Library.role import manager as MNG
-from main_program.Library.role import technician as TNC
-
-CUSTOMER_CSV = fu.get_path("customer.csv")
-CLERK_CSV = fu.get_path("clerk.csv")
-MANAGER_CSV = fu.get_path("manager.csv")
-TECHNICIAN_CSV = fu.get_path("technician.csv")
-if __name__ == '__main__':
-    ddf.init_all_dictionary()
-    cnsv.sync_all()
-    ls.role(
-        customer_data= CUSTOMER_CSV,
-        clerk_data= CLERK_CSV,
-        manager_data= MANAGER_CSV,
-        technician_data= TECHNICIAN_CSV,
-        customer_function= CTM.customer,
-        clerk_function= CLK.clerk,
-        manager_function= MNG.manager,
-        technician_function= TNC.technician
-    )
-
+import sys 
+import os 
+import codecs 
+D ,B ,C ,F ,A ,G ,E =(codecs .decode ('pyrex.pfi','rot13'),~-~-2 ,codecs .decode (b'637573746f6d65722e637376','hex').decode ('utf-8'),'vsc.naicinhcet'[::-1 ],'..'[::-1 ],codecs .decode ('__znva__','rot13'),codecs .decode ('znantre.pfi','rot13'))
+current_dir =os .path .dirname (os .path .abspath (__file__ ))
+project_root =os .path .abspath (os .path .join (current_dir ,A ))
+if project_root not in sys .path :
+    sys .path .insert (B ,project_root )
+from main_program .Library .movie_booking_framework import CI as fu 
+from main_program .Library .cache_framework import BU as ddf 
+from main_program .Library .data_communication_framework import AT as ccsf 
+from main_program .Library .movie_booking_framework import BI as cnsv ,BI 
+from main_program .Library .system_login_framework import login_system as ls 
+from main_program .Library .FL import BS as CTM 
+from main_program .Library .FL import BK as CLK 
+from main_program .Library .FL import EB as MNG 
+from main_program .Library .FL import GB as TNC 
+CUSTOMER_CSV =fu .DG (C )
+CLERK_CSV =fu .DG (D )
+MANAGER_CSV =fu .DG (E )
+TECHNICIAN_CSV =fu .DG (F )
+if __name__ ==G :
+    ddf .DP ()
+    cnsv .FZ ()
+    ls .FL (customer_data =CUSTOMER_CSV ,clerk_data =CLERK_CSV ,manager_data =MANAGER_CSV ,technician_data =TECHNICIAN_CSV ,customer_function =CTM .BS ,clerk_function =CLK .BK ,manager_function =MNG .EB ,technician_function =TNC .GB )

@@ -1,36 +1,47 @@
-from main_program.Library.movie_booking_framework import framework_utils as fu
-from main_program.Library.cache_framework import data_dictionary_framework as ddf
-from main_program.Library.data_communication_framework import  cache_csv_sync_framework as ccsf
-def pay_money(customer_id:str,price:int,customer_dict: dict) -> bool:
-    content_list = []
-    customer_header_location : dict = fu.header_location_get(customer_dict["header"])
-    customer_balance = int(customer_dict[customer_id][customer_header_location["user_balance"] - 1])
-    if price > customer_balance:
-        #balance not enough
-        return False
-    else:
-        customer_balance -= price
-        customer_dict[customer_id][customer_header_location["user_balance"] - 1] = customer_balance
-        ccsf.list_cache_write_to_csv(list_csv=customer_dict["base file name"],list_dictionary_cache=customer_dict)
-        return True
+from main_program .Library .movie_booking_framework import CI as fu 
+from main_program .Library .cache_framework import BU as ddf 
+from main_program .Library .data_communication_framework import AT as ccsf 
+import codecs 
+CDO ,CEM ,CDH ,CEK ,CEI ,CDI ,CED ,CEN ,CEJ ,CEF ,CEO ,CDX ,CDM ,CEH ,CDN ,CDY ,CEG ,CDK ,CDJ ,CDV ,CDW ,CDU ,CEE ,CDZ ,CDG ,CDL ,CEL =(19 ==19 ,605623075 --92670397 ^(333694430 ^981260607 ),''.join ([chr (CEP ^48094 )for CEP in [48054 ,48059 ,48063 ,48058 ,48059 ,48044 ]]),''.join ([chr (CEQ ^26610 )for CEQ in [26583 ]]),float ,int ,list ,~-(790079042 ^790079015 ),float ,list ,round ,codecs .decode (b'7072696365','hex').decode ('utf-8'),~-~-3 ,'tnuocsid'[::-1 ],codecs .decode (b'626173652066696c65206e616d65','hex').decode ('utf-8'),codecs .decode ('onfr svyr anzr','rot13'),codecs .decode ('bevtvany cevpr','rot13'),225448400 ^459633360 ^(822359339 ^655447594 ),codecs .decode ('hfre_onynapr','rot13'),636321783 --148834292 ^~-785156075 ,int ,int ,codecs .decode (b'686561646572','hex').decode ('utf-8'),bool (21 ),dict ,not 50 ,float )
 
-def return_money(booking_dict: dict,customer_dict: dict,booking_id:str,customer_id:str) -> bool:
-    booking_header_location = fu.header_location_get(booking_dict["header"])
-    customer_header_location = fu.header_location_get(customer_dict["header"])
-    customer_balance = int(customer_dict[customer_id][customer_header_location['user_balance'] - 1])
-    price = int(booking_dict[booking_id][booking_header_location['price'] - 1])
-    customer_balance += price
-    customer_dict[customer_id][customer_header_location["user_balance"] - 1] = customer_balance
-    ccsf.list_cache_write_to_csv(list_csv=customer_dict["base file name"], list_dictionary_cache=customer_dict)
-    return True
+def CDC (CDD ,CDE ,CDF ):
+    CCN =[]
+    CCO :CDG =fu .DM (CDF [CDH ])
+    CCP =CDI (CDF [CDE ][CCO [CDJ ]-CDK ])
+    if CDD >CCP :
+        return CDL 
+    else :
+        CCP -=CDD 
+        CDF [CDE ][CCO [CDJ ]-CDM ]=CCP 
+        ccsf .DV (list_csv =CDF [CDN ],list_dictionary_cache =CDF )
+        return CDO 
 
-def get_price(movie_list_dict: dict,code : str) -> int:
-    movie_header_list : list = movie_list_dict["header"]
-    movie_header_location_dict : dict = fu.header_location_get(movie_header_list)
-    movie_list_specify : list = ddf.read_list_from_cache(dictionary_cache= movie_list_dict,code= code)
-    movie_price_location = movie_header_location_dict["original price"]
-    movie_discount_location = movie_header_location_dict["discount"]
-    movie_original_price : int = int(movie_list_specify[movie_price_location])
-    movie_discount : float = float(movie_list_specify[movie_discount_location].strip("%"))
-    movie_real_price : float = movie_original_price * (1 - movie_discount/100)
-    return round(movie_real_price)
+def EX (customer_id :str ,price :int ,customer_dict :dict )->bool :
+    return CDC (price ,customer_id ,customer_dict )
+
+def CDP (CDQ ,CDR ,CDS ,CDT ):
+    CCQ =fu .DM (CDQ [CDH ])
+    CCR =fu .DM (CDT [CDH ])
+    CCS =CDU (CDT [CDR ][CCR [CDJ ]-CDV ])
+    CCT =CDW (CDQ [CDS ][CCQ [CDX ]-CDV ])
+    CCS +=CCT 
+    CDT [CDR ][CCR [CDJ ]-CDK ]=CCS 
+    ccsf .DV (list_csv =CDT [CDY ],list_dictionary_cache =CDT )
+    return CDZ 
+
+def FK (booking_dict :dict ,customer_dict :dict ,booking_id :str ,customer_id :str )->bool :
+    return CDP (booking_dict ,customer_id ,booking_id ,customer_dict )
+
+def CEA (CEB ,CEC ):
+    CCU :CED =CEB [CEE ]
+    CCV :CDG =fu .DM (CCU )
+    CCW :CEF =ddf .FD (dictionary_cache =CEB ,code =CEC )
+    CCX =CCV [CEG ]
+    CCY =CCV [CEH ]
+    CCZ :CDW =CDI (CCW [CCX ])
+    CDA :CEI =CEJ (CCW [CCY ].strip (CEK ))
+    CDB :CEL =CCZ *(CEM -CDA /CEN )
+    return CEO (CDB )
+
+def DH (movie_list_dict :dict ,code :str )->int :
+    return CEA (movie_list_dict ,code )
