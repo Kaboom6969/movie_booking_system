@@ -1,561 +1,4263 @@
-from datetime import datetime
-from xmlrpc.client import FastParser
-
-from main_program.Library.movie_booking_framework import seat_visualizer as sv
-from main_program.Library.movie_booking_framework import cinema_services as cnsv
-from main_program.Library.movie_booking_framework import id_generator as idg
-from main_program.Library.movie_booking_framework.framework_utils import header_location_get
-from main_program.Library.payment_framework import payment_framework as pf
-from main_program.Library.movie_booking_framework import movie_seats_framework as msf
-from main_program.Library.system_login_framework.login_system import *
-from main_program.Library.data_communication_framework import cache_csv_sync_framework as ccsf
-from main_program.Library.cache_framework import data_dictionary_framework as ddf
-from main_program.Library.movie_booking_framework import framework_utils as fu
-
-
-def get_Data_Directory_path(path):
-    base_dir = os.path.dirname(os.path.abspath(__file__))
-    data_path = os.path.normpath(os.path.join(base_dir, "..", "..", "Data/" + path))
-    return data_path
-
-
-def get_and_print_booking_data(input_movie_code, booking_data_dict: dict = None):
-    if booking_data_dict is None: booking_data_dict = ddf.BOOKING_DATA_DICTIONARY
-    # read 2D booking list from cache (each row is a list of fields)
-    booking_data_list = ccsf.read_list_from_cache(dictionary_cache=booking_data_dict)
-    # header = [Book ID,User ID,Movie Code,Date,(1:booking 2:paid),seat(x-axis),seat(y-axis),Source]
-    header: list = booking_data_dict.get("header")
-    # print header with formatting (align left with spacing)
-    print(
-        f"{header[0]:<10}{header[1]:<10}{header[2]:<13}"
-        f"{header[3]:<13}{header[4]:<21}{header[5]:<15}"
-        f"{header[6]:<15}{header[7]:<15}{header[8]:<15}"
-    )
-    filtered_list = []
-    for row in booking_data_list:
-        # expect row format:
-        # ['B0001', 'C001', '0001', '2025/10/08', '1', '1', '1', '20', 'online']
-        booking_id, user_id, movie_code, date, status, x_axis, y_axis, price, source = row
-        # if this booking is for the requested movie code, print and collect it
-        if input_movie_code == movie_code:
-            print(
-                f"{booking_id:<10}{user_id:<10}{movie_code:<13}"
-                f"{date:<13}{status:<21}{x_axis:<15}"
-                f"{y_axis:<15}{price:<15}{source:<15}"
-            )
-            filtered_list.append(row)
-    return filtered_list
-
-
-def select_movie(movie_list):
-    while True:
-        print("\n")
-        # show available movies (raw list or nicer print depending on movie_list format)
-        print(movie_list)
-        # ask user to type movie code
-        input_movie_code = input("Please enter your movie code: \n")
-        for movie in movie_list:
-            # find a movie whose first field (code) matches input
-            if movie[0] == input_movie_code:
-                return input_movie_code
-        else:
-            # if for loop completed without return -> invalid input
-            print("Please enter valid movie code")
-
-
-def generate_seat_axis(column, row):
-    return f"{column},{row}"
-
-
-def check_booking_full(movie_seat_list):
-    capacity = msf.get_capacity(movie_seat_list)
-    if capacity == 0:
-        return True
-    return False
-
-
-def select_seat(movie_seat_list):
-    #movie_seat_list = [
-    #['-1', '-1', '0', '1', '0', '0', '0', '0', '0', '-1', '-1'],
-    #['-1', '1', '1', '1', '0', '0', '0', '0', '0', '0', '-1'],
-    #['1', '1', '1', '0', '0', '0', '0', '0', '0', '0', '0'],
-    #['1', '1', '1', '0', '0', '0', '0', '0', '0', '0', '0']
-    # ]
-    booking_full = check_booking_full(movie_seat_list)
-    if booking_full:
-        print("Booking is full")
-        return
-    while True:
-        # ask for row (y-axis)
-        while True:
-            sv.print_movie_seat_as_emojis(movie_seat_list)  # display current layout
-            try:
-                print(f"\nrow should be between 1 and {len(movie_seat_list)}")
-                row = int(input("Please enter the row number: "))  # y_axis
-                if row < 1 or row > len(movie_seat_list):
-                    print("Please enter a valid row number")
-                else:
-                    # print showing selected row highlighted (-1: no highlight arg)
-                    sv.print_movie_seat_as_emojis(movie_seat_list, -1, row)
-                    break
-            except ValueError as e:
-                print(e)
-        # ask for column (x-axis)
-        while True:
-            try:
-                print(f"\ncolumn should be between 1 and {len(movie_seat_list[0])}")
-                column = int(input("Please enter the column number: "))
-                # len(movie_seat_list[0]) gives number of columns per row
-                if column < 1 or column > len(movie_seat_list[0]):
-                    print("Please enter a valid row number")  # x_axis
-                else:
-                    sv.print_movie_seat_as_emojis(movie_seat_list, column, row)
-                    break
-            except ValueError as e:
-                print(e)
-
-        # validate that the (column,row) indexes point to a valid seat cell
-        if not sv.movie_seats_pointer_valid_check(movie_seat_list, column, row):
-            print(f"Invalid seat, please try again")
-            continue
-        try:
-            # get seat value at that position ('-1' invalid, '1' taken, other -> free)
-            seat_value = msf.movie_seats_specify_value(movie_seat_list, column, row)
-        except IndexError as e:
-            # defensive: if indexing fails, ask again
-            print(e)
-            continue
-        if seat_value == '-1':
-            sv.print_movie_seat_as_emojis(movie_seat_list, column, row)
-            print("Invalid seat, please try again")
-        elif seat_value == '1':
-            sv.print_movie_seat_as_emojis(movie_seat_list, column, row)
-            print("This seat is already taken. Please enter another one")
-        else:
-            # successful selection: return column and row (integers)
-            return column, row
-
-
-def booking(
-        movie_seat_list,
-        input_movie_code,
-        user_id: str = None,
-        customer_id: str = None,
-        booking_method: str = '1',
-        booking_data_dict: dict = None,
-        movie_seats_dict: dict = None,
-        movie_list_dict: dict = None,
-        customer_dict: dict = None
-):
-    if booking_data_dict is None: booking_data_dict = ddf.BOOKING_DATA_DICTIONARY
-    if movie_seats_dict is None: movie_seats_dict = ddf.MOVIE_SEATS_DICTIONARY
-    if movie_list_dict is None: movie_list_dict = ddf.MOVIE_LIST_DICTIONARY
-    if customer_dict is None: customer_dict = ddf.CUSTOMER_DATA_DICTIONARY
-
-    # interactive seat selection
-    column, row = select_seat(movie_seat_list=movie_seat_list)
-
-    # booking date as YYYY/MM/DD
-    today = datetime.today().strftime('%Y/%m/%d')
-
-    # read existing booking list (2D) to generate unique id
-    booking_data_list: list = ccsf.read_list_from_cache(booking_data_dict)
-
-    # get price for this movie
-    book_price: int = pf.get_price(movie_list_dict=movie_list_dict, code=input_movie_code)
-
-    # if a customer_id provided (account payment), attempt to deduct balance
-    if customer_id is not None:
-        purchased_status = pf.pay_money(customer_dict=customer_dict, customer_id=customer_id, price=book_price)
-        if not purchased_status:
-            print("Purchased Failed")
-            return
-
-    # generate booking id (unique) using id generator utility
-    booking_id = idg.generate_code_id(
-        code_list=booking_data_list,
-        prefix_generate="B",
-        code_location=0,
-        number_of_prefix=1,
-        prefix_got_digit=False,
-        code_id_digit_count=4
-    )
-
-    # get price again (keeps logic consistent if price function has side effects)
-    book_price = pf.get_price(movie_list_dict=movie_list_dict, code=input_movie_code)
-
-    # prepare data_row with status '2' which likely indicates paid (based on earlier doc)
-    data_row = [booking_id, user_id, input_movie_code, today, 2, column, row, book_price, 'Clerk']
-
-    # update the booking cache with the new booking row
-    ccsf.list_dictionary_update(dictionary=booking_data_dict, list_to_add=data_row)
-    print("Purchased successfully")
-
-
-def handle_booking(movie_seats_csv, booking_data_csv, customer_csv, movie_seat_list,
-                   input_movie_code, user_id):
-    # import local login function (kept here to avoid circular imports at top-level)
-    from main_program.Library.system_login_framework.login_system import login
-    while True:
-        try:
-            # ask how to pay: Cash / Account balance / Exit
-            choice = fu.get_operation_choice("Please Select Your Choice", 'Cash', 'Account balance', 'Exit')
-            if choice == '1':
-                path = fu.get_path(movie_seats_csv)  # not used further here but kept for logic parity
-                booking(movie_seat_list=movie_seat_list, input_movie_code=input_movie_code, user_id=user_id)
-                break
-            elif choice == '2':
-                path = fu.get_path(customer_csv)
-                customer_id = login(path)
-                if customer_id is not None:
-                    # booking with customer account
-                    booking(
-                        movie_seat_list=movie_seat_list,
-                        input_movie_code=input_movie_code,
-                        user_id=user_id,
-                        customer_id=customer_id,
-                        booking_method=choice
-                    )
-                    break
-            elif choice == '3':
-                # exit booking flow
-                break
-        except ValueError as e:
-            print(e)
-
-
-def checking_movie(input_movie_code: str, movie_seats_dict: dict = None):
-    if movie_seats_dict is None: movie_seats_dict = ddf.MOVIE_SEATS_DICTIONARY
-    # read seat list from cache (2D) for given movie code
-    movie_seat_list = ccsf.read_seats_from_cache(cache_dictionary=movie_seats_dict, code=input_movie_code)
-    sv.print_movie_seat_as_emojis(movie_seat_list)
-    capacity = msf.get_capacity(movie_seat_list)
-    print(f"\n This movie seat capacity is {capacity}")
-
-
-def check_booking_id(booking_data_2d_list, input_booking_id):
-    for booking_data in booking_data_2d_list:
-        if input_booking_id == booking_data[0]:
-            return input_booking_id
-    return None
-
-
-def get_user_seat_axis(booking_data_list, input_booking_id):
-    for booking_data in booking_data_list:
-        if input_booking_id == booking_data[0]:
-            # booking_data[5] and [6] are column and row
-            return booking_data[5], booking_data[6]
-    return None
-
-def get_customer_id(booking_data_list, input_booking_id):
-    for booking_data in booking_data_list:
-        if input_booking_id == booking_data[0]:
-            return booking_data[1]
-    return None
-
-def get_user_booking_axis_and_booking_id(booking_data_list):
-    while True:
-        input_booking_id = input('Please enter your booking id (press Enter to cancel): \n')
-        # if blank input -> treat as cancel
-        if input_booking_id.strip() == '':
-            break
-        # check booking id exists
-        booking_id = check_booking_id(booking_data_list, input_booking_id)
-        if booking_id is not None:
-            column, row = get_user_seat_axis(booking_data_list, input_booking_id)  # x_axis, y_axis
-            return column, row, booking_id
-        else:
-            print("Please enter valid booking id")
-            continue
-
-    return None, None, None
-
-def check_booking_data(input_movie_code, booking_data_dict: dict = None):
-    if booking_data_dict is None: booking_data_dict = ddf.BOOKING_DATA_DICTIONARY
-    booking_data_list: list = ccsf.read_list_from_cache(dictionary_cache=booking_data_dict)
-    for row in booking_data_list:
-        if input_movie_code == row[2]:
-            return True
-    print("No Booking Data Found!")
-    return False
-
-
-def modify_booking_data(
-        booking_id,
-        column,
-        row,
-        code_location=0,
-        booking_data_dict=None
-):
-    if booking_data_dict is None: booking_data_dict = ddf.BOOKING_DATA_DICTIONARY
-    # fetch the booking row by key (booking_id)
-    original_row: list = ccsf.read_list_from_cache(dictionary_cache=booking_data_dict, code=booking_id)
-    #original row ['B0016', 'K001', '0001', '2025/10/15', '2', '4', '1', '20', 'Clerk']
-    # update seat indices (stored as strings)
-    original_row[5] = str(column)
-    original_row[6] = str(row)
-    # mark source/updater as 'Clerk'
-    original_row[8] = 'Clerk'
-    updated_list: list = original_row
-    # write updated row back to cache
-    ccsf.list_dictionary_update(dictionary=booking_data_dict, list_to_add=updated_list)
-
-
-def get_customer_paid_status(
-        booking_data_list,
-        input_booking_id
-):
-    for booking_data in booking_data_list:
-        if input_booking_id == booking_data[0]:
-            if int(booking_data[4]) == 2:
-                return True
-    return False
-
-def get_booking_date(
-        booking_data_list,
-        input_booking_id
-):
-    for booking_data in booking_data_list:
-        if input_booking_id == booking_data[0]:
-            return datetime.strptime(booking_data[3],"%Y/%m/%d").date()
-    return None
-
-def get_movie_date(
-        movie_list_dict,
-        input_movie_code
-):
-    movie_header_location: dict = fu.header_location_get(movie_list_dict["header"])
-    movie_date = movie_list_dict[input_movie_code][movie_header_location["date"] - 1]
-    return datetime.strptime(movie_date, "%Y/%m/%d").date()
-
-def check_date_expired(
-        movie_date,
-):
-    today = datetime.now().date()
-    if today > movie_date:
-        return True
-    return False
-
-def modify_booking(
-        movie_seat_list,
-        input_movie_code,
-        user_id,
-        booking_data_dict=None,
-        movie_seats_dict=None,
-        movie_list_dict=None,
-        customer_dict=None,
-):
-    if booking_data_dict is None: booking_data_dict = ddf.BOOKING_DATA_DICTIONARY
-    if movie_seats_dict is None: movie_seats_dict = ddf.MOVIE_SEATS_DICTIONARY
-    if movie_list_dict is None: movie_list_dict = ddf.MOVIE_LIST_DICTIONARY
-    if customer_dict is None: customer_dict = ddf.CUSTOMER_DATA_DICTIONARY
-
-    # quickly verify there are any bookings to modify for this movie
-    booking_data_exist = check_booking_data(input_movie_code)
-    if booking_data_exist:
-        while True:
-            # print and get booking list filtered by movie code
-            booking_data_list = get_and_print_booking_data(input_movie_code)
-            column, row, booking_id = get_user_booking_axis_and_booking_id(booking_data_list)
-            if booking_id is None:
-                # user cancelled input
-                break
-            customer_id = get_customer_id(booking_data_list, booking_id)
-            movie_date = get_movie_date(movie_list_dict, input_movie_code)
-
-            # ask what clerk wants to do with selected booking
-            choice = fu.get_operation_choice(
-                'Please enter your choice',
-                'Cancel booking',
-                'Modify booking',
-                'Exit'
-            )
-            # cancel booking(1), modify booking(2), quit(3)
-            if choice == '1':
-                # check if customer id starts with 'C' and other conditions for refund
-                start_with_c = user_id_start_with_c(customer_id)
-                paid = get_customer_paid_status(booking_data_list, booking_id)
-                expired = check_date_expired(movie_date)
-                # if start with C & paid & not expired -> refund
-                if start_with_c and paid and not expired:
-                    pf.return_money(booking_data_dict, customer_dict, booking_id, customer_id)
-                    print('Your money has been returned')
-                # delete booking record from cache
-                ccsf.dictionary_delete(dictionary=booking_data_dict, key_to_delete=booking_id)
-                print('Cancel booking successfully')
-                break
-            # modify booking (change seat)
-            elif choice == '2':
-                column, row = select_seat(movie_seat_list=movie_seat_list)
-                modify_booking_data(booking_id=booking_id, column=column, row=row)
-                print("Modify successfully")
-                break
-            elif choice == 3:
-                # note: likely a typo because fu.get_operation_choice returns strings like '3'
-                break
-        # sync all cached CSV data back to files / system as needed
-        cnsv.sync_all()
-
-
-def modify_customer_seat(movie_seat_list):
-    sv.print_movie_seat_as_emojis(movie_seat_list)
-
-
-def get_movie_list_data(movie_2d_list: list, input_movie_code: str) -> list:
-    movie_data_list = []
-    for data in movie_2d_list:
-        if data[0] == input_movie_code:
-            movie_data_list = data
-    return movie_data_list
-
-
-def generate_receipt_text(movie_list_data, booking_data_dict, booking_id):
-    movie_name = movie_list_data[1]
-    cinema = movie_list_data[2]
-    start = movie_list_data[3]
-    end = movie_list_data[4]
-    movie_date = movie_list_data[5]
-    movie_price = movie_list_data[6]
-
-    user_id = booking_data_dict[booking_id][1]
-    booking_date = booking_data_dict[booking_id][3]
-    column = booking_data_dict[booking_id][5]
-    row = booking_data_dict[booking_id][6]
-    movie_price_discount = booking_data_dict[booking_id][7]
-
-    # compute discount fraction then convert to percentage
-    discount = round(get_discount(discount_price=movie_price_discount, original_price=movie_price), 2) * 100
-
-    receipt = f"""
-========================================
-              MOVIE RECEIPT
-========================================
-Booking ID     : {booking_id}
-User ID        : {user_id}
-Booking Date   : {booking_date}
-----------------------------------------
-Movie Name     : {movie_name}
-Cinema         : {cinema}
-Date           : {movie_date}
-Start Time     : {start}
-End Time       : {end}
-Seat           : [{column},{row}]
-----------------------------------------
-Original Price : RM {movie_price}
-Discount       : {discount} %
-Final Price    : RM {movie_price_discount}
-========================================
-"""
-    return receipt
-
-def print_booking_data(booking_data_dict: dict = None):
-    if booking_data_dict is None: booking_data_dict = ddf.BOOKING_DATA_DICTIONARY
-    booking_data_list = ccsf.read_list_from_cache(dictionary_cache=booking_data_dict)
-    # header = [Book ID,User ID,Movie Code,Date,(1:booking 2:paid),seat(x-axis),seat(y-axis),Source]
-    header: list = booking_data_dict.get("header")
-    print(
-        f"{header[0]:<10}{header[1]:<10}{header[2]:<13}"
-        f"{header[3]:<13}{header[4]:<21}{header[5]:<15}"
-        f"{header[6]:<15}{header[7]:<15}{header[8]:<15}"
-    )
-    filtered_list = []
-    for row in booking_data_list:
-        booking_id, user_id, movie_code, date, status, x_axis, y_axis, price, source = row
-        print(
-            f"{booking_id:<10}{user_id:<10}{movie_code:<13}"
-            f"{date:<13}{status:<21}{x_axis:<15}"
-            f"{y_axis:<15}{price:<15}{source:<15}"
-        )
-        filtered_list.append(row)#[['B0001', 'C001', '0001', '2025/10/08', '1', '1', '1', '20', 'online'], ['B0002', 'K001', '0001', '2025/10/08', '2', '2', '2', '20', 'Clerk']]
-    return filtered_list
-
-def get_discount(original_price: str,discount_price: str) -> float:
-    return 1 - int(discount_price) / int(original_price)
-
-def generate_receipt(movie_list_dict: dict = None,booking_data_dict: dict = None,customer_data_dict: dict = None,):
-    if movie_list_dict is None: movie_list_dict = ddf.MOVIE_LIST_DICTIONARY
-    if booking_data_dict is None: booking_list_dict = ddf.BOOKING_DATA_DICTIONARY
-    if customer_data_dict is None: customer_list_dict = ddf.CUSTOMER_DATA_DICTIONARY
-    #get movie 2d list
-    #movie_2d_list = [['0001', 'Joker', 'CINEMA001', '18:01', '21:01', '2025/09/18', '20', '0'], ['0002', 'Joker2', 'CINEMA002', '15:01', '18:01', '2025/09/18', '30', '20']]
-    movie_2d_list = ccsf.read_list_from_cache(dictionary_cache=movie_list_dict)
-    #[['B0001', 'C001', '0001', '2025/10/08', '1', '1', '1', '20', 'online'], ['B0002', 'K001', '0001', '2025/10/08', '2', '2', '2', '20', 'Clerk']]
-    booking_data_2d_list = print_booking_data()
-    while True:
-        booking_id = input('Please enter your booking id: \n')
-        booking_id = check_booking_id(booking_data_2d_list, booking_id)
-        if booking_id is not None:
-            break
-        else:
-            print("Invalid booking id, please try again")
-    #if booking_data_exist:
-    booking_data_dict: dict = {row[0]: row for row in booking_data_2d_list}
-    #{'B0001': ['B0001', 'C001', '0001', '2025/10/08', '1', '1', '1', '20', 'online'], 'B0002': ['B0002', 'K001', '0001', '2025/10/08', '2', '2', '2', '20', 'Clerk']
-    user_movie_code = booking_data_dict[booking_id][2]
-    movie_list_data = get_movie_list_data(movie_2d_list, user_movie_code)
-
-    get_receipt = generate_receipt_text(movie_list_data, booking_data_dict, booking_id)
-    print(get_receipt)
-
-
-def clerk(user_id):
-    cnsv.sync_all()
-    while True:
-        choice = fu.get_operation_choice(
-            'Please enter your choice',
-            'Booking',
-            'Cancel or Modify booking',
-            'Check Movie Seats',
-            'Print Receipt',
-            'Exit'
-        )
-        if choice == '4':
-            generate_receipt()
-            input('Press enter to continue')
-            continue
-        if choice == '5':
-            break
-
-        # get movie list
-        movie_list = ccsf.read_list_from_cache(dictionary_cache=ddf.MOVIE_LIST_DICTIONARY)
-        # get user movie input
-        input_movie_code = select_movie(movie_list)
-        # get movie seat list
-        movie_seat_list = ccsf.read_seats_from_cache(
-            cache_dictionary=ddf.MOVIE_SEATS_DICTIONARY,
-            code=input_movie_code)
-        if choice == '1':
-            handle_booking(
-                movie_seats_csv="movie_seat.csv",
-                booking_data_csv="booking_data.csv",
-                customer_csv="customer.csv",
-                movie_seat_list=movie_seat_list,
-                input_movie_code=input_movie_code,
-                user_id=user_id
-            )
-            input('Press enter to continue')
-        elif choice == '2':
-            modify_booking(
-                movie_seat_list=movie_seat_list,
-                input_movie_code=input_movie_code,
-                user_id=user_id
-            )
-            input('Press enter to continue')
-        elif choice == '3':
-            checking_movie(input_movie_code=input_movie_code)
-            input('Press enter to continue')
-        cnsv.sync_all()
-
-def user_id_start_with_c(user_id:str) -> bool:
-    return bool(user_id.startswith('C') and user_id[1:].isdigit())
-
-
-def main():
-   #clerk(user_id='K001')
-    get_and_print_booking_data("0001")
-
-
-
-if __name__ == '__main__':
-    ddf.init_all_dictionary()
-    main()
+from datetime import datetime 
+from xmlrpc .client import FastParser 
+from main_program .Library .movie_booking_framework import seat_visualizer as sv 
+from main_program .Library .movie_booking_framework import BI as cnsv 
+from main_program .Library .movie_booking_framework import DO as idg 
+from main_program .Library .movie_booking_framework .CI import DM 
+from main_program .Library .payment_framework import payment_framework as pf 
+from main_program .Library .movie_booking_framework import EP as msf 
+from main_program .Library .system_login_framework .login_system import *
+from main_program .Library .data_communication_framework import AT as ccsf 
+from main_program .Library .cache_framework import BU as ddf 
+from main_program .Library .movie_booking_framework import CI as fu 
+import codecs 
+ITM ,HSE ,HUV ,HWX ,HMR ,HPD ,IVB ,IDK ,HTG ,HMS ,IAX ,HWJ ,HPI ,HOP ,HRN ,HRT ,IVS ,ICV ,HRU ,IVR ,HTY ,HNE ,IUH ,IQT ,IUJ ,HZG ,IBT ,HPX ,HWG ,HVF ,IQH ,HSP ,IAZ ,HUQ ,HOA ,IVV ,HUA ,HMU ,HYG ,HOO ,ICM ,IGO ,IOV ,HPL ,IIH ,HLC ,HMJ ,ICS ,IED ,HRQ ,ISW ,IBO ,III ,HZP ,HXZ ,HOU ,IQI ,IDL ,HXE ,IAD ,HQS ,IEJ ,HQU ,HQL ,IXA ,IAM ,IFL ,IBG ,IOE ,HQA ,IEX ,HMW ,IMC ,IFT ,IDV ,HQM ,HYB ,HTF ,IFN ,HRX ,IBM ,IPS ,IDP ,HZM ,IWQ ,IGW ,IBH ,IMR ,IBF ,HXL ,IBB ,HYW ,HSR ,IXB ,HSX ,IEI ,IIQ ,IEZ ,HLR ,IWX ,HUR ,HVS ,IAS ,IQR ,HSM ,IBX ,HNW ,IEM ,IBD ,HVO ,HMC ,IGQ ,ICL ,IWE ,HTM ,HUW ,HVZ ,HYD ,IVG ,IAG ,HWN ,IVD ,IMS ,HVC ,HZR ,HLP ,IGE ,HRC ,IHZ ,HNK ,HTD ,HWT ,IVE ,HZN ,IOX ,HTS ,IKO ,HRP ,IBJ ,HZU ,HZC ,HPR ,IQD ,HVD ,HLT ,IAV ,HMX ,HXN ,IVH ,HLM ,IFX ,HRL ,HPA ,HYE ,HZD ,IBZ ,HZV ,HXH ,IQS ,IIX ,ILS ,IFI ,ILQ ,HUX ,IFY ,ICJ ,HRH ,HXB ,IFJ ,HWE ,ICP ,HWU ,HNO ,HNC ,HVE ,IMB ,HVR ,HMZ ,HVV ,IBI ,HQB ,IFM ,IRO ,HXW ,HWS ,IAJ ,HNG ,HUF ,IDW ,IWZ ,HUT ,HWP ,ICE ,HWQ ,ILZ ,HNA ,IBV ,HRO ,IVY ,IFK ,IEK ,HQG ,HOT ,HXJ ,HSU ,HUZ ,HLU ,HPY ,HXA ,IJE ,HSQ ,HXQ ,HPO ,HQT ,HQY ,IVT ,IFR ,IAR ,HXC ,ISD ,IJD ,IPA ,IIV ,HPU ,IEW ,HQQ ,HQD ,ILE ,IAA ,HRF ,IGM ,HRW ,IOW ,IKU ,HWY ,HXF ,IDQ ,IKZ ,IMD ,HND ,HPJ ,HYT ,HUP ,IGS ,HQE ,IGV ,INV ,HYY ,HPG ,IVW ,HMA ,HVT ,ISC ,HMB ,IFS ,IAN ,HLV ,HNQ ,IDN ,HUI ,IKL ,HQK ,HZL ,HUM ,HVQ ,HNN ,HRV ,HOR ,HMG ,IUZ ,IAU ,HMF ,HMD ,IHW ,HTV ,IBP ,IEO ,HTN ,ICD ,HQW ,HTR ,HVA ,HLN ,IBC ,HZA ,HSZ ,HNH ,HNM ,HSS ,ICB ,IIA ,HWL ,HTH ,IQQ ,IDI ,HLX ,HZJ ,HWR ,HRM ,IRU ,HQC ,IKN ,HPC ,IAB ,IHI ,IPW ,HQF ,HLD ,IKA ,IFO ,HNS ,HWK ,HUN ,HOZ ,HLJ ,HWI ,HPV ,HLI ,IID ,IFV ,IOD ,IAF ,HNB ,IBE ,IVX ,HYM ,HYV ,HMV ,HTC ,IJS ,HSB ,HTL ,INH ,IEY ,HPQ ,IJP ,HUG ,IRN ,HQI ,HRD ,HVM ,ICN ,IFW ,HYC ,HVW ,IBU ,HXP ,HVL ,HYO ,HQV ,HSJ ,HSL ,INI ,IJH ,IEG ,IEL ,ICU ,IAQ ,IDS ,HYL ,HUJ ,IHV ,IRR ,ISE ,HSD ,HZK ,IHK ,IBY ,IKX ,HSV ,HNP ,HLH ,HXU ,HYR ,IAP ,IUG ,IGF ,IKB ,IQB ,HPN ,IVU ,HNI ,HTP ,IVC ,HOX ,IHE ,IQA ,HPW ,IIC ,HRR ,ITY ,HSI ,IQJ ,ILD ,HMY ,IUF ,IWO ,HNF ,IJZ ,IAL ,IKW ,IFH ,HRG ,IJC ,HLS ,IQP ,HRS ,IAH ,IKY ,HZH ,HRJ ,IIO ,ICR ,HPS ,HYZ ,IEU ,HTZ ,ICX ,HQP ,HMH ,INF ,HWV ,HWB ,IVI ,HMT ,HUK ,ICI ,HSG ,IGI ,HSH ,HYK ,HZQ ,IEC ,IUI ,IQC ,HME ,HWA ,HZS ,HLZ ,IVN ,HPP ,HQJ ,IIR ,HRY ,HXD ,IGJ ,ING ,HTT ,HUU ,HPZ ,IFU ,IIB ,IBQ ,HTJ ,HWC ,IHX ,HYS ,HUY ,IFZ ,HTB ,HUE ,HQX ,HLB ,IGA ,HPB ,IVF ,HLK ,HRE ,HWZ ,HOY ,IRA ,HYP ,HTU ,IKV ,IVJ ,IJV ,HYF ,HSK ,HXK ,HWO ,IHD ,IDR ,IQK ,HYX ,HLQ ,HPH ,HPF ,HSC ,IAC ,ITC ,IEN ,HYU ,HTQ ,HXY ,IDX ,HQR ,HZI ,HLY =(748874400 ^995703524 ^718056182 -315677392 ,(938390344 ^577365479 )-(866464928 ^639787577 ),~-(61541458 ^61541472 ),bool (18 ),~-~-87 ,547784904 ^841821462 ^~-311141876 ,~-(490591265 ^490591342 ),~-146729792 -~-146729754 ,174521671 --222385638 ^424133728 +-27226423 ,~-861554969 ^~-861554951 ,~-(180271126 ^180271108 ),(97523402 ^608232889 )-(248700007 ^792866619 ),42453079 --782405320 ^384448273 +440410145 ,86690571 ^161102452 ^958498600 -745575869 ,~-(525784157 ^525784087 ),448783438 +-236365611 ^719953769 +-507535912 ,codecs .decode ('zbivr_frng.pfi','rot13'),540058513 -51126007 -(614457308 ^968579933 ),~-400978089 ^(181120074 ^489544895 ),''.join ([chr (IXF ^39085 )for IXF in [39165 ,39105 ,39112 ,39116 ,39134 ,39112 ,39053 ,39112 ,39107 ,39129 ,39112 ,39135 ,39053 ,39131 ,39116 ,39105 ,39108 ,39113 ,39053 ,39119 ,39106 ,39106 ,39110 ,39108 ,39107 ,39114 ,39053 ,39108 ,39113 ]]),~(315999177 -315999194 ),460655358 ^1053148080 ^(463078003 ^1042991908 ),~-675388014 ^(157345031 ^555843417 ),codecs .decode ('Zbqvsl fhpprffshyyl','rot13'),codecs .decode ('Vainyvq obbxvat vq, cyrnfr gel ntnva','rot13'),505929251 -117713075 ^14578479 +373637702 ,(93980730 ^802428808 )-(815730668 ^449908806 ),~(937092141 -937092189 ),~(589236804 +-589236832 ),35632724 ^254222023 ^708111067 -486294057 ,codecs .decode ('Cyrnfr ragre lbhe pubvpr','rot13'),94360578 +232874987 -~-327235521 ,441254628 ^283291451 ^60966398 +118318982 ,(247897513 ^612350947 )+-(92231711 ^801537591 ),540129804 ^597286658 ^~-61367594 ,717783971 ^986646094 ^701722706 +-432794233 ,(497502605 ^1019347341 )+(756703998 -1316989678 ),'/ataD'[::-1 ],~-790276416 +(277646692 -1067923089 ),19356779 +103422644 +-(479401961 ^465723667 ),~-~-40 ,838286037 -788669684 -~-49616311 ,''.join ([chr (IXG ^32681 )for IXG in [32705 ,32716 ,32712 ,32717 ,32716 ,32731 ]]),41904158 +537667795 ^(492010526 ^1071181032 ),247024419 +481375533 +(295040685 +-1023440631 ),codecs .decode (b'2e2e','hex').decode ('utf-8'),211255804 ^602523482 ^358710303 --438094453 ,969943920 -184844869 ^(193238847 ^625950264 ),~-792206289 +(183504221 -975710439 ),~-199764768 ^(794969665 ^613051660 ),(760050134 ^46911362 )-(399429671 +397929929 ),~-814969165 ^~-814969129 ,(892512478 ^125117620 )+(273738189 +-1117287989 ),(20926058 ^553630258 )-(224298260 +341995303 ),(713054667 ^328712187 )-(705265897 --252601632 ),391287663 ^2455946 ^~-393734899 ,''.join ([chr (IXH ^7190 )for IXH in [7253 ,7287 ,7288 ,7285 ,7283 ,7290 ,7222 ,7284 ,7289 ,7289 ,7293 ,7295 ,7288 ,7281 ]]),209733289 --394683128 -(285788741 --318627627 ),624776076 ^707331712 ^(73955574 ^192687600 ),(519594222 ^96542451 )+(424606845 -881359502 ),818781959 -465996809 ^(367309827 ^14919412 ),~-(362287653 ^362287657 ),927909355 +-682037741 ^259846491 -13974885 ,844689779 ^1037408243 ^225618008 +35307072 ,808520523 +-508764855 ^~-299755724 ,(246123639 ^149913557 )-(625325283 ^587286399 ),338840607 ^375670605 ^(771387701 ^799832640 ),(119394405 ^547332928 )-(356418754 +306441827 ),codecs .decode ('%L/%z/%q','rot13'),(557170432 ^635330020 )+(818831845 -901399717 ),7 ==29 ,~-(615990309 ^615990286 ),998967708 ^994771514 ^123069855 -110483969 ,795011810 ^485704671 ^86142473 +779041531 ,310849467 ^271393285 ^252736653 +-208037589 ,436765638 +225021071 ^601928455 --59858234 ,992490790 +-667106046 ^735914003 -410529291 ,~-~-25 ,codecs .decode ('Cyrnfr ragre gur pbyhza ahzore: ','rot13'),~(608644973 -608644974 ),599727299 +-276266359 ^(803957279 ^1017967953 ),(399551350 ^1065960951 )-(112876273 --564106053 ),942813421 ^898434013 ^~-230634265 ,394055430 ^237195292 ^(578955261 ^1004386530 ),21145921 +-5599958 -(698623360 ^692655016 ),830572828 -794986785 +-~-35586041 ,''.join ([chr (IXI ^46767 )for IXI in [46822 ,46785 ,46809 ,46798 ,46787 ,46790 ,46795 ,46735 ,46812 ,46794 ,46798 ,46811 ,46723 ,46735 ,46815 ,46787 ,46794 ,46798 ,46812 ,46794 ,46735 ,46811 ,46813 ,46806 ,46735 ,46798 ,46792 ,46798 ,46790 ,46785 ]]),codecs .decode ('Ab Obbxvat Qngn Sbhaq!','rot13'),380483707 ^217327875 ^(809965996 ^706644193 ),(800022746 ^428388945 )+-(577351462 ^340688201 ),631554504 +214627637 +(372330652 -1218512767 ),' :rebmun nmuloc eht retne esaelP'[::-1 ],247491978 --75819506 ^~-323311442 ,''.join ([chr (IXJ ^53508 )for IXJ in [53595 ,53595 ,53609 ,53605 ,53613 ,53610 ,53595 ,53595 ]]),677672384 +240178496 +(646407826 -1564258705 ),951365809 ^30654885 ^200816511 --762263955 ,35413612 ^804316257 ^~-770488912 ,codecs .decode (b'507572636861736564207375636365737366756c6c79','hex').decode ('utf-8'),~(198373139 +-198373159 ),''.join ([chr (IXK ^26583 )for IXK in [26516 ]]),~-(91796846 ^91796858 ),~(381358424 +-381358440 ),960222653 ^797868136 ^~-380982760 ,''.join ([chr (IXL ^19743 )for IXL in [19757 ]]),247444794 +542376868 ^(533406282 ^819501733 ),44495533 ^559164762 ^(682997566 ^189229287 ),645780557 ^389208173 ^~-827264048 ,''.join ([chr (IXM ^63066 )for IXM in [63006 ,63035 ,63022 ,63035 ,63093 ]]),926843186 ^901947507 ^469609085 +-419531107 ,(216397611 ^1042675123 )+-(151487086 ^1002930403 ),425360761 --216260009 ^(709011103 ^209517964 ),(108276527 ^243795401 )+(566668481 -717413241 ),(349821340 ^48915907 )-(628366702 ^860332374 ),~-(681950743 ^681950800 ),~-(835093838 ^835093849 ),~-(507275036 ^507275033 ),(102389750 ^444106210 )+-(826145366 ^761211834 ),878776608 ^710904317 ^~-507418871 ,codecs .decode ('Cevag Erprvcg','rot13'),986352743 +-910451452 +(181279648 -257180937 ),~-(210571706 ^210571752 ),codecs .decode ('Obbxvat','rot13'),not 42 ,133542477 +395945653 -(773131834 ^832198378 ),(722497640 ^578371532 )+-(300416190 ^412005177 ),~-798927838 +-(165034190 ^642290462 ),(512936521 ^690000738 )+-(904858620 ^39670581 ),~(157394999 +-157395014 ),~-999525965 -(548529189 ^455240232 ),868554162 +-205996969 ^~-662557218 ,436658615 ^784028693 ^~-884848002 ,407080257 +-288903896 +(344989567 +-463165841 ),codecs .decode ('Pnapry be Zbqvsl obbxvat','rot13'),860564358 +-248282578 ^(536725630 ^998467033 ),''.join ([chr (IXN ^25165 )for IXN in [25192 ,25108 ,25186 ,25192 ,25120 ,25186 ,25192 ,25129 ]]),~-981541909 ^~-981541903 ,(793881334 ^453864063 )+-(406968521 ^740104360 ),70691661 --641988466 -(758126771 +-45446696 ),'eno rehtona retne esaelP .nekat ydaerla si taes sihT'[::-1 ],~-~-77 ,876067892 ^830609510 ^(729975862 ^775366724 ),~-(478427917 ^478427949 ),(585643452 ^755622779 )-(892296920 +-625838177 ),~(659483200 -659483251 ),952995022 ^779631090 ^(162867422 ^520134086 ),(661961675 ^539433586 )-(577939510 ^622922135 ),996921442 +-266949220 -~-729972168 ,~-(292112090 ^292112084 ),codecs .decode ('Cevag Erprvcg','rot13'),364875708 +580998256 +-(850869034 ^181919528 ),'tixE'[::-1 ],579179485 +375068026 ^(729142744 ^328563858 ),939602242 ^674049954 ^~-271326927 ,254302818 +-180458275 ^~-73844500 ,~-629553546 ^(257877743 ^718856010 ),303908255 ^472669491 ^19963283 +218135299 ,494070627 ^391902317 ^(586078545 ^684181080 ),546751781 +34981203 ^(531424115 ^1023437079 ),88435736 ^246709617 ^(700462408 ^573645845 ),None ,~-230594633 +-(595986501 ^775458904 ),203375167 +553440174 ^747979152 --8836148 ,388933091 +605823547 ^646012238 +348744408 ,(494247287 ^20704855 )+(628848152 +-1103751470 ),'hsaC'[::-1 ],~-619243262 ^~-619243239 ,(349930723 ^896037985 )-(395352038 ^908289948 ),992135179 +-161001351 +(839996060 -1671129870 ),~-173409053 ^505020096 -331610994 ,845005688 ^151312829 ^~-995695314 ,~-~-35 ,38331810 ^201041766 ^659610009 -496866987 ,(407241966 ^673182738 )+-(515874105 ^786853354 ),347986831 ^995123249 ^(372552687 ^970524766 ),(640662515 ^785178233 )-(707671115 ^583881164 ),~-780393979 ^(946977363 ^384984983 ),632465791 ^362268122 ^(839955955 ^37083462 ),930371908 ^1048919622 ^(478794157 ^360232588 ),(347496695 ^839263191 )-~-649085697 ,codecs .decode ('1','rot13'),~-503659001 -(594845961 +-91186987 ),~-550465193 ^(592498182 ^60793061 ),(619707215 ^1011086911 )+-(71416255 ^485340327 ),20282993 ^72045425 ^~-92155138 ,(602273969 ^1038455774 )-(338761260 ^171015531 ),37643208 ^562821190 ^(868162965 ^269125161 ),901132420 -810680392 ^(240668216 ^188513820 ),~-~-37 ,136423785 --292878150 +-~-429301878 ,codecs .decode ('0001','rot13'),~-979005640 -(976881682 --2123922 ),(888428953 ^13732387 )+-(514810387 ^713732531 ),798846660 +-528382356 ^(263807684 ^531077083 ),928655065 ^343554243 ^372752008 +216555395 ,~(640311967 -640311970 ),(984908140 ^234968612 )+(421268968 -1305601296 ),(106787459 ^57511170 )-(42703108 ^129721923 ),353871024 ^197292319 ^(91099982 ^465290947 ),'eunitnoc ot retne sserP'[::-1 ],480645084 -170021562 ^50989326 --259634282 ,852337166 ^676952415 ^760158395 -314195299 ,~-(279182287 ^279182313 ),579684828 -380197404 -(211513918 ^125345165 ),~-(867467190 ^867467165 ),793679292 --32913363 ^377656334 --448936333 ,(753059685 ^928969342 )-(446633760 +18685412 ),~-356970060 -(592591514 +-235621475 ),(407286906 ^1033887535 )+-(259286068 ^715984659 ),~-947257828 -(185815480 ^862277755 ),391145126 +22892942 ^74192667 --339845359 ,356695686 +-116822541 ^(34908649 ^207127955 ),(906983050 ^657967921 )+-~-288931250 ,457562825 -444921696 ^1948987 --10692113 ,~-777220289 ^704104061 --73116236 ,'\n :edoc eivom ruoy retne esaelP'[::-1 ],codecs .decode ('obbxvat_qngn.pfi','rot13'),bool (39 ),455406420 --118116904 ^891487503 +-317964209 ,~-440553784 ^(757410350 ^929528597 ),494194377 ^437724000 ^450822131 +-326832638 ,~-~-2 ,bool (17 ),935435292 +-623480501 ^(759757645 ^1070659077 ),~(365523590 -365523601 ),codecs .decode (b'42','hex').decode ('utf-8'),(966170834 ^42387064 )+(519767779 -1510696299 ),232208585 --678979813 -(643533460 ^269757188 ),codecs .decode ('Cyrnfr ragre inyvq obbxvat vq','rot13'),~-487081326 ^965625112 +-478543854 ,~-~-76 ,(845505364 ^660710016 )+-(264663130 ^448967114 ),(280135988 ^605376832 )-(425450996 +457964135 ),''.join ([chr (IXO ^3767 )for IXO in [3795 ,3798 ,3779 ,3794 ]]),bool (9 ),18319467 +132078343 +-(241361139 ^110363583 ),''.join ([chr (IXP ^46938 )for IXP in [46858 ,46902 ,46911 ,46907 ,46889 ,46911 ,46970 ,46911 ,46900 ,46894 ,46911 ,46888 ,46970 ,46907 ,46970 ,46892 ,46907 ,46902 ,46899 ,46910 ,46970 ,46888 ,46901 ,46893 ,46970 ,46900 ,46895 ,46903 ,46904 ,46911 ,46888 ]]),333304850 ^1061878681 ^~-748105695 ,codecs .decode (b'','hex').decode ('utf-8'),~-207788605 +(831284877 -1039073385 ),932794923 ^894077740 ^665708970 -618270813 ,745571635 -464127387 -(131401241 +150043003 ),21530556 --923815842 -(205806228 ^874286524 ),~-(709840641 ^709840662 ),~(665638391 -665638395 ),~(282558528 -282558553 ),(750809779 ^351328321 )+-(898252374 ^230331632 ),177086063 ^283319089 ^(954458175 ^579790125 ),~-(428114235 ^428114234 ),247487568 +114670365 +-(358140180 ^13557332 ),'2'[::-1 ],737793118 -89815233 -(235690587 ^680722906 ),264663720 --727652257 +-(750147605 ^395563563 ),''.join ([chr (IXQ ^48215 )for IXQ in [48148 ,48182 ,48185 ,48180 ,48178 ,48187 ,48247 ,48181 ,48184 ,48184 ,48188 ,48190 ,48185 ,48176 ,48247 ,48164 ,48162 ,48180 ,48180 ,48178 ,48164 ,48164 ,48177 ,48162 ,48187 ,48187 ,48174 ]]),219437272 ^677944641 ^(361993407 ^820990242 ),(364223015 ^1047814084 )-~-734119310 ,~-(252735051 ^252735096 ),430428998 ^680265218 ^~-824956226 ,~-118644284 ^433850437 +-315206169 ,959604118 +-630750729 -(907694746 -578841375 ),~-(907565666 ^907565691 ),~-(510547542 ^510547524 ),106927557 +361633596 +(956465901 -1425027035 ),643741884 +-79976685 ^(692364547 ^148830972 ),~(608584951 +-608584988 ),146280407 --424527454 -(818272035 ^314573108 ),911497254 ^264090218 ^(449028421 ^589974290 ),158645585 ^447802811 ^327743360 +3889498 ,303954075 ^144128482 ^785154099 +-339852982 ,859421826 ^716084195 ^447382528 +-18044085 ,''.join ([chr (IXR ^48281 )for IXR in [48347 ,48374 ,48374 ,48370 ,48368 ,48375 ,48382 ,48313 ,48368 ,48362 ,48313 ,48383 ,48364 ,48373 ,48373 ]]),(507465483 ^42072903 )+-(915510057 ^707733273 ),612579028 --286606179 ^(200794844 ^1047501042 ),703868607 -544503132 ^252762851 -93397348 ,~-578642600 +-(674481786 ^172926184 ),''.join ([chr (IXS ^47498 )for IXS in [47578 ,47590 ,47599 ,47595 ,47609 ,47599 ,47530 ,47599 ,47588 ,47614 ,47599 ,47608 ,47530 ,47612 ,47595 ,47590 ,47587 ,47598 ,47530 ,47591 ,47589 ,47612 ,47587 ,47599 ,47530 ,47593 ,47589 ,47598 ,47599 ]]),296086252 ^941838200 ^~-696690098 ,''.join ([chr (IXT ^26716 )for IXT in [26636 ,26665 ,26670 ,26687 ,26676 ,26685 ,26671 ,26681 ,26680 ,26748 ,26650 ,26685 ,26677 ,26672 ,26681 ,26680 ]]),492020749 --259442090 +-(333029929 ^1058261939 ),(808552753 ^190893273 )+-~-995182025 ,202708588 --521402951 ^(937775772 ^483148384 ),~-898200662 ^(394709227 ^571456703 ),257139629 -153372758 ^(839602116 ^874779837 ),104107365 --724942032 +-(833387192 ^12988552 ),~-~-19 ,~-~-57 ,~-(700203377 ^700203345 ),699980917 -679626841 -(679745252 ^699565349 ),683926236 -34232234 ^289077213 +360616766 ,490013849 -158452596 ^(433404107 ^169214462 ),857487212 +28037769 ^(849703968 ^107838925 ),581085797 ^152852252 ^(193127223 ^540810799 ),610456521 ^142602984 ^113335453 --626771056 ,~-652199739 -(19114888 ^670854291 ),codecs .decode ('Pnapry obbxvat fhpprffshyyl','rot13'),None ,~-(983643974 ^983644020 ),91113164 ^196850197 ^~-248902877 ,842636796 ^457032191 ^(134896281 ^554567361 ),(137891082 ^670657901 )+-(272710508 ^1065376548 ),~-504819140 ^~-504819104 ,950348603 -435341808 -~-515006783 ,(428574809 ^223532008 )-(455417156 -105628060 ),~-761678966 +(819348042 +-1581026969 ),(4505418 ^868317014 )-(116709137 ^896602340 ),708689660 +76678774 +(541695884 +-1327064307 ),~-(729639095 ^729639055 ),(294264424 ^289897301 )-(390000313 ^401836928 ),'/ataD'[::-1 ],298393306 ^315486990 ^164130692 -113476094 ,~-342140702 ^790892641 +-448751915 ,313713015 ^1046350380 ^(11741209 ^744473421 ),735047141 -330781744 ^~-404265376 ,~(831061423 +-831061425 ),(243122351 ^125339643 )-(631845931 +-480505062 ),588713874 ^192011270 ^773753394 +-95925936 ,~-364662251 ^(41875913 ^398636054 ),~-(362150208 ^362150234 ),(734220888 ^55566072 )-~-680299650 ,~-743894289 -~-743894210 ,''.join ([chr (IXU ^63580 )for IXU in [63519 ,63549 ,63535 ,63540 ]]),'redaeh'[::-1 ],(46990693 ^330932262 )+-~-292857113 ,100728516 ^1069674502 ^859039924 --109913569 ,'1-'[::-1 ],''.join ([chr (IXV ^50332 )for IXV in [50351 ]]),45416782 --195261648 ^583601010 -342922606 ,~-(720159743 ^720159705 ),373206802 -307860063 ^(919885055 ^892422212 ),95807052 ^329807490 ^148044690 --222991678 ,(405949662 ^462497621 )+-(12357731 ^52427576 ),207336929 +359921544 ^192036552 --375221887 ,~-195456516 ^332341844 +-136885327 ,~-(237618639 ^237618638 ),codecs .decode ('Pyrex','rot13'),562807418 --307346428 ^658743448 --211410395 ,~-608507793 ^166107413 +442400390 ,~-138040330 ^~-138040329 ,~-528917190 ^(977202521 ^632836033 ),829423872 ^1024106649 ^(974672990 ^912455124 ),658300006 +-119029258 +-(272597430 ^807084007 ),65 >40 ,426388960 ^763320546 ^415082231 --458739225 ,''.join ([chr (IXW ^168 )for IXW in [233 ,203 ,203 ,199 ,221 ,198 ,220 ,136 ,202 ,201 ,196 ,201 ,198 ,203 ,205 ]]),~-730956762 -(118757923 ^746953201 ),not 45 ,375006492 ^838418830 ^588551519 --76468010 ,(527807701 ^962253170 )-(44679213 --595961203 ),484013852 +-434551329 ^71759782 +-22297278 ,(373356383 ^388556382 )-(738750719 +-715153420 ),(423878043 ^1044020577 )-(478592924 ^1006575442 ),873861527 +111651740 ^~-985513278 ,891092249 ^786276762 ^~-465656984 ,928876581 ^1047351681 ^343642269 +-189445886 ,80394370 +475938159 +-~-556332509 ,(171221262 ^344351140 )-~-515031181 ,'d%/m%/Y%'[::-1 ],318477663 +156708501 -(144532068 +330654078 ),858763554 +-103127620 ^888687455 +-133051505 ,''.join ([chr (IXX ^27726 )for IXX in [27655 ,27680 ,27704 ,27695 ,27682 ,27687 ,27690 ,27758 ,27709 ,27691 ,27695 ,27706 ,27746 ,27758 ,27710 ,27682 ,27691 ,27695 ,27709 ,27691 ,27758 ,27706 ,27708 ,27703 ,27758 ,27695 ,27689 ,27695 ,27687 ,27680 ]]),668868141 -83427043 -~-585441066 ,(369849558 ^273007098 )-(395763620 +-289942146 ),137838745 +-106233713 +-(288920802 ^282777035 ),802921352 +-321790590 ^(703796990 ^895381416 ),4450927 +606862685 +(971166611 -1582480165 ),582967636 ^308747669 ^~-819494123 ,~-~-35 ,~-674357041 ^430050695 +244306411 ,(624042294 ^981892858 )+(186649789 -718564454 ),'\n :)lecnac ot retnE sserp( di gnikoob ruoy retne esaelP'[::-1 ],59040688 ^635816502 ^(360965454 ^870501601 ),(883582919 ^833761237 )+(105753758 +-191231125 ),529336458 +360034091 -(139077408 ^1028165769 ),846163197 ^94561228 ^(193212872 ^1011465963 ),~-644433339 ^370498059 --273935268 ,263279595 +-165493997 -(973973796 ^1071235050 ),codecs .decode (b'506c6561736520656e74657220796f757220626f6f6b696e672069643a200a','hex').decode ('utf-8'),'3'[::-1 ],'B'[::-1 ],~-291240222 -~-291240122 ,333593366 +-306283896 +-(961249429 ^954938858 ),''.join ([chr (IXY ^27641 )for IXY in [27546 ,27532 ,27530 ,27533 ,27542 ,27540 ,27548 ,27531 ,27607 ,27546 ,27530 ,27535 ]]),~-644054666 -(221331297 --422723345 ),~-539360448 ^696908594 +-157548159 ,'eciohc ruoy retne esaelP'[::-1 ],173126612 ^23221270 ^4471330 --183479746 ,62249333 +-16354174 -(229350064 ^253220727 ),(637393808 ^309331738 )-(762373457 --169670369 ),~-~-12 ,~-552409500 ^(868987003 ^321300960 ),(540125371 ^325296872 )-(197321858 ^949022406 ),382406097 +23773072 ^9222002 +396957131 ,(248467856 ^115083038 )+(499233239 +-634718300 ),codecs .decode (b'4d6f6469667920626f6f6b696e67','hex').decode ('utf-8'),None ,361106016 ^764760689 ^(424863803 ^557953033 ),585159625 --290797203 ^(571035304 ^373245121 ),20357950 +683970545 -(932262077 +-227933664 ),820535093 -92513901 ^(645065089 ^219566411 ),673243217 ^48269790 ^~-717253073 ,(899856513 ^529981244 )-(232129523 --475947956 ),''.join ([chr (IXZ ^25909 )for IXZ in [25919 ]]),~-236809339 ^(320821386 ^486683871 ),~-271049329 -(937961277 ^667927927 ),''.join ([chr (IYA ^34518 )for IYA in [34547 ,34447 ,34553 ,34547 ,34491 ,34553 ,34547 ,34482 ]]),(154130052 ^669999613 )+(645914625 +-1430296403 ),561858607 ^440417832 ^(701761963 ^317292437 ),514333420 +233973442 +(446565687 +-1194872489 ),(463568716 ^895630620 )+(496834835 -1281383245 ),codecs .decode (b'33','hex').decode ('utf-8'),(895865248 ^969442379 )-~-212686302 ,-(384617326 ^771500544 ^~-990962032 ),81815869 +723915894 ^(982111484 ^177187085 ),556736160 ^131712435 ^(168700822 ^754512044 ),395895157 ^385839454 ^684427805 -660863473 ,680934624 --232608940 +-(254014931 ^961569926 ),179516930 +468325685 -(20332039 --627510543 ),619008109 +171636958 ^(710666618 ^91988000 ),~-~-64 ,bool (11 ),'redaeh'[::-1 ],(306463016 ^460060065 )+-(594146726 ^709247471 ),(68133046 ^1032936297 )-(56276812 +910443633 ),None ,'4'[::-1 ],288749833 ^335553814 ^80959874 --6455958 ,~-659710140 ^(701266153 ^245241951 ),896577259 -816902772 +-(115824475 ^39381781 ),772976549 -57839901 -~-715136616 ,376611050 --597262850 +-(735330338 ^299393736 ),139693211 ^178636779 ^~-49695615 ,690914235 -72293307 ^(665907420 ^57645261 ),(913858017 ^509609459 )+(760620837 -1433304873 ),~-(637665723 ^637665781 ),codecs .decode (b'506c6561736520656e74657220612076616c696420726f77206e756d626572','hex').decode ('utf-8'),390499714 +282147093 +-(758687827 ^86994542 ),265214629 --561138880 +-(414208591 ^703689998 ),612814145 ^96496615 ^(908208355 ^392465943 ),(228668178 ^507090168 )-~-328771554 ,(899096644 ^902315523 )-(274270354 ^268834481 ),'5'[::-1 ],927401395 ^1039152406 ^(382877058 ^476384559 ),987767612 ^579050129 ^681430796 -272242060 ,138337607 ^1023548269 ^(607634433 ^285934130 ),codecs .decode (b'2e2e','hex').decode ('utf-8'),''.join ([chr (IYB ^17863 )for IYB in [17815 ,17835 ,17826 ,17830 ,17844 ,17826 ,17895 ,17826 ,17833 ,17843 ,17826 ,17845 ,17895 ,17843 ,17839 ,17826 ,17895 ,17845 ,17832 ,17840 ,17895 ,17833 ,17842 ,17834 ,17829 ,17826 ,17845 ,17917 ,17895 ]]),372801105 ^339040457 ^~-34416326 ,' :rebmun nmuloc eht retne esaelP'[::-1 ],(3379419 ^874120698 )+-(926780034 ^51650446 ),~-~-14 ,123311436 ^164842199 ^(595348791 ^771134083 ),'eciohC ruoY tceleS esaelP'[::-1 ],(507598862 ^1001870952 )-(768691480 +-131809025 ),665678546 ^575707603 ^(154141646 ^214821074 ),245904640 +3858456 ^(226679502 ^56741886 ),''.join ([chr (IYC ^8009 )for IYC in [7947 ,7974 ,7974 ,7970 ,7968 ,7975 ,7982 ,8041 ,7968 ,7994 ,8041 ,7983 ,7996 ,7973 ,7973 ]]),(367868661 ^463478863 )-(694445093 ^657030776 ),944498831 ^484832354 ^929654610 -314264223 ,255724487 ^510615651 ^(345583724 ^97016807 ),codecs .decode ('2','rot13'),564888479 ^130760421 ^(961869245 ^523520217 ),968502157 -587898028 +-(878410175 ^586479483 ),codecs .decode ('\n','rot13'),'..'[::-1 ],880799012 ^410990906 ^(38320239 ^776498213 ),665699527 -450355576 -(203563163 ^16237527 ),''.join ([chr (IYD ^12420 )for IYD in [12487 ,12524 ,12513 ,12519 ,12527 ,12452 ,12489 ,12523 ,12530 ,12525 ,12513 ,12452 ,12503 ,12513 ,12517 ,12528 ,12535 ]]),None ,241895629 --629051422 -~-870947015 ,666981447 -107261604 -(464275465 ^988867904 ),398814349 --47858555 +-(980809219 ^552224262 ),~-770061717 -(131628054 +638433587 ),~-575116837 ^(504479333 ^1012279369 ),470276411 ^269115721 ^~-202225791 ,~(495747655 -495747721 ),''.join ([chr (IYE ^35532 )for IYE in [35484 ,35518 ,35497 ,35519 ,35519 ,35564 ,35497 ,35490 ,35512 ,35497 ,35518 ,35564 ,35512 ,35491 ,35564 ,35503 ,35491 ,35490 ,35512 ,35493 ,35490 ,35513 ,35497 ]]),None ,334572767 ^543525904 ^~-865378532 ,300260516 ^915048771 ^957284625 -295693087 ,779306904 +64574276 ^(208310313 ^1042680549 ),325681595 ^918611134 ^749432111 -117573589 ,(361726575 ^124168342 )+-(546984567 ^846428307 ),42760957 +825356851 -(406379476 --461738326 ),''.join ([chr (IYF ^18694 )for IYF in [18783 ,18793 ,18803 ,18804 ,18726 ,18795 ,18793 ,18792 ,18787 ,18815 ,18726 ,18798 ,18791 ,18805 ,18726 ,18788 ,18787 ,18787 ,18792 ,18726 ,18804 ,18787 ,18802 ,18803 ,18804 ,18792 ,18787 ,18786 ]]),372526226 +-203699256 ^~-168826893 ,802757608 -191644388 -(879969795 ^270507747 ),712330072 +-355929840 ^983280314 +-626880085 ,~(589100513 -589100540 ),~-615791692 ^(416686917 ^1013063445 ),540599332 ^1065875342 ^172742199 +359873974 ,266563495 +-166704382 -(408312505 ^497410260 ),400189389 ^579050868 ^787318218 +107771077 ,835241255 ^783008766 ^(824532400 ^776362873 ),532780099 +-487011425 ^(916984122 ^873615065 ),518995913 ^612927100 ^~-979876229 ,(479807427 ^857374754 )+-(532298052 ^809107171 ),121438495 ^708082599 ^(981275980 ^393506710 ),133240672 -28048633 ^(732692882 ^770251735 ),464962234 --279862242 +-(863531693 ^522021933 ))
+
+def HQZ (HRB ):
+    return True 
+
+def HRA (HRB ):
+    return HRB 
+HMO =lambda HMQ :True 
+HMP =lambda HMQ :HMQ 
+
+class HMK :
+
+    @staticmethod 
+    def HML (HMN ):
+        return True 
+
+    @staticmethod 
+    def HMM (HMN ):
+        return HMN 
+
+def HNT (HNU ,HNV ):
+    try :
+        return HNU <HNV 
+    except :
+        return not HNU >=HNV 
+
+def HNX (HNY ,HNZ ):
+    try :
+        return HNY !=HNZ 
+    except :
+        return not HNY ==HNZ 
+
+def HOB (HOC ,HOD ):
+    try :
+        return HOC >HOD 
+    except :
+        return not HOC <=HOD 
+
+def HOE (HOF ,HOG ):
+    try :
+        return HOF ==HOG 
+    except :
+        return not HOF !=HOG 
+
+def HOH (HOI ,HOJ ):
+    try :
+        return HOI >=HOJ 
+    except :
+        return not HOI <HOJ 
+
+def HOK (HOL ,HOM ):
+    try :
+        return HOL <=HOM 
+    except :
+        return not HOL >HOM 
+
+def HKZ (HLA ):
+    HHA =os .path .dirname (os .path .abspath (__file__ ))
+    HHB =os .path .normpath (os .path .join (HHA ,HLB ,HLC ,HLD +HLA ))
+    return HHB 
+
+def CQ (path ):
+    return HKZ (path )
+
+def HLE (HLF ,HLG ):
+    HLL =HMF 
+    HLO =HLS 
+    if not HLH :
+        HLO =HLP 
+    else :
+        HLO =HLQ 
+    if HLO ==HLT :
+        if not HLI :
+            HLO =HLR 
+        else :
+            HLO =HLP 
+    if HLO ==HLR :
+        HLL =HLN 
+    if HLO ==HLP :
+        HLL =HLM 
+    if HLL ==HMG :
+        HLW =HMB 
+        if not HLJ :
+            HLW =HLY 
+        else :
+            HLW =HLX 
+        if HLW ==HMC :
+            if HLG is HLK :
+                HLW =HMA 
+            else :
+                HLW =HLZ 
+        if HLW ==HMD :
+            HLL =HLV 
+        if HLW ==HME :
+            HLL =HLU 
+    if HLL ==HLU :
+        pass 
+    if HLL ==HLN :
+        HLG =ddf .BOOKING_DATA_DICTIONARY 
+    HHC =ccsf .FD (dictionary_cache =HLG )
+    HHD :list =HLG .get (HMH )
+    print (f'{HHD [0 ]:<10}{HHD [1 ]:<10}{HHD [2 ]:<13}{HHD [3 ]:<13}{HHD [4 ]:<21}{HHD [5 ]:<15}{HHD [6 ]:<15}{HHD [7 ]:<15}{HHD [8 ]:<15}')
+    HHE =[]
+    for HMI in [HMJ ]:
+        for HHF in HHC :
+            HON =HNA 
+            HOQ =HLR 
+            HOS =HLV 
+            HOV =HMV 
+            HOW =HPA 
+            if not HNT (HMR ,HMS ):
+                HOW =HOY 
+            else :
+                HOW =HOX 
+            if HOW ==HPB :
+                if not HMK .HML (HMT ):
+                    HOW =HOX 
+                else :
+                    HOW =HOZ 
+            if HOW ==HNW :
+                HOV =HMT 
+            if HOW ==HPC :
+                HOV =HOR 
+            if HOV ==HMT :
+                HPE =HPH 
+                if not HMK .HML (HMU ):
+                    HPE =HPF 
+                else :
+                    HPE =HLI 
+                if HPE ==HLI :
+                    if not HMV :
+                        HPE =HPF 
+                    else :
+                        HPE =HPG 
+                if HPE ==HPI :
+                    HOV =HPD 
+                if HPE ==HPF :
+                    HOV =HOR 
+            if HOV ==HPD :
+                HOS =HOU 
+            if HOV ==HPJ :
+                HOS =HOT 
+            if HOS ==HNQ :
+                HPK =HLV 
+                HPM =HPQ 
+                if not HMK .HML (HMW ):
+                    HPM =HPN 
+                else :
+                    HPM =HPO 
+                if HPM ==HPO :
+                    if not HOB (HMD ,HMX ):
+                        HPM =HPP 
+                    else :
+                        HPM =HPN 
+                if HPM ==HPR :
+                    HPK =HLZ 
+                if HPM ==HMV :
+                    HPK =HPL 
+                if HPK ==HQA :
+                    HPT =HPY 
+                    if not HMO (HLT ):
+                        HPT =HPU 
+                    else :
+                        HPT =HPV 
+                    if HPT ==HNE :
+                        if not HOE (HMY ,HMZ ):
+                            HPT =HPX 
+                        else :
+                            HPT =HPW 
+                    if HPT ==HPU :
+                        HPK =HNI 
+                    if HPT ==HPZ :
+                        HPK =HPS 
+                if HPK ==HNQ :
+                    HOS =HPH 
+                if HPK ==HPL :
+                    HOS =HPF 
+            if HOS ==HQB :
+                HOQ =HNG 
+            if HOS ==HQC :
+                HOQ =HOR 
+            if HOQ ==HQE :
+                if not HOH (HNA ,HNB ):
+                    HOQ =HQD 
+                else :
+                    HOQ =HPJ 
+            if HOQ ==HQF :
+                HON =HOO 
+            if HOQ ==HQD :
+                HON =HOP 
+            if HON ==HQM :
+                HQH =HOX 
+                if not HMO (HNC ):
+                    HQH =HNG 
+                else :
+                    HQH =HQI 
+                if HQH ==HQK :
+                    if not HOK (HND ,HNE ):
+                        HQH =HQJ 
+                    else :
+                        HQH =HNG 
+                if HQH ==HPD :
+                    HON =HPZ 
+                if HQH ==HQL :
+                    HON =HQG 
+            if HON ==HPX :
+                HHG ,HHH ,HHI ,HHJ ,HHK ,HHL ,HHM ,HHN ,HHO =HHF 
+                HNJ =HMD 
+                HNL =HMT 
+                if not HNF :
+                    HNL =HNM 
+                else :
+                    HNL =HMD 
+                if HNL ==HLY :
+                    if not HNG :
+                        HNL =HNN 
+                    else :
+                        HNL =HNM 
+                if HNL ==HNO :
+                    HNJ =HNK 
+                if HNL ==HNP :
+                    HNJ =HNI 
+                if HNJ ==HNK :
+                    HNR =HMV 
+                    if HNT (HNH ,HNI ):
+                        HNR =HNS 
+                    else :
+                        HNR =HMF 
+                    if HNR ==HNE :
+                        if HNX (HLF ,HHI ):
+                            HNR =HNW 
+                        else :
+                            HNR =HLS 
+                    if HNR ==HOA :
+                        HNJ =HMV 
+                    if HNR ==HNW :
+                        HNJ =HNQ 
+                if HNJ ==HMV :
+                    print (f'{HHG :<10}{HHH :<10}{HHI :<13}{HHJ :<13}{HHK :<21}{HHL :<15}{HHM :<15}{HHN :<15}{HHO :<15}')
+                    HHE .append (HHF )
+                if HNJ ==HNQ :
+                    pass 
+            if HON ==HQG :
+                pass 
+    return HHE 
+
+def get_and_print_booking_data (input_movie_code ,booking_data_dict :dict =None ):
+    return HLE (input_movie_code ,booking_data_dict )
+
+def HQN (HQO ):
+    while HQP :
+        HTW =HNA 
+        HTX =HSE 
+        if not HNA :
+            HTX =HTY 
+        else :
+            HTX =HOU 
+        if HTX ==HUZ :
+            HUB =HNS 
+            HUC =HQU 
+            HUD =HLT 
+            if not HQQ :
+                HUD =HMY 
+            else :
+                HUD =HTQ 
+            if HUD ==HUG :
+                if HOE (HQR ,HLJ ):
+                    HUD =HUF 
+                else :
+                    HUD =HUE 
+            if HUD ==HUF :
+                HUC =HMA 
+            if HUD ==HTN :
+                HUC =HSC 
+            if HUC ==HNN :
+                HUH =HSI 
+                if not HMK .HML (HMJ ):
+                    HUH =HPW 
+                else :
+                    HUH =HTG 
+                if HUH ==HPJ :
+                    if not HMO (HPU ):
+                        HUH =HUJ 
+                    else :
+                        HUH =HUI 
+                if HUH ==HQE :
+                    HUC =HPD 
+                if HUH ==HUJ :
+                    HUC =HMD 
+            if HUC ==HPD :
+                HUB =HPZ 
+            if HUC ==HMD :
+                HUB =HLP 
+            if HUB ==HUY :
+                HUL =HPN 
+                HUO =HPU 
+                if not HQE :
+                    HUO =HRO 
+                else :
+                    HUO =HQK 
+                if HUO ==HUR :
+                    if HNX (HQS ,HQT ):
+                        HUO =HUQ 
+                    else :
+                        HUO =HUP 
+                if HUO ==HUQ :
+                    HUL =HUN 
+                if HUO ==HTM :
+                    HUL =HUM 
+                if HUL ==HLZ :
+                    HUS =HUV 
+                    if not HMK .HML (HQU ):
+                        HUS =HLH 
+                    else :
+                        HUS =HUT 
+                    if HUS ==HMY :
+                        if not HMK .HML (HNA ):
+                            HUS =HQF 
+                        else :
+                            HUS =HUU 
+                    if HUS ==HUU :
+                        HUL =HPW 
+                    if HUS ==HUW :
+                        HUL =HUN 
+                if HUL ==HUN :
+                    HUB =HUK 
+                if HUL ==HUX :
+                    HUB =HPV 
+            if HUB ==HPH :
+                HTX =HUA 
+            if HUB ==HMF :
+                HTX =HTZ 
+        if HTX ==HTZ :
+            HTW =HPY 
+        if HTX ==HTY :
+            HTW =HSQ 
+        if HTW ==HVE :
+            HVB =HPS 
+            if HOB (HQV ,HQW ):
+                HVB =HOR 
+            else :
+                HVB =HVC 
+            if HVB ==HVD :
+                if not HMO (HLC ):
+                    HVB =HSQ 
+                else :
+                    HVB =HQF 
+            if HVB ==HUW :
+                HTW =HSG 
+            if HVB ==HVE :
+                HTW =HVA 
+        if HTW ==HVF :
+            pass 
+        if HTW ==HPA :
+            print (HQX )
+            print (HQO )
+            HHP =input (HQY )
+            if (HQZ (HRC )and HQI )and (HMK .HML (HRD )and (not HRE ))or (HMO (HRF )and (not HRG )or (HPC <HOU or HRH )):
+                for HRI in range (HPV ,HQL ,HRJ ):
+                    for HRK in range (HQJ ,HPA ):
+                        if ((HQZ (HRG )or not HMK .HML (HPJ ))and (HMK .HML (HRL )and HQF ))and ((HQZ (HRM )and HQZ (HNA ))and (HMK .HML (HRD )and HRN !=HRO )):
+                            for HHQ in HQO :
+                                HSN =HTH 
+                                HSO =HSI 
+                                if not HMK .HML (HPH ):
+                                    HSO =HLX 
+                                else :
+                                    HSO =HSP 
+                                if HSO ==HSR :
+                                    if not HOK (HNB ,HQA ):
+                                        HSO =HLX 
+                                    else :
+                                        HSO =HSQ 
+                                if HSO ==HPB :
+                                    HSN =HQT 
+                                if HSO ==HSM :
+                                    HSN =HRV 
+                                if HSN ==HRV :
+                                    HST =HTU 
+                                    if not HOH (HRP ,HNA ):
+                                        HST =HNO 
+                                    else :
+                                        HST =HSU 
+                                    if HST ==HOP :
+                                        HSW =HTT 
+                                        HSY =HPF 
+                                        HTA =HTD 
+                                        if not HQZ (HPS ):
+                                            HTA =HTB 
+                                        else :
+                                            HTA =HSD 
+                                        if HTA ==HSD :
+                                            if not HNX (HRQ ,HRR ):
+                                                HTA =HTC 
+                                            else :
+                                                HTA =HNF 
+                                        if HTA ==HNF :
+                                            HSY =HSZ 
+                                        if HTA ==HTB :
+                                            HSY =HSL 
+                                        if HSY ==HQM :
+                                            HTE =HSK 
+                                            if not HNT (HRS ,HLS ):
+                                                HTE =HNS 
+                                            else :
+                                                HTE =HTF 
+                                            if HTE ==HOZ :
+                                                if not HMO (HLK ):
+                                                    HTE =HOU 
+                                                else :
+                                                    HTE =HOR 
+                                            if HTE ==HTG :
+                                                HSY =HSV 
+                                            if HTE ==HNQ :
+                                                HSY =HSZ 
+                                        if HSY ==HTH :
+                                            HSW =HNF 
+                                        if HSY ==HNO :
+                                            HSW =HSX 
+                                        if HSW ==HNF :
+                                            HTI =HTR 
+                                            HTK =HTM 
+                                            if not HMO (HLP ):
+                                                HTK =HPV 
+                                            else :
+                                                HTK =HTL 
+                                            if HTK ==HTL :
+                                                if not HMO (HRT ):
+                                                    HTK =HPV 
+                                                else :
+                                                    HTK =HRL 
+                                            if HTK ==HTN :
+                                                HTI =HTJ 
+                                            if HTK ==HNE :
+                                                HTI =HPF 
+                                            if HTI ==HNK :
+                                                HTO =HTQ 
+                                                if not HNT (HRU ,HRV ):
+                                                    HTO =HPF 
+                                                else :
+                                                    HTO =HOT 
+                                                if HTO ==HQB :
+                                                    if not HMK .HML (HRW ):
+                                                        HTO =HLP 
+                                                    else :
+                                                        HTO =HTP 
+                                                if HTO ==HLH :
+                                                    HTI =HPI 
+                                                if HTO ==HQC :
+                                                    HTI =HQB 
+                                            if HTI ==HTS :
+                                                HSW =HLX 
+                                            if HTI ==HSP :
+                                                HSW =HSX 
+                                        if HSW ==HSX :
+                                            HST =HSV 
+                                        if HSW ==HLX :
+                                            HST =HMT 
+                                    if HST ==HMT :
+                                        HSN =HQT 
+                                    if HST ==HNM :
+                                        HSN =HSS 
+                                if HSN ==HSS :
+                                    HRZ =HSK 
+                                    HSA =HSD 
+                                    if HNX (HHQ [HRX ],HHP ):
+                                        HSA =HLJ 
+                                    else :
+                                        HSA =HPA 
+                                    if HSA ==HSE :
+                                        if not HOA :
+                                            HSA =HSB 
+                                        else :
+                                            HSA =HSC 
+                                    if HSA ==HSB :
+                                        HRZ =HQM 
+                                    if HSA ==HNP :
+                                        HRZ =HMC 
+                                    if HRZ ==HSL :
+                                        HSF =HSI 
+                                        if not HMK .HML (HMC ):
+                                            HSF =HSG 
+                                        else :
+                                            HSF =HMF 
+                                        if HSF ==HNE :
+                                            if not HQZ (HRY ):
+                                                HSF =HSG 
+                                            else :
+                                                HSF =HSH 
+                                        if HSF ==HSG :
+                                            HRZ =HLX 
+                                        if HSF ==HSJ :
+                                            HRZ =HOT 
+                                    if HRZ ==HQC :
+                                        return HHP 
+                                    if HRZ ==HSM :
+                                        pass 
+                                if HSN ==HQT :
+                                    pass 
+                            else :
+                                print (HTV )
+
+def FS (movie_list ):
+    return HQN (movie_list )
+
+def HVG (HVH ,HVI ):
+    return f'{HVH },{HVI }'
+
+def CO (column ,row ):
+    return HVG (column ,row )
+
+def HVJ (HVK ):
+    HHR =msf .CU (HVK )
+    HVN =HNF 
+    HVP =HUU 
+    if HNX (HHR ,HRX ):
+        HVP =HSS 
+    else :
+        HVP =HTB 
+    if HVP ==HVR :
+        if not HRO :
+            HVP =HVQ 
+        else :
+            HVP =HNS 
+    if HVP ==HVS :
+        HVN =HVO 
+    if HVP ==HQD :
+        HVN =HLI 
+    if HVN ==HPR :
+        HVU =HQV 
+        if not HMO (HTF ):
+            HVU =HNA 
+        else :
+            HVU =HSR 
+        if HVU ==HSP :
+            if not HVL :
+                HVU =HQQ 
+            else :
+                HVU =HVV 
+        if HVU ==HQQ :
+            HVN =HVT 
+        if HVU ==HNA :
+            HVN =HPX 
+    if HVN ==HPZ :
+        return HVM 
+    if HVN ==HRD :
+        pass 
+    return HVW 
+
+def AX (movie_seat_list ):
+    return HVJ (movie_seat_list )
+
+def HVX (HVY ):
+    HHS =AX (HVY )
+    HWD =HMJ 
+    HWF =HPL 
+    if not HOK (HVZ ,HWA ):
+        HWF =HNP 
+    else :
+        HWF =HSZ 
+    if HWF ==HTH :
+        if not HHS :
+            HWF =HRO 
+        else :
+            HWF =HNN 
+    if HWF ==HWG :
+        HWD =HWE 
+    if HWF ==HUQ :
+        HWD =HTU 
+    if HWD ==HTU :
+        HWH =HOX 
+        if not HMK .HML (HWB ):
+            HWH =HNI 
+        else :
+            HWH =HMG 
+        if HWH ==HWK :
+            if not HQZ (HMU ):
+                HWH =HWJ 
+            else :
+                HWH =HWI 
+        if HWH ==HWI :
+            HWD =HQV 
+        if HWH ==HUZ :
+            HWD =HLU 
+    if HWD ==HSL :
+        print (HWC )
+        return 
+    if HWD ==HWL :
+        pass 
+    for HWM in [HVV ]:
+        while HVM :
+            ICA =HMT 
+            ICC =IAX 
+            ICF =IAQ 
+            ICG =HYF 
+            ICH =HVA 
+            if not HQV :
+                ICH =HZP 
+            else :
+                ICH =HNO 
+            if ICH ==ICI :
+                if HOE (HRC ,HNH ):
+                    ICH =IAD 
+                else :
+                    ICH =HRL 
+            if ICH ==HXC :
+                ICG =HQB 
+            if ICH ==HZR :
+                ICG =HRO 
+            if ICG ==HRO :
+                ICK =ICN 
+                if HOB (HNH ,HUU ):
+                    ICK =ICM 
+                else :
+                    ICK =ICL 
+                if ICK ==HRG :
+                    if not HMO (HVV ):
+                        ICK =HPN 
+                    else :
+                        ICK =HXZ 
+                if ICK ==HPR :
+                    ICG =HQB 
+                if ICK ==HLS :
+                    ICG =ICJ 
+            if ICG ==HWP :
+                ICF =HMF 
+            if ICG ==HNP :
+                ICF =IAH 
+            if ICF ==IAL :
+                ICO =HPZ 
+                ICQ =HPJ 
+                if HNT (HWN ,HLT ):
+                    ICQ =HNM 
+                else :
+                    ICQ =HRW 
+                if ICQ ==HRW :
+                    if not HMO (HUR ):
+                        ICQ =HNO 
+                    else :
+                        ICQ =HTR 
+                if ICQ ==HSX :
+                    ICO =HYF 
+                if ICQ ==ICR :
+                    ICO =ICP 
+                if ICO ==HSG :
+                    ICT =HUK 
+                    if not HOZ :
+                        ICT =HQE 
+                    else :
+                        ICT =ICU 
+                    if ICT ==HXU :
+                        if HNX (HWO ,HWP ):
+                            ICT =HPO 
+                        else :
+                            ICT =HQL 
+                    if ICT ==IBP :
+                        ICO =HYD 
+                    if ICT ==HQL :
+                        ICO =ICS 
+                if ICO ==HZD :
+                    ICF =HOZ 
+                if ICO ==HSD :
+                    ICF =HRW 
+            if ICF ==HRR :
+                ICC =ICD 
+            if ICF ==ICV :
+                ICC =ICE 
+            if ICC ==HVV :
+                if not HTB :
+                    ICC =HUY 
+                else :
+                    ICC =HSU 
+            if ICC ==HSU :
+                ICA =ICB 
+            if ICC ==ICE :
+                ICA =HNK 
+            if ICA ==HQE :
+                ICW =IAL 
+                if not HMO (HWQ ):
+                    ICW =HSX 
+                else :
+                    ICW =HMD 
+                if ICW ==HMD :
+                    if not HQZ (HUJ ):
+                        ICW =HTQ 
+                    else :
+                        ICW =ICX 
+                if ICW ==ICX :
+                    ICA =IAN 
+                if ICW ==HUG :
+                    ICA =HWS 
+            if ICA ==HVD :
+                if (HMC <=HWR and (not HQZ (HWS ))or (HQZ (HNF )and HQZ (HWT )))and ((not HUW or HWU )and (HQM <HSC and HWV )):
+                    for HWW in [HUV ]:
+                        while HWX :
+                            HXR =HYP 
+                            HXS =HNE 
+                            HXT =HWK 
+                            HXV =HLN 
+                            HXX =HNO 
+                            if not HMF :
+                                HXX =HXW 
+                            else :
+                                HXX =HUV 
+                            if HXX ==HSX :
+                                if not HQZ (HQE ):
+                                    HXX =HSM 
+                                else :
+                                    HXX =HLS 
+                            if HXX ==HXY :
+                                HXV =HXW 
+                            if HXX ==HXZ :
+                                HXV =HWL 
+                            if HXV ==HUN :
+                                HYA =HYC 
+                                if not HLV :
+                                    HYA =HSD 
+                                else :
+                                    HYA =HXA 
+                                if HYA ==HYD :
+                                    if not HMK .HML (HWY ):
+                                        HYA =HYB 
+                                    else :
+                                        HYA =HQV 
+                                if HYA ==HYE :
+                                    HXV =HQV 
+                                if HYA ==HNA :
+                                    HXV =HWK 
+                            if HXV ==HYF :
+                                HXT =HXU 
+                            if HXV ==HMG :
+                                HXT =HWG 
+                            if HXT ==HNP :
+                                HYH =HSH 
+                                HYI =HPY 
+                                if not HQZ (HWA ):
+                                    HYI =HLQ 
+                                else :
+                                    HYI =HXE 
+                                if HYI ==HUJ :
+                                    if not HNT (HWZ ,HXA ):
+                                        HYI =HLQ 
+                                    else :
+                                        HYI =HTU 
+                                if HYI ==HLT :
+                                    HYH =HLH 
+                                if HYI ==HUU :
+                                    HYH =HXQ 
+                                if HYH ==HPU :
+                                    HYJ =HXB 
+                                    if not HXB :
+                                        HYJ =HOT 
+                                    else :
+                                        HYJ =HMD 
+                                    if HYJ ==HXL :
+                                        if not HMK .HML (HXC ):
+                                            HYJ =HOT 
+                                        else :
+                                            HYJ =HWL 
+                                    if HYJ ==HUK :
+                                        HYH =HTP 
+                                    if HYJ ==HYE :
+                                        HYH =HWQ 
+                                if HYH ==HYK :
+                                    HXT =HSG 
+                                if HYH ==HLH :
+                                    HXT =HYG 
+                            if HXT ==HYL :
+                                HXS =HWE 
+                            if HXT ==HXU :
+                                HXS =HVO 
+                            if HXS ==HLU :
+                                if not HLI :
+                                    HXS =HVT 
+                                else :
+                                    HXS =HYM 
+                            if HXS ==HVO :
+                                HXR =HPI 
+                            if HXS ==HTS :
+                                HXR =HUM 
+                            if HXR ==HSR :
+                                HYN =HTN 
+                                if not HQZ (HXA ):
+                                    HYN =HUN 
+                                else :
+                                    HYN =HQI 
+                                if HYN ==HLR :
+                                    if not HQZ (HNA ):
+                                        HYN =HTQ 
+                                    else :
+                                        HYN =HYO 
+                                if HYN ==HSJ :
+                                    HXR =HNW 
+                                if HYN ==HUG :
+                                    HXR =HLT 
+                            if HXR ==HNW :
+                                sv .FC (HVY )
+                                try :
+                                    print (f'\nrow should be between 1 and {len (HVY )}')
+                                    HHT =int (input (HXD ))
+                                    HXG =HLN 
+                                    HXI =HQS 
+                                    if not HQZ (HVT ):
+                                        HXI =HOY 
+                                    else :
+                                        HXI =HXJ 
+                                    if HXI ==HWU :
+                                        if not HQZ (HXC ):
+                                            HXI =HSQ 
+                                        else :
+                                            HXI =HVR 
+                                    if HXI ==HXK :
+                                        HXG =HUI 
+                                    if HXI ==HOY :
+                                        HXG =HXH 
+                                    if HXG ==HNG :
+                                        HXM =HLU 
+                                        HXO =HQF 
+                                        if not HOH (HHT ,HSX ):
+                                            HXO =HMT 
+                                        else :
+                                            HXO =HXB 
+                                        if HXO ==HXB :
+                                            if not HOK (HHT ,len (HVY )):
+                                                HXO =HPS 
+                                            else :
+                                                HXO =HUZ 
+                                        if HXO ==HOU :
+                                            HXM =HXN 
+                                        if HXO ==HXP :
+                                            HXM =HWJ 
+                                        if HXM ==HUK :
+                                            if not HOE (HUX ,HXE ):
+                                                HXM =HNQ 
+                                            else :
+                                                HXM =HUJ 
+                                        if HXM ==HXQ :
+                                            HXG =HXL 
+                                        if HXM ==HOU :
+                                            HXG =HQG 
+                                    if HXG ==HLY :
+                                        sv .FC (HVY ,-HTQ ,HHT )
+                                        break 
+                                    if HXG ==HPO :
+                                        print (HXF )
+                                except ValueError as e :
+                                    print (e )
+                            if HXR ==HQA :
+                                pass 
+                for HYQ in (HYR ,):
+                    while HVM :
+                        HZT =HUI 
+                        HZW =HUZ 
+                        if not HMO (HSI ):
+                            HZW =HUK 
+                        else :
+                            HZW =HYO 
+                        if HZW ==HSH :
+                            HZX =HVQ 
+                            HZY =IAH 
+                            HZZ =IAB 
+                            if HOE (HYS ,HMC ):
+                                HZZ =IAA 
+                            else :
+                                HZZ =HRL 
+                            if HZZ ==IAC :
+                                if HNT (HQV ,HYT ):
+                                    HZZ =HTU 
+                                else :
+                                    HZZ =HZP 
+                            if HZZ ==IAD :
+                                HZY =HVC 
+                            if HZZ ==HUE :
+                                HZY =HUY 
+                            if HZY ==HUY :
+                                IAE =IAG 
+                                if not HTJ :
+                                    IAE =HPL 
+                                else :
+                                    IAE =HUZ 
+                                if IAE ==HXP :
+                                    if not HQZ (HYU ):
+                                        IAE =HOU 
+                                    else :
+                                        IAE =IAF 
+                                if IAE ==HSD :
+                                    HZY =HMJ 
+                                if IAE ==HNQ :
+                                    HZY =HQL 
+                            if HZY ==HNG :
+                                HZX =HMB 
+                            if HZY ==HVC :
+                                HZX =HSR 
+                            if HZX ==HMB :
+                                IAI =HRW 
+                                IAK =IAM 
+                                if not HMK .HML (HTL ):
+                                    IAK =HQD 
+                                else :
+                                    IAK =IAL 
+                                if IAK ==HTM :
+                                    if not HQZ (HQT ):
+                                        IAK =HMS 
+                                    else :
+                                        IAK =HVC 
+                                if IAK ==IAN :
+                                    IAI =IAJ 
+                                if IAK ==HVQ :
+                                    IAI =HWV 
+                                if IAI ==IAS :
+                                    IAO =HLX 
+                                    if HOE (HXN ,HXU ):
+                                        IAO =HZI 
+                                    else :
+                                        IAO =HWE 
+                                    if IAO ==HWE :
+                                        if not HMK .HML (HYV ):
+                                            IAO =HZI 
+                                        else :
+                                            IAO =IAP 
+                                    if IAO ==IAQ :
+                                        IAI =HTR 
+                                    if IAO ==IAR :
+                                        IAI =HUQ 
+                                if IAI ==HUN :
+                                    HZX =HLZ 
+                                if IAI ==IAR :
+                                    HZX =HPG 
+                            if HZX ==HPD :
+                                HZW =HUX 
+                            if HZX ==HME :
+                                HZW =HOT 
+                        if HZW ==HXQ :
+                            HZT =HZV 
+                        if HZW ==HOT :
+                            HZT =HZU 
+                        if HZT ==HZU :
+                            IAT =HTR 
+                            if not HMO (HYK ):
+                                IAT =HLJ 
+                            else :
+                                IAT =HXH 
+                            if IAT ==HLJ :
+                                if not HMK .HML (HVA ):
+                                    IAT =HMD 
+                                else :
+                                    IAT =HWJ 
+                            if IAT ==IAU :
+                                HZT =HZR 
+                            if IAT ==HUZ :
+                                HZT =HPL 
+                        if HZT ==HUE :
+                            try :
+                                print (f'\ncolumn should be between 1 and {len (HVY [0 ])}')
+                                HHU =int (input (HYW ))
+                                HZB =HZS 
+                                HZE =HZK 
+                                if not HNT (HRV ,HYX ):
+                                    HZE =HLV 
+                                else :
+                                    HZE =HRV 
+                                if HZE ==HZL :
+                                    HZF =HZH 
+                                    if not HOH (HHU ,HXW ):
+                                        HZF =HLV 
+                                    else :
+                                        HZF =HXE 
+                                    if HZF ==HPU :
+                                        if not HOK (HHU ,len (HVY [HYY ])):
+                                            HZF =HZG 
+                                        else :
+                                            HZF =HQQ 
+                                    if HZF ==HZI :
+                                        HZE =HUW 
+                                    if HZF ==HZJ :
+                                        HZE =HLN 
+                                if HZE ==HPJ :
+                                    HZB =HZC 
+                                if HZE ==HZM :
+                                    HZB =HZD 
+                                if HZB ==HYE :
+                                    HZO =HRW 
+                                    if not HMO (HYZ ):
+                                        HZO =HZP 
+                                    else :
+                                        HZO =HZQ 
+                                    if HZO ==HZR :
+                                        if not HNT (HRD ,HZA ):
+                                            HZO =HZH 
+                                        else :
+                                            HZO =HUR 
+                                    if HZO ==HSH :
+                                        HZB =HZN 
+                                    if HZO ==HQK :
+                                        HZB =HYB 
+                                if HZB ==HQK :
+                                    print (HXF )
+                                if HZB ==HVV :
+                                    sv .FC (HVY ,HHU ,HHT )
+                                    break 
+                            except ValueError as e :
+                                print (e )
+                        if HZT ==HPS :
+                            pass 
+                IAW =HVV 
+                IAY =HLR 
+                if not HMO (HQL ):
+                    IAY =HSE 
+                else :
+                    IAY =IAF 
+                if IAY ==HYD :
+                    if not sv .ER (HVY ,HHU ,HHT ):
+                        IAY =HSV 
+                    else :
+                        IAY =IAH 
+                if IAY ==HSV :
+                    IAW =IAX 
+                if IAY ==HUP :
+                    IAW =HWK 
+                if IAW ==IBC :
+                    IBA =IBB 
+                    if not HMO (HYP ):
+                        IBA =HZG 
+                    else :
+                        IBA =HLH 
+                    if IBA ==IAD :
+                        if not HMO (IAV ):
+                            IBA =HZM 
+                        else :
+                            IBA =HPN 
+                    if IBA ==HZG :
+                        IAW =HMG 
+                    if IBA ==HRM :
+                        IAW =IAZ 
+                if IAW ==IBD :
+                    print (f'Invalid seat, please try again')
+                    continue 
+                if IAW ==HMG :
+                    pass 
+                try :
+                    HHV =msf .ES (HVY ,HHU ,HHT )
+                except IndexError as e :
+                    print (e )
+                    continue 
+                IBR =HPX 
+                IBS =HYB 
+                if not HNX (HHV ,IBE ):
+                    IBS =HWG 
+                else :
+                    IBS =HPP 
+                if IBS ==IBU :
+                    if not HQZ (HZM ):
+                        IBS =IBT 
+                    else :
+                        IBS =HXY 
+                if IBS ==HQU :
+                    IBR =IAV 
+                if IBS ==HXY :
+                    IBR =HTD 
+                if IBR ==IAV :
+                    IBW =HZK 
+                    if not HQZ (HSV ):
+                        IBW =HPD 
+                    else :
+                        IBW =HSB 
+                    if IBW ==IBX :
+                        if not HOB (IBF ,IBG ):
+                            IBW =HSR 
+                        else :
+                            IBW =HQV 
+                    if IBW ==HZD :
+                        IBR =IBV 
+                    if IBW ==HSP :
+                        IBR =HUF 
+                if IBR ==IBY :
+                    sv .FC (HVY ,HHU ,HHT )
+                    print (IBH )
+                if IBR ==IBZ :
+                    IBK =HVF 
+                    IBL =HOT 
+                    if not HMK .HML (HPS ):
+                        IBL =HTS 
+                    else :
+                        IBL =HYL 
+                    if IBL ==HYL :
+                        if not HQZ (HMH ):
+                            IBL =IAG 
+                        else :
+                            IBL =IBB 
+                    if IBL ==HYM :
+                        IBK =HTN 
+                    if IBL ==IBM :
+                        IBK =IAN 
+                    if IBK ==IBQ :
+                        IBN =HWL 
+                        if not HQZ (HQX ):
+                            IBN =HOO 
+                        else :
+                            IBN =HSH 
+                        if IBN ==HZH :
+                            if not HNX (HHV ,IBI ):
+                                IBN =IBP 
+                            else :
+                                IBN =IBO 
+                        if IBN ==IBO :
+                            IBK =HRR 
+                        if IBN ==HYV :
+                            IBK =IAS 
+                    if IBK ==HNW :
+                        return (HHU ,HHT )
+                    if IBK ==HMJ :
+                        sv .FC (HVY ,HHU ,HHT )
+                        print (IBJ )
+            if ICA ==HTJ :
+                pass 
+
+def FT (movie_seat_list ):
+    return HVX (movie_seat_list )
+
+def ICY (ICZ ,IDA ,IDB ,IDC ,IDD ,IDE ,IDF ,IDG ,IDH ):
+    IDJ =IAG 
+    IDM =ICD 
+    if not HMK .HML (HQK ):
+        IDM =IAM 
+    else :
+        IDM =ICI 
+    if IDM ==HNM :
+        if not HQZ (HWU ):
+            IDM =IAM 
+        else :
+            IDM =IAR 
+    if IDM ==HWV :
+        IDJ =IDK 
+    if IDM ==HTL :
+        IDJ =IDL 
+    if IDJ ==HRG :
+        IDO =HXN 
+        if IDB is not IDI :
+            IDO =HNK 
+        else :
+            IDO =HZP 
+        if IDO ==HZR :
+            if not HQZ (HMC ):
+                IDO =HNK 
+            else :
+                IDO =HLT 
+        if IDO ==HME :
+            IDJ =IDN 
+        if IDO ==IDP :
+            IDJ =HSM 
+    if IDJ ==HXU :
+        IDB =ddf .BOOKING_DATA_DICTIONARY 
+    if IDJ ==HUV :
+        pass 
+    IDT =HPN 
+    IDU =HYK 
+    if not HOE (HYX ,IAB ):
+        IDU =HLS 
+    else :
+        IDU =HTL 
+    if IDU ==IAB :
+        if not HOK (IDQ ,IDR ):
+            IDU =IDW 
+        else :
+            IDU =IDV 
+    if IDU ==HTL :
+        IDT =HLR 
+    if IDU ==IDX :
+        IDT =HPI 
+    if IDT ==HSR :
+        IDY =HMA 
+        if ICZ is HWB :
+            IDY =HLV 
+        else :
+            IDY =IBX 
+        if IDY ==HLN :
+            if not HMK .HML (IDS ):
+                IDY =HVA 
+            else :
+                IDY =HXE 
+        if IDY ==HVA :
+            IDT =HVL 
+        if IDY ==HUX :
+            IDT =IDV 
+    if IDT ==HZN :
+        pass 
+    if IDT ==IDR :
+        ICZ =ddf .MOVIE_SEATS_DICTIONARY 
+    IDZ =HOP 
+    IEA =HNI 
+    if not HQZ (ICB ):
+        IEA =HSX 
+    else :
+        IEA =ICR 
+    if IEA ==HSV :
+        if not HOH (HRU ,HOO ):
+            IEA =HUN 
+        else :
+            IEA =HSE 
+    if IEA ==HSX :
+        IDZ =HLX 
+    if IEA ==IAH :
+        IDZ =ICD 
+    if IDZ ==HZC :
+        IEB =HYP 
+        if not HQZ (ICP ):
+            IEB =HNQ 
+        else :
+            IEB =HUV 
+        if IEB ==HMC :
+            if IDC is HLK :
+                IEB =HPJ 
+            else :
+                IEB =HWJ 
+        if IEB ==HUW :
+            IDZ =HXY 
+        if IEB ==HUZ :
+            IDZ =HXN 
+    if IDZ ==HLP :
+        pass 
+    if IDZ ==HXY :
+        IDC =ddf .MOVIE_LIST_DICTIONARY 
+    IEE =IEJ 
+    IEF =HZL 
+    if not IBQ :
+        IEF =HTN 
+    else :
+        IEF =HWE 
+    if IEF ==HQM :
+        if HNX (IEC ,HTN ):
+            IEF =HZP 
+        else :
+            IEF =HYB 
+    if IEF ==HXA :
+        IEE =HPU 
+    if IEF ==HTN :
+        IEE =HZS 
+    if IEE ==IEK :
+        IEH =IAG 
+        if HNT (IED ,HPX ):
+            IEH =HTL 
+        else :
+            IEH =HTC 
+        if IEH ==HTB :
+            if IDH is not HLK :
+                IEH =IEI 
+            else :
+                IEH =HSK 
+        if IEH ==HTL :
+            IEE =IEG 
+        if IEH ==HSK :
+            IEE =HUX 
+    if IEE ==IEG :
+        pass 
+    if IEE ==HPW :
+        IDH =ddf .CUSTOMER_DATA_DICTIONARY 
+    HHW ,HHX =FT (movie_seat_list =IDF )
+    HHY =datetime .today ().strftime (IEL )
+    HHZ :list =ccsf .FD (IDB )
+    HIA :int =pf .DH (movie_list_dict =IDC ,code =IDA )
+    IES =HLH 
+    IET =IEU 
+    if IDG is not HLK :
+        IET =HRL 
+    else :
+        IET =HXK 
+    if IET ==HXK :
+        if not HMK .HML (IEM ):
+            IET =HRL 
+        else :
+            IET =HVC 
+    if IET ==HVC :
+        IES =HNW 
+    if IET ==HTN :
+        IES =HZV 
+    if IES ==HNS :
+        IEV =IBU 
+        if not HSB :
+            IEV =HUN 
+        else :
+            IEV =ICP 
+        if IEV ==IEU :
+            if not HRW :
+                IEV =HXW 
+            else :
+                IEV =HRD 
+        if IEV ==HVO :
+            IES =HZM 
+        if IEV ==HSX :
+            IES =HXP 
+    if IES ==HZG :
+        pass 
+    if IES ==HMT :
+        HIB =pf .EX (customer_dict =IDH ,customer_id =IDG ,price =HIA )
+        IEP =HNF 
+        IEQ =HQK 
+        if not HIB :
+            IEQ =HOU 
+        else :
+            IEQ =IAM 
+        if IEQ ==HWJ :
+            if not IAQ :
+                IEQ =IDR 
+            else :
+                IEQ =HXQ 
+        if IEQ ==HXQ :
+            IEP =HUJ 
+        if IEQ ==IAM :
+            IEP =HVQ 
+        if IEP ==IEG :
+            IER =HPF 
+            if not HMK .HML (HVE ):
+                IER =HQG 
+            else :
+                IER =HVD 
+            if IER ==HVD :
+                if not HMO (IEN ):
+                    IER =IBP 
+                else :
+                    IER =HRL 
+            if IER ==HZP :
+                IEP =ICB 
+            if IER ==HOO :
+                IEP =HUX 
+        if IEP ==HUX :
+            print (IEO )
+            return 
+        if IEP ==HQE :
+            pass 
+    HIC =idg .CK (code_list =HHZ ,prefix_generate =IEW ,code_location =HRX ,number_of_prefix =HTQ ,prefix_got_digit =IEX ,code_id_digit_count =HTG )
+    HIA =pf .DH (movie_list_dict =IDC ,code =IDA )
+    HID =[HIC ,IDE ,IDA ,HHY ,IAG ,HHW ,HHX ,HIA ,IEY ]
+    ccsf .DX (dictionary =IDB ,list_to_add =HID )
+    print (IEZ )
+
+def AM (movie_seat_list ,input_movie_code ,user_id :str =None ,customer_id :str =None ,booking_method :str ='1',booking_data_dict :dict =None ,movie_seats_dict :dict =None ,movie_list_dict :dict =None ,customer_dict :dict =None ):
+    return ICY (movie_seats_dict ,input_movie_code ,booking_data_dict ,movie_list_dict ,booking_method ,user_id ,movie_seat_list ,customer_id ,customer_dict )
+
+def IFA (IFB ,IFC ,IFD ,IFE ,IFF ,IFG ):
+    from main_program .Library .system_login_framework .login_system import DZ 
+    while (not HMK .HML (HTY )and HQU )and (HXB and HQZ (IFH ))or ((not HMK .HML (HPR )or HMK .HML (IFI ))or (not HMO (IFJ )or IFK <HMW )):
+        if ((HTU >HYY or not HQZ (HTQ ))or (IFL >IFM and HQZ (IFN )))and (HQZ (HMY )and HPP ==HRH or (IFO and (not HMO (ICX )))):
+            for IFP in [HNQ ]:
+                for IFQ in range (HQD ,HPR ):
+                    while IFR :
+                        IGX =IHK 
+                        IGY =IGO 
+                        if not HOH (IAH ,IFS ):
+                            IGY =HMF 
+                        else :
+                            IGY =HME 
+                        if IGY ==ICV :
+                            if not HMO (IFS ):
+                                IGY =IGW 
+                            else :
+                                IGY =HME 
+                        if IGY ==HOY :
+                            IGX =HLJ 
+                        if IGY ==HLQ :
+                            IGX =HRV 
+                        if IGX ==HRV :
+                            IGZ =HYV 
+                            IHA =HTD 
+                            IHB =HQK 
+                            IHC =HOZ 
+                            if not HMK .HML (HUQ ):
+                                IHC =IAP 
+                            else :
+                                IHC =HYR 
+                            if IHC ==IHD :
+                                if not HOE (HYL ,HZK ):
+                                    IHC =HWK 
+                                else :
+                                    IHC =IAP 
+                            if IHC ==IHE :
+                                IHB =HZG 
+                            if IHC ==HXJ :
+                                IHB =HXE 
+                            if IHB ==HPQ :
+                                IHF =HUF 
+                                if not HQZ (HQG ):
+                                    IHF =HPR 
+                                else :
+                                    IHF =HMS 
+                                if IHF ==HMS :
+                                    if not HMO (IBO ):
+                                        IHF =HYB 
+                                    else :
+                                        IHF =HSZ 
+                                if IHF ==HTH :
+                                    IHB =HUX 
+                                if IHF ==HYB :
+                                    IHB =HYF 
+                            if IHB ==HQV :
+                                IHA =HQK 
+                            if IHB ==HPU :
+                                IHA =HNI 
+                            if IHA ==HWJ :
+                                IHG =HRO 
+                                IHH =HLN 
+                                if not HXN :
+                                    IHH =IEJ 
+                                else :
+                                    IHH =IFH 
+                                if IHH ==IFH :
+                                    if not HOK (HQR ,HRD ):
+                                        IHH =HSK 
+                                    else :
+                                        IHH =IEJ 
+                                if IHH ==IHI :
+                                    IHG =HOR 
+                                if IHH ==HTT :
+                                    IHG =HSU 
+                                if IHG ==HPJ :
+                                    IHJ =HUT 
+                                    if not HOK (HTZ ,IFT ):
+                                        IHJ =HYG 
+                                    else :
+                                        IHJ =HTB 
+                                    if IHJ ==HQD :
+                                        if not HWU :
+                                            IHJ =ICU 
+                                        else :
+                                            IHJ =HYM 
+                                    if IHJ ==HWP :
+                                        IHG =HNM 
+                                    if IHJ ==HYG :
+                                        IHG =HQM 
+                                if IHG ==HSV :
+                                    IHA =HZN 
+                                if IHG ==HSU :
+                                    IHA =HYM 
+                            if IHA ==HYM :
+                                IGZ =HXY 
+                            if IHA ==HQI :
+                                IGZ =HTG 
+                            if IGZ ==HOR :
+                                if not HRE :
+                                    IGZ =HUV 
+                                else :
+                                    IGZ =HQV 
+                            if IGZ ==HMC :
+                                IGX =HUP 
+                            if IGZ ==HWL :
+                                IGX =HWL 
+                        if IGX ==ICS :
+                            pass 
+                        if IGX ==HLJ :
+                            try :
+                                HIE =fu .DF (IFU ,IFV ,IFW ,IFX )
+                                IGR =HTC 
+                                IGT =HRC 
+                                if not HQZ (HRS ):
+                                    IGT =HMG 
+                                else :
+                                    IGT =HSX 
+                                if IGT ==HMW :
+                                    if not HMO (IFY ):
+                                        IGT =HSX 
+                                    else :
+                                        IGT =HZC 
+                                if IGT ==HUG :
+                                    IGR =IGS 
+                                if IGT ==ICD :
+                                    IGR =HTR 
+                                if IGR ==IGW :
+                                    IGU =IGV 
+                                    if not HPU :
+                                        IGU =HNO 
+                                    else :
+                                        IGU =HPA 
+                                    if IGU ==HPA :
+                                        if HNX (HIE ,IBI ):
+                                            IGU =ICR 
+                                        else :
+                                            IGU =HQL 
+                                    if IGU ==IFI :
+                                        IGR =IBY 
+                                    if IGU ==HQL :
+                                        IGR =HXW 
+                                if IGR ==IBY :
+                                    IGL =IGQ 
+                                    IGN =HXZ 
+                                    if not HNX (HIE ,IFZ ):
+                                        IGN =IFO 
+                                    else :
+                                        IGN =HWG 
+                                    if IGN ==ICJ :
+                                        if not HOK (IBY ,IGA ):
+                                            IGN =HYD 
+                                        else :
+                                            IGN =HPO 
+                                    if IGN ==IGO :
+                                        IGL =IGM 
+                                    if IGN ==IBP :
+                                        IGL =HLT 
+                                    if IGL ==IGM :
+                                        IGP =HUT 
+                                        if not HMK .HML (HVZ ):
+                                            IGP =HPG 
+                                        else :
+                                            IGP =IGO 
+                                        if IGP ==HSD :
+                                            if not HOE (IBB ,HRV ):
+                                                IGP =IAU 
+                                            else :
+                                                IGP =HSP 
+                                        if IGP ==HXL :
+                                            IGL =HUK 
+                                        if IGP ==HPG :
+                                            IGL =HLZ 
+                                    if IGL ==HUK :
+                                        HIF =fu .DG (IFE )
+                                        HIG =DZ (HIF )
+                                        IGB =HSB 
+                                        IGC =HOT 
+                                        if HNT (HYX ,HZI ):
+                                            IGC =HZR 
+                                        else :
+                                            IGC =HPS 
+                                        if IGC ==HPL :
+                                            if not HMK .HML (HSJ ):
+                                                IGC =HRL 
+                                            else :
+                                                IGC =HXJ 
+                                        if IGC ==HUE :
+                                            IGB =IBC 
+                                        if IGC ==HMW :
+                                            IGB =IEG 
+                                        if IGB ==HTC :
+                                            IGD =HQK 
+                                            if HIG is HWB :
+                                                IGD =HRO 
+                                            else :
+                                                IGD =HYM 
+                                            if IGD ==HZI :
+                                                if not HMO (HTJ ):
+                                                    IGD =HWP 
+                                                else :
+                                                    IGD =IBQ 
+                                            if IGD ==HZR :
+                                                IGB =HTZ 
+                                            if IGD ==HWP :
+                                                IGB =HPD 
+                                        if IGB ==HPI :
+                                            AM (movie_seat_list =IFD ,input_movie_code =IFC ,user_id =IFB ,customer_id =HIG ,booking_method =HIE )
+                                            break 
+                                        if IGB ==HWQ :
+                                            pass 
+                                    if IGL ==HQA :
+                                        IGG =HYU 
+                                        IGH =HSX 
+                                        if not HOE (HSV ,IGE ):
+                                            IGH =IAG 
+                                        else :
+                                            IGH =HLP 
+                                        if IGH ==IGI :
+                                            if not HNX (HIE ,IGF ):
+                                                IGH =HRU 
+                                            else :
+                                                IGH =HQC 
+                                        if IGH ==HLP :
+                                            IGG =HNC 
+                                        if IGH ==IGJ :
+                                            IGG =HLU 
+                                        if IGG ==HOZ :
+                                            IGK =HVD 
+                                            if not HOB (HRP ,HTQ ):
+                                                IGK =IAP 
+                                            else :
+                                                IGK =HLI 
+                                            if IGK ==HZL :
+                                                if not HMO (HWB ):
+                                                    IGK =HPN 
+                                                else :
+                                                    IGK =HMB 
+                                            if IGK ==HOR :
+                                                IGG =HWE 
+                                            if IGK ==HPN :
+                                                IGG =HYB 
+                                        if IGG ==HLU :
+                                            break 
+                                        if IGG ==HYB :
+                                            pass 
+                                if IGR ==HXW :
+                                    HIF =fu .DG (IFG )
+                                    AM (movie_seat_list =IFD ,input_movie_code =IFC ,user_id =IFB )
+                                    break 
+                            except ValueError as e :
+                                print (e )
+        break 
+
+def DK (movie_seats_csv ,booking_data_csv ,customer_csv ,movie_seat_list ,input_movie_code ,user_id ):
+    return IFA (user_id ,input_movie_code ,movie_seat_list ,customer_csv ,booking_data_csv ,movie_seats_csv )
+
+def IHL (IHM ,IHN ):
+    IHO =HLU 
+    IHP =HYF 
+    if not HQZ (HTP ):
+        IHP =HUX 
+    else :
+        IHP =IDN 
+    if IHP ==HYG :
+        if IHM is not IDI :
+            IHP =HUX 
+        else :
+            IHP =IHI 
+    if IHP ==HXE :
+        IHO =HTP 
+    if IHP ==HRD :
+        IHO =HXQ 
+    if IHO ==HUX :
+        IHQ =HPU 
+        if not HMK .HML (HMJ ):
+            IHQ =IGS 
+        else :
+            IHQ =HXP 
+        if IHQ ==HVE :
+            if not HMK .HML (HNA ):
+                IHQ =HMT 
+            else :
+                IHQ =IAD 
+        if IHQ ==HTP :
+            IHO =HLH 
+        if IHQ ==HPS :
+            IHO =HWG 
+    if IHO ==IBU :
+        IHM =ddf .MOVIE_SEATS_DICTIONARY 
+    if IHO ==HTU :
+        pass 
+    HIH =ccsf .FH (cache_dictionary =IHM ,code =IHN )
+    sv .FC (HIH )
+    HII =msf .CU (HIH )
+    print (f'\n This movie seat capacity is {HII }')
+
+def BH (input_movie_code :str ,movie_seats_dict :dict =None ):
+    return IHL (movie_seats_dict ,input_movie_code )
+
+def IHR (IHS ,IHT ):
+    for IHU in range (HYM ,HMF ,IHV ):
+        if (HTP and IHW <=IDR or (HMK .HML (HOZ )or not HMK .HML (IDR )))and ((ICR ==ICR or not HQZ (IHX ))or (not HMO (HWQ )and HMK .HML (HVS ))):
+            for IHY in [HVD ]:
+                for HIJ in IHT :
+                    IIJ =HXJ 
+                    IIK =IIV 
+                    IIL =HNO 
+                    IIM =HTP 
+                    IIN =HTN 
+                    if not HWS :
+                        IIN =HSU 
+                    else :
+                        IIN =HZK 
+                    if IIN ==HSU :
+                        if not HMK .HML (IAF ):
+                            IIN =HZK 
+                        else :
+                            IIN =HPR 
+                    if IIN ==HTH :
+                        IIM =HQI 
+                    if IIN ==HZK :
+                        IIM =HPB 
+                    if IIM ==HVE :
+                        IIP =HXB 
+                        if not HMO (HQG ):
+                            IIP =HYE 
+                        else :
+                            IIP =HLI 
+                        if IIP ==ICS :
+                            if not HOK (ICU ,IFJ ):
+                                IIP =HPN 
+                            else :
+                                IIP =HMW 
+                        if IIP ==HMW :
+                            IIM =HZN 
+                        if IIP ==HPR :
+                            IIM =IIO 
+                    if IIM ==IIQ :
+                        IIL =HPV 
+                    if IIM ==HQK :
+                        IIL =IAM 
+                    if IIL ==IIH :
+                        IIS =HLN 
+                        IIT =HZQ 
+                        if not HNX (IEC ,HPW ):
+                            IIT =HOU 
+                        else :
+                            IIT =IFO 
+                        if IIT ==IAF :
+                            if not HOH (HLS ,HPN ):
+                                IIT =HTF 
+                            else :
+                                IIT =HME 
+                        if IIT ==HNI :
+                            IIS =HPB 
+                        if IIT ==HLQ :
+                            IIS =HPL 
+                        if IIS ==HMT :
+                            IIU =HSP 
+                            if not HOH (IHZ ,HTS ):
+                                IIU =HYK 
+                            else :
+                                IIU =HTY 
+                            if IIU ==HVR :
+                                if not HOH (IIA ,HMT ):
+                                    IIU =IAX 
+                                else :
+                                    IIU =IAM 
+                            if IIU ==IAX :
+                                IIS =HOY 
+                            if IIU ==HTL :
+                                IIS =IGO 
+                        if IIS ==HOY :
+                            IIL =IIR 
+                        if IIS ==IAF :
+                            IIL =HXQ 
+                    if IIL ==HRW :
+                        IIK =IGW 
+                    if IIL ==HPU :
+                        IIK =ICB 
+                    if IIK ==HQL :
+                        if not HMK .HML (ICU ):
+                            IIK =HSQ 
+                        else :
+                            IIK =HLH 
+                    if IIK ==HSQ :
+                        IIJ =HOY 
+                    if IIK ==HTU :
+                        IIJ =HRL 
+                    if IIJ ==HOY :
+                        IIW =HSQ 
+                        if not HOE (IIB ,HTS ):
+                            IIW =HQA 
+                        else :
+                            IIW =ICS 
+                        if IIW ==HWL :
+                            if not HQZ (HLX ):
+                                IIW =HLZ 
+                            else :
+                                IIW =HQJ 
+                        if IIW ==HQJ :
+                            IIJ =HZP 
+                        if IIW ==HLQ :
+                            IIJ =HNC 
+                    if IIJ ==HRL :
+                        pass 
+                    if IIJ ==HRR :
+                        IIE =HMF 
+                        IIF =HZP 
+                        if not HNX (IHS ,HIJ [IIC ]):
+                            IIF =HZJ 
+                        else :
+                            IIF =HRW 
+                        if IIF ==HPV :
+                            if not HOB (IID ,HVT ):
+                                IIF =HPQ 
+                            else :
+                                IIF =IHW 
+                        if IIF ==HSK :
+                            IIE =ICD 
+                        if IIF ==HLV :
+                            IIE =HMY 
+                        if IIE ==HNA :
+                            IIG =III 
+                            if not HQZ (HSZ ):
+                                IIG =HZP 
+                            else :
+                                IIG =IIH 
+                            if IIG ==IBQ :
+                                if not HMK .HML (HXD ):
+                                    IIG =IEI 
+                                else :
+                                    IIG =HPR 
+                            if IIG ==HTL :
+                                IIE =HNN 
+                            if IIG ==HPR :
+                                IIE =HMY 
+                        if IIE ==HTD :
+                            return IHS 
+                        if IIE ==HSC :
+                            pass 
+    return IIX 
+
+def AY (booking_data_2d_list ,input_booking_id ):
+    return IHR (input_booking_id ,booking_data_2d_list )
+
+def IIY (IIZ ,IJA ):
+    for IJB in (IFL ,):
+        for HIK in IJA :
+            IJJ =IJH 
+            IJK =IGO 
+            if not HZR :
+                IJK =HUM 
+            else :
+                IJK =HVZ 
+            if IJK ==IDP :
+                IJL =HRW 
+                IJM =HSK 
+                IJN =HUA 
+                if not HMO (HWO ):
+                    IJN =HYF 
+                else :
+                    IJN =HZI 
+                if IJN ==HUQ :
+                    if not HMO (IFZ ):
+                        IJN =IAQ 
+                    else :
+                        IJN =HYE 
+                if IJN ==IAP :
+                    IJM =IHI 
+                if IJN ==ICS :
+                    IJM =HTM 
+                if IJM ==HLJ :
+                    IJO =IHI 
+                    if HOK (IHK ,HZV ):
+                        IJO =HOP 
+                    else :
+                        IJO =HTH 
+                    if IJO ==HRM :
+                        if not HQZ (HRM ):
+                            IJO =HWE 
+                        else :
+                            IJO =HSD 
+                    if IJO ==IFO :
+                        IJM =HUQ 
+                    if IJO ==HWE :
+                        IJM =HVT 
+                if IJM ==IAR :
+                    IJL =IGO 
+                if IJM ==IJP :
+                    IJL =HUR 
+                if IJL ==HSD :
+                    IJQ =IFI 
+                    IJR =HQV 
+                    if not HQZ (IDR ):
+                        IJR =HXE 
+                    else :
+                        IJR =IEG 
+                    if IJR ==HXE :
+                        if not HMO (HTB ):
+                            IJR =HVQ 
+                        else :
+                            IJR =HRV 
+                    if IJR ==HQD :
+                        IJQ =HQG 
+                    if IJR ==IJS :
+                        IJQ =HYE 
+                    if IJQ ==HQG :
+                        IJT =HSM 
+                        if not HMO (IGW ):
+                            IJT =HQS 
+                        else :
+                            IJT =HPI 
+                        if IJT ==HPG :
+                            if not HQZ (HMA ):
+                                IJT =IEI 
+                            else :
+                                IJT =IEK 
+                        if IJT ==IDR :
+                            IJQ =HYF 
+                        if IJT ==HQS :
+                            IJQ =HNN 
+                    if IJQ ==HYE :
+                        IJL =HZN 
+                    if IJQ ==HSC :
+                        IJL =IJH 
+                if IJL ==IHD :
+                    IJK =HQA 
+                if IJL ==HQI :
+                    IJK =IFI 
+            if IJK ==HNO :
+                IJJ =HPY 
+            if IJK ==HLQ :
+                IJJ =HNS 
+            if IJJ ==HNC :
+                IJU =IBY 
+                if HNX (HVE ,HSQ ):
+                    IJU =HTS 
+                else :
+                    IJU =HVZ 
+                if IJU ==HPF :
+                    if HOB (IFK ,HWK ):
+                        IJU =ICJ 
+                    else :
+                        IJU =HVZ 
+                if IJU ==HNN :
+                    IJJ =HPY 
+                if IJU ==HNK :
+                    IJJ =ICP 
+            if IJJ ==ICP :
+                IJF =HSG 
+                IJG =HSX 
+                if not HMO (IJC ):
+                    IJG =IFH 
+                else :
+                    IJG =HNN 
+                if IJG ==HNP :
+                    if HNX (IIZ ,HIK [IJD ]):
+                        IJG =ICE 
+                    else :
+                        IJG =HVC 
+                if IJG ==HUY :
+                    IJF =ICR 
+                if IJG ==HVD :
+                    IJF =IIR 
+                if IJF ==HNM :
+                    IJI =IDR 
+                    if not HMO (IJE ):
+                        IJI =HMY 
+                    else :
+                        IJI =HXC 
+                    if IJI ==HXC :
+                        if not HQZ (HNW ):
+                            IJI =HTD 
+                        else :
+                            IJI =HYG 
+                    if IJI ==ICN :
+                        IJF =IJH 
+                    if IJI ==IBY :
+                        IJF =HPV 
+                if IJF ==ICV :
+                    return (HIK [HLN ],HIK [IEI ])
+                if IJF ==IJH :
+                    pass 
+            if IJJ ==HPY :
+                pass 
+    return IJV 
+
+def DJ (booking_data_list ,input_booking_id ):
+    return IIY (input_booking_id ,booking_data_list )
+
+def IJW (IJX ,IJY ):
+    for HIL in IJX :
+        IKF =IDP 
+        IKG =HYM 
+        if HNT (HZU ,HQI ):
+            IKG =IEI 
+        else :
+            IKG =HWE 
+        if IKG ==HTL :
+            if HOB (IGV ,IHE ):
+                IKG =IAB 
+            else :
+                IKG =HSU 
+        if IKG ==HLS :
+            IKF =IAX 
+        if IKG ==HWE :
+            IKF =HVR 
+        if IKF ==HVR :
+            IKH =HRC 
+            if HOK (IJZ ,HNK ):
+                IKH =HLP 
+            else :
+                IKH =HWS 
+            if IKH ==IDP :
+                IKI =HQG 
+                IKJ =IAB 
+                IKK =IAM 
+                if not HMO (HNO ):
+                    IKK =IKL 
+                else :
+                    IKK =HOO 
+                if IKK ==HYK :
+                    if HNX (HQG ,HMX ):
+                        IKK =IAB 
+                    else :
+                        IKK =HOO 
+                if IKK ==HOO :
+                    IKJ =HLX 
+                if IKK ==ICL :
+                    IKJ =HMG 
+                if IKJ ==HWK :
+                    IKM =IKN 
+                    if HNX (HYX ,IAM ):
+                        IKM =HZR 
+                    else :
+                        IKM =HYM 
+                    if IKM ==HUE :
+                        if not HMK .HML (HTY ):
+                            IKM =HYM 
+                        else :
+                            IKM =HUJ 
+                    if IKM ==HTS :
+                        IKJ =HLX 
+                    if IKM ==HPU :
+                        IKJ =HTB 
+                if IKJ ==HQD :
+                    IKI =HNE 
+                if IKJ ==HLX :
+                    IKI =IDP 
+                if IKI ==HMF :
+                    IKP =HQG 
+                    IKQ =IFL 
+                    if not HMO (HUM ):
+                        IKQ =HZP 
+                    else :
+                        IKQ =HMD 
+                    if IKQ ==HTN :
+                        if not HMO (IKA ):
+                            IKQ =HXL 
+                        else :
+                            IKQ =HRR 
+                    if IKQ ==HLY :
+                        IKP =IAP 
+                    if IKQ ==HRR :
+                        IKP =HTD 
+                    if IKP ==HMZ :
+                        IKR =HUR 
+                        if not HQZ (HQG ):
+                            IKR =IJS 
+                        else :
+                            IKR =HWL 
+                        if IKR ==HRV :
+                            if not HMK .HML (HQL ):
+                                IKR =HYE 
+                            else :
+                                IKR =HQF 
+                        if IKR ==HQV :
+                            IKP =IBB 
+                        if IKR ==HQF :
+                            IKP =HRV 
+                    if IKP ==IJS :
+                        IKI =HXA 
+                    if IKP ==HTS :
+                        IKI =IKO 
+                if IKI ==HVV :
+                    IKH =HQC 
+                if IKI ==HVZ :
+                    IKH =HUN 
+            if IKH ==HPH :
+                IKF =HTZ 
+            if IKH ==HSX :
+                IKF =HYR 
+        if IKF ==IHW :
+            IKC =HOU 
+            IKD =IAH 
+            if HNX (IJY ,HIL [HRX ]):
+                IKD =HQC 
+            else :
+                IKD =HLY 
+            if IKD ==HLY :
+                if not HMO (IKB ):
+                    IKD =HOT 
+                else :
+                    IKD =HTZ 
+            if IKD ==IBC :
+                IKC =HUX 
+            if IKD ==HPH :
+                IKC =HPD 
+            if IKC ==HPG :
+                IKE =HXL 
+                if not HNA :
+                    IKE =HVS 
+                else :
+                    IKE =HPN 
+                if IKE ==HPR :
+                    if not HTP :
+                        IKE =HMS 
+                    else :
+                        IKE =HVS 
+                if IKE ==HMS :
+                    IKC =HUJ 
+                if IKE ==HOZ :
+                    IKC =IBT 
+            if IKC ==HPU :
+                return HIL [HUG ]
+            if IKC ==HQU :
+                pass 
+        if IKF ==HWQ :
+            pass 
+    return HLK 
+
+def CY (booking_data_list ,input_booking_id ):
+    return IJW (booking_data_list ,input_booking_id )
+
+def IKS (IKT ):
+    while IKU :
+        ILI =HMV 
+        ILJ =HLV 
+        ILK =IBB 
+        ILL =HSG 
+        ILM =HSU 
+        if not HPS :
+            ILM =IAH 
+        else :
+            ILM =HWS 
+        if ILM ==HUP :
+            if HOE (HPR ,HPN ):
+                ILM =HTY 
+            else :
+                ILM =HWS 
+        if ILM ==IKO :
+            ILL =HUY 
+        if ILM ==HVR :
+            ILL =HPG 
+        if ILL ==IFH :
+            ILN =HUX 
+            if not HMK .HML (HQP ):
+                ILN =HLV 
+            else :
+                ILN =HNC 
+            if ILN ==HNW :
+                if HOH (IGJ ,HMG ):
+                    ILN =IGI 
+                else :
+                    ILN =HZM 
+            if ILN ==HLV :
+                ILL =HUT 
+            if ILN ==HNF :
+                ILL =HQJ 
+        if ILL ==HUT :
+            ILK =HMJ 
+        if ILL ==HPG :
+            ILK =HPR 
+        if ILK ==HPR :
+            ILO =HNQ 
+            ILP =HNG 
+            if HNT (IKV ,HMW ):
+                ILP =HXK 
+            else :
+                ILP =HXQ 
+            if ILP ==HSS :
+                if not HSB :
+                    ILP =HUX 
+                else :
+                    ILP =IEK 
+            if ILP ==IEK :
+                ILO =HMG 
+            if ILP ==HXQ :
+                ILO =HXQ 
+            if ILO ==HXE :
+                ILR =HPU 
+                if not HQZ (IKW ):
+                    ILR =ILS 
+                else :
+                    ILR =HXP 
+                if ILR ==HXP :
+                    if HOE (HSU ,IKL ):
+                        ILR =HPP 
+                    else :
+                        ILR =HYD 
+                if ILR ==HSD :
+                    ILO =ILQ 
+                if ILR ==HYP :
+                    ILO =HMW 
+            if ILO ==HMG :
+                ILK =IEG 
+            if ILO ==ILQ :
+                ILK =HMJ 
+        if ILK ==IEG :
+            ILJ =IKO 
+        if ILK ==IAN :
+            ILJ =IBB 
+        if ILJ ==HTS :
+            if not HQQ :
+                ILJ =IKO 
+            else :
+                ILJ =HXZ 
+        if ILJ ==HXZ :
+            ILI =HZD 
+        if ILJ ==HWS :
+            ILI =HUN 
+        if ILI ==HUN :
+            ILT =HRO 
+            if not HMK .HML (HZD ):
+                ILT =HZL 
+            else :
+                ILT =HSC 
+            if ILT ==HRV :
+                if HNT (HUQ ,HUG ):
+                    ILT =ICJ 
+                else :
+                    ILT =IKN 
+            if ILT ==HQT :
+                ILI =HYE 
+            if ILT ==HNN :
+                ILI =HSH 
+        if ILI ==HYO :
+            pass 
+        if ILI ==HWL :
+            HIM =input (IKX )
+            ILA =HSV 
+            ILB =IIR 
+            if not HMK .HML (IKY ):
+                ILB =HUW 
+            else :
+                ILB =ICD 
+            if ILB ==ICD :
+                if not HNX (HLN ,HZG ):
+                    ILB =HTG 
+                else :
+                    ILB =HRM 
+            if ILB ==HUW :
+                ILA =HQT 
+            if ILB ==HSZ :
+                ILA =HRE 
+            if ILA ==IEK :
+                ILC =HTJ 
+                if not HZR :
+                    ILC =HRW 
+                else :
+                    ILC =ICP 
+                if ILC ==HSG :
+                    if not HNX (HIM .strip (),IKZ ):
+                        ILC =HSJ 
+                    else :
+                        ILC =HNE 
+                if ILC ==HRW :
+                    ILA =HRE 
+                if ILC ==HRC :
+                    ILA =HLS 
+            if ILA ==IFL :
+                break 
+            if ILA ==HRE :
+                pass 
+            HIN =AY (IKT ,HIM )
+            ILF =HXJ 
+            ILG =HYU 
+            if not HQZ (HUE ):
+                ILG =HSC 
+            else :
+                ILG =IGI 
+            if ILG ==IAG :
+                if HIN is ILD :
+                    ILG =HNP 
+                else :
+                    ILG =HXU 
+            if ILG ==HSC :
+                ILF =IAM 
+            if ILG ==IDN :
+                ILF =HMS 
+            if ILF ==IAM :
+                ILH =HNK 
+                if not HXW :
+                    ILH =HTQ 
+                else :
+                    ILH =HMW 
+                if ILH ==HUG :
+                    if not HMO (HZP ):
+                        ILH =HWK 
+                    else :
+                        ILH =HUE 
+                if ILH ==HWK :
+                    ILF =HQB 
+                if ILH ==HTN :
+                    ILF =HQD 
+            if ILF ==IBB :
+                print (ILE )
+                continue 
+            if ILF ==HTB :
+                HIO ,HIP =DJ (IKT ,HIM )
+                return (HIO ,HIP ,HIN )
+    return (ILD ,ILD ,HWB )
+
+def DI (booking_data_list ):
+    return IKS (booking_data_list )
+
+def ILU (ILV ,ILW ):
+    ILX =HZM 
+    ILY =HVQ 
+    if not HMO (HWQ ):
+        ILY =ILZ 
+    else :
+        ILY =HTR 
+    if ILY ==HSX :
+        if ILW is not IIX :
+            ILY =IGS 
+        else :
+            ILY =ILZ 
+    if ILY ==IGS :
+        ILX =IAN 
+    if ILY ==III :
+        ILX =HTZ 
+    if ILX ==IAS :
+        IMA =IHI 
+        if not HQZ (HLH ):
+            IMA =IFI 
+        else :
+            IMA =HVL 
+        if IMA ==HQK :
+            if not HQZ (HXN ):
+                IMA =HSV 
+            else :
+                IMA =IDL 
+        if IMA ==HLX :
+            ILX =HLQ 
+        if IMA ==HSV :
+            ILX =HWQ 
+    if ILX ==IBC :
+        ILW =ddf .BOOKING_DATA_DICTIONARY 
+    if ILX ==HLT :
+        pass 
+    HIQ :list =ccsf .FD (dictionary_cache =ILW )
+    for HIR in HIQ :
+        IMH =ICV 
+        IMI =HPO 
+        IMJ =HZJ 
+        IMK =HYP 
+        IML =HWK 
+        if not HMK .HML (HWQ ):
+            IML =HLX 
+        else :
+            IML =HRD 
+        if IML ==HUV :
+            if not HQZ (IMB ):
+                IML =HVT 
+            else :
+                IML =HSD 
+        if IML ==HYD :
+            IMK =HSL 
+        if IML ==HVT :
+            IMK =IAM 
+        if IMK ==HOP :
+            IMM =HLM 
+            if not HQZ (ILQ ):
+                IMM =HTQ 
+            else :
+                IMM =HQS 
+            if IMM ==IEK :
+                if not IIR :
+                    IMM =HOP 
+                else :
+                    IMM =HSX 
+            if IMM ==HLU :
+                IMK =IDV 
+            if IMM ==HTR :
+                IMK =IAR 
+        if IMK ==IEI :
+            IMJ =HPF 
+        if IMK ==HZI :
+            IMJ =IGW 
+        if IMJ ==HSQ :
+            IMN =HSC 
+            IMO =HSV 
+            if not HOE (IGO ,IFO ):
+                IMO =HXZ 
+            else :
+                IMO =IAR 
+            if IMO ==IAR :
+                if not HMO (HVC ):
+                    IMO =IFL 
+                else :
+                    IMO =HPS 
+            if IMO ==HXZ :
+                IMN =HLP 
+            if IMO ==HYC :
+                IMN =IEJ 
+            if IMN ==HPH :
+                IMP =HMC 
+                if not HQZ (IEC ):
+                    IMP =HLH 
+                else :
+                    IMP =HLY 
+                if IMP ==IAD :
+                    if not HMK .HML (IMC ):
+                        IMP =HXL 
+                    else :
+                        IMP =IBM 
+                if IMP ==IAG :
+                    IMN =HVO 
+                if IMP ==HMD :
+                    IMN =HTC 
+            if IMN ==IJP :
+                IMJ =IBP 
+            if IMN ==HMS :
+                IMJ =HYM 
+        if IMJ ==HYM :
+            IMI =HVQ 
+        if IMJ ==IBP :
+            IMI =HRR 
+        if IMI ==HMS :
+            if not IJH :
+                IMI =HNS 
+            else :
+                IMI =IAV 
+        if IMI ==HQL :
+            IMH =HSJ 
+        if IMI ==HRR :
+            IMH =HRL 
+        if IMH ==HZH :
+            IMQ =HZK 
+            if not HUX :
+                IMQ =IDL 
+            else :
+                IMQ =HLS 
+            if IMQ ==HLX :
+                if not HNT (HNP ,IMD ):
+                    IMQ =IFL 
+                else :
+                    IMQ =HTN 
+            if IMQ ==IAB :
+                IMH =HSE 
+            if IMQ ==HRL :
+                IMH =HTN 
+        if IMH ==HRL :
+            pass 
+        if IMH ==HLJ :
+            IME =HUA 
+            IMF =IKO 
+            if not HMK .HML (HTG ):
+                IMF =HLN 
+            else :
+                IMF =HYE 
+            if IMF ==HWL :
+                if not HOE (HTJ ,IKO ):
+                    IMF =HMF 
+                else :
+                    IMF =HZM 
+            if IMF ==HNE :
+                IME =HVO 
+            if IMF ==HLN :
+                IME =HRC 
+            if IME ==HSH :
+                IMG =HOP 
+                if not HNX (ILV ,HIR [III ]):
+                    IMG =ICP 
+                else :
+                    IMG =HMZ 
+                if IMG ==HUT :
+                    if not HQI :
+                        IMG =IEU 
+                    else :
+                        IMG =HVT 
+                if IMG ==ICP :
+                    IME =HVO 
+                if IMG ==HVT :
+                    IME =IAB 
+            if IME ==IEJ :
+                return HVM 
+            if IME ==HOA :
+                pass 
+    print (IMR )
+    return IMS 
+
+def AW (input_movie_code ,booking_data_dict :dict =None ):
+    return ILU (input_movie_code ,booking_data_dict )
+
+def IMT (IMU ,IMV ,IMW ,IMX ,IMY ):
+    IMZ =HSB 
+    INA =HVF 
+    if IMX is IDI :
+        INA =HLP 
+    else :
+        INA =ICE 
+    if INA ==HUY :
+        if not HMK .HML (HSE ):
+            INA =HPH 
+        else :
+            INA =IBT 
+    if INA ==HUK :
+        IMZ =HTL 
+    if INA ==HQU :
+        IMZ =HPN 
+    if IMZ ==HPN :
+        INB =HQJ 
+        if not HMK .HML (HSX ):
+            INB =IGS 
+        else :
+            INB =ICV 
+        if INB ==HPV :
+            if not HMK .HML (HPG ):
+                INB =HVE 
+            else :
+                INB =ICM 
+        if INB ==IGW :
+            IMZ =IDR 
+        if INB ==HOX :
+            IMZ =ICN 
+    if IMZ ==ICU :
+        pass 
+    if IMZ ==IAM :
+        IMX =ddf .BOOKING_DATA_DICTIONARY 
+    HIS :list =ccsf .FD (dictionary_cache =IMX ,code =IMW )
+    HIS [HZG ]=str (IMV )
+    HIS [IEI ]=str (IMY )
+    HIS [HYP ]=IEY 
+    HIT :list =HIS 
+    ccsf .DX (dictionary =IMX ,list_to_add =HIT )
+
+def EF (booking_id ,column ,row ,code_location =0 ,booking_data_dict =None ):
+    return IMT (code_location ,column ,booking_id ,booking_data_dict ,row )
+
+def INC (IND ,INE ):
+    for HIU in INE :
+        INP =HQW 
+        INQ =HZH 
+        if HOB (HSX ,HYS ):
+            INQ =HQD 
+        else :
+            INQ =HUN 
+        if INQ ==HSX :
+            if not HVT :
+                INQ =HRV 
+            else :
+                INQ =HTB 
+        if INQ ==IEG :
+            INP =HMW 
+        if INQ ==HZL :
+            INP =IIH 
+        if INP ==HMW :
+            INR =HSB 
+            if HOB (INF ,HQG ):
+                INR =HUY 
+            else :
+                INR =ICI 
+            if INR ==IFH :
+                INS =HYG 
+                INT =IAJ 
+                INU =INV 
+                if HOH (IIA ,HLN ):
+                    INU =HUR 
+                else :
+                    INU =HRG 
+                if INU ==HVL :
+                    if not HMK .HML (HOP ):
+                        INU =HUA 
+                    else :
+                        INU =HWY 
+                if INU ==HRG :
+                    INT =HWU 
+                if INU ==HVR :
+                    INT =HUQ 
+                if INT ==HXJ :
+                    INW =IBY 
+                    if not HMO (HYE ):
+                        INW =HMT 
+                    else :
+                        INW =IGS 
+                    if INW ==HOY :
+                        if HOE (IEK ,HSI ):
+                            INW =HPS 
+                        else :
+                            INW =HMB 
+                    if INW ==HOR :
+                        INT =HUA 
+                    if INW ==HZV :
+                        INT =HZI 
+                if INT ==HZI :
+                    INS =HUY 
+                if INT ==HXK :
+                    INS =IGS 
+                if INS ==ICE :
+                    INX =IBC 
+                    INY =HTS 
+                    if HOK (HQV ,HTY ):
+                        INY =HNE 
+                    else :
+                        INY =HMB 
+                    if INY ==HMF :
+                        if not HMK .HML (HUN ):
+                            INY =HPJ 
+                        else :
+                            INY =IFO 
+                    if INY ==HUW :
+                        INX =HYP 
+                    if INY ==IFO :
+                        INX =HUW 
+                    if INX ==HTG :
+                        INZ =HXB 
+                        if not HQZ (HWP ):
+                            INZ =HRC 
+                        else :
+                            INZ =HNE 
+                        if INZ ==ICV :
+                            if not HQZ (IBE ):
+                                INZ =HRC 
+                            else :
+                                INZ =HMT 
+                        if INZ ==HYC :
+                            INX =IFI 
+                        if INZ ==HZH :
+                            INX =HYP 
+                    if INX ==ICR :
+                        INS =HLX 
+                    if INX ==IBT :
+                        INS =HSQ 
+                if INS ==IGS :
+                    INR =HNM 
+                if INS ==IDL :
+                    INR =HLR 
+            if INR ==HZN :
+                INP =HNP 
+            if INR ==ICI :
+                INP =HTL 
+        if INP ==HSC :
+            pass 
+        if INP ==IEI :
+            INM =IAR 
+            INN =HNB 
+            if not HQZ (HSH ):
+                INN =HMV 
+            else :
+                INN =HXP 
+            if INN ==HMT :
+                if not HMO (ING ):
+                    INN =IBC 
+                else :
+                    INN =HYP 
+            if INN ==HRH :
+                INM =HLN 
+            if INN ==HYK :
+                INM =HOO 
+            if INM ==HZM :
+                INO =HLN 
+                if HNX (IND ,HIU [INH ]):
+                    INO =HPW 
+                else :
+                    INO =HUU 
+                if INO ==HXC :
+                    if HOH (HSM ,INI ):
+                        INO =HXQ 
+                    else :
+                        INO =HMS 
+                if INO ==IEG :
+                    INM =IBC 
+                if INO ==HPW :
+                    INM =HPO 
+            if INM ==HOO :
+                pass 
+            if INM ==IKL :
+                INJ =IHE 
+                INK =ICB 
+                if HNX (HTL ,HXE ):
+                    INK =HPR 
+                else :
+                    INK =HVC 
+                if INK ==HMJ :
+                    if not HMO (HSZ ):
+                        INK =HPN 
+                    else :
+                        INK =IJP 
+                if INK ==HVT :
+                    INJ =HWL 
+                if INK ==HRM :
+                    INJ =HYO 
+                if INJ ==HYO :
+                    INL =HVV 
+                    if HNX (int (HIU [HOR ]),III ):
+                        INL =HXP 
+                    else :
+                        INL =HLR 
+                    if INL ==HMT :
+                        if not IKL :
+                            INL =HQK 
+                        else :
+                            INL =IEJ 
+                    if INL ==HQI :
+                        INJ =HYE 
+                    if INL ==HVT :
+                        INJ =HMZ 
+                if INJ ==HYE :
+                    return HWX 
+                if INJ ==IBY :
+                    pass 
+    return IMS 
+
+def CZ (booking_data_list ,input_booking_id ):
+    return INC (input_booking_id ,booking_data_list )
+
+def IOA (IOB ,IOC ):
+    for HIV in IOB :
+        IOI =HQF 
+        IOJ =ICB 
+        IOK =HQF 
+        IOL =ICM 
+        IOM =HVV 
+        if not HMK .HML (HPX ):
+            IOM =HUF 
+        else :
+            IOM =IFO 
+        if IOM ==IFO :
+            if not HMO (IOD ):
+                IOM =IBY 
+            else :
+                IOM =HOZ 
+        if IOM ==HMZ :
+            IOL =HNK 
+        if IOM ==HNC :
+            IOL =HUP 
+        if IOL ==HUP :
+            ION =HTR 
+            if not HMO (IAN ):
+                ION =HRV 
+            else :
+                ION =IKL 
+            if ION ==IHE :
+                if not HMO (HOR ):
+                    ION =HYK 
+                else :
+                    ION =HSQ 
+            if ION ==IGW :
+                IOL =IDP 
+            if ION ==HTZ :
+                IOL =HQK 
+        if IOL ==HQK :
+            IOK =HLP 
+        if IOL ==HVZ :
+            IOK =HRO 
+        if IOK ==HQC :
+            IOO =HXZ 
+            IOP =HMC 
+            if not HMG :
+                IOP =HNO 
+            else :
+                IOP =HPV 
+            if IOP ==HRW :
+                if not HRG :
+                    IOP =HNM 
+                else :
+                    IOP =HQC 
+            if IOP ==HSV :
+                IOO =HYB 
+            if IOP ==HLP :
+                IOO =HQM 
+            if IOO ==HSU :
+                IOQ =HYG 
+                if not HMO (HSK ):
+                    IOQ =IJP 
+                else :
+                    IOQ =IFL 
+                if IOQ ==HLS :
+                    if not IIV :
+                        IOQ =IHI 
+                    else :
+                        IOQ =IKN 
+                if IOQ ==HSI :
+                    IOO =HSS 
+                if IOQ ==IHI :
+                    IOO =HXA 
+            if IOO ==HXA :
+                IOK =HWV 
+            if IOO ==HVR :
+                IOK =HTU 
+        if IOK ==HXC :
+            IOJ =HSB 
+        if IOK ==HQQ :
+            IOJ =HQB 
+        if IOJ ==IGQ :
+            if not HQZ (IJP ):
+                IOJ =HTS 
+            else :
+                IOJ =HMZ 
+        if IOJ ==HYM :
+            IOI =HZG 
+        if IOJ ==HUT :
+            IOI =HNP 
+        if IOI ==HZJ :
+            IOR =IDL 
+            if not HTN :
+                IOR =IAM 
+            else :
+                IOR =HYL 
+            if IOR ==ICP :
+                if HNT (IHD ,HXH ):
+                    IOR =HZR 
+                else :
+                    IOR =IDV 
+            if IOR ==HUE :
+                IOI =HUX 
+            if IOR ==IAM :
+                IOI =HSC 
+        if IOI ==HXQ :
+            pass 
+        if IOI ==ICJ :
+            IOF =HTP 
+            IOG =HUK 
+            if not HMO (HSG ):
+                IOG =IBM 
+            else :
+                IOG =HSM 
+            if IOG ==HLX :
+                if not HQZ (ICD ):
+                    IOG =IEJ 
+                else :
+                    IOG =IGI 
+            if IOG ==HVO :
+                IOF =HWS 
+            if IOG ==III :
+                IOF =HVC 
+            if IOF ==HVC :
+                IOH =HNO 
+                if HNX (IOC ,HIV [HYY ]):
+                    IOH =HLZ 
+                else :
+                    IOH =HXP 
+                if IOH ==HME :
+                    if HOH (IBB ,ICN ):
+                        IOH =HZQ 
+                    else :
+                        IOH =HPL 
+                if IOH ==HZV :
+                    IOF =HYV 
+                if IOH ==HZQ :
+                    IOF =HWS 
+            if IOF ==HTJ :
+                pass 
+            if IOF ==HOO :
+                return datetime .strptime (HIV [HOY ],IOE ).date ()
+    return IJV 
+
+def CS (booking_data_list ,input_booking_id ):
+    return IOA (booking_data_list ,input_booking_id )
+
+def IOS (IOT ,IOU ):
+    HIW :dict =fu .DM (IOU [IOV ])
+    HIX =IOU [IOT ][HIW [IOW ]-HUN ]
+    return datetime .strptime (HIX ,IOX ).date ()
+
+def DD (movie_list_dict ,input_movie_code ):
+    return IOS (input_movie_code ,movie_list_dict )
+
+def IOY (IOZ ):
+    HIY =datetime .now ().date ()
+    IPB =HTF 
+    IPC =HYK 
+    if not HQZ (ICD ):
+        IPC =IIV 
+    else :
+        IPC =HVO 
+    if IPC ==HVO :
+        if not HOK (HIY ,IOZ ):
+            IPC =IFH 
+        else :
+            IPC =HLV 
+    if IPC ==HZJ :
+        IPB =HNO 
+    if IPC ==IIV :
+        IPB =HUM 
+    if IPB ==HNM :
+        IPD =HTM 
+        if not HOH (HZA ,HNA ):
+            IPD =IHE 
+        else :
+            IPD =HZS 
+        if IPD ==HZS :
+            if not HOZ :
+                IPD =IAP 
+            else :
+                IPD =HMV 
+        if IPD ==IJS :
+            IPB =HME 
+        if IPD ==IBT :
+            IPB =ICS 
+    if IPB ==HQA :
+        return IPA 
+    if IPB ==ICS :
+        pass 
+    return HVW 
+
+def BA (movie_date ):
+    return IOY (movie_date )
+
+def IPE (IPF ,IPG ,IPH ,IPI ,IPJ ,IPK ,IPL ):
+    IPM =HUP 
+    IPN =HNN 
+    if IPF is IJV :
+        IPN =HPF 
+    else :
+        IPN =HPV 
+    if IPN ==HQB :
+        if not HQZ (HMB ):
+            IPN =HPV 
+        else :
+            IPN =HQD 
+    if IPN ==HVQ :
+        IPM =HMF 
+    if IPN ==HNE :
+        IPM =HMG 
+    if IPM ==HXJ :
+        IPO =HWS 
+        if not HMK .HML (HZM ):
+            IPO =HXW 
+        else :
+            IPO =HLI 
+        if IPO ==HTH :
+            if not HOK (HRH ,HPX ):
+                IPO =HUG 
+            else :
+                IPO =IEI 
+        if IPO ==IDR :
+            IPM =HNW 
+        if IPO ==HUG :
+            IPM =IIR 
+    if IPM ==HNS :
+        pass 
+    if IPM ==HMF :
+        IPF =ddf .BOOKING_DATA_DICTIONARY 
+    IPP =HNN 
+    IPQ =IAX 
+    if not HQZ (HVF ):
+        IPQ =HWE 
+    else :
+        IPQ =HVE 
+    if IPQ ==HPB :
+        if IPI is HWB :
+            IPQ =HTR 
+        else :
+            IPQ =HSU 
+    if IPQ ==HSU :
+        IPP =HOX 
+    if IPQ ==HTQ :
+        IPP =HVL 
+    if IPP ==HVL :
+        IPR =IEI 
+        if not IBQ :
+            IPR =HTF 
+        else :
+            IPR =HNF 
+        if IPR ==ILZ :
+            if not HMO (HSP ):
+                IPR =HLU 
+            else :
+                IPR =HNQ 
+        if IPR ==HSL :
+            IPP =IDK 
+        if IPR ==HUZ :
+            IPP =HTC 
+    if IPP ==HWY :
+        pass 
+    if IPP ==HTC :
+        IPI =ddf .MOVIE_SEATS_DICTIONARY 
+    IPT =HNO 
+    IPU =IAM 
+    if IPG is not HWB :
+        IPU =HPJ 
+    else :
+        IPU =HNC 
+    if IPU ==HNC :
+        if not HMK .HML (IFW ):
+            IPU =HQF 
+        else :
+            IPU =HZM 
+    if IPU ==HOR :
+        IPT =IAP 
+    if IPU ==HLV :
+        IPT =HQC 
+    if IPT ==HPH :
+        IPV =HUP 
+        if not HMK .HML (HNC ):
+            IPV =HXN 
+        else :
+            IPV =HQL 
+        if IPV ==HNG :
+            if HOH (HUF ,IPS ):
+                IPV =HUK 
+            else :
+                IPV =IDR 
+        if IPV ==HQC :
+            IPT =HRV 
+        if IPV ==IEI :
+            IPT =HVQ 
+    if IPT ==IEG :
+        IPG =ddf .MOVIE_LIST_DICTIONARY 
+    if IPT ==HRV :
+        pass 
+    IPX =HZM 
+    IPY =HRC 
+    if HOB (IPW ,IJD ):
+        IPY =IBY 
+    else :
+        IPY =HRH 
+    if IPY ==HUT :
+        if not HMK .HML (HPI ):
+            IPY =HPP 
+        else :
+            IPY =HUY 
+    if IPY ==HPX :
+        IPX =IDK 
+    if IPY ==IBT :
+        IPX =IBQ 
+    if IPX ==IDK :
+        IPZ =HNQ 
+        if IPJ is not HLK :
+            IPZ =HRW 
+        else :
+            IPZ =IKL 
+        if IPZ ==IKL :
+            if not HQZ (HNP ):
+                IPZ =HPV 
+            else :
+                IPZ =HLU 
+        if IPZ ==HRW :
+            IPX =HYO 
+        if IPZ ==HSL :
+            IPX =HTN 
+    if IPX ==HSH :
+        pass 
+    if IPX ==HZR :
+        IPJ =ddf .CUSTOMER_DATA_DICTIONARY 
+    HIZ =AW (IPH )
+    IRQ =HWE 
+    IRS =HSH 
+    if HOB (ILZ ,IQA ):
+        IRS =HXW 
+    else :
+        IRS =IEI 
+    if IRS ==HTQ :
+        if not HLI :
+            IRS =IEI 
+        else :
+            IRS =HTF 
+    if IRS ==IDR :
+        IRQ =IRR 
+    if IRS ==HTF :
+        IRQ =IAV 
+    if IRQ ==IRU :
+        IRT =ICV 
+        if not HIZ :
+            IRT =HOX 
+        else :
+            IRT =HQG 
+        if IRT ==HPC :
+            if not HLH :
+                IRT =HRE 
+            else :
+                IRT =HVV 
+        if IRT ==HRE :
+            IRQ =HSI 
+        if IRT ==HNA :
+            IRQ =IAV 
+    if IRQ ==IKN :
+        while IKU :
+            IRE =IGQ 
+            IRF =IRO 
+            if not HMO (HNF ):
+                IRF =HWJ 
+            else :
+                IRF =HUA 
+            if IRF ==HYU :
+                IRG =HYM 
+                IRH =HVT 
+                IRI =IGI 
+                if not HMK .HML (HUF ):
+                    IRI =HVL 
+                else :
+                    IRI =HXH 
+                if IRI ==HMA :
+                    if not HQZ (IKY ):
+                        IRI =HQB 
+                    else :
+                        IRI =HQK 
+                if IRI ==HZN :
+                    IRH =HSR 
+                if IRI ==HYM :
+                    IRH =IIV 
+                if IRH ==HPG :
+                    IRJ =HOP 
+                    if not IJH :
+                        IRJ =HSB 
+                    else :
+                        IRJ =IGS 
+                    if IRJ ==HSB :
+                        if HNT (IJD ,IQB ):
+                            IRJ =IKN 
+                        else :
+                            IRJ =HVE 
+                    if IRJ ==HPB :
+                        IRH =HPN 
+                    if IRJ ==HSI :
+                        IRH =IFH 
+                if IRH ==HLI :
+                    IRG =HVC 
+                if IRH ==IFH :
+                    IRG =HSE 
+                if IRG ==IAS :
+                    IRK =IRN 
+                    IRL =HRC 
+                    if HNX (IIR ,HOR ):
+                        IRL =HTH 
+                    else :
+                        IRL =HUY 
+                    if IRL ==HLI :
+                        if HNX (IDV ,IAM ):
+                            IRL =HNW 
+                        else :
+                            IRL =HUY 
+                    if IRL ==HOZ :
+                        IRK =HOP 
+                    if IRL ==IFH :
+                        IRK =IJP 
+                    if IRK ==HQM :
+                        IRM =HXA 
+                        if not HTH :
+                            IRM =IIR 
+                        else :
+                            IRM =HME 
+                        if IRM ==HLZ :
+                            if not HMK .HML (IIV ):
+                                IRM =HMF 
+                            else :
+                                IRM =HWJ 
+                        if IRM ==HOU :
+                            IRK =HUW 
+                        if IRM ==ICV :
+                            IRK =HRD 
+                    if IRK ==HMB :
+                        IRG =HTM 
+                    if IRK ==HVT :
+                        IRG =HZQ 
+                if IRG ==HTM :
+                    IRF =HUF 
+                if IRG ==HSH :
+                    IRF =HNI 
+            if IRF ==HUZ :
+                IRE =HZM 
+            if IRF ==IBY :
+                IRE =HVT 
+            if IRE ==HVT :
+                IRP =HSE 
+                if not HMK .HML (HQT ):
+                    IRP =HPY 
+                else :
+                    IRP =HWY 
+                if IRP ==HRG :
+                    if not HMK .HML (IQC ):
+                        IRP =HSU 
+                    else :
+                        IRP =HPY 
+                if IRP ==HSU :
+                    IRE =HLV 
+                if IRP ==HSB :
+                    IRE =IAD 
+            if IRE ==HZM :
+                HJA =get_and_print_booking_data (IPH )
+                HJB ,HJC ,HJD =DI (HJA )
+                IQE =IDP 
+                IQF =HRV 
+                if HJD is IDI :
+                    IQF =HWP 
+                else :
+                    IQF =HUQ 
+                if IQF ==IAR :
+                    if not HOK (HZD ,IQD ):
+                        IQF =IBB 
+                    else :
+                        IQF =HSC 
+                if IQF ==ICJ :
+                    IQE =HVF 
+                if IQF ==HTS :
+                    IQE =IKL 
+                if IQE ==IEU :
+                    IQG =IEJ 
+                    if not HMK .HML (HQV ):
+                        IQG =HQK 
+                    else :
+                        IQG =HOZ 
+                    if IQG ==HRR :
+                        if not ICL :
+                            IQG =IBM 
+                        else :
+                            IQG =HQK 
+                    if IQG ==IBM :
+                        IQE =IAX 
+                    if IQG ==HUR :
+                        IQE =HMS 
+                if IQE ==HYK :
+                    break 
+                if IQE ==HMS :
+                    pass 
+                HJE =CY (HJA ,HJD )
+                HJF =DD (IPG ,IPH )
+                HJG =fu .DF (IQH ,IQI ,IQJ ,IFX )
+                IRB =HYC 
+                IRC =HUE 
+                if HOE (HVR ,HYU ):
+                    IRC =HOR 
+                else :
+                    IRC =IEI 
+                if IRC ==HUW :
+                    if not HLM :
+                        IRC =IDR 
+                    else :
+                        IRC =HVO 
+                if IRC ==HVT :
+                    IRB =HTR 
+                if IRC ==IAM :
+                    IRB =HPG 
+                if IRB ==HSX :
+                    IRD =IBM 
+                    if HNX (HJG ,IBI ):
+                        IRD =HVL 
+                    else :
+                        IRD =IJH 
+                    if IRD ==HQI :
+                        if not HMK .HML (ICJ ):
+                            IRD =HYR 
+                        else :
+                            IRD =IJP 
+                    if IRD ==IEJ :
+                        IRB =HLJ 
+                    if IRD ==IHW :
+                        IRB =HPG 
+                if IRB ==HPI :
+                    HJH =GL (HJE )
+                    HJI =CZ (HJA ,HJD )
+                    HJJ =BA (HJF )
+                    IQL =IQP 
+                    IQM =HSE 
+                    if not HQZ (HVS ):
+                        IQM =HZR 
+                    else :
+                        IQM =HSP 
+                    if IQM ==HPG :
+                        if not HOK (IFM ,IBQ ):
+                            IQM =HUX 
+                        else :
+                            IQM =HUE 
+                    if IQM ==IBQ :
+                        IQL =HPR 
+                    if IQM ==HXE :
+                        IQL =ICU 
+                    if IQL ==ICN :
+                        IQN =HYR 
+                        if not HOH (HQT ,HRW ):
+                            IQN =HUE 
+                        else :
+                            IQN =HWK 
+                        if IQN ==HZP :
+                            IQO =HYO 
+                            if not HJH :
+                                IQO =HPN 
+                            else :
+                                IQO =HXQ 
+                            if IQO ==HPW :
+                                if not HJI :
+                                    IQO =HPR 
+                                else :
+                                    IQO =IAR 
+                            if IQO ==HQQ :
+                                if not HJJ :
+                                    IQO =HUT 
+                                else :
+                                    IQO =HTH 
+                            if IQO ==IBY :
+                                IQN =HWY 
+                            if IQO ==HRM :
+                                IQN =HMW 
+                        if IQN ==HWK :
+                            IQL =HTH 
+                        if IQN ==HRG :
+                            IQL =HQL 
+                    if IQL ==HQL :
+                        pf .FK (IPF ,IPJ ,HJD ,HJE )
+                        print (IQK )
+                    if IQL ==HSZ :
+                        pass 
+                    ccsf .CC (dictionary =IPF ,key_to_delete =HJD )
+                    print (IQQ )
+                    break 
+                if IRB ==IAL :
+                    IQX =IRA 
+                    IQY =HQS 
+                    if not HMO (IQA ):
+                        IQY =HUT 
+                    else :
+                        IQY =ICI 
+                    if IQY ==ICR :
+                        if HNX (HJG ,IQR ):
+                            IQY =HSB 
+                        else :
+                            IQY =HUF 
+                    if IQY ==HPY :
+                        IQX =HSE 
+                    if IQY ==HUT :
+                        IQX =HSJ 
+                    if IQX ==HYO :
+                        IQZ =HWG 
+                        if HOH (HWU ,IQS ):
+                            IQZ =HZN 
+                        else :
+                            IQZ =HTH 
+                        if IQZ ==HQI :
+                            if not HQZ (IAX ):
+                                IQZ =HTH 
+                            else :
+                                IQZ =IAS 
+                        if IQZ ==HRM :
+                            IQX =HXA 
+                        if IQZ ==IAN :
+                            IQX =HSE 
+                    if IQX ==HZC :
+                        HJB ,HJC =FT (movie_seat_list =IPK )
+                        EF (booking_id =HJD ,column =HJB ,row =HJC )
+                        print (IQT )
+                        break 
+                    if IQX ==HSE :
+                        IQU =IKL 
+                        IQV =HYG 
+                        if HNX (HJG ,HOY ):
+                            IQV =HNP 
+                        else :
+                            IQV =IIV 
+                        if IQV ==ICE :
+                            if HOH (HQV ,IAJ ):
+                                IQV =IBU 
+                            else :
+                                IQV =HQI 
+                        if IQV ==HNN :
+                            IQU =HXU 
+                        if IQV ==HQI :
+                            IQU =IJS 
+                        if IQU ==HRV :
+                            IQW =HLU 
+                            if not HQZ (HTB ):
+                                IQW =HOZ 
+                            else :
+                                IQW =IAL 
+                            if IQW ==HNS :
+                                if not HYE :
+                                    IQW =HUP 
+                                else :
+                                    IQW =HTC 
+                            if IQW ==HMS :
+                                IQU =HYG 
+                            if IQW ==HTM :
+                                IQU =HPJ 
+                        if IQU ==ICU :
+                            pass 
+                        if IQU ==HOR :
+                            break 
+            if IRE ==HXC :
+                pass 
+        cnsv .FZ ()
+    if IRQ ==IAV :
+        pass 
+
+def EE (movie_seat_list ,input_movie_code ,user_id ,booking_data_dict =None ,movie_seats_dict =None ,movie_list_dict =None ,customer_dict =None ):
+    return IPE (booking_data_dict ,movie_list_dict ,input_movie_code ,movie_seats_dict ,customer_dict ,movie_seat_list ,user_id )
+
+def IRV (IRW ):
+    sv .FC (IRW )
+
+def EI (movie_seat_list ):
+    return IRV (movie_seat_list )
+
+def IRX (IRY ,IRZ ):
+    HJK =[]
+    for ISA in (HLU ,):
+        for ISB in range (IGI ,HVE ):
+            for HJL in IRZ :
+                ISI =HTF 
+                ISJ =ICL 
+                if not IGO :
+                    ISJ =HSI 
+                else :
+                    ISJ =IBQ 
+                if ISJ ==IBQ :
+                    if not HMK .HML (HPD ):
+                        ISJ =HSB 
+                    else :
+                        ISJ =HZS 
+                if ISJ ==IKN :
+                    ISI =IAH 
+                if ISJ ==HPA :
+                    ISI =HYP 
+                if ISI ==IAH :
+                    ISK =IEI 
+                    ISL =IJS 
+                    ISM =HQC 
+                    ISN =HPL 
+                    if not ICI :
+                        ISN =ICM 
+                    else :
+                        ISN =HQQ 
+                    if ISN ==HRO :
+                        if not HMO (HPG ):
+                            ISN =ICM 
+                        else :
+                            ISN =HZL 
+                    if ISN ==IAQ :
+                        ISM =IAU 
+                    if ISN ==IDK :
+                        ISM =HXK 
+                    if ISM ==HMA :
+                        ISO =HQM 
+                        if not HMK .HML (HMX ):
+                            ISO =HXA 
+                        else :
+                            ISO =HPV 
+                        if ISO ==HMF :
+                            if not HMO (ISC ):
+                                ISO =HVV 
+                            else :
+                                ISO =HZR 
+                        if ISO ==HTN :
+                            ISM =HUG 
+                        if ISO ==ICD :
+                            ISM =HYU 
+                    if ISM ==HVR :
+                        ISL =IBY 
+                    if ISM ==HUG :
+                        ISL =IAB 
+                    if ISL ==HOA :
+                        ISP =HXK 
+                        ISQ =HVQ 
+                        if not HQZ (HXE ):
+                            ISQ =IGS 
+                        else :
+                            ISQ =HRR 
+                        if ISQ ==IGS :
+                            if HOK (HWJ ,HQQ ):
+                                ISQ =HUY 
+                            else :
+                                ISQ =HOZ 
+                        if ISQ ==IIV :
+                            ISP =HZM 
+                        if ISQ ==HRR :
+                            ISP =HSX 
+                        if ISP ==HUN :
+                            ISR =HPQ 
+                            if not HUR :
+                                ISR =HPG 
+                            else :
+                                ISR =HPZ 
+                            if ISR ==HSP :
+                                if HNT (HZH ,ISD ):
+                                    ISR =HXJ 
+                                else :
+                                    ISR =ICE 
+                            if ISR ==IFH :
+                                ISP =HUV 
+                            if ISR ==HMW :
+                                ISP =HZM 
+                        if ISP ==HZJ :
+                            ISL =HMZ 
+                        if ISP ==HMC :
+                            ISL =HVV 
+                    if ISL ==HXA :
+                        ISK =HXZ 
+                    if ISL ==HUF :
+                        ISK =HNK 
+                    if ISK ==HVZ :
+                        if not HQZ (IGE ):
+                            ISK =HLS 
+                        else :
+                            ISK =IGO 
+                    if ISK ==HYD :
+                        ISI =HMT 
+                    if ISK ==HLS :
+                        ISI =HRH 
+                if ISI ==IBT :
+                    ISF =HQC 
+                    ISG =HWV 
+                    if HOE (HOT ,HLP ):
+                        ISG =HRD 
+                    else :
+                        ISG =HSJ 
+                    if ISG ==IHI :
+                        if HNX (HJL [HYY ],IRY ):
+                            ISG =HPL 
+                        else :
+                            ISG =HSH 
+                    if ISG ==HMT :
+                        ISF =ICJ 
+                    if ISG ==HZQ :
+                        ISF =HQE 
+                    if ISF ==HSC :
+                        ISH =IIR 
+                        if not HMO (IBO ):
+                            ISH =HUW 
+                        else :
+                            ISH =HSB 
+                        if ISH ==IBX :
+                            if HOB (ISE ,HSX ):
+                                ISH =IHE 
+                            else :
+                                ISH =HMB 
+                        if ISH ==HRV :
+                            ISF =HYB 
+                        if ISH ==HTG :
+                            ISF =IAV 
+                    if ISF ==HQE :
+                        HJK =HJL 
+                    if ISF ==HYB :
+                        pass 
+                if ISI ==HZV :
+                    pass 
+    return HJK 
+
+def DE (movie_2d_list :list ,input_movie_code :str )->list :
+    return IRX (input_movie_code ,movie_2d_list )
+
+def ISS (IST ,ISU ,ISV ):
+    HJM =ISU [HTQ ]
+    HJN =ISU [IGI ]
+    HJO =ISU [HVE ]
+    HJP =ISU [HTG ]
+    HJQ =ISU [HLN ]
+    HJR =ISU [IDV ]
+    HJS =ISV [IST ][HTR ]
+    HJT =ISV [IST ][HVE ]
+    HJU =ISV [IST ][HLN ]
+    HJV =ISV [IST ][IDR ]
+    HJW =ISV [IST ][HZV ]
+    HJX =round (DB (discount_price =HJW ,original_price =HJR ),ILZ )*ISW 
+    HJY =f'\n========================================\n              MOVIE RECEIPT\n========================================\nBooking ID     : {IST }\nUser ID        : {HJS }\nBooking Date   : {HJT }\n----------------------------------------\nMovie Name     : {HJM }\nCinema         : {HJN }\nDate           : {HJQ }\nStart Time     : {HJO }\nEnd Time       : {HJP }\nSeat           : [{HJU },{HJV }]\n----------------------------------------\nOriginal Price : RM {HJR }\nDiscount       : {HJX } %\nFinal Price    : RM {HJW }\n========================================\n'
+    return HJY 
+
+def CN (movie_list_data ,booking_data_dict ,booking_id ):
+    return ISS (booking_id ,movie_list_data ,booking_data_dict )
+
+def ISX (ISY ):
+    ISZ =HQG 
+    ITA =IAU 
+    if HOB (HRR ,IHI ):
+        ITA =HZC 
+    else :
+        ITA =HRR 
+    if ITA ==HYB :
+        if not HMO (HUQ ):
+            ITA =HNC 
+        else :
+            ITA =IGO 
+    if ITA ==IAF :
+        ISZ =IHD 
+    if ITA ==HVS :
+        ISZ =HPZ 
+    if ISZ ==IHW :
+        ITB =HXW 
+        if ISY is not HLK :
+            ITB =HZS 
+        else :
+            ITB =HQC 
+        if ITB ==HPH :
+            if not HPU :
+                ITB =HQS 
+            else :
+                ITB =IBP 
+        if ITB ==HSI :
+            ISZ =IBM 
+        if ITB ==HOO :
+            ISZ =IFH 
+    if ISZ ==IIV :
+        ISY =ddf .BOOKING_DATA_DICTIONARY 
+    if ISZ ==III :
+        pass 
+    HJZ =ccsf .FD (dictionary_cache =ISY )
+    HKA :list =ISY .get (IOV )
+    print (f'{HKA [0 ]:<10}{HKA [1 ]:<10}{HKA [2 ]:<13}{HKA [3 ]:<13}{HKA [4 ]:<21}{HKA [5 ]:<15}{HKA [6 ]:<15}{HKA [7 ]:<15}{HKA [8 ]:<15}')
+    HKB =[]
+    for HKC in HJZ :
+        ITD =HZV 
+        ITE =HVA 
+        if not HPF :
+            ITE =HSR 
+        else :
+            ITE =HNM 
+        if ITE ==IFI :
+            if not HMK .HML (IAV ):
+                ITE =IAL 
+            else :
+                ITE =HQJ 
+        if ITE ==HPD :
+            ITD =HYU 
+        if ITE ==HUP :
+            ITD =ICI 
+        if ITD ==HXK :
+            ITF =HNO 
+            ITG =HTT 
+            ITH =IAD 
+            ITI =ICB 
+            if not HMO (IBM ):
+                ITI =HWY 
+            else :
+                ITI =HLT 
+            if ITI ==HLT :
+                if not HQZ (HYF ):
+                    ITI =HTG 
+                else :
+                    ITI =HPC 
+            if ITI ==IDK :
+                ITH =IBQ 
+            if ITI ==HTG :
+                ITH =HQI 
+            if ITH ==HUE :
+                ITJ =IBX 
+                if not HMK .HML (HYD ):
+                    ITJ =HQC 
+                else :
+                    ITJ =HSV 
+                if ITJ ==HSV :
+                    if HNT (HTF ,ISD ):
+                        ITJ =IAU 
+                    else :
+                        ITJ =HXN 
+                if ITJ ==HXN :
+                    ITH =IAQ 
+                if ITJ ==HXL :
+                    ITH =HZN 
+            if ITH ==HUR :
+                ITG =HLJ 
+            if ITH ==HRV :
+                ITG =HSM 
+            if ITG ==IAH :
+                ITK =IBX 
+                ITL =ITM 
+                if not HSP :
+                    ITL =HLY 
+                else :
+                    ITL =IDP 
+                if ITL ==HWS :
+                    if HNT (HZR ,INV ):
+                        ITL =HVT 
+                    else :
+                        ITL =HLY 
+                if ITL ==HXL :
+                    ITK =IKN 
+                if ITL ==IJP :
+                    ITK =HMD 
+                if ITK ==HXL :
+                    ITN =HLQ 
+                    if not IGS :
+                        ITN =IEU 
+                    else :
+                        ITN =IBB 
+                    if ITN ==HPF :
+                        if not HMK .HML (ITC ):
+                            ITN =HYL 
+                        else :
+                            ITN =HVZ 
+                    if ITN ==HZK :
+                        ITK =HQQ 
+                    if ITN ==HTJ :
+                        ITK =IKN 
+                if ITK ==HQQ :
+                    ITG =ICB 
+                if ITK ==IEK :
+                    ITG =HUV 
+            if ITG ==HUV :
+                ITF =HVC 
+            if ITG ==HQE :
+                ITF =HUF 
+            if ITF ==HUT :
+                if not ICR :
+                    ITF =HVD 
+                else :
+                    ITF =HPX 
+            if ITF ==ICE :
+                ITD =ICI 
+            if ITF ==HVC :
+                ITD =HQQ 
+        if ITD ==ICR :
+            pass 
+        if ITD ==HRO :
+            HKD ,HKE ,HKF ,HKG ,HKH ,HKI ,HKJ ,HKK ,HKL =HKC 
+            print (f'{HKD :<10}{HKE :<10}{HKF :<13}{HKG :<13}{HKH :<21}{HKI :<15}{HKJ :<15}{HKK :<15}{HKL :<15}')
+            HKB .append (HKC )
+    return HKB 
+
+def FA (booking_data_dict :dict =None ):
+    return ISX (booking_data_dict )
+
+def ITO (ITP ,ITQ ):
+    return HXW -int (ITQ )/int (ITP )
+
+def DB (original_price :str ,discount_price :str )->float :
+    return ITO (original_price ,discount_price )
+
+def ITR (ITS ,ITT ,ITU ):
+    ITV =HQA 
+    ITW =HSL 
+    if not HQZ (HRR ):
+        ITW =HUE 
+    else :
+        ITW =HPN 
+    if ITW ==HPR :
+        if not HMO (IBQ ):
+            ITW =HZP 
+        else :
+            ITW =HXB 
+    if ITW ==ICN :
+        ITV =HSU 
+    if ITW ==HZR :
+        ITV =HRW 
+    if ITV ==HWE :
+        ITX =HPD 
+        if ITS is not IIX :
+            ITX =HUY 
+        else :
+            ITX =HSM 
+        if ITX ==IDL :
+            if HNX (HYL ,HZK ):
+                ITX =ICE 
+            else :
+                ITX =IEK 
+        if ITX ==HQS :
+            ITV =HMJ 
+        if ITX ==HUY :
+            ITV =IIR 
+    if ITV ==HMJ :
+        ITS =ddf .MOVIE_LIST_DICTIONARY 
+    if ITV ==HNE :
+        pass 
+    ITZ =HLT 
+    IUA =HZV 
+    if HOK (IAU ,ITY ):
+        IUA =HQS 
+    else :
+        IUA =HPP 
+    if IUA ==HQT :
+        if HOE (IDP ,HTJ ):
+            IUA =HVA 
+        else :
+            IUA =HQU 
+    if IUA ==HVA :
+        ITZ =HPO 
+    if IUA ==IBT :
+        ITZ =HXA 
+    if ITZ ==IBP :
+        IUB =HWV 
+        if not HMK .HML (HSG ):
+            IUB =HOU 
+        else :
+            IUB =IGQ 
+        if IUB ==HVA :
+            if ITT is not HWB :
+                IUB =HMW 
+            else :
+                IUB =HOU 
+        if IUB ==HWK :
+            ITZ =HNQ 
+        if IUB ==HNQ :
+            ITZ =HXA 
+    if ITZ ==HNA :
+        HKM =ddf .BOOKING_DATA_DICTIONARY 
+    if ITZ ==HNQ :
+        pass 
+    IUC =HOR 
+    IUD =HLI 
+    if not HQZ (HNF ):
+        IUD =HRD 
+    else :
+        IUD =IAP 
+    if IUD ==HZL :
+        if not HMO (IKN ):
+            IUD =HVT 
+        else :
+            IUD =IEK 
+    if IUD ==HVO :
+        IUC =ICL 
+    if IUD ==HQT :
+        IUC =HNQ 
+    if IUC ==HNI :
+        IUE =HQQ 
+        if not HMK .HML (HSS ):
+            IUE =HSE 
+        else :
+            IUE =HQI 
+        if IUE ==HQI :
+            if ITU is not IIX :
+                IUE =HZP 
+            else :
+                IUE =HTM 
+        if IUE ==HZP :
+            IUC =HRL 
+        if IUE ==HUP :
+            IUC =IAB 
+    if IUC ==ICL :
+        HKN =ddf .CUSTOMER_DATA_DICTIONARY 
+    if IUC ==HZP :
+        pass 
+    HKO =ccsf .FD (dictionary_cache =ITS )
+    HKP =FA ()
+    while IPA :
+        IUN =HVO 
+        IUO =HZI 
+        if not HOB (IUF ,HLP ):
+            IUO =IAU 
+        else :
+            IUO =IIH 
+        if IUO ==HMD :
+            if not HQZ (HTC ):
+                IUO =IDR 
+            else :
+                IUO =HLS 
+        if IUO ==IDV :
+            IUN =IDL 
+        if IUO ==IAB :
+            IUN =HOO 
+        if IUN ==HMC :
+            IUP =HWY 
+            IUQ =HPG 
+            IUR =HNC 
+            IUS =HSB 
+            if not HPN :
+                IUS =HUK 
+            else :
+                IUS =HTT 
+            if IUS ==IHD :
+                if not HQZ (IGI ):
+                    IUS =HLP 
+                else :
+                    IUS =IAS 
+            if IUS ==IAN :
+                IUR =HMG 
+            if IUS ==HUK :
+                IUR =HVL 
+            if IUR ==HLM :
+                IUT =HQS 
+                if not HNX (HMW ,HWK ):
+                    IUT =HSH 
+                else :
+                    IUT =HME 
+                if IUT ==HYO :
+                    if not HQZ (HSG ):
+                        IUT =HLZ 
+                    else :
+                        IUT =HYM 
+                if IUT ==HQB :
+                    IUR =HQI 
+                if IUT ==HLQ :
+                    IUR =HWE 
+            if IUR ==HQI :
+                IUQ =IAH 
+            if IUR ==HOP :
+                IUQ =HZN 
+            if IUQ ==HLJ :
+                IUU =HYR 
+                IUV =HRR 
+                if not HZP :
+                    IUV =HTG 
+                else :
+                    IUV =ICN 
+                if IUV ==HUW :
+                    if not HQZ (HZS ):
+                        IUV =HXU 
+                    else :
+                        IUV =HMY 
+                if IUV ==HMY :
+                    IUU =ICE 
+                if IUV ==ICN :
+                    IUU =HLS 
+                if IUU ==ICL :
+                    IUW =HMZ 
+                    if not HMK .HML (HRR ):
+                        IUW =HXQ 
+                    else :
+                        IUW =HWE 
+                    if IUW ==HWE :
+                        if not HMO (HPG ):
+                            IUW =HUR 
+                        else :
+                            IUW =HUX 
+                    if IUW ==HPU :
+                        IUU =ICE 
+                    if IUW ==HZN :
+                        IUU =HTM 
+                if IUU ==HUY :
+                    IUQ =HZJ 
+                if IUU ==HSE :
+                    IUQ =HUR 
+            if IUQ ==HZM :
+                IUP =HMJ 
+            if IUQ ==HUR :
+                IUP =HRV 
+            if IUP ==HZL :
+                if not HVE :
+                    IUP =HVC 
+                else :
+                    IUP =HQC 
+            if IUP ==HOT :
+                IUN =ICL 
+            if IUP ==HVC :
+                IUN =HRE 
+        if IUN ==HQG :
+            HKQ =input (IUG )
+            HKQ =AY (HKP ,HKQ )
+            IUK =HME 
+            IUL =HSK 
+            if not HQZ (IFH ):
+                IUL =IAD 
+            else :
+                IUL =IBP 
+            if IUL ==HYV :
+                if HOK (ICU ,IUH ):
+                    IUL =IBX 
+                else :
+                    IUL =IAD 
+            if IUL ==IAD :
+                IUK =HWV 
+            if IUL ==IGQ :
+                IUK =HNM 
+            if IUK ==ICI :
+                IUM =IEU 
+                if HKQ is IIX :
+                    IUM =HQF 
+                else :
+                    IUM =HZH 
+                if IUM ==HTG :
+                    if not HQZ (IUI ):
+                        IUM =HZH 
+                    else :
+                        IUM =IKO 
+                if IUM ==IDP :
+                    IUK =HRE 
+                if IUM ==HYO :
+                    IUK =HRO 
+            if IUK ==HWV :
+                break 
+            if IUK ==HQG :
+                print (IUJ )
+        if IUN ==HXZ :
+            pass 
+    ITT :dict ={HKR [IBG ]:HKR for HKR in HKP }
+    HKS =ITT [HKQ ][ILZ ]
+    HKT =DE (HKO ,HKS )
+    HKU =CN (HKT ,ITT ,HKQ )
+    print (HKU )
+
+def CM (movie_list_dict :dict =None ,booking_data_dict :dict =None ,customer_data_dict :dict =None ):
+    return ITR (movie_list_dict ,booking_data_dict ,customer_data_dict )
+
+def IUX (IUY ):
+    cnsv .FZ ()
+    if ((not HMO (IFH )or HMK .HML (IQH ))and (HQZ (HMA )or not IGS ))and ((IDP >ICL and IHW )and (HRM and IGM !=HTQ )):
+        while ((IDV <=HRX or HMK .HML (HTF ))or (not HMO (ICN )or not HMO (IUZ )))or ((not IAP or IJS !=IAP )or (not HMK .HML (HRV )and HLV )):
+            for IVA in [IAR ]:
+                if (HPI and HMO (HMT )or (HMO (IFY )and (not HMO (HQF ))))or ((not HMK .HML (IGV )or not HMK .HML (IGM ))and (not HMO (HLH )or HQZ (HRW ))):
+                    while HVM :
+                        IWJ =HMA 
+                        IWK =HVT 
+                        if not HQZ (IQH ):
+                            IWK =IAM 
+                        else :
+                            IWK =ICS 
+                        if IWK ==HWL :
+                            IWL =HNO 
+                            IWM =IWQ 
+                            IWN =IAV 
+                            if not HMK .HML (HUK ):
+                                IWN =HZJ 
+                            else :
+                                IWN =HZP 
+                            if IWN ==HRL :
+                                if not HQZ (HWO ):
+                                    IWN =HZM 
+                                else :
+                                    IWN =IKA 
+                            if IWN ==HZG :
+                                IWM =IAU 
+                            if IWN ==IWO :
+                                IWM =HUM 
+                            if IWM ==HQA :
+                                IWP =HZK 
+                                if not HMO (HMB ):
+                                    IWP =IKN 
+                                else :
+                                    IWP =HSU 
+                                if IWP ==HSL :
+                                    if HOK (HPC ,HWP ):
+                                        IWP =IEK 
+                                    else :
+                                        IWP =HXY 
+                                if IWP ==IDL :
+                                    IWM =HXH 
+                                if IWP ==HQS :
+                                    IWM =IHW 
+                            if IWM ==IHW :
+                                IWL =HQD 
+                            if IWM ==HMA :
+                                IWL =HSX 
+                            if IWL ==HUG :
+                                IWR =HVA 
+                                IWS =HMW 
+                                if not HQZ (HVZ ):
+                                    IWS =HTN 
+                                else :
+                                    IWS =HUT 
+                                if IWS ==IBQ :
+                                    if not HSP :
+                                        IWS =HUF 
+                                    else :
+                                        IWS =HLQ 
+                                if IWS ==HUM :
+                                    IWR =IFI 
+                                if IWS ==IBY :
+                                    IWR =HPX 
+                                if IWR ==HNO :
+                                    IWT =IAM 
+                                    if not HSZ :
+                                        IWT =HPR 
+                                    else :
+                                        IWT =HNM 
+                                    if IWT ==HNM :
+                                        if HOE (HTH ,HLI ):
+                                            IWT =HSD 
+                                        else :
+                                            IWT =HSZ 
+                                    if IWT ==HSZ :
+                                        IWR =IIV 
+                                    if IWT ==HYD :
+                                        IWR =HQQ 
+                                if IWR ==HUY :
+                                    IWL =HTD 
+                                if IWR ==IAR :
+                                    IWL =HQD 
+                            if IWL ==HUF :
+                                IWK =HNQ 
+                            if IWL ==IEG :
+                                IWK =HTL 
+                        if IWK ==HUZ :
+                            IWJ =HQL 
+                        if IWK ==HTL :
+                            IWJ =HTG 
+                        if IWJ ==HQF :
+                            IWU =HQG 
+                            if not ICU :
+                                IWU =HPH 
+                            else :
+                                IWU =HXL 
+                            if IWU ==HXH :
+                                if HOK (HMJ ,IVB ):
+                                    IWU =IAQ 
+                                else :
+                                    IWU =HOT 
+                            if IWU ==IHE :
+                                IWJ =HLJ 
+                            if IWU ==HXN :
+                                IWJ =HQL 
+                        if IWJ ==IAL :
+                            pass 
+                        if IWJ ==HUI :
+                            HKV =fu .DF (IVC ,IVD ,IVE ,IVF ,IVG ,IFX )
+                            IVK =HYF 
+                            IVL =HPY 
+                            if not HMK .HML (IVH ):
+                                IVL =IFL 
+                            else :
+                                IVL =HPW 
+                            if IVL ==HUJ :
+                                if not HRH :
+                                    IVL =HXZ 
+                                else :
+                                    IVL =HOZ 
+                            if IVL ==HXZ :
+                                IVK =HXY 
+                            if IVL ==HNW :
+                                IVK =IDN 
+                            if IVK ==ICU :
+                                IVM =IJS 
+                                if not HMK .HML (HPS ):
+                                    IVM =HRD 
+                                else :
+                                    IVM =HYV 
+                                if IVM ==HRE :
+                                    if not HNX (HKV ,IVI ):
+                                        IVM =IEJ 
+                                    else :
+                                        IVM =HQM 
+                                if IVM ==IHI :
+                                    IVK =HUV 
+                                if IVM ==HWE :
+                                    IVK =HVT 
+                            if IVK ==IEJ :
+                                pass 
+                            if IVK ==HUV :
+                                CM ()
+                                input (IVJ )
+                                continue 
+                            IVO =HZR 
+                            IVP =ICJ 
+                            if not HMO (HPW ):
+                                IVP =IKN 
+                            else :
+                                IVP =ILS 
+                            if IVP ==IGO :
+                                if HNT (HWT ,HVC ):
+                                    IVP =IKN 
+                                else :
+                                    IVP =HVL 
+                            if IVP ==HQT :
+                                IVO =ICP 
+                            if IVP ==HZN :
+                                IVO =HUA 
+                            if IVO ==HTY :
+                                IVQ =HRM 
+                                if HOK (IJS ,HSB ):
+                                    IVQ =IFI 
+                                else :
+                                    IVQ =IAX 
+                                if IVQ ==IAX :
+                                    if HNX (HKV ,IVN ):
+                                        IVQ =IFI 
+                                    else :
+                                        IVQ =HXC 
+                                if IVQ ==HNO :
+                                    IVO =HVF 
+                                if IVQ ==IAD :
+                                    IVO =HQA 
+                            if IVO ==ICP :
+                                pass 
+                            if IVO ==HLQ :
+                                break 
+                            HKW =ccsf .FD (dictionary_cache =ddf .MOVIE_LIST_DICTIONARY )
+                            HKX =FS (HKW )
+                            HKY =ccsf .FH (cache_dictionary =ddf .MOVIE_SEATS_DICTIONARY ,code =HKX )
+                            IWG =HRR 
+                            IWH =HVD 
+                            if not HMK .HML (IFY ):
+                                IWH =IIV 
+                            else :
+                                IWH =HRC 
+                            if IWH ==IIV :
+                                if not HQZ (IVR ):
+                                    IWH =HYO 
+                                else :
+                                    IWH =HZV 
+                            if IWH ==HSH :
+                                IWG =IEK 
+                            if IWH ==HZV :
+                                IWG =HMC 
+                            if IWG ==HZS :
+                                IWI =HPL 
+                                if not HOE (HVZ ,IKO ):
+                                    IWI =HPY 
+                                else :
+                                    IWI =IEI 
+                                if IWI ==IDR :
+                                    if not HNX (HKV ,IBI ):
+                                        IWI =HVA 
+                                    else :
+                                        IWI =HRH 
+                                if IWI ==IBT :
+                                    IWG =HQL 
+                                if IWI ==HVA :
+                                    IWG =IDL 
+                            if IWG ==HUI :
+                                IWC =IAB 
+                                IWD =ICD 
+                                if not HMO (HZD ):
+                                    IWD =HYE 
+                                else :
+                                    IWD =IHD 
+                                if IWD ==HYR :
+                                    if not HNT (IVV ,HUM ):
+                                        IWD =HYL 
+                                    else :
+                                        IWD =ICS 
+                                if IWD ==HWL :
+                                    IWC =HPX 
+                                if IWD ==HYL :
+                                    IWC =ICR 
+                                if IWC ==ICR :
+                                    IWF =HLU 
+                                    if not HNX (HKV ,IVW ):
+                                        IWF =HNQ 
+                                    else :
+                                        IWF =HQB 
+                                    if IWF ==HWJ :
+                                        if not HNE :
+                                            IWF =HQB 
+                                        else :
+                                            IWF =IDK 
+                                    if IWF ==HPC :
+                                        IWC =IWE 
+                                    if IWF ==IBB :
+                                        IWC =ICE 
+                                if IWC ==IFH :
+                                    IVZ =HYB 
+                                    IWA =HQI 
+                                    if not HMO (IEX ):
+                                        IWA =HSL 
+                                    else :
+                                        IWA =IEU 
+                                    if IWA ==HSG :
+                                        if not HNX (HKV ,IVX ):
+                                            IWA =HXH 
+                                        else :
+                                            IWA =HWE 
+                                    if IWA ==HLY :
+                                        IVZ =HLR 
+                                    if IWA ==HLU :
+                                        IVZ =HWE 
+                                    if IVZ ==HOP :
+                                        IWB =HLU 
+                                        if not HQZ (HXY ):
+                                            IWB =HNQ 
+                                        else :
+                                            IWB =IIH 
+                                        if IWB ==IDR :
+                                            if not HMO (HXE ):
+                                                IWB =HOU 
+                                            else :
+                                                IWB =IHI 
+                                        if IWB ==HWJ :
+                                            IVZ =HUR 
+                                        if IWB ==IHI :
+                                            IVZ =HPG 
+                                    if IVZ ==HSP :
+                                        pass 
+                                    if IVZ ==HQI :
+                                        BH (input_movie_code =HKX )
+                                        input (IVY )
+                                if IWC ==IWE :
+                                    EE (movie_seat_list =HKY ,input_movie_code =HKX ,user_id =IUY )
+                                    input (IVJ )
+                            if IWG ==IDL :
+                                DK (movie_seats_csv =IVS ,booking_data_csv =IVT ,customer_csv =IVU ,movie_seat_list =HKY ,input_movie_code =HKX ,user_id =IUY )
+                                input (IVJ )
+                            cnsv .FZ ()
+            break 
+
+def BK (user_id ):
+    return IUX (user_id )
+
+def IWV (IWW ):
+    return bool (IWW .startswith (IWX )and IWW [HXW :].isdigit ())
+
+def GL (user_id :str )->bool :
+    return IWV (user_id )
+
+def IWY ():
+    get_and_print_booking_data (IWZ )
+
+def EA ():
+    return IWY ()
+IXC =IDP 
+IXD =IBM 
+if not IDR :
+    IXD =HYC 
+else :
+    IXD =HSR 
+if IXD ==HSP :
+    if not HQZ (IXA ):
+        IXD =IAS 
+    else :
+        IXD =HZV 
+if IXD ==HMT :
+    IXC =HUI 
+if IXD ==HMJ :
+    IXC =IJS 
+if IXC ==IAV :
+    IXE =HTJ 
+    if not HMO (HQI ):
+        IXE =HVT 
+    else :
+        IXE =ICI 
+    if IXE ==HNM :
+        if HNX (__name__ ,IXB ):
+            IXE =HVO 
+        else :
+            IXE =HSQ 
+    if IXE ==IGW :
+        IXC =IHE 
+    if IXE ==HVO :
+        IXC =IEK 
+if IXC ==HSI :
+    pass 
+if IXC ==HRV :
+    ddf .DP ()
+    EA ()

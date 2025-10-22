@@ -1,349 +1,3255 @@
-from .framework_utils import *
-from .valid_checker import movie_seats_valid_check,movie_seats_csv_valid_check,movie_seats_pointer_valid_check
+from .CI import *
+from .valid_checker import ET ,EO ,ER 
+import codecs 
+EXF ,EKK ,EJP ,FKC ,FBH ,ERZ ,ENT ,FAJ ,FDA ,FER ,ETX ,ERB ,FAG ,FAP ,EZK ,FBF ,FGL ,EQK ,ENN ,ETT ,FMV ,ENM ,EQL ,ENI ,FAQ ,EMJ ,EQJ ,FBY ,EWT ,EUV ,EJC ,ERJ ,EPO ,ETW ,EOU ,FLJ ,EPB ,EMO ,FEU ,ELJ ,EMY ,EUQ ,EON ,EJU ,FCV ,EPX ,EYN ,EKW ,FKE ,ELT ,ETK ,ELH ,EMH ,FFK ,FDM ,ESJ ,ERW ,EVZ ,ELP ,FLI ,EXH ,EMW ,EOP ,EYU ,EPH ,EZD ,EXR ,EPC ,FGP ,FFZ ,EUT ,FCA ,EUE ,FHO ,EVE ,EWP ,EYT ,ETJ ,EXQ ,FDG ,ETF ,ESZ ,EQY ,FAU ,EPM ,EJN ,EVM ,FBB ,ETU ,EPJ ,EZN ,EMF ,ESF ,EKS ,EUY ,FMW ,EQA ,ENQ ,EMP ,FJC ,FDC ,ERO ,EOS ,FJB ,ELC ,FCE ,ESE ,EZB ,FHX ,FCR ,EXP ,FES ,EYP ,EWL ,EPR ,ERM ,FGY ,ENU ,FIH ,FJK ,FBL ,ERC ,EUW ,EZR ,FEN ,ESM ,EYF ,EWM ,ESK ,EQT ,ERU ,FAN ,EPN ,EYH ,ELI ,FMT ,FLR ,FBR ,EJQ ,ELS ,ELB ,EXS ,EZP ,EVA ,ERA ,EVR ,FFR ,FHU ,FBX ,EPD ,FFF ,EOC ,FBE ,EPU ,ELZ ,EWZ ,FDW ,EWC ,EWN ,EQE ,EOQ ,EVB ,EOF ,EQZ ,EYG ,FAR ,EKZ ,EVS ,EMQ ,EWH ,EMU ,EYJ ,FLY ,ERY ,FCJ ,EUU ,EOD ,FJM ,EMX ,FBQ ,EQM ,EWF ,EWA ,EKA ,FHT ,ENR ,ETV ,EJZ ,FCK ,EKB ,EQP ,EYB ,ELU ,FFD ,EJJ ,ETY ,EJS ,ERH ,FEA ,ETL ,EUS ,EOJ ,FBP ,FBT ,FAX ,EUR ,FKG ,ESV ,EKL ,EQV ,EMN ,FAL ,EJK ,EXN ,EVU ,EKN ,FET ,ETR ,FCO ,FDK ,EJY ,EJM ,EOX ,ESX ,EVV ,FKF ,EPE ,EQF ,ELG ,EJG ,EMA ,ERE ,EKT ,EML ,ESB ,EJF ,ESH ,EQX ,ENY ,EIV ,EZS ,EVP ,EVK ,ESN ,EWS ,EWV ,EVH ,EXC ,EJB ,EOT ,EUJ ,EOZ ,FDD ,FKB ,EPQ ,FHS ,EVQ ,EVC ,EOB ,EOE ,ETS ,EWQ ,EQI ,EZO ,EJT ,FKQ ,EXE ,EYS ,EJO ,EKM ,EUK ,ESW ,FMC ,EXK ,FBU ,EPK ,EMR ,EUP ,EJL ,EOO ,FJL ,EMT ,ERX ,FJN ,EQS ,EJD ,EPY ,FGC ,EZJ ,ETD ,ENV ,ENZ ,EKV ,EZH ,ETN ,EMZ ,EPL ,EXM ,FFV ,FGR ,EVG ,FMU ,ESC ,EVN ,EKR ,EMS ,EYZ ,FEP ,ELK ,EUO ,EJA ,ERD ,FCX ,ENW ,FHV ,FEQ ,ETH ,FEM ,EKJ ,EUF ,EZW ,FMD ,FBZ ,EOR ,EVD ,FIM ,FAI ,EXO ,ETQ ,EQN ,EXX ,FCZ ,EOM ,FLC ,ELO ,EKU ,EUG ,EKC ,FAO ,EXV ,FAE ,ESI ,EKO ,ERF ,EUZ ,ERT ,EVX ,EST ,FCH ,EMM ,EMV ,EUL ,ESO ,EVY ,EWR ,EVI ,EPA ,FDL ,ELX ,EZL ,FDE ,EPS ,FGZ ,ESD ,EME ,ELQ ,FAV ,FGG ,EQG ,ETE ,FDU ,EPT ,EKY ,FCY ,EZE ,EQR ,ENA ,ESG ,FKD ,FGB ,EOK ,EJI ,EXG ,EYK ,EVF ,EYD ,EOA ,EYO ,EYA ,EWO ,ENL ,ENC ,FAD ,FBA ,ERN ,EOY ,ETI ,FEV ,EOI ,FGQ ,FHW ,FEO ,EMG ,EKQ ,FHR ,EUX ,FAW ,EOW ,FMS ,ERK ,EVW ,ENJ ,FEB ,FDI ,ELR ,ENB ,EXY ,ENS ,ESL ,ELN ,FEW ,ENP ,EZQ ,ELM ,END ,EUN ,FMR ,EXZ ,EQW ,EKP ,FCP ,ELV =(~(999434792 +-999434804 ),293803472 +-261190122 -(518501587 -485888264 ),(92141284 ^118847649 )+-(180500424 ^145406443 ),250458557 -68917230 ^(665926648 ^761471609 ),~-479779052 +-(814460468 ^739473105 ),88006258 ^632205529 ^(886698130 ^340368921 ),355448136 +391523467 ^~-746971591 ,(460557650 ^854547989 )-(402536918 ^1046670133 ),569054856 +167622247 -(255469688 +481207349 ),(91965752 ^259128151 )+-(255677754 ^87549732 ),374102197 -122080121 ^~-252022038 ,(364835254 ^991149856 )+-(960188658 ^395714176 ),462456035 --391715304 +(367652590 +-1221823909 ),~-561610586 ^(547397889 ^31055382 ),~(627935153 +-627935192 ),(730616631 ^296742471 )+(445203523 +-1420624303 ),'11 naht ssel eb tsum sixa_x'[::-1 ],76092336 +66855432 -(365927878 ^491432092 ),22813076 --173125765 ^(383743223 ^494059242 ),168980045 --377563292 ^(116165220 ^645864596 ),codecs .decode ('001','rot13'),897903396 ^691013290 ^(250530635 ^307898063 ),296564337 ^1025909111 ^825043835 +-77730913 ,648398920 -480087667 ^~-168311249 ,828758976 +-44560888 ^(656834574 ^161180102 ),~-(675104468 ^675104506 ),618912617 +-441514898 ^550433857 -373036150 ,569289034 --124998084 ^207576544 +486710562 ,codecs .decode ('QNGN','rot13'),44402555 +76809 ^(907725655 ^884766968 ),870527344 +-303190544 +-~-567336752 ,~-(610545424 ^610545412 ),~(581411520 +-581411537 ),594355089 ^77362513 ^~-670127848 ,602228047 ^815848074 ^~-323330020 ,'!ytpmE si tsiL taeS eivoM ruoY'[::-1 ],660106740 ^198929571 ^(169014860 ^647100182 ),129742407 --791597041 -(923203431 ^32272767 ),329142910 ^923196678 ^(207237132 ^683851598 ),(158841254 ^433843324 )-(675263660 ^949215490 ),'TRATS'[::-1 ],codecs .decode ('','rot13'),~-620386658 +-(157018170 ^765571426 ),376057860 ^163333470 ^325940078 --208208349 ,26 !=26 ,678546845 ^420236027 ^(882043740 ^99576863 ),87072929 --31122696 ^834287709 +-716092021 ,199549275 --781261024 +-~-980810259 ,(681346308 ^652076931 )+-(872107453 ^1035612042 ),'EDOC'[::-1 ],(344380805 ^966231810 )+(799129135 -1555239027 ),~-315566048 ^634397327 -318831249 ,611633365 ^212105113 ^(740161107 ^80562461 ),854983889 ^312318191 ^902507007 -358583754 ,430620926 ^190742335 ^316641882 +1387897 ,~-917837000 ^(860026791 ^100131638 ),(421686067 ^795456311 )-(636321694 ^329689192 ),99 >=48 ,~(320730771 -320730804 ),585229819 ^175317466 ^(980271870 ^318703291 ),~(925567852 -925567894 ),~-132806885 ^~-132806908 ,(51508105 ^446592907 )-(414727830 ^20430195 ),832389821 ^812946963 ^603345851 -571244289 ,~-~-12 ,626648751 +-623959200 -(675217390 -672527878 ),not 37 ,606717860 ^189499006 ^846337732 +-51369169 ,555572318 ^1051873320 ^~-531565619 ,62311365 +164943501 +-(967397584 ^874705644 ),72 <=38 ,''.join ([chr (FNA ^11401 )for FNA in [11469 ,11464 ,11485 ,11464 ]]),~-~-94 ,~-493060231 +(933938006 +-1426998157 ),662292021 +167511291 ^(872216743 ^42546071 ),~-(716920092 ^716920102 ),~-(427931609 ^427931645 ),603497379 +325484680 -(96706415 ^849132411 ),''.join ([chr (FNB ^13270 )for FNB in [13307 ,13284 ]]),587806555 +259784441 -(10163573 +837427388 ),147575845 ^183684766 ^(928461265 ^896412525 ),~-990116497 ^(153594996 ^841242307 ),904655452 ^249785707 ^256709196 --733711580 ,~-189004883 +(495462925 -684467770 ),226117829 ^1058696081 ^180777470 +664383753 ,(718990338 ^982042258 )-(965301264 ^702250642 ),(325039796 ^222575610 )+-~-505122104 ,402576721 +359605262 +-(921631444 ^461570957 ),825669639 -397113783 +(723215655 -1151771484 ),371025224 +435315752 ^(861816909 ^55673101 ),926438974 ^439458225 ^858045004 -102427312 ,~-(876575923 ^876575930 ),~(372256778 -372256795 ),630588542 +-594519853 ^(662931794 ^631624766 ),593928742 +48756607 -(811031324 ^370786963 ),codecs .decode (b'303031','hex').decode ('utf-8'),599492096 ^393277590 ^~-885749431 ,29393552 ^770938378 ^120770693 +620774521 ,(507634427 ^297825865 )+-~-260150424 ,275546219 +718878597 ^(218174284 ^910468339 ),861796573 ^806913355 ^505102284 +-450216429 ,315863191 --268066071 ^(374882992 ^882265879 ),66871219 ^314947854 ^~-289007271 ,589836885 ^886740326 ^~-401778546 ,(96403074 ^425048808 )-(363694240 ^155634843 ),(946796956 ^229017354 )+(39766529 +-942098491 ),767149988 +-668198675 ^(140372243 ^230164884 ),~-76483930 ^(764232272 ^688017211 ),''.join ([chr (FNC ^4995 )for FNC in [5043 ]]),~-(446461108 ^446461106 ),(198830641 ^651737697 )+-(581350053 ^262660853 ),874335527 +-694300159 ^532979812 +-352944387 ,~-418078032 ^842854877 -424776853 ,~-(189546963 ^189546970 ),(260437182 ^486141250 )-(992834774 ^676425018 ),569054515 ^806300738 ^943670721 +-643501163 ,(562508956 ^87556863 )-(248976626 +367534373 ),564596611 ^465878073 ^(879189960 ^235203707 ),~(50320173 +-50320210 ),(407129010 ^932493099 )+-(993694418 ^350908043 ),~-(880083935 ^880083962 ),~-638658183 ^~-638658187 ,558924311 -195271479 ^58517573 +305135262 ,~(530122728 +-530122784 ),''[::-1 ],794134044 -103878422 ^(948054300 ^296115750 ),979092077 ^796244560 ^(46391456 ^401447042 ),~-150474284 ^~-150474243 ,(565395203 ^334681026 )-(922897826 ^88318258 ),915074072 ^535618325 ^~-694554429 ,817706101 -352594130 ^~-465111940 ,-(367966916 ^87656045 ^(185485834 ^467236514 )),~-402056969 ^(95044385 ^308061209 ),~-~-3 ,452373477 +-280545686 ^~-171827816 ,codecs .decode (b'5f5f6d61696e5f5f','hex').decode ('utf-8'),904912822 ^102478294 ^(298253533 ^573739746 ),502861054 -293508161 -~-209352859 ,430747808 ^80425036 ^28824508 --464497926 ,~-641637552 ^~-641637552 ,~-(386132482 ^386132523 ),bool (45 ),~-865209663 ^~-865209639 ,33511070 --567860892 ^(285705848 ^853521278 ),(200467435 ^377769818 )+-(480726963 ^30532376 ),~-890906582 +-(206071343 ^961692056 ),616679630 -371343027 -(734566928 ^626462741 ),681519539 -419522001 ^(91520124 ^183091157 ),~-(465265756 ^465265763 ),(712343505 ^1035261982 )+(478641411 +-877208704 ),~-(792514007 ^792514041 ),(935590283 ^670275728 )+(68111347 -339717346 ),774743957 ^843709372 ^(109652917 ^451770264 ),~-842370237 +-(913174869 ^72908281 ),~-8972017 -(37711388 -28739407 ),~-852607918 ^414950942 --437656945 ,~-(627875713 ^627875740 ),~-(921238586 ^921238588 ),~-~-46 ,(394171694 ^240292412 )-(21014823 ^409775648 ),615043575 ^593517036 ^513106722 -382524179 ,306780485 +460676695 ^909847810 -142390628 ,844498458 -212251242 ^(504895454 ^1001866310 ),858213048 +-757457475 ^(233031288 ^199405065 ),502594706 +-150523058 -(795797360 ^999475377 ),codecs .decode (b'4d6f76696520436f646520416c7265616479204578697374732120596f752053686f756c6420557365207570646174655f6d6f7669655f73656174735f6373762066756e6374696f6e21','hex').decode ('utf-8'),~-(911656736 ^911656750 ),920866327 ^590946171 ^435265919 -68636676 ,559231980 +5674044 -(430601938 ^939638516 ),64496250 ^112165266 ^(630887984 ^552416758 ),~-438296991 +(415288234 +-853585176 ),(656014424 ^827789336 )+(709795104 +-1084066132 ),921505168 ^997273384 ^(938380929 ^980593666 ),193250774 +-101995686 -(72731086 ^19249439 ),~-(386248953 ^386248923 ),not 38 ,(740086992 ^815735046 )-(751993844 ^810645051 ),879464024 -870478523 ^283171452 -274185901 ,~-718147003 ^(764309663 ^121666853 ),725210811 ^1005014320 ^(904318993 ^624446394 ),~-(438710266 ^438710216 ),729450076 +-192050289 ^(531936954 ^1069328249 ),codecs .decode ('-2','rot13'),~-452257482 ^(909266571 ^751216719 ),(224409094 ^3149258 )-(607901463 ^694938726 ),~(576790126 +-576790169 ),~-(302109385 ^302109377 ),(258124694 ^945191179 )-(29132806 --897075825 ),~-963203956 -~-963203951 ,331438090 --208117716 ^(508316027 ^1046789771 ),506388954 -127945670 -(310722966 --67720313 ),'DNE'[::-1 ],~(664164119 -664164165 ),~-817414115 +(513294098 -1330708167 ),752727399 --183569369 +-(549899375 ^386403677 ),~-642775381 ^566803451 --75971922 ,~-(894671211 ^894671205 ),908112341 ^393411788 ^(678315920 ^154929818 ),694780848 -265288836 ^910352244 +-480860215 ,630668063 --261337238 ^~-892005291 ,codecs .decode ('','rot13'),(929342029 ^738276656 )-(80058565 +379584137 ),~-(288819610 ^288819593 ),codecs .decode ('PBQR','rot13'),251383196 --141934747 ^(179248610 ^501126095 ),''.join ([chr (FND ^35776 )for FND in [35767 ]]),869288498 +-629540937 ^~-239747468 ,618674083 ^798145754 ^889380942 +-697324784 ,528031978 ^526747842 ^~-1878076 ,~-(653280672 ^653280702 ),408242355 -124102278 +-~-284140075 ,codecs .decode ('j','rot13'),456843440 ^488950975 ^81577451 +21063206 ,(803885693 ^104403997 )-~-701711927 ,(693018477 ^116641490 )+(75740555 -876676910 ),186906540 ^489061330 ^93131349 --276331033 ,~-(126022752 ^126022656 ),(326529779 ^115164864 )-(856935519 ^649656390 ),(61359695 ^883342184 )-(514600503 +409128646 ),(574070274 ^889568449 )-~-389161650 ,343512477 ^753208016 ^134893961 --814894533 ,~(687123929 -687123973 ),482159669 +-276489675 -(14356892 +191313063 ),~-514408766 -(959211763 ^663038406 ),625115458 --196157444 ^~-821272906 ,~-~-59 ,(856385574 ^681425830 )+-(401347626 ^209373013 ),~-(315330241 ^315330289 ),(493796744 ^60525288 )-(340613733 +178773184 ),574260289 ^618914062 ^181846404 -66935841 ,~-68590283 ^(642565508 ^576347925 ),(945122080 ^417834558 )-(390187743 ^938674129 ),176557993 +429614329 ^(416335089 ^1022472266 ),~-393698498 +-(576479775 ^892026553 ),156381059 ^48908454 ^828074555 +-631440136 ,~-23442173 ^~-23442143 ,~-(662239710 ^662239692 ),(306058032 ^243389299 )+-(386928008 ^196070856 ),~(27863281 -27863306 ),23 >=71 ,codecs .decode ('Zbivr Pbqr Qbrf Abg Rkvfg! Lbh Fubhyq Hfr nqq_zbivr_frngf_pfi shapgvba','rot13'),728645714 -126621654 ^185270987 --416753047 ,~-373341578 ^~-373341592 ,~-718060568 ^~-718060662 ,283474357 ^43694171 ^~-310362557 ,92308430 --254704304 ^~-347012699 ,749360856 ^670603917 ^142266917 +47708666 ,915231654 ^853652311 ^417713571 -343469225 ,~-581771298 +-(781943652 ^204907375 ),~-215372949 ^230634969 +-15261982 ,660633966 -528272333 ^(989946185 ^1021496573 ),~-~-35 ,715871339 ^454310184 ^618260189 --216368702 ,540071520 ^606204070 ^(384941650 ^316709027 ),449204345 ^753721263 ^(390181233 ^560676492 ),~-358570188 ^(545102210 ^891470206 ),~-562160917 +(766635851 +-1328796730 ),(14163810 ^739771065 )-(100715175 --650072855 ),985202874 +-416412438 ^823282571 +-254492111 ,codecs .decode (b'454e44','hex').decode ('utf-8'),51993440 ^679185316 ^506756003 +221140267 ,~-148850663 ^1707981 +147142657 ,(957325049 ^66448717 )-(382351406 ^741362563 ),435615291 ^550398877 ^721177919 --238833782 ,273657297 --535447419 ^501875718 --307229028 ,(171284933 ^1012203310 )-(77510602 ^855626050 ),~(596739794 -596739812 ),~-~-22 ,590723281 +-89572131 ^(584016384 ^1058117552 ),64710261 ^768962028 ^63220612 --709451783 ,363010695 --80621443 +-~-443632099 ,~(99726488 -99726523 ),codecs .decode (b'4d6f76696520436f646520416c7265616479204578697374732120596f752053686f756c6420557365207570646174655f6d6f7669655f73656174735f6373762066756e6374696f6e21','hex').decode ('utf-8'),(451428302 ^818505987 )-(624210274 ^253093842 ),codecs .decode ('-2','rot13'),~-436843021 +-(597583079 ^966251792 ),357623703 +498635317 ^~-856259025 ,395319820 +-342130067 ^~-53189756 ,~-646121292 ^~-646121286 ,347668673 -180311293 ^(80809705 ^220767545 ),~-423273234 ^16644913 +406628388 ,87392845 --586188647 ^(854061539 ^448919629 ),228197334 --194033476 -~-422230796 ,(799489756 ^681132834 )-(620651563 ^599792020 ),547673309 ^194159879 ^~-724988377 ,197768035 ^801656652 ^~-604109851 ,(779529471 ^752583889 )+-(711549819 ^683953010 ),~-868519945 +(999355254 +-1867875173 ),~-878013012 ^(247495038 ^982848268 ),~(596925574 -596925589 ),512330491 --76117534 +-(712721834 ^157828438 ),705828094 -367590790 +(304464737 -642701999 ),(849829591 ^335462356 )-(372471280 ^929731857 ),697381293 +77540084 ^691631114 --83290230 ,(467554996 ^250509095 )+-~-355476859 ,376419599 --35664114 +-~-412083636 ,682732736 ^519522938 ^(999806211 ^231814067 ),~-(270366377 ^270366435 ),586595615 ^453270924 ^(572319089 ^468583917 ),429350983 +445124840 ^(135367267 ^1007614847 ),361706188 --8831259 ^(700710280 ^1070993006 ),codecs .decode (b'6d6f7669655f736561742e637376','hex').decode ('utf-8'),(204614616 ^586042906 )+-(133573308 ^690638614 ),~-610151708 -(39273351 ^638152342 ),(42989443 ^522872864 )-~-497393524 ,122354266 --709792058 ^(253153546 ^1049582258 ),(813606936 ^925368577 )+-(769966981 ^716335745 ),not 35 ,825816432 ^852718391 ^(297533909 ^307726233 ),630335275 -455060742 +-(560469789 ^723152615 ),(173641010 ^631519957 )+(922673612 -1727830448 ),862312149 ^701721887 ^(859427232 ^697264654 ),~-(220483658 ^220483626 ),(738769743 ^762957833 )+-(47816661 ^61404410 ),391434075 --498025425 +(267130601 +-1156590031 ),(590204175 ^138437175 )-(448793682 ^833463146 ),499352705 ^929907573 ^(587648824 ^162007251 ),codecs .decode ('e','rot13'),(177467535 ^1051588229 )-~-876480005 ,163093930 ^196573062 ^(66995048 ^32614733 ),833752872 ^786073384 ^888011905 -361067607 ,876047494 -97138718 -(322064831 ^1029662092 ),806284547 +-191397860 ^338115604 +276771134 ,752632214 --120178372 -(896189493 +-23378944 ),590921213 ^86835334 ^(87170245 ^589799818 ),709477705 -537153032 +-(867183176 ^972381358 ),(227586822 ^240892775 )+-(441220440 ^428307722 ),378365802 --168991819 -(672196001 ^145810989 ),980555419 -847131671 +-(266504599 ^135359469 ),(563415407 ^320033153 )+-(240733029 ^1021252495 ),38152913 ^333359669 ^(306296960 ^64567420 ),(878487381 ^1011524586 )-(56483328 --79177355 ),387116231 ^196678951 ^742638304 +-261605612 ,354609924 ^207223263 ^589003176 +-161507099 ,508620709 ^776796031 ^~-807147740 ,(160157707 ^475579285 )-(602846635 ^910010092 ),218922817 +97693656 ^839219179 +-522602724 ,''.join ([chr (FNE ^1659 )for FNE in [1545 ]]),~-255458087 ^179856199 --75601962 ,(907185628 ^607524615 )-(480699937 -176311114 ),(475752178 ^202400625 )+-(827436749 ^555396029 ),147392805 ^422379233 ^~-300283895 ,~-535818762 ^(200879617 ^337042439 ),codecs .decode ('Lbhe Zbivr Frng Yvfg vf Rzcgl! Pnaabg Sbhaq gur zbivr pbqr!','rot13'),179626770 --268033543 +-(687489539 ^844399309 ),(257642430 ^145773932 )+(107508960 +-240357286 ),'TRATS'[::-1 ],623728927 -115896734 ^468435203 +39396996 ,69261766 ^421020891 ^(669774627 ^986934841 ),~-898563364 ^585227765 --313335612 ,922989848 ^465733800 ^(381032939 ^980886645 ),321483045 ^413884549 ^(952749802 ^860610414 ),310888665 --627098226 ^(207089393 ^1002399127 ),959960506 +-661634671 ^(990630390 ^717473509 ),(125924649 ^872753728 )+-(834626996 ^37436156 ),558940735 ^621175270 ^(638535238 ^576316891 ),293257840 ^417283956 ^175016155 +-13142991 ,668581813 -343880768 ^484858205 -160157166 ,553722388 +201293929 ^(712384407 ^125222376 ),322305020 +553333853 +-(136016780 ^1009402822 ),~-(341075051 ^341074993 ),235533050 -210390037 -(214175567 ^230402549 ),(471973700 ^792852865 )+-(872775430 ^124074367 ),70201877 ^270177600 ^508170485 -169109939 ,212359873 +568440859 ^(869235042 ^491088797 ),422789102 +-385164585 ^781811440 +-744186914 ,672589609 +-253719222 ^(127680239 ^527125141 ),~(646835666 -646835692 ),765985195 ^917872227 ^(958831039 ^574293592 ),~-699055027 ^224181630 --474873406 ,~-612884657 ^415591036 --197293573 ,438941040 --303024571 ^(669069160 ^198725747 ),~-~-46 ,253033023 ^1014053678 ^~-862306570 ,~-347576409 ^276477318 --71099079 ,~-(673855591 ^673855573 ),~-(308380688 ^308380707 ),619193962 ^505222006 ^394600996 --594547466 ,992491399 ^691588935 ^951864098 -648761986 ,(402235802 ^35578146 )-(358688906 ^8808472 ),415518754 --551490712 -(137099223 ^831034186 ),~-28069695 -(460167361 +-432097693 ),~-884399160 ^(813605368 ^80248297 ),909606863 -247055877 ^~-662550983 ,codecs .decode (b'434f4445','hex').decode ('utf-8'),816713456 ^430221566 ^(411087955 ^831132252 ),139483510 ^1049600664 ^(229620280 ^997212611 ),865352943 -304108259 ^(509616683 ^1058261025 ),(575556199 ^425963331 )-(563157751 ^448593410 ),744485881 +-257543028 -(851913409 +-364970564 ),~(922527430 -922527440 ),3235712 --521076271 -(942734900 -418422943 ),~-160763426 ^454444622 +-293681109 ,254377139 ^729136878 ^455823681 +154235159 ,~-(906571834 ^906571816 ),254097461 ^993980631 ^(733404661 ^531436831 ),~(659841716 -659841765 ),~-(438901718 ^438901654 ),(601767427 ^8315506 )-(839285484 ^296134330 ),662933764 -469773707 ^(512570546 ^353261542 ),''.join ([chr (FNF ^25988 )for FNF in [26102 ]]),codecs .decode (b'77','hex').decode ('utf-8'),~-998369849 ^(3824171 ^1002156093 ),(411506490 ^214373910 )+-(180414235 ^511764027 ),511476883 +-275127457 ^140469567 +95879785 ,836515437 ^6283640 ^(819045571 ^22180788 ),~-238338744 ^(431859651 ^394880337 ),~-583382332 -(164065771 ^721601779 ),~-730524851 ^~-730524913 ,~-911225618 +-(400983029 ^565621016 ),~(131390586 -131390605 ),243194544 -27883159 ^515641775 -300330401 ,codecs .decode ("Pnaabg svaq nal zbivr pbqr! 'PBQR' vf abg sbhaq!",'rot13'),663313916 +-649990063 +-(147258163 ^135116076 ),333139128 ^692686312 ^(193761870 ^824070941 ),221043033 +304527244 ^435350022 +90220214 ,314626977 ^996151219 ^(350351285 ^1027683242 ),~(781939870 -781939921 ),454576418 ^321709900 ^(12920183 ^150047547 ),582283729 --128399849 ^(496977932 ^935551931 ),''.join ([chr (FNG ^16125 )for FNG in [16056 ,16051 ,16057 ]]),678369371 ^621399666 ^104393861 --120449406 ,592749637 ^889002177 ^863567137 +-466567308 ,~-867190518 ^691264326 --175926190 ,32 ==32 ,~-(20134689 ^20134669 ),~-998990647 +-(682909216 ^322911426 ),959878776 ^365767977 ^~-754695019 ,797666048 -337183298 ^574783384 -114300684 ,803980717 -629949296 ^(390891734 ^487787255 ),986236135 ^541567520 ^(82679910 ^509802237 ),bool (22 ))
 
+def EKD (EKF ):
+    return True 
 
+def EKE (EKF ):
+    return EKF 
+EKG =lambda EKI :True 
+EKH =lambda EKI :EKI 
 
+class EIW :
 
-#Read seat data for a specific movie from a CSV file into a 2D list
-def read_movie_seats_csv(
-        movie_seats_csv: str,
-        movie_seats: list,
-        movie_code: str,
-        skip_valid_check: bool = False
-) -> None:
-    list_found = False
-    start_status = False
-    try:
-        if not skip_valid_check:
-            movie_seats_csv_valid_check(movie_seats_csv=movie_seats_csv)
-    except ValueError as e:
-        raise e
-    try:
-        movie_seats_csv_path = get_path(movie_seats_csv)
-        with open(movie_seats_csv_path, 'r') as ms_csv_r:
-            next(ms_csv_r)
-            for line in ms_csv_r:
-                if not line.strip(): continue
-                row = str_line_to_list(line)
+    @staticmethod 
+    def EIX (EIZ ):
+        return True 
 
-                if row and row[0] == "CODE" and row[1] == movie_code:
-                    list_found = True
-                    continue
+    @staticmethod 
+    def EIY (EIZ ):
+        return EIZ 
 
-                if row[0] == "START" and list_found:
-                    start_status = True
-                    continue
-                if row[0] == "END" and list_found:
-                    break
-                if start_status and list_found:
-                    movie_seats.append(row[1:])
-            if not list_found:
-                raise IndexError("Your Movie Seat List is Empty! Cannot Found the movie code!")
+def EJV (EJW ,EJX ):
+    try :
+        return EJW !=EJX 
+    except :
+        return not EJW ==EJX 
 
-    except FileNotFoundError:
-        raise FileNotFoundError(f"File not found!\nYour file name is {movie_seats_csv}.\nPlease Check The Name!")
-    except IndexError as e:
-        raise e
+def ELD (ELE ,ELF ):
+    try :
+        return ELE <ELF 
+    except :
+        return not ELE >=ELF 
 
-def read_movie_seats_csv_raw_data(
-        movie_seats_csv: str,
-        skip_check: bool = False
-) -> list:
-    raw_data: list = []
-    if not skip_check:movie_seats_csv_valid_check(movie_seats_csv= movie_seats_csv)
-    movie_seats_csv_path = get_path(movie_seats_csv)
-    try:
-        with open(movie_seats_csv_path, 'r') as ms_csv_r:
-            for lines in ms_csv_r:
-                row = str_line_to_list(lines)
-                raw_data.append(row)
-    except FileNotFoundError:
-        raise FileNotFoundError(f"READ RAW DATA FAILED!\nFILE:{movie_seats_csv} IS NOT FOUND!")
-    return raw_data
+def EMB (EMC ,EMD ):
+    try :
+        return EMC ==EMD 
+    except :
+        return not EMC !=EMD 
 
+def ENE (ENF ,ENG ):
+    try :
+        return ENF >=ENG 
+    except :
+        return not ENF <ENG 
 
+def ESP (ESQ ,ESR ):
+    try :
+        return ESQ <=ESR 
+    except :
+        return not ESQ >ESR 
 
-#Update seat data for a specific movie_code in the CSV file
-def update_movie_seats_csv (
-        movie_seats_csv: str,
-        movie_seats: list,
-        movie_code: str,
-        skip_valid_check: bool = False
-) -> None:
-    try:
-        if not skip_valid_check:
-            movie_seats_csv_valid_check(movie_seats_csv= movie_seats_csv)
-            movie_seats_valid_check(movie_seats_list=movie_seats)
-    except ValueError as e:
-        raise ValueError(f"Update Movie Seats Failed! Movie Seat List ERROR!\n {e}")
-    try:
-        movie_seats_csv_path = get_path(movie_seats_csv)
-        movie_seats_csv_temp_path = os.path.dirname(movie_seats_csv_path)
-        with (open(movie_seats_csv_path, 'r', newline='') as ms_csv_r,
-              open(os.path.join(movie_seats_csv_temp_path, f"{movie_seats_csv}.temp"), "w", newline='') as ms_csv_w):
-            list_found_all_times = False  # Track if movie_code was ever found
-            list_found = False  # Track if currently processing target movie_code
-            start_status = False  # Track if in START-END section
-            skip_status = False  # skip status for skipping old data
-            for lines in ms_csv_r:
-                row = str_line_to_list(lines)
+def EWI (EWJ ,EWK ):
+    try :
+        return EWJ >EWK 
+    except :
+        return not EWJ <=EWK 
 
-                if row and row[0] == "CODE" and row[1] == movie_code:                                #Found movie_code
-                    list_found = True
-                    list_found_all_times = True
-                    ms_csv_w.write(list_to_str_line(row))
-                    continue
+def EIQ (EIR ,EIS ,EIT ,EIU ):
+    EGI =EIV 
+    EGJ =EIV 
+    try :
+        EJE =EJU 
+        EJH =EJM 
+        if not EJA :
+            EJH =EJJ 
+        else :
+            EJH =EJI 
+        if EJH ==EJI :
+            if not EIW .EIX (EJB ):
+                EJH =EJK 
+            else :
+                EJH =EJL 
+        if EJH ==EJN :
+            EJE =EJG 
+        if EJH ==EJO :
+            EJE =EJF 
+        if EJE ==EJG :
+            EJR =EJY 
+            if not EIU :
+                EJR =EJS 
+            else :
+                EJR =EJT 
+            if EJR ==EJZ :
+                if EJV (EJC ,EJD ):
+                    EJR =EJU 
+                else :
+                    EJR =EJS 
+            if EJR ==EKA :
+                EJE =EJP 
+            if EJR ==EJU :
+                EJE =EJQ 
+        if EJE ==EJP :
+            EO (movie_seats_csv =EIS )
+        if EJE ==EKB :
+            pass 
+    except ValueError as e :
+        raise e 
+    try :
+        EGK =DG (EIS )
+        with open (EGK ,EKC )as EGL :
+            next (EGL )
+            for EGM in EGL :
+                EPV =ERB 
+                EPW =EJB 
+                if not EIW .EIX (EKJ ):
+                    EPW =ELB 
+                else :
+                    EPW =ELN 
+                if EPW ==EPB :
+                    if not EKG (EJD ):
+                        EPW =EOF 
+                    else :
+                        EPW =EPX 
+                if EPW ==EPY :
+                    EPV =EJI 
+                if EPW ==ELB :
+                    EPV =EMJ 
+                if EPV ==EJI :
+                    EPZ =EJT 
+                    EQB =EKL 
+                    EQC =EMQ 
+                    EQD =EJF 
+                    if not EKK :
+                        EQD =EOX 
+                    else :
+                        EQD =EQE 
+                    if EQD ==ELK :
+                        if not EKD (EKL ):
+                            EQD =EQF 
+                        else :
+                            EQD =EOX 
+                    if EQD ==EOX :
+                        EQC =EKR 
+                    if EQD ==EQG :
+                        EQC =EJC 
+                    if EQC ==EQM :
+                        EQH =EQK 
+                        if not EKM :
+                            EQH =EQJ 
+                        else :
+                            EQH =EQI 
+                        if EQH ==EOD :
+                            if not EKD (EKN ):
+                                EQH =EQJ 
+                            else :
+                                EQH =EJZ 
+                        if EQH ==EJZ :
+                            EQC =ENV 
+                        if EQH ==EQL :
+                            EQC =EPJ 
+                    if EQC ==EOK :
+                        EQB =ENN 
+                    if EQC ==EPT :
+                        EQB =EOP 
+                    if EQB ==EOP :
+                        EQO =ENT 
+                        EQQ =EPT 
+                        if not EJV (EKO ,EKO ):
+                            EQQ =EQR 
+                        else :
+                            EQQ =EKA 
+                        if EQQ ==EKA :
+                            if not EKP :
+                                EQQ =EQR 
+                            else :
+                                EQQ =EQS 
+                        if EQQ ==ELX :
+                            EQO =EQP 
+                        if EQQ ==EQT :
+                            EQO =EMW 
+                        if EQO ==EQY :
+                            EQU =EQX 
+                            if not EKQ :
+                                EQU =EOP 
+                            else :
+                                EQU =EQA 
+                            if EQU ==EQA :
+                                if not ENE (EKR ,EKS ):
+                                    EQU =EQW 
+                                else :
+                                    EQU =EQV 
+                            if EQU ==EOP :
+                                EQO =ENI 
+                            if EQU ==EQW :
+                                EQO =EOO 
+                        if EQO ==EOO :
+                            EQB =EJY 
+                        if EQO ==ENI :
+                            EQB =EQN 
+                    if EQB ==EJY :
+                        EPZ =EKJ 
+                    if EQB ==EQZ :
+                        EPZ =EQA 
+                    if EPZ ==ERA :
+                        if not EKJ :
+                            EPZ =EQA 
+                        else :
+                            EPZ =ENY 
+                    if EPZ ==EQA :
+                        EPV =ELU 
+                    if EPZ ==ENY :
+                        EPV =EKQ 
+                if EPV ==ERC :
+                    EKX =ELP 
+                    ELA =ELH 
+                    if ELD (EKT ,EKU ):
+                        ELA =ELC 
+                    else :
+                        ELA =ELB 
+                    if ELA ==ELI :
+                        if not EKD (EKV ):
+                            ELA =ELC 
+                        else :
+                            ELA =ELG 
+                    if ELA ==ELG :
+                        EKX =EKY 
+                    if ELA ==ELC :
+                        EKX =EKZ 
+                    if EKX ==EKZ :
+                        ELL =EJZ 
+                        if EJV (EKO ,EKW ):
+                            ELL =EKO 
+                        else :
+                            ELL =ELM 
+                        if ELL ==EKO :
+                            if not EGM .strip ():
+                                ELL =ELM 
+                            else :
+                                ELL =EKA 
+                        if ELL ==ELN :
+                            EKX =ELK 
+                        if ELL ==ELO :
+                            EKX =ELJ 
+                    if EKX ==ELJ :
+                        continue 
+                    if EKX ==ELQ :
+                        pass 
+                    EGN =FX (EGM )
+                    ELW =EMT 
+                    ELY =ELX 
+                    if EMB (ELR ,ELR ):
+                        ELY =EMA 
+                    else :
+                        ELY =ELZ 
+                    if ELY ==EMA :
+                        if not EKD (ELC ):
+                            ELY =EMF 
+                        else :
+                            ELY =EME 
+                    if ELY ==EMF :
+                        ELW =ELX 
+                    if ELY ==ELZ :
+                        ELW =EKR 
+                    if ELW ==EMU :
+                        EMI =EMR 
+                        EMK =EMM 
+                        if not EGN :
+                            EMK =EKK 
+                        else :
+                            EMK =ELX 
+                        if EMK ==EMH :
+                            if EJV (EGN [ELS ],ELT ):
+                                EMK =EKK 
+                            else :
+                                EMK =EJY 
+                        if EMK ==EMN :
+                            if EJV (EGN [ELO ],EIR ):
+                                EMK =EML 
+                            else :
+                                EMK =ELP 
+                        if EMK ==EMO :
+                            EMI =ELJ 
+                        if EMK ==EMP :
+                            EMI =EMJ 
+                        if EMI ==EMS :
+                            if not EKG (ELU ):
+                                EMI =EMJ 
+                            else :
+                                EMI =EMQ 
+                        if EMI ==EMQ :
+                            ELW =EMG 
+                        if EMI ==ELU :
+                            ELW =EMH 
+                    if ELW ==EMV :
+                        EGI =ELV 
+                        continue 
+                    if ELW ==ELX :
+                        pass 
+                    ENH =EMF 
+                    ENK =ENT 
+                    if not EMW :
+                        ENK =ENL 
+                    else :
+                        ENK =ENM 
+                    if ENK ==ENM :
+                        ENO =ENI 
+                        if not EJV (EGN [EMX ],EMY ):
+                            ENO =ENQ 
+                        else :
+                            ENO =ENP 
+                        if ENO ==ENQ :
+                            if not EGI :
+                                ENO =ENR 
+                            else :
+                                ENO =ENS 
+                        if ENO ==ENA :
+                            ENK =ENN 
+                        if ENO ==ENP :
+                            ENK =ENL 
+                    if ENK ==ENN :
+                        ENH =ENJ 
+                    if ENK ==ENU :
+                        ENH =ENI 
+                    if ENH ==ENI :
+                        ENX =EOA 
+                        if not ENE (EMZ ,ENA ):
+                            ENX =ENZ 
+                        else :
+                            ENX =ENY 
+                        if ENX ==EOB :
+                            if not EJV (ENB ,ENC ):
+                                ENX =ENZ 
+                            else :
+                                ENX =EJG 
+                        if ENX ==ENZ :
+                            ENH =ENW 
+                        if ENX ==EOC :
+                            ENH =ENV 
+                    if ENH ==ENW :
+                        EGJ =END 
+                        continue 
+                    if ENH ==ENV :
+                        pass 
+                    EOG =EPB 
+                    EOH =EOR 
+                    if not EKD (EOD ):
+                        EOH =ENV 
+                    else :
+                        EOH =EOI 
+                    if EOH ==EOS :
+                        EOL =EJY 
+                        if EJV (EGN [ELS ],EOE ):
+                            EOL =EOM 
+                        else :
+                            EOL =EOK 
+                        if EOL ==EOP :
+                            if not EGI :
+                                EOL =EOO 
+                            else :
+                                EOL =EON 
+                        if EOL ==ENL :
+                            EOH =EOJ 
+                        if EOL ==EOQ :
+                            EOH =EOK 
+                    if EOH ==EOT :
+                        EOG =EKW 
+                    if EOH ==ENV :
+                        EOG =EJP 
+                    if EOG ==EPC :
+                        EOV =EOZ 
+                        if not EKD (EMJ ):
+                            EOV =EOX 
+                        else :
+                            EOV =EOW 
+                        if EOV ==EOX :
+                            if not EKD (EOF ):
+                                EOV =ELZ 
+                            else :
+                                EOV =EOY 
+                        if EOV ==ELZ :
+                            EOG =EOU 
+                        if EOV ==EPA :
+                            EOG =EJP 
+                    if EOG ==EJP :
+                        pass 
+                    if EOG ==EJT :
+                        break 
+                    EPF =EMQ 
+                    EPG =EPM 
+                    EPI =EJU 
+                    if not EGJ :
+                        EPI =EMU 
+                    else :
+                        EPI =EOA 
+                    if EPI ==EPK :
+                        if not EGI :
+                            EPI =EPJ 
+                        else :
+                            EPI =ELK 
+                    if EPI ==ELK :
+                        EPG =ELC 
+                    if EPI ==EMU :
+                        EPG =EPH 
+                    if EPG ==EOJ :
+                        if not EKG (EKT ):
+                            EPG =EPL 
+                        else :
+                            EPG =EKT 
+                    if EPG ==EKT :
+                        EPF =EJU 
+                    if EPG ==EPH :
+                        EPF =EMU 
+                    if EPF ==EJU :
+                        EPP =EPR 
+                        if not ELD (EJF ,EPD ):
+                            EPP =EJM 
+                        else :
+                            EPP =EMJ 
+                        if EPP ==ELU :
+                            if not EKD (ELO ):
+                                EPP =EMW 
+                            else :
+                                EPP =EPQ 
+                        if EPP ==EPS :
+                            EPF =EPO 
+                        if EPP ==EMW :
+                            EPF =EPN 
+                    if EPF ==EPT :
+                        pass 
+                    if EPF ==EPU :
+                        EIT .append (EGN [EPE :])
+                if EPV ==ELU :
+                    pass 
+            ERG =ERN 
+            ERI =ERJ 
+            if not EGI :
+                ERI =ELH 
+            else :
+                ERI =EQW 
+            if ERI ==EOZ :
+                if not EIW .EIX (ERD ):
+                    ERI =ENA 
+                else :
+                    ERI =EJB 
+            if ERI ==ENS :
+                ERG =EON 
+            if ERI ==EJB :
+                ERG =ERH 
+            if ERG ==EKL :
+                ERL =EQE 
+                if not EKG (ERE ):
+                    ERL =EKY 
+                else :
+                    ERL =EKM 
+                if ERL ==EMM :
+                    if not EIW .EIX (EOC ):
+                        ERL =EMS 
+                    else :
+                        ERL =ERM 
+                if ERL ==EJG :
+                    ERG =ENL 
+                if ERL ==EOX :
+                    ERG =ERK 
+            if ERG ==ERK :
+                raise IndexError (ERF )
+            if ERG ==ERO :
+                pass 
+    except FileNotFoundError :
+        raise FileNotFoundError (f'File not found!\nYour file name is {EIS }.\nPlease Check The Name!')
+    except IndexError as e :
+        raise e 
 
-                if list_found and row and row[0] == "START":
-                    start_status = True
-                    start_header: list = header_create(
-                        header_text="START",
-                        movie_seats_length=len(movie_seats[0]) + 1,
-                        append_thing="-2"
-                    )
-                    ms_csv_w.write(list_to_str_line(start_header))
+def FF (movie_seats_csv :str ,movie_seats :list ,movie_code :str ,skip_valid_check :bool =False )->None :
+    return EIQ (movie_code ,movie_seats_csv ,movie_seats ,skip_valid_check )
 
-                if start_status:
+def ERP (ERQ ,ERR ):
+    EGO :list =[]
+    ERS =EPQ 
+    ERV =EMW 
+    if not ERQ :
+        ERV =EKO 
+    else :
+        ERV =ERW 
+    if ERV ==ERW :
+        if not EIW .EIX (EOY ):
+            ERV =EKO 
+        else :
+            ERV =EOA 
+    if ERV ==EOA :
+        ERS =ERT 
+    if ERV ==ERX :
+        ERS =ERU 
+    if ERS ==EKQ :
+        ESA =ESD 
+        if not EKD (EOA ):
+            ESA =ESC 
+        else :
+            ESA =ESB 
+        if ESA ==ESE :
+            if not EIW .EIX (ENA ):
+                ESA =EOB 
+            else :
+                ESA =EKN 
+        if ESA ==ENY :
+            ERS =ERZ 
+        if ESA ==ESF :
+            ERS =ERY 
+    if ERS ==ERY :
+        pass 
+    if ERS ==EMO :
+        EO (movie_seats_csv =ERR )
+    EGP =DG (ERR )
+    try :
+        with open (EGP ,EKC )as EGQ :
+            while (EIW .EIX (EOB )or not EIW .EIX (ESG ))and (not EKD (ERC )or not EKG (EJC ))or (not EON and ESH or (ENB >=ENR and EKD (EMM ))):
+                for EGR in EGQ :
+                    ESS =ETY 
+                    ESU =ERO 
+                    if not EJV (ESI ,ESJ ):
+                        ESU =ERJ 
+                    else :
+                        ESU =EJP 
+                    if ESU ==ERH :
+                        if not EKD (ESK ):
+                            ESU =ESL 
+                        else :
+                            ESU =ESV 
+                    if ESU ==ERM :
+                        ESS =EPA 
+                    if ESU ==ESW :
+                        ESS =EST 
+                    if ESS ==ERA :
+                        ESY =EPJ 
+                        ETA =ETE 
+                        ETB =ETL 
+                        ETC =EPA 
+                        if not EQW :
+                            ETC =ETD 
+                        else :
+                            ETC =EJQ 
+                        if ETC ==EKB :
+                            if not EQT :
+                                ETC =EQI 
+                            else :
+                                ETC =ETE 
+                        if ETC ==EJJ :
+                            ETB =ERT 
+                        if ETC ==ETF :
+                            ETB =ERE 
+                        if ETB ==EKQ :
+                            ETG =ETK 
+                            if not ESL :
+                                ETG =ETI 
+                            else :
+                                ETG =ETH 
+                            if ETG ==ETH :
+                                if not EKD (EOB ):
+                                    ETG =EPJ 
+                                else :
+                                    ETG =ETJ 
+                            if ETG ==ESD :
+                                ETB =EPO 
+                            if ETG ==EPT :
+                                ETB =EQV 
+                        if ETB ==EQV :
+                            ETA =ENN 
+                        if ETB ==ESF :
+                            ETA =EOD 
+                        if ETA ==ETV :
+                            ETM =ESF 
+                            ETO =ENR 
+                            if not ELD (ESM ,ENU ):
+                                ETO =EPS 
+                            else :
+                                ETO =EMU 
+                            if ETO ==EPQ :
+                                if not EJO :
+                                    ETO =EQZ 
+                                else :
+                                    ETO =EPT 
+                            if ETO ==EQZ :
+                                ETM =EML 
+                            if ETO ==EPJ :
+                                ETM =ETN 
+                            if ETM ==ETT :
+                                ETP =EST 
+                                if not EIW .EIX (EPJ ):
+                                    ETP =EOA 
+                                else :
+                                    ETP =EJI 
+                                if ETP ==ETR :
+                                    if not ESP (ESN ,EOO ):
+                                        ETP =ETQ 
+                                    else :
+                                        ETP =EPK 
+                                if ETP ==EOA :
+                                    ETM =ETI 
+                                if ETP ==ETS :
+                                    ETM =EKK 
+                            if ETM ==EKR :
+                                ETA =EJG 
+                            if ETM ==ETU :
+                                ETA =EQN 
+                        if ETA ==ENN :
+                            ESY =ESZ 
+                        if ETA ==ELJ :
+                            ESY =ESL 
+                        if ESY ==EJF :
+                            if not EKG (ESO ):
+                                ESY =ESV 
+                            else :
+                                ESY =EPC 
+                        if ESY ==ETW :
+                            ESS =ESX 
+                        if ESY ==ETX :
+                            ESS =EJM 
+                    if ESS ==EPS :
+                        pass 
+                    if ESS ==EMF :
+                        EGS =FX (EGR )
+                        EGO .append (EGS )
+                break 
+    except FileNotFoundError :
+        raise FileNotFoundError (f'READ RAW DATA FAILED!\nFILE:{ERR } IS NOT FOUND!')
+    return EGO 
 
-                    for i in range(0,len(movie_seats)):
-                        ms_csv_w.write(list_to_str_line(["DATA", *movie_seats[i][0:]]))     #Write row with empty first column
+def FG (movie_seats_csv :str ,skip_check :bool =False )->list :
+    return ERP (skip_check ,movie_seats_csv )
 
-                    end_header: list = header_create(
-                        header_text="END",
-                        movie_seats_length=len(movie_seats[0]) + 1,
-                        append_thing="-2"
-                    )
-                    ms_csv_w.write(list_to_str_line(end_header))
-                    start_status = False
-                    skip_status = True
-                    continue
+def ETZ (EUA ,EUB ,EUC ,EUD ):
+    try :
+        EUH =EUP 
+        EUI =ERC 
+        if not EUB :
+            EUI =EPK 
+        else :
+            EUI =EJB 
+        if EUI ==ESB :
+            if not EJV (ESZ ,EUE ):
+                EUI =EUJ 
+            else :
+                EUI =EOK 
+        if EUI ==ENV :
+            EUH =EMW 
+        if EUI ==ENT :
+            EUH =ERB 
+        if EUH ==EQY :
+            EUM =ELR 
+            if not ESP (EUF ,EUG ):
+                EUM =EJP 
+            else :
+                EUM =EJM 
+            if EUM ==EJF :
+                if not ENE (ESX ,EJB ):
+                    EUM =EOF 
+                else :
+                    EUM =EUN 
+            if EUM ==EOF :
+                EUH =EUL 
+            if EUM ==EUO :
+                EUH =EUK 
+        if EUH ==ELI :
+            pass 
+        if EUH ==ERB :
+            EO (movie_seats_csv =EUA )
+            ET (movie_seats_list =EUD )
+    except ValueError as e :
+        raise ValueError (f'Update Movie Seats Failed! Movie Seat List ERROR!\n {e }')
+    try :
+        EGT =DG (EUA )
+        EGU =os .path .dirname (EGT )
+        with open (EGT ,EKC ,newline =EUQ )as EGV ,open (os .path .join (EGU ,f'{EUA }.temp'),EUR ,newline =EUS )as EGW :
+            EGX =EUT 
+            EGY =EUU 
+            EGZ =EUU 
+            EHA =EIV 
+            if ((EKD (EPY )and EPN )and (EKG (EUV )or not EIW .EIX (ERN )))and ((EIW .EIX (ELP )or not EKD (EUW ))and (ESD or not EKD (EOR ))):
+                for EHB in EGV :
+                    EYV =EPC 
+                    EYW =ESC 
+                    EYX =EON 
+                    EYY =ELH 
+                    EZA =EJT 
+                    if ENE (EUX ,EUY ):
+                        EZA =EQN 
+                    else :
+                        EZA =ERW 
+                    if EZA ==EQN :
+                        if not EKG (ELS ):
+                            EZA =EJJ 
+                        else :
+                            EZA =EVB 
+                    if EZA ==EJJ :
+                        EYY =ESG 
+                    if EZA ==EUP :
+                        EYY =EYZ 
+                    if EYY ==EZE :
+                        EZC =EWZ 
+                        if EMB (EOS ,EUZ ):
+                            EZC =EVC 
+                        else :
+                            EZC =EWR 
+                        if EZC ==ELH :
+                            if not EPE :
+                                EZC =ENV 
+                            else :
+                                EZC =EZD 
+                        if EZC ==EQV :
+                            EYY =EPN 
+                        if EZC ==ESV :
+                            EYY =EZB 
+                    if EYY ==EPJ :
+                        EYX =EJL 
+                    if EYY ==EZB :
+                        EYX =EQI 
+                    if EYX ==ETF :
+                        EZF =ERX 
+                        EZG =EST 
+                        if ELD (EVA ,ESC ):
+                            EZG =EWR 
+                        else :
+                            EZG =EOA 
+                        if EZG ==ENT :
+                            if not EKD (EQT ):
+                                EZG =ETR 
+                            else :
+                                EZG =EZH 
+                        if EZG ==ELH :
+                            EZF =EPH 
+                        if EZG ==EJI :
+                            EZF =EPN 
+                        if EZF ==EPL :
+                            EZI =EZJ 
+                            if not ELR :
+                                EZI =EZE 
+                            else :
+                                EZI =ENP 
+                            if EZI ==ENP :
+                                if ELD (ETS ,EVB ):
+                                    EZI =EST 
+                                else :
+                                    EZI =ENT 
+                            if EZI ==EYO :
+                                EZF =EZD 
+                            if EZI ==EOA :
+                                EZF =EPN 
+                        if EZF ==ERM :
+                            EYX =EJJ 
+                        if EZF ==EPN :
+                            EYX =EXG 
+                    if EYX ==EZK :
+                        EYW =EPE 
+                    if EYX ==ETE :
+                        EYW =EMH 
+                    if EYW ==EVB :
+                        if not EKG (EVC ):
+                            EYW =EVG 
+                        else :
+                            EYW =EKO 
+                    if EYW ==EYD :
+                        EYV =ETS 
+                    if EYW ==EZL :
+                        EYV =EJU 
+                    if EYV ==EPH :
+                        EZM =EMU 
+                        if not EIW .EIX (EQJ ):
+                            EZM =EZN 
+                        else :
+                            EZM =ENY 
+                        if EZM ==EZP :
+                            if not EKD (ERA ):
+                                EZM =EUG 
+                            else :
+                                EZM =EZO 
+                        if EZM ==EVP :
+                            EYV =EJU 
+                        if EZM ==EKL :
+                            EYV =EVS 
+                    if EYV ==EZQ :
+                        pass 
+                    if EYV ==ESD :
+                        EHC =FX (EHB )
+                        EVJ =EVW 
+                        EVL =ELR 
+                        if ELD (EVD ,EUG ):
+                            EVL =EKN 
+                        else :
+                            EVL =EVM 
+                        if EVL ==EVS :
+                            EVO =EJB 
+                            if not EHC :
+                                EVO =EPY 
+                            else :
+                                EVO =EQY 
+                            if EVO ==ETL :
+                                if EJV (EHC [EVE ],EVF ):
+                                    EVO =EOR 
+                                else :
+                                    EVO =EVP 
+                            if EVO ==EVR :
+                                if EJV (EHC [EVG ],EUC ):
+                                    EVO =EVQ 
+                                else :
+                                    EVO =EPS 
+                            if EVO ==EVQ :
+                                EVL =ERE 
+                            if EVO ==EPS :
+                                EVL =EVN 
+                        if EVL ==ERE :
+                            EVJ =ERC 
+                        if EVL ==ETQ :
+                            EVJ =EVK 
+                        if EVJ ==EJK :
+                            EVT =ERB 
+                            if ENE (EOJ ,EVH ):
+                                EVT =EPX 
+                            else :
+                                EVT =EMR 
+                            if EVT ==EVU :
+                                if ELD (EVI ,EJF ):
+                                    EVT =EOR 
+                                else :
+                                    EVT =EKO 
+                            if EVT ==EVV :
+                                EVJ =EPX 
+                            if EVT ==EOR :
+                                EVJ =ERT 
+                        if EVJ ==EKQ :
+                            pass 
+                        if EVJ ==EPX :
+                            EGY =END 
+                            EGX =END 
+                            EGW .write (DY (EHC ))
+                            continue 
+                        EWB =ETN 
+                        EWD =EVQ 
+                        EWE =EVP 
+                        if not EGY :
+                            EWE =ELC 
+                        else :
+                            EWE =EOF 
+                        if EWE ==EWF :
+                            if not EHC :
+                                EWE =EQG 
+                            else :
+                                EWE =ESK 
+                        if EWE ==EJC :
+                            if EJV (EHC [EMX ],EVX ):
+                                EWE =EQF 
+                            else :
+                                EWE =ESX 
+                        if EWE ==EOJ :
+                            EWD =ETV 
+                        if EWE ==EPA :
+                            EWD =ENW 
+                        if EWD ==ETF :
+                            if not EIW .EIX (ELH ):
+                                EWD =EVS 
+                            else :
+                                EWD =EME 
+                        if EWD ==EME :
+                            EWB =EWC 
+                        if EWD ==ENJ :
+                            EWB =ELJ 
+                        if EWB ==ENI :
+                            EWG =ERH 
+                            if EWI (EVY ,EMR ):
+                                EWG =EWH 
+                            else :
+                                EWG =EMF 
+                            if EWG ==EKB :
+                                if not EKD (EUO ):
+                                    EWG =EOY 
+                                else :
+                                    EWG =EPC 
+                            if EWG ==EWL :
+                                EWB =EJG 
+                            if EWG ==EWM :
+                                EWB =ESX 
+                        if EWB ==EWN :
+                            EGZ =EVZ 
+                            EHD :list =DL (header_text =EVX ,movie_seats_length =len (EUD [EVE ])+EVG ,append_thing =EWA )
+                            EGW .write (DY (EHD ))
+                        if EWB ==EWO :
+                            pass 
+                        EXT =EJG 
+                        EXU =EME 
+                        if not EKG (ERX ):
+                            EXU =ESG 
+                        else :
+                            EXU =EVW 
+                        if EXU ==EKM :
+                            if not EKD (ERW ):
+                                EXU =EMO 
+                            else :
+                                EXU =ESG 
+                        if EXU ==ENA :
+                            EXT =EWL 
+                        if EXU ==EQA :
+                            EXT =EQN 
+                        if EXT ==EOY :
+                            EXW =EXX 
+                            if EWI (EWP ,EUJ ):
+                                EXW =ELJ 
+                            else :
+                                EXW =ETJ 
+                            if EXW ==EOC :
+                                if not EGZ :
+                                    EXW =ELN 
+                                else :
+                                    EXW =EVM 
+                            if EXW ==ESD :
+                                EXT =EMR 
+                            if EXW ==EXY :
+                                EXT =EXV 
+                        if EXT ==EVU :
+                            for EHE in range (EMX ,len (EUD )):
+                                EWU =ETN 
+                                EWW =EJC 
+                                if EMB (EMZ ,ESI ):
+                                    EWW =EUN 
+                                else :
+                                    EWW =ENY 
+                                if EWW ==ENY :
+                                    if not ELB :
+                                        EWW =EPR 
+                                    else :
+                                        EWW =EUV 
+                                if EWW ==EPU :
+                                    EWU =EMP 
+                                if EWW ==EUV :
+                                    EWU =EWV 
+                                if EWU ==ERB :
+                                    EWX =ENT 
+                                    if not EIW .EIX (ENV ):
+                                        EWX =EKQ 
+                                    else :
+                                        EWX =EVB 
+                                    if EWX ==EUP :
+                                        EWY =EOO 
+                                        EXA =EMQ 
+                                        EXB =EXC 
+                                        if not EIW .EIX (ESO ):
+                                            EXB =EJG 
+                                        else :
+                                            EXB =EMO 
+                                        if EXB ==ELP :
+                                            if not EIW .EIX (EWQ ):
+                                                EXB =EWN 
+                                            else :
+                                                EXB =EJB 
+                                        if EXB ==EWN :
+                                            EXA =ETF 
+                                        if EXB ==ESE :
+                                            EXA =EJT 
+                                        if EXA ==EXG :
+                                            EXD =EXE 
+                                            if ESP (EML ,ERM ):
+                                                EXD =ELB 
+                                            else :
+                                                EXD =EQN 
+                                            if EXD ==EQN :
+                                                if not EOC :
+                                                    EXD =EUK 
+                                                else :
+                                                    EXD =ELK 
+                                            if EXD ==EWQ :
+                                                EXA =ERB 
+                                            if EXD ==EXF :
+                                                EXA =ETF 
+                                        if EXA ==EOD :
+                                            EWY =EWZ 
+                                        if EXA ==ERB :
+                                            EWY =ENP 
+                                        if EWY ==EXN :
+                                            EXI =EQP 
+                                            EXJ =EMW 
+                                            if not EIW .EIX (EWC ):
+                                                EXJ =EXK 
+                                            else :
+                                                EXJ =EUJ 
+                                            if EXJ ==ENT :
+                                                if not EKG (EWR ):
+                                                    EXJ =ESG 
+                                                else :
+                                                    EXJ =EOK 
+                                            if EXJ ==ENA :
+                                                EXI =EPY 
+                                            if EXJ ==EOK :
+                                                EXI =EUK 
+                                            if EXI ==ELI :
+                                                EXL =EXM 
+                                                if not EKG (EWS ):
+                                                    EXL =EKZ 
+                                                else :
+                                                    EXL =EPK 
+                                                if EXL ==EPK :
+                                                    if not ENW :
+                                                        EXL =EQS 
+                                                    else :
+                                                        EXL =EKZ 
+                                                if EXL ==EMQ :
+                                                    EXI =EOR 
+                                                if EXL ==EJS :
+                                                    EXI =ENR 
+                                            if EXI ==ENP :
+                                                EWY =ESW 
+                                            if EXI ==EPY :
+                                                EWY =EXH 
+                                        if EWY ==ESL :
+                                            EWX =EPE 
+                                        if EWY ==EXO :
+                                            EWX =EKQ 
+                                    if EWX ==ERC :
+                                        EWU =EVW 
+                                    if EWX ==ELM :
+                                        EWU =ETU 
+                                if EWU ==EML :
+                                    EGW .write (DY ([EWT ,*EUD [EHE ][EVE :]]))
+                                if EWU ==EKM :
+                                    pass 
+                            EHF :list =DL (header_text =EOE ,movie_seats_length =len (EUD [EXP ])+ELM ,append_thing =EXQ )
+                            EGW .write (DY (EHF ))
+                            EGZ =EXR 
+                            EHA =EXS 
+                            continue 
+                        if EXT ==EXV :
+                            pass 
+                        EYL =ESO 
+                        EYM =EYN 
+                        if not EKD (EXZ ):
+                            EYM =EVP 
+                        else :
+                            EYM =EST 
+                        if EYM ==EYO :
+                            if not EWI (EYA ,ESX ):
+                                EYM =EJK 
+                            else :
+                                EYM =ETV 
+                        if EYM ==EJK :
+                            EYL =ENR 
+                        if EYM ==EYP :
+                            EYL =EOS 
+                        if EYL ==EOI :
+                            EYQ =EJC 
+                            EYR =EYA 
+                            if not EGY :
+                                EYR =ESF 
+                            else :
+                                EYR =EQM 
+                            if EYR ==EJC :
+                                if not EHC :
+                                    EYR =ERE 
+                                else :
+                                    EYR =ELZ 
+                            if EYR ==EYT :
+                                if not EJV (EHC [EXP ],EYB ):
+                                    EYR =EYS 
+                                else :
+                                    EYR =ESF 
+                            if EYR ==EYU :
+                                EYQ =ELM 
+                            if EYR ==EPR :
+                                EYQ =EVB 
+                            if EYQ ==EYH :
+                                if not EIW .EIX (ENY ):
+                                    EYQ =EMH 
+                                else :
+                                    EYQ =EST 
+                            if EYQ ==EVB :
+                                EYL =EWR 
+                            if EYQ ==EKJ :
+                                EYL =ENZ 
+                        if EYL ==ENR :
+                            EHA =EUT 
+                            EGY =EXR 
+                            continue 
+                        if EYL ==EWR :
+                            EYC =ELB 
+                            EYE =EMO 
+                            if not EIW .EIX (EQG ):
+                                EYE =EYF 
+                            else :
+                                EYE =ELM 
+                            if EYE ==EPE :
+                                if not EHA :
+                                    EYE =EYG 
+                                else :
+                                    EYE =EJZ 
+                            if EYE ==EJT :
+                                EYC =EWO 
+                            if EYE ==ETL :
+                                EYC =EYD 
+                            if EYC ==EWO :
+                                EYI =EJY 
+                                if not EKG (EPE ):
+                                    EYI =EVK 
+                                else :
+                                    EYI =EUY 
+                                if EYI ==ESB :
+                                    if EMB (EOU ,EVR ):
+                                        EYI =EYJ 
+                                    else :
+                                        EYI =EVP 
+                                if EYI ==EUG :
+                                    EYC =ETS 
+                                if EYI ==EYK :
+                                    EYC =EYH 
+                            if EYC ==EPH :
+                                continue 
+                            if EYC ==EVG :
+                                pass 
+                        EGW .write (DY (EHC ))
+            EZT =EUG 
+            EZU =ETF 
+            if not EIW .EIX (ENZ ):
+                EZU =EPJ 
+            else :
+                EZU =EUJ 
+            if EZU ==EOA :
+                if not EJV (EZR ,EJA ):
+                    EZU =EMU 
+                else :
+                    EZU =EVR 
+            if EZU ==EVP :
+                EZT =ENM 
+            if EZU ==ETI :
+                EZT =ELJ 
+            if EZT ==EPL :
+                EZV =ETL 
+                if not EJV (EGX ,EIV ):
+                    EZV =ESB 
+                else :
+                    EZV =ENR 
+                if EZV ==ESE :
+                    if not EVN :
+                        EZV =EZW 
+                    else :
+                        EZV =EQA 
+                if EZV ==ELP :
+                    EZT =EKY 
+                if EZV ==EZW :
+                    EZT =ELK 
+            if EZT ==EWN :
+                raise ValueError (EZS )
+            if EZT ==EXF :
+                pass 
+    except FileNotFoundError as e :
+        raise FileNotFoundError (f'Update Movie Seats Failed! \nCannot Find the File!\nFile name: {EUA }')
+    except ValueError as e :
+        raise ValueError (f'Update Movie Seats Failed!\n{e }')
+    EW (overwrited_file_csv =EUA ,original_file_csv =f'{EUA }.temp')
 
-                if list_found and row and row[0] == "END":     #Found END marker
-                    skip_status = False
-                    list_found = False
-                    continue
-                elif skip_status:
-                    continue
+def GI (movie_seats_csv :str ,movie_seats :list ,movie_code :str ,skip_valid_check :bool =False )->None :
+    return ETZ (movie_seats_csv ,skip_valid_check ,movie_code ,movie_seats )
 
-                ms_csv_w.write(list_to_str_line(row))            #Copy other rows to temporary file
-            if list_found_all_times == False:               #Movie_code not found
-                raise ValueError("Movie Code Does Not Exist! You Should Use add_movie_seats_csv function")
-    except FileNotFoundError as e:
-        raise FileNotFoundError(f"Update Movie Seats Failed! \nCannot Find the File!"
-                                f"\nFile name: {movie_seats_csv}")
-    except ValueError as e:
-        raise ValueError(f"Update Movie Seats Failed!\n{e}")
-    overwrite_file(overwrited_file_csv= movie_seats_csv, original_file_csv=f"{movie_seats_csv}.temp")   #Overwrite original file
+def EZX (EZY ,EZZ ,FAA ,FAB ,FAC ):
+    try :
+        FAF =EUV 
+        FAH =EXK 
+        if ENE (ELP ,FAD ):
+            FAH =ELR 
+        else :
+            FAH =EJS 
+        if FAH ==EKZ :
+            if not EZZ :
+                FAH =FAI 
+            else :
+                FAH =EJA 
+        if FAH ==EMN :
+            FAF =FAG 
+        if FAH ==FAI :
+            FAF =ESO 
+        if FAF ==FAG :
+            FAK =EQF 
+            if EWI (EOX ,FAE ):
+                FAK =EQP 
+            else :
+                FAK =EJP 
+            if FAK ==ENI :
+                if not EJI :
+                    FAK =EJP 
+                else :
+                    FAK =EJY 
+            if FAK ==EJA :
+                FAF =FAJ 
+            if FAK ==ESL :
+                FAF =EMJ 
+        if FAF ==ENQ :
+            pass 
+        if FAF ==EMJ :
+            ET (movie_seats_list =FAC )
+            EO (movie_seats_csv =FAB )
+    except ValueError as e :
+        raise ValueError (f'Add Movie Seats Failed! Movie Seat List ERROR! {e }')
+    EHG =DG (FAB )
+    EHH =os .path .dirname (EHG )
+    try :
+        with open (EHG ,EKC ,newline =EUS )as EHI ,open (os .path .join (EHH ,f'{FAB }.temp'),FAL ,newline =EUS )as EHJ :
+            for FAM in range (EJP ,EOZ ,FAN ):
+                for EHK in EHI :
+                    FBC =EPA 
+                    FBD =EWV 
+                    if not EJV (ETL ,EYF ):
+                        FBD =EYZ 
+                    else :
+                        FBD =FBE 
+                    if FBD ==EUJ :
+                        FBG =FBP 
+                        FBI =FAG 
+                        FBJ =EOY 
+                        if not EWI (EJZ ,EKO ):
+                            FBJ =EYG 
+                        else :
+                            FBJ =ESV 
+                        if FBJ ==ESV :
+                            if not EQL :
+                                FBJ =ETH 
+                            else :
+                                FBJ =EPK 
+                        if FBJ ==ETH :
+                            FBI =ESH 
+                        if FBJ ==EZE :
+                            FBI =EPU 
+                        if FBI ==EPR :
+                            FBK =EMG 
+                            if not EKD (EMW ):
+                                FBK =EZO 
+                            else :
+                                FBK =ELQ 
+                            if FBK ==EQE :
+                                if not EUW :
+                                    FBK =EWV 
+                                else :
+                                    FBK =ERH 
+                            if FBK ==ERH :
+                                FBI =EKJ 
+                            if FBK ==FBL :
+                                FBI =EJU 
+                        if FBI ==FBB :
+                            FBG =EOF 
+                        if FBI ==EZQ :
+                            FBG =FBH 
+                        if FBG ==EUK :
+                            FBM =ERZ 
+                            FBN =EQL 
+                            if not EJV (ENB ,EOK ):
+                                FBN =ESK 
+                            else :
+                                FBN =FAV 
+                            if FBN ==ERO :
+                                if not EWI (ERE ,ETK ):
+                                    FBN =EQT 
+                                else :
+                                    FBN =EJJ 
+                            if FBN ==ETE :
+                                FBM =EPN 
+                            if FBN ==EQR :
+                                FBM =EVS 
+                            if FBM ==EPJ :
+                                FBO =ERW 
+                                if not EIW .EIX (FAO ):
+                                    FBO =EMH 
+                                else :
+                                    FBO =EKO 
+                                if FBO ==EVV :
+                                    if not EVM :
+                                        FBO =EMQ 
+                                    else :
+                                        FBO =ELB 
+                                if FBO ==EUP :
+                                    FBM =EVM 
+                                if FBO ==EOF :
+                                    FBM =EKO 
+                            if FBM ==EKO :
+                                FBG =EWL 
+                            if FBM ==ENJ :
+                                FBG =FBB 
+                        if FBG ==EWL :
+                            FBD =FBF 
+                        if FBG ==EKJ :
+                            FBD =EMO 
+                    if FBD ==EQN :
+                        FBC =EYT 
+                    if FBD ==FBQ :
+                        FBC =EKM 
+                    if FBC ==FBP :
+                        FBS =ENZ 
+                        if not EMB (FAP ,EJF ):
+                            FBS =EMH 
+                        else :
+                            FBS =EQF 
+                        if FBS ==EQS :
+                            if not ELD (EZP ,EJB ):
+                                FBS =EUK 
+                            else :
+                                FBS =EYA 
+                        if FBS ==EUK :
+                            FBC =EJB 
+                        if FBS ==EOT :
+                            FBC =FBR 
+                    if FBC ==EOW :
+                        pass 
+                    if FBC ==EUY :
+                        EHL =FX (EHK )
+                        EHJ .write (DY (EHL ))
+                        FAS =EZN 
+                        FAT =FAV 
+                        if not EJO :
+                            FAT =EOJ 
+                        else :
+                            FAT =FAU 
+                        if FAT ==FAW :
+                            if not EIW .EIX (EWN ):
+                                FAT =EQG 
+                            else :
+                                FAT =EMT 
+                        if FAT ==FAX :
+                            FAS =ELN 
+                        if FAT ==EYA :
+                            FAS =ESC 
+                        if FAS ==EJS :
+                            FAY =ENV 
+                            if not EKD (EMJ ):
+                                FAY =EPB 
+                            else :
+                                FAY =ELP 
+                            if FAY ==EQA :
+                                FAZ =EOM 
+                                if not EHL :
+                                    FAZ =EWC 
+                                else :
+                                    FAZ =ENL 
+                                if FAZ ==EON :
+                                    if EJV (EHL [FAQ ],EVF ):
+                                        FAZ =FBA 
+                                    else :
+                                        FAZ =EWR 
+                                if FAZ ==EZH :
+                                    if EJV (EHL [ELO ],FAA ):
+                                        FAZ =ENI 
+                                    else :
+                                        FAZ =EWF 
+                                if FAZ ==ENI :
+                                    FAY =EXH 
+                                if FAZ ==EOF :
+                                    FAY =EJS 
+                            if FAY ==EPC :
+                                FAS =EZP 
+                            if FAY ==EKA :
+                                FAS =ERA 
+                        if FAS ==ENY :
+                            pass 
+                        if FAS ==FBB :
+                            raise ValueError (FAR )
+            EHM =len (CH (FAC ))
+            EHN :list =DL (header_text =FBT ,movie_seats_length =EHM +ELO ,append_thing =EUQ )
+            EHN [ELM ]=FAA 
+            EHN [ELX ]=EZY 
+            EHO :list =DL (header_text =EVX ,movie_seats_length =EHM +EYH ,append_thing =FBU )
+            EHJ .write (DY (EHN ))
+            EHJ .write (DY (EHO ))
+            for FBV in [EOM ]:
+                for FBW in [EQZ ]:
+                    for EHL in FAC :
+                        FCB =ETR 
+                        FCC =FBB 
+                        FCD =ENY 
+                        FCF =FCK 
+                        FCG =EQW 
+                        if EJV (FBQ ,EQA ):
+                            FCG =EOD 
+                        else :
+                            FCG =EMV 
+                        if FCG ==EKB :
+                            if not ENJ :
+                                FCG =EKA 
+                            else :
+                                FCG =EOD 
+                        if FCG ==ELN :
+                            FCF =ERT 
+                        if FCG ==FCH :
+                            FCF =EYT 
+                        if FCF ==EOW :
+                            FCI =ELC 
+                            if not EKD (EOJ ):
+                                FCI =EYK 
+                            else :
+                                FCI =EZO 
+                            if FCI ==EYK :
+                                if not EOR :
+                                    FCI =EKL 
+                                else :
+                                    FCI =EZH 
+                            if FCI ==EKL :
+                                FCF =FBY 
+                            if FCI ==FCJ :
+                                FCF =ETF 
+                        if FCF ==ERT :
+                            FCD =FCE 
+                        if FCF ==ETF :
+                            FCD =ESK 
+                        if FCD ==FCP :
+                            FCL =EWQ 
+                            FCM =EWR 
+                            if not EKD (EYP ):
+                                FCM =EKP 
+                            else :
+                                FCM =EXF 
+                            if FCM ==EQJ :
+                                if EWI (FBX ,FBY ):
+                                    FCM =EYZ 
+                                else :
+                                    FCM =ELQ 
+                            if FCM ==EQE :
+                                FCL =EYF 
+                            if FCM ==ENT :
+                                FCL =FBY 
+                            if FCL ==ETL :
+                                FCN =EQI 
+                                if not EKD (EOR ):
+                                    FCN =FCO 
+                                else :
+                                    FCN =ELU 
+                                if FCN ==ELU :
+                                    if ENE (EWM ,FBZ ):
+                                        FCN =ENR 
+                                    else :
+                                        FCN =EWH 
+                                if FCN ==ENZ :
+                                    FCL =EKQ 
+                                if FCN ==EWH :
+                                    FCL =EPL 
+                            if FCL ==ETQ :
+                                FCD =ETL 
+                            if FCL ==ERT :
+                                FCD =EQR 
+                        if FCD ==ETL :
+                            FCC =EOX 
+                        if FCD ==EJC :
+                            FCC =EJJ 
+                        if FCC ==ETE :
+                            if not FAW :
+                                FCC =ESZ 
+                            else :
+                                FCC =FBA 
+                        if FCC ==FCK :
+                            FCB =ETI 
+                        if FCC ==ESZ :
+                            FCB =EQP 
+                        if FCB ==FCR :
+                            FCQ =EKT 
+                            if not ENM :
+                                FCQ =EUY 
+                            else :
+                                FCQ =EUP 
+                            if FCQ ==EMH :
+                                if not EKG (ENA ):
+                                    FCQ =EQY 
+                                else :
+                                    FCQ =ESB 
+                            if FCQ ==EJB :
+                                FCB =EOO 
+                            if FCQ ==EQY :
+                                FCB =EPJ 
+                        if FCB ==FAG :
+                            EHJ .write (DY ([FCA ,*EHL ]))
+                        if FCB ==EPJ :
+                            pass 
+            EHP :list =DL (header_text =EYB ,movie_seats_length =EHM +EYH ,append_thing =EXQ )
+            EHJ .write (DY (EHP ))
+        EW (overwrited_file_csv =FAB ,original_file_csv =f'{FAB }.temp')
+    except ValueError as e :
+        raise ValueError (f'Add Movie Seats Failed!\n{e }')
+    except FileNotFoundError as e :
+        raise FileNotFoundError (f'Update Movie Seats Failed!\nCannot Find the File!\nFile name: {FAB }\nFile path: {EHG })')
+    except Exception as e :
+        raise Exception (f'Add Movie Seats Failed\nUnknown Error!\n{e }')
 
-#Add a new seat table for a movie_code to the CSV file
-def add_movie_seats_csv (
-        movie_seats_csv: str,
-        movie_seats: list,
-        movie_code: str,
-        template_code: str,
-        skip_valid_check: bool = False
-) -> None:
-    try:
-        if not skip_valid_check:
-            movie_seats_valid_check(movie_seats_list=movie_seats)
-            movie_seats_csv_valid_check(movie_seats_csv=movie_seats_csv)
-    except ValueError as e:
-        raise ValueError (f"Add Movie Seats Failed! Movie Seat List ERROR! {e}")
-    movie_seats_csv_path = get_path(movie_seats_csv)
-    movie_seats_csv_temp_path = os.path.dirname(movie_seats_csv_path)
-    try:
-        with (open(movie_seats_csv_path, 'r', newline='') as ms_csv_r,
-              open(os.path.join(movie_seats_csv_temp_path, f"{movie_seats_csv}.temp"), "w", newline='') as ms_csv_w):
-            for lines in ms_csv_r:
-                row = str_line_to_list(lines)
-                ms_csv_w.write(list_to_str_line(row))
-                if row and row[0] == "CODE" and row[1] == movie_code:    #Check if movie_code already exists
-                    raise ValueError ("Movie Code Already Exists! You Should Use update_movie_seats_csv function!")
-        #Create headers for CODE, START, and END rows
-            longest_row_length = len(find_longest_list(movie_seats))
-            code_header: list = header_create(
-                header_text ="CODE",
-                movie_seats_length=longest_row_length + 1,
-                append_thing=""
-            )
-            code_header[1] = movie_code
-            code_header[2] = template_code
-            start_header: list = header_create(
-                header_text ="START",
-                movie_seats_length =longest_row_length + 1,
-                append_thing="-2"
-            )
-            ms_csv_w.write(list_to_str_line(code_header))       #Write movie_code row
-            ms_csv_w.write(list_to_str_line(start_header))           #Write START row
-            for row in movie_seats:                              #Write seat data
-                ms_csv_w.write(list_to_str_line(["DATA", *row]))           #Add empty first column [""...
-            end_header: list = header_create(
-                header_text ="END",
-                movie_seats_length =longest_row_length + 1,
-                append_thing="-2"
-            )
-            ms_csv_w.write(list_to_str_line(end_header))              #Write END row
+def AL (movie_seats_csv :str ,movie_seats :list ,movie_code :str ,template_code :str ,skip_valid_check :bool =False )->None :
+    return EZX (template_code ,skip_valid_check ,movie_code ,movie_seats_csv ,movie_seats )
 
-        overwrite_file(overwrited_file_csv= movie_seats_csv, original_file_csv=f"{movie_seats_csv}.temp")     #Overwrite original file
-    except ValueError as e:
-        raise ValueError(f"Add Movie Seats Failed!\n{e}")
-    except FileNotFoundError as e:
-        raise FileNotFoundError(
-            f"Update Movie Seats Failed!\n"
-            f"Cannot Find the File!\n"
-            f"File name: {movie_seats_csv}\n"
-            f"File path: {movie_seats_csv_path})"
-        )
-    except Exception as e:
-        raise Exception(
-            f"Add Movie Seats Failed\n"
-            f"Unknown Error!\n{e}"
-        )
+def FCS (FCT ,FCU ):
+    EHQ :list =[]
+    EHR =FCV 
+    for FCW in [FBL ]:
+        if ((EKG (EYT )and EKG (FCX ))and (FCY <=FBX and EKD (FCZ )))and ((EKW <=FDA or not EKD (EKA ))and (EVB or not EKD (EQT ))):
+            for FDB in [EPB ]:
+                for EHS in FCT :
+                    FDO =EUL 
+                    FDP =FDU 
+                    FDQ =FAV 
+                    FDR =ERT 
+                    FDS =EON 
+                    if not EQJ :
+                        FDS =EWC 
+                    else :
+                        FDS =ETL 
+                    if FDS ==FCR :
+                        if not ELD (FDC ,EJF ):
+                            FDS =EWO 
+                        else :
+                            FDS =ETH 
+                    if FDS ==EWO :
+                        FDR =EMP 
+                    if FDS ==EYF :
+                        FDR =EZH 
+                    if FDR ==EWR :
+                        FDT =EJU 
+                        if not ETR :
+                            FDT =EKB 
+                        else :
+                            FDT =ETF 
+                        if FDT ==EOD :
+                            if not ESP (FDD ,EUV ):
+                                FDT =EWV 
+                            else :
+                                FDT =EJQ 
+                        if FDT ==FBL :
+                            FDR =EMP 
+                        if FDT ==EMG :
+                            FDR =EKW 
+                    if FDR ==EMP :
+                        FDQ =FCO 
+                    if FDR ==ETX :
+                        FDQ =EPK 
+                    if FDQ ==EXN :
+                        FDV =EOI 
+                        FDX =EUP 
+                        if not ESP (ELN ,EQX ):
+                            FDX =EMJ 
+                        else :
+                            FDX =EQP 
+                        if FDX ==ELU :
+                            if not EKG (EKQ ):
+                                FDX =FCK 
+                            else :
+                                FDX =ELI 
+                        if FDX ==ENI :
+                            FDV =FCH 
+                        if FDX ==EUK :
+                            FDV =FDW 
+                        if FDV ==ETF :
+                            FDY =EML 
+                            if not EJV (EZH ,EWR ):
+                                FDY =ENP 
+                            else :
+                                FDY =EVK 
+                            if FDY ==EXN :
+                                if not EQL :
+                                    FDY =EQT 
+                                else :
+                                    FDY =EJO 
+                            if FDY ==EQT :
+                                FDV =EQJ 
+                            if FDY ==EVR :
+                                FDV =ENY 
+                        if FDV ==EVU :
+                            FDQ =FDU 
+                        if FDV ==FCY :
+                            FDQ =EPK 
+                    if FDQ ==EQM :
+                        FDP =ERJ 
+                    if FDQ ==EZE :
+                        FDP =ETT 
+                    if FDP ==ERH :
+                        if not EKD (EJN ):
+                            FDP =EKT 
+                        else :
+                            FDP =FBR 
+                    if FDP ==ETT :
+                        FDO =EQY 
+                    if FDP ==EME :
+                        FDO =EUW 
+                    if FDO ==EQY :
+                        FDZ =EQM 
+                        if not ELD (EKM ,EMV ):
+                            FDZ =EQV 
+                        else :
+                            FDZ =ENY 
+                        if FDZ ==EXX :
+                            if not EWI (FDE ,ENA ):
+                                FDZ =EQV 
+                            else :
+                                FDZ =EYT 
+                        if FDZ ==EOK :
+                            FDO =EMN 
+                        if FDZ ==EYT :
+                            FDO =EPX 
+                    if FDO ==EVQ :
+                        pass 
+                    if FDO ==EMN :
+                        FDF =EQM 
+                        FDH =ESB 
+                        FDJ =FDL 
+                        if not EHS :
+                            FDJ =FBP 
+                        else :
+                            FDJ =EPY 
+                        if FDJ ==EPX :
+                            if EJV (EHS [EVE ],ELT ):
+                                FDJ =FDK 
+                            else :
+                                FDJ =EJQ 
+                        if FDJ ==EKB :
+                            FDH =FDI 
+                        if FDJ ==FDM :
+                            FDH =EWL 
+                        if FDH ==EPA :
+                            if not EOO :
+                                FDH =EKB 
+                            else :
+                                FDH =ELJ 
+                        if FDH ==FDI :
+                            FDF =FDG 
+                        if FDH ==EOC :
+                            FDF =EKV 
+                        if FDF ==ESW :
+                            FDN =ESB 
+                            if not ESB :
+                                FDN =ESC 
+                            else :
+                                FDN =ESV 
+                            if FDN ==ERM :
+                                if not EOK :
+                                    FDN =EOB 
+                                else :
+                                    FDN =ESL 
+                            if FDN ==EWZ :
+                                FDF =EZD 
+                            if FDN ==EZP :
+                                FDF =EOW 
+                        if FDF ==ELZ :
+                            EHR =ELV 
+                            EHQ .append (EHS [FCU ])
+                        if FDF ==ESV :
+                            pass 
+    FEC =EKZ 
+    FED =EVN 
+    if not EKD (EVR ):
+        FED =EOT 
+    else :
+        FED =FCY 
+    if FED ==ESC :
+        if not FEA :
+            FED =EOT 
+        else :
+            FED =EMJ 
+    if FED ==ELU :
+        FEC =EMN 
+    if FED ==ELC :
+        FEC =EQJ 
+    if FEC ==EUW :
+        FEE =EVS 
+        if not EKZ :
+            FEE =EKP 
+        else :
+            FEE =ELQ 
+        if FEE ==EXC :
+            if not EHR :
+                FEE =EMR 
+            else :
+                FEE =EQS 
+        if FEE ==EKP :
+            FEC =EMR 
+        if FEE ==ELX :
+            FEC =EKY 
+    if FEC ==EMR :
+        raise ValueError (FEB )
+    if FEC ==EMS :
+        pass 
+    return EHQ 
 
+def FQ (movie_seats_raw_data :list ,movie_code_location :int =1 )->list :
+    return FCS (movie_seats_raw_data ,movie_code_location )
 
-def seats_code_catcher (movie_seats_raw_data: list,movie_code_location: int = 1) -> list:
-    movie_seats_code_list: list = []
-    code_status = False
-    for row in movie_seats_raw_data:
-        if row and row[0] == "CODE":
-            code_status = True
-            movie_seats_code_list.append(row[movie_code_location])
-    if not code_status:
-        raise ValueError("Cannot find any movie code! 'CODE' is not found!")
-    return movie_seats_code_list
+def FEF (FEG ,FEH ,FEI ):
+    try :
+        FEJ =EKJ 
+        FEK =FDW 
+        if not EKD (EMQ ):
+            FEK =EOD 
+        else :
+            FEK =EXK 
+        if FEK ==EXK :
+            if not EQA :
+                FEK =EQI 
+            else :
+                FEK =FCK 
+        if FEK ==EQP :
+            FEJ =EWF 
+        if FEK ==FCH :
+            FEJ =EPJ 
+        if FEJ ==ELI :
+            FEL =ESD 
+            if not ELJ :
+                FEL =FBF 
+            else :
+                FEL =ELN 
+            if FEL ==EXY :
+                if not FEI :
+                    FEL =EQZ 
+                else :
+                    FEL =EUG 
+            if FEL ==EVP :
+                FEJ =EVS 
+            if FEL ==FBF :
+                FEJ =EKR 
+        if FEJ ==EVM :
+            pass 
+        if FEJ ==EKR :
+            EO (FEH )
+    except ValueError as e :
+        raise ValueError (f'Delete Movie Seats Failed!\n{e }')
+    try :
+        EHT =DG (FEH )
+        EHU =os .path .dirname (EHT )
+        with open (EHT ,FEM ,newline =FEN )as EHV ,open (os .path .join (EHU ,f'{FEH }.temp'),FEO ,newline =FEN )as EHW :
+            EHX =EUU 
+            EHY =FEP 
+            EHZ =FEQ 
+            for EIA in EHV :
+                FFL =ELH 
+                FFM =EQF 
+                if not EKG (EYD ):
+                    FFM =FAI 
+                else :
+                    FFM =ENV 
+                if FFM ==ENV :
+                    FFN =EQI 
+                    FFO =FAG 
+                    FFP =EZO 
+                    if ELD (EPN ,FER ):
+                        FFP =FDW 
+                    else :
+                        FFP =EPO 
+                    if FFP ==EQJ :
+                        if not EKD (FCK ):
+                            FFP =EKK 
+                        else :
+                            FFP =ESF 
+                    if FFP ==EML :
+                        FFO =EJB 
+                    if FFP ==EPR :
+                        FFO =ERN 
+                    if FFO ==EXE :
+                        FFQ =EXF 
+                        if not EKG (ENJ ):
+                            FFQ =EOZ 
+                        else :
+                            FFQ =FAI 
+                        if FFQ ==EVV :
+                            if not EUK :
+                                FFQ =EZH 
+                            else :
+                                FFQ =EOI 
+                        if FFQ ==ELH :
+                            FFO =ESE 
+                        if FFQ ==EKK :
+                            FFO =FBH 
+                    if FFO ==FBB :
+                        FFN =EWC 
+                    if FFO ==FFR :
+                        FFN =ESV 
+                    if FFN ==FBA :
+                        FFS =EKV 
+                        FFT =EYO 
+                        if not EKG (EOR ):
+                            FFT =EJN 
+                        else :
+                            FFT =EUO 
+                        if FFT ==EUV :
+                            if not EKG (EPE ):
+                                FFT =EME 
+                            else :
+                                FFT =EJN 
+                        if FFT ==ETD :
+                            FFS =EKT 
+                        if FFT ==EME :
+                            FFS =ERZ 
+                        if FFS ==EMO :
+                            FFU =EYS 
+                            if not EIW .EIX (ELX ):
+                                FFU =ESV 
+                            else :
+                                FFU =EPX 
+                            if FFU ==EZD :
+                                if not EKD (FES ):
+                                    FFU =EOR 
+                                else :
+                                    FFU =FBA 
+                            if FFU ==EPY :
+                                FFS =ERA 
+                            if FFU ==FCK :
+                                FFS =EKT 
+                        if FFS ==EKT :
+                            FFN =ENP 
+                        if FFS ==FBH :
+                            FFN =EZD 
+                    if FFN ==EOX :
+                        FFM =FAI 
+                    if FFN ==ENP :
+                        FFM =ERH 
+                if FFM ==FFV :
+                    FFL =ERX 
+                if FFM ==FAE :
+                    FFL =EKP 
+                if FFL ==EVV :
+                    FFW =ERA 
+                    if not EIW .EIX (FET ):
+                        FFW =EJU 
+                    else :
+                        FFW =ELX 
+                    if FFW ==EXE :
+                        if not EKG (EQI ):
+                            FFW =EMQ 
+                        else :
+                            FFW =EWF 
+                    if FFW ==ELI :
+                        FFL =EMR 
+                    if FFW ==EMQ :
+                        FFL =EPE 
+                if FFL ==FDW :
+                    EIB =FX (EIA )
+                    FFG =FFK 
+                    FFH =EPE 
+                    if not EKM :
+                        FFH =EMS 
+                    else :
+                        FFH =EJN 
+                    if FFH ==ETD :
+                        FFI =EVK 
+                        if not EIB :
+                            FFI =ETJ 
+                        else :
+                            FFI =EQE 
+                        if FFI ==ELK :
+                            if EJV (EIB [FEQ ],ELT ):
+                                FFI =ETJ 
+                            else :
+                                FFI =EZD 
+                        if FFI ==ETW :
+                            if EJV (EIB [EPE ],FEG ):
+                                FFI =ENJ 
+                            else :
+                                FFI =EOT 
+                        if FFI ==ENJ :
+                            FFH =EXY 
+                        if FFI ==EQG :
+                            FFH =ELJ 
+                    if FFH ==EKZ :
+                        FFG =EVR 
+                    if FFH ==ELJ :
+                        FFG =EQF 
+                    if FFG ==EYA :
+                        FFJ =ESG 
+                        if ESP (EPJ ,EMW ):
+                            FFJ =EJN 
+                        else :
+                            FFJ =EQF 
+                        if FFJ ==EQF :
+                            if EMB (EYU ,FEU ):
+                                FFJ =EJL 
+                            else :
+                                FFJ =EKV 
+                        if FFJ ==ERW :
+                            FFG =EVR 
+                        if FFJ ==ESL :
+                            FFG =EPR 
+                    if FFG ==EPU :
+                        EHY =ELV 
+                        EHX =EXS 
+                        continue 
+                    if FFG ==EVK :
+                        FFA =EPJ 
+                        FFB =EMV 
+                        if ESP (FEV ,EOP ):
+                            FFB =ESD 
+                        else :
+                            FFB =ESW 
+                        if FFB ==EVS :
+                            if EMB (EWL ,EMF ):
+                                FFB =FAV 
+                            else :
+                                FFB =EWZ 
+                        if FFB ==ERO :
+                            FFA =ETF 
+                        if FFB ==EJF :
+                            FFA =ETX 
+                        if FFA ==ETX :
+                            FFC =EKT 
+                            FFE =EVQ 
+                            if not EHY :
+                                FFE =ELU 
+                            else :
+                                FFE =ESC 
+                            if FFE ==EXX :
+                                if not EIB :
+                                    FFE =EMJ 
+                                else :
+                                    FFE =EVN 
+                            if FFE ==EVN :
+                                if EJV (EIB [FAQ ],FEW ):
+                                    FFE =EMJ 
+                                else :
+                                    FFE =EWF 
+                            if FFE ==ELI :
+                                FFC =EWO 
+                            if FFE ==ELU :
+                                FFC =FFD 
+                            if FFC ==FFF :
+                                if not FCY :
+                                    FFC =EOY 
+                                else :
+                                    FFC =EMQ 
+                            if FFC ==EMQ :
+                                FFA =EQI 
+                            if FFC ==EPA :
+                                FFA =EWQ 
+                        if FFA ==EQI :
+                            FEX =ESG 
+                            FEY =EME 
+                            if not EKD (FDW ):
+                                FEY =EPR 
+                            else :
+                                FEY =EWQ 
+                            if FEY ==EWQ :
+                                if not EJI :
+                                    FEY =ENS 
+                                else :
+                                    FEY =EKN 
+                            if FEY ==ESG :
+                                FEX =EQJ 
+                            if FEY ==EPU :
+                                FEX =EVW 
+                            if FEX ==EMM :
+                                FEZ =EMM 
+                                if EWI (EKM ,EJI ):
+                                    FEZ =EYK 
+                                else :
+                                    FEZ =ESL 
+                                if FEZ ==EJF :
+                                    if not EHY :
+                                        FEZ =EKQ 
+                                    else :
+                                        FEZ =EOO 
+                                if FEZ ==EYJ :
+                                    FEX =EWM 
+                                if FEZ ==EOO :
+                                    FEX =EQL 
+                            if FEX ==ETX :
+                                pass 
+                            if FEX ==EQL :
+                                continue 
+                        if FFA ==ELI :
+                            EHY =EUU 
+                            EHZ +=EYH 
+                            continue 
+                    EHW .write (DY (EIB ))
+                if FFL ==EVG :
+                    pass 
+            FFX =FAX 
+            FFY =EJQ 
+            if not EKG (ETH ):
+                FFY =ERE 
+            else :
+                FFY =EVB 
+            if FFY ==EMH :
+                if not EJV (EHX ,EXR ):
+                    FFY =ESF 
+                else :
+                    FFY =FFZ 
+            if FFY ==ESB :
+                FFX =EPA 
+            if FFY ==EPR :
+                FFX =EJT 
+            if FFX ==FGB :
+                FGA =EQL 
+                if not FDM :
+                    FGA =EOY 
+                else :
+                    FGA =EOS 
+                if FGA ==EKK :
+                    if not EKD (EZR ):
+                        FGA =ELO 
+                    else :
+                        FGA =EWO 
+                if FGA ==EWL :
+                    FFX =FBF 
+                if FGA ==EPE :
+                    FFX =EWO 
+            if FFX ==FBF :
+                raise KeyError (f'Cannot Find The Movie Code! Movie Code: {FEG }')
+            if FFX ==EWO :
+                pass 
+            FGD =EOM 
+            FGE =ERN 
+            if not ESP (EHZ ,EPE ):
+                FGE =ETR 
+            else :
+                FGE =EUN 
+            if FGE ==EMT :
+                if not EIW .EIX (EQK ):
+                    FGE =EUO 
+                else :
+                    FGE =EMM 
+            if FGE ==EMM :
+                FGD =ESX 
+            if FGE ==EPS :
+                FGD =EML 
+            if FGD ==ESX :
+                FGF =EKM 
+                if not FGC :
+                    FGF =ETY 
+                else :
+                    FGF =EKP 
+                if FGF ==EVU :
+                    if not EKG (ERO ):
+                        FGF =FGG 
+                    else :
+                        FGF =EOS 
+                if FGF ==EKK :
+                    FGD =EOK 
+                if FGF ==ETT :
+                    FGD =EOI 
+            if FGD ==EQV :
+                warnings .warn (f'BY function delete {EHZ } times.')
+            if FGD ==ETU :
+                pass 
+        EW (overwrited_file_csv =FEH ,original_file_csv =f'{FEH }.temp')
+    except FileNotFoundError as e :
+        raise FileNotFoundError (f'Update Movie Seats Failed!\nCannot Find the File!\nFile name:{FEH }')
+    except KeyError as e :
+        raise KeyError (f'Delete Movie Seats Failed!\n{e }')
 
+def BY (movie_seats_csv :str ,movie_code :str ,skip_valid_check :bool =False )->None :
+    return FEF (movie_code ,movie_seats_csv ,skip_valid_check )
 
-def delete_movie_seats_csv (movie_seats_csv: str, movie_code: str,skip_valid_check: bool = False) -> None:
-    try:
-        if not skip_valid_check:
-            movie_seats_csv_valid_check(movie_seats_csv)
-    except ValueError as e:
-        raise ValueError(f"Delete Movie Seats Failed!\n{e}")
-    try:
-        movie_seats_csv_path = get_path(movie_seats_csv)
-        movie_seats_csv_TEMP_path = os.path.dirname(movie_seats_csv_path)
-        with (open(movie_seats_csv_path, 'r', newline ='') as ms_csv_r ,
-              open(os.path.join(movie_seats_csv_TEMP_path,f"{movie_seats_csv}.temp"), "w", newline='') as ms_csv_w):
-            list_found_all_times = False
-            list_found = False
-            delete_count = 0
-            for lines in ms_csv_r:
-                row = str_line_to_list(lines)
-                if row and row[0] == "CODE" and row[1] == movie_code:
-                    list_found = True
-                    list_found_all_times = True
-                    continue
-                elif list_found and row and row[0] == "END":
-                    list_found = False
-                    delete_count += 1
-                    continue
-                elif list_found: continue
-                ms_csv_w.write(list_to_str_line(row))
-            if list_found_all_times == False:
-                raise KeyError(f"Cannot Find The Movie Code! Movie Code: {movie_code}")
-            if delete_count > 1:
-                warnings.warn(f"delete_movie_seats_csv function delete {delete_count} times.")
-        overwrite_file(overwrited_file_csv=movie_seats_csv, original_file_csv=f"{movie_seats_csv}.temp")
+def FGH (FGI ,FGJ ,FGK ):
+    FGM =EPJ 
+    FGN =EUJ 
+    if not EKG (EUZ ):
+        FGN =ERA 
+    else :
+        FGN =FDW 
+    if FGN ==EQJ :
+        if not FDW :
+            FGN =EUV 
+        else :
+            FGN =FBB 
+    if FGN ==EUV :
+        FGM =EQL 
+    if FGN ==FBB :
+        FGM =FDU 
+    if FGM ==EQR :
+        FGO =FBA 
+        if not ESP (FGK ,EXF ):
+            FGO =EUW 
+        else :
+            FGO =EKB 
+        if FGO ==EMV :
+            if not EIW .EIX (EKV ):
+                FGO =EJA 
+            else :
+                FGO =EYF 
+        if FGO ==EQX :
+            FGM =EQL 
+        if FGO ==EMW :
+            FGM =FFV 
+    if FGM ==EVV :
+        pass 
+    if FGM ==FDW :
+        raise ValueError (FGL )
+    EIC :list =[]
+    for EID in range (ELS ,FGI ):
+        FHE =FHO 
+        FHF =ERU 
+        if not EKG (EXH ):
+            FHF =EMU 
+        else :
+            FHF =EKZ 
+        if FHF ==EKZ :
+            if not ESP (EXP ,EPX ):
+                FHF =EPT 
+            else :
+                FHF =ELU 
+        if FHF ==EPN :
+            FHE =EVB 
+        if FHF ==FFF :
+            FHE =ELK 
+        if FHE ==ELQ :
+            FHG =EWF 
+            if not EWL :
+                FHG =EOT 
+            else :
+                FHG =ETV 
+            if FHG ==EOD :
+                FHH =ELI 
+                FHI =FBB 
+                FHJ =EQG 
+                if not EJV (FET ,EZP ):
+                    FHJ =EOO 
+                else :
+                    FHJ =EKJ 
+                if FHJ ==FBB :
+                    if not EIW .EIX (FEV ):
+                        FHJ =EZB 
+                    else :
+                        FHJ =EOQ 
+                if FHJ ==EQW :
+                    FHI =ELU 
+                if FHJ ==EOM :
+                    FHI =EMN 
+                if FHI ==ELR :
+                    FHK =EPU 
+                    if not ELD (EQK ,FBP ):
+                        FHK =EQT 
+                    else :
+                        FHK =EPT 
+                    if FHK ==ETI :
+                        if not EIW .EIX (EPX ):
+                            FHK =EQR 
+                        else :
+                            FHK =ELZ 
+                    if FHK ==EYT :
+                        FHI =ESO 
+                    if FHK ==FDU :
+                        FHI =ELJ 
+                if FHI ==FFD :
+                    FHH =EZD 
+                if FHI ==EJG :
+                    FHH =EVM 
+                if FHH ==EVM :
+                    FHL =FFD 
+                    FHM =EOI 
+                    if not EXX :
+                        FHM =EQS 
+                    else :
+                        FHM =EPJ 
+                    if FHM ==ETI :
+                        if not ELD (FDD ,FAG ):
+                            FHM =EOP 
+                        else :
+                            FHM =EMQ 
+                    if FHM ==EXK :
+                        FHL =EQV 
+                    if FHM ==EQS :
+                        FHL =EJJ 
+                    if FHL ==ERW :
+                        FHN =EUG 
+                        if not EUL :
+                            FHN =EKW 
+                        else :
+                            FHN =ENY 
+                        if FHN ==ENY :
+                            if not EWI (EKR ,EJZ ):
+                                FHN =EWM 
+                            else :
+                                FHN =EKO 
+                        if FHN ==EKW :
+                            FHL =EOP 
+                        if FHN ==EKO :
+                            FHL =ENR 
+                    if FHL ==EQV :
+                        FHH =EJU 
+                    if FHL ==ENR :
+                        FHH =ESV 
+                if FHH ==EXE :
+                    FHG =EQF 
+                if FHH ==ESZ :
+                    FHG =EZO 
+            if FHG ==ERH :
+                FHE =EMG 
+            if FHG ==EQG :
+                FHE =EMQ 
+        if FHE ==FDI :
+            pass 
+        if FHE ==EVB :
+            EIC .append ([])
+            for EIE in range (EXP ,FGK ):
+                FGS =EVK 
+                FGT =EPR 
+                if not EKG (FGP ):
+                    FGT =EYT 
+                else :
+                    FGT =ERM 
+                if FGT ==EZD :
+                    FGU =EOO 
+                    FGV =EXC 
+                    FGW =ERM 
+                    if not EOY :
+                        FGW =EWH 
+                    else :
+                        FGW =EOO 
+                    if FGW ==EYU :
+                        if not EIW .EIX (EYK ):
+                            FGW =EKB 
+                        else :
+                            FGW =EPT 
+                    if FGW ==EPT :
+                        FGV =EPC 
+                    if FGW ==EMV :
+                        FGV =EOO 
+                    if FGV ==EXO :
+                        FGX =EPU 
+                        if not EIW .EIX (FGQ ):
+                            FGX =EXG 
+                        else :
+                            FGX =ERO 
+                        if FGX ==FAV :
+                            if not ELD (FGR ,ELB ):
+                                FGX =FGY 
+                            else :
+                                FGX =FGB 
+                        if FGX ==FGB :
+                            FGV =EYU 
+                        if FGX ==FGZ :
+                            FGV =ESK 
+                    if FGV ==EOO :
+                        FGU =FGB 
+                    if FGV ==EJC :
+                        FGU =ELB 
+                    if FGU ==FGB :
+                        FHA =EKA 
+                        FHB =EKM 
+                        if not EZJ :
+                            FHB =EKA 
+                        else :
+                            FHB =EQL 
+                        if FHB ==FDW :
+                            if not EKG (FGG ):
+                                FHB =EPB 
+                            else :
+                                FHB =ERJ 
+                        if FHB ==EZO :
+                            FHA =EJK 
+                        if FHB ==EKA :
+                            FHA =EOB 
+                        if FHA ==EJK :
+                            FHC =ENA 
+                            if not ESP (EPE ,ENV ):
+                                FHC =ENU 
+                            else :
+                                FHC =FCJ 
+                            if FHC ==EOZ :
+                                if not EWC :
+                                    FHC =ENL 
+                                else :
+                                    FHC =EVB 
+                            if FHC ==ENU :
+                                FHA =ERB 
+                            if FHC ==EVB :
+                                FHA =ENY 
+                        if FHA ==FCY :
+                            FGU =ENV 
+                        if FHA ==ERB :
+                            FGU =ELI 
+                    if FGU ==ELB :
+                        FGT =EYT 
+                    if FGU ==EXK :
+                        FGT =EWM 
+                if FGT ==FBR :
+                    FGS =EJI 
+                if FGT ==EWM :
+                    FGS =EUJ 
+                if FGS ==ENT :
+                    FHD =EQI 
+                    if not EKD (FFV ):
+                        FHD =ENY 
+                    else :
+                        FHD =EOU 
+                    if FHD ==FGB :
+                        if not ETV :
+                            FHD =EMR 
+                        else :
+                            FHD =ESC 
+                    if FHD ==EVU :
+                        FGS =ENC 
+                    if FHD ==EOB :
+                        FGS =ERT 
+                if FGS ==ETR :
+                    EIC [EID ].append (str (FGJ ))
+                if FGS ==ERT :
+                    pass 
+    return EIC 
 
-    except FileNotFoundError as e:
-        raise FileNotFoundError(
-            f"Update Movie Seats Failed!\n"
-            f"Cannot Find the File!\n"
-            f"File name:{movie_seats_csv}"
-        )
-    except KeyError as e:
-        raise KeyError(f"Delete Movie Seats Failed!\n{e}")
+def CL (x_axis :int ,y_axis :int ,fill_number :int )->list :
+    return FGH (y_axis ,fill_number ,x_axis )
 
-def generate_movie_seats (x_axis: int, y_axis: int, fill_number: int) -> list:
-    if x_axis > 11:
-        raise ValueError("x_axis must be less than 11")
-    seat_list_temp: list = []
-    for i in range (0,y_axis):
-        seat_list_temp.append([])
-        for j in range (0,x_axis):
-            seat_list_temp[i].append(str(fill_number))
-    return seat_list_temp
+def FHP (FHQ ):
+    ET (movie_seats_list =FHQ )
+    EIF =ELS 
+    if ((ESG >=FBX or EKG (EWV ))and (EKG (FGB )and FHR >FEQ ))and ((EKG (FGR )and EVN <EJP )and (not EKG (EOA )or ELN )):
+        for EIG in FHQ :
+            FIN =EKR 
+            FIO =EQV 
+            FIP =EUF 
+            FIQ =EQF 
+            FIR =ESH 
+            if not EKD (EQT ):
+                FIR =ERK 
+            else :
+                FIR =EQM 
+            if FIR ==EWV :
+                if not EYF :
+                    FIR =ESK 
+                else :
+                    FIR =ERU 
+            if FIR ==ERU :
+                FIQ =EOW 
+            if FIR ==EQR :
+                FIQ =ENY 
+            if FIQ ==EOB :
+                FIS =EUY 
+                if not ENM :
+                    FIS =EZK 
+                else :
+                    FIS =FAI 
+                if FIS ==EZK :
+                    if not EIW .EIX (FHS ):
+                        FIS =FFV 
+                    else :
+                        FIS =ERK 
+                if FIS ==FBL :
+                    FIQ =EVK 
+                if FIS ==ERX :
+                    FIQ =EME 
+            if FIQ ==EVP :
+                FIP =EKV 
+            if FIQ ==EME :
+                FIP =EOI 
+            if FIP ==EML :
+                FIT =EPA 
+                FIU =FCJ 
+                if not EIW .EIX (ERH ):
+                    FIU =EOK 
+                else :
+                    FIU =ESV 
+                if FIU ==ESZ :
+                    if not EKG (FHT ):
+                        FIU =EQV 
+                    else :
+                        FIU =EUP 
+                if FIU ==EOP :
+                    FIT =EJJ 
+                if FIU ==EUP :
+                    FIT =EYK 
+                if FIT ==EKQ :
+                    FIV =ELZ 
+                    if not ENE (ENR ,FHU ):
+                        FIV =EVQ 
+                    else :
+                        FIV =ESI 
+                    if FIV ==ESI :
+                        if not ELD (EOB ,FHV ):
+                            FIV =EOR 
+                        else :
+                            FIV =EMN 
+                    if FIV ==EMN :
+                        FIT =ETD 
+                    if FIV ==EPY :
+                        FIT =EPU 
+                if FIT ==ERW :
+                    FIP =ESL 
+                if FIT ==ESF :
+                    FIP =EVU 
+            if FIP ==EQL :
+                FIO =FFZ 
+            if FIP ==ESW :
+                FIO =ETI 
+            if FIO ==ETI :
+                if not EKR :
+                    FIO =ESE 
+                else :
+                    FIO =EOO 
+            if FIO ==FFR :
+                FIN =EZH 
+            if FIO ==EYU :
+                FIN =ENN 
+            if FIN ==EQZ :
+                FIW =EKT 
+                if not EKD (ENM ):
+                    FIW =ETI 
+                else :
+                    FIW =EJU 
+                if FIW ==ETI :
+                    if not EKG (FGZ ):
+                        FIW =EZQ 
+                    else :
+                        FIW =EZN 
+                if FIW ==ERH :
+                    FIN =ELH 
+                if FIW ==EZQ :
+                    FIN =EOS 
+            if FIN ==ELH :
+                for EIH in EIG :
+                    FIB =EMW 
+                    FIC =EUN 
+                    FID =ENU 
+                    FIE =EQM 
+                    FIF =EQV 
+                    if not EYH :
+                        FIF =FFD 
+                    else :
+                        FIF =EUY 
+                    if FIF ==FFZ :
+                        if not EWH :
+                            FIF =EPO 
+                        else :
+                            FIF =FGQ 
+                    if FIF ==EPU :
+                        FIE =ENV 
+                    if FIF ==FGQ :
+                        FIE =ERT 
+                    if FIE ==ENV :
+                        FIG =EYF 
+                        if not EWO :
+                            FIG =EJT 
+                        else :
+                            FIG =EYH 
+                        if FIG ==ELM :
+                            if not EKG (EOR ):
+                                FIG =EJZ 
+                            else :
+                                FIG =EQJ 
+                        if FIG ==EXG :
+                            FIE =EYJ 
+                        if FIG ==FDW :
+                            FIE =EUL 
+                    if FIE ==EKQ :
+                        FID =EPY 
+                    if FIE ==FIH :
+                        FID =EJU 
+                    if FID ==EOR :
+                        FII =EJA 
+                        FIJ =ENZ 
+                        if not EKD (EKP ):
+                            FIJ =EZL 
+                        else :
+                            FIJ =FAE 
+                        if FIJ ==EZN :
+                            if not EMB (EQW ,ENS ):
+                                FIJ =EKO 
+                            else :
+                                FIJ =FCH 
+                        if FIJ ==EOD :
+                            FII =ELM 
+                        if FIJ ==EZL :
+                            FII =ERN 
+                        if FII ==EVG :
+                            FIK =EOR 
+                            if not EIW .EIX (EPA ):
+                                FIK =EMP 
+                            else :
+                                FIK =EMN 
+                            if FIK ==EUW :
+                                if not EJV (ENT ,EUJ ):
+                                    FIK =FFK 
+                                else :
+                                    FIK =EMP 
+                            if FIK ==EKK :
+                                FII =ENR 
+                            if FIK ==EQE :
+                                FII =EXE 
+                        if FII ==FEA :
+                            FID =ERN 
+                        if FII ==ENP :
+                            FID =ESW 
+                    if FID ==EJP :
+                        FIC =FBE 
+                    if FID ==EZQ :
+                        FIC =EJL 
+                    if FIC ==FBF :
+                        if not EMB (FAX ,EMT ):
+                            FIC =ETE 
+                        else :
+                            FIC =ETI 
+                    if FIC ==ETD :
+                        FIB =EOW 
+                    if FIC ==EPT :
+                        FIB =EKY 
+                    if FIB ==FBR :
+                        FIL =ERZ 
+                        if not EKD (FER ):
+                            FIL =FGQ 
+                        else :
+                            FIL =EWC 
+                        if FIL ==ENI :
+                            if not EOW :
+                                FIL =FFD 
+                            else :
+                                FIL =FIM 
+                        if FIL ==ESO :
+                            FIB =EOC 
+                        if FIL ==EMA :
+                            FIB =EKN 
+                    if FIB ==EWN :
+                        pass 
+                    if FIB ==EKN :
+                        FHY =EVC 
+                        FHZ =EVP 
+                        if not EKG (EZH ):
+                            FHZ =FAU 
+                        else :
+                            FHZ =FBQ 
+                        if FHZ ==EQA :
+                            if not FBB :
+                                FHZ =EOR 
+                            else :
+                                FHZ =ETQ 
+                        if FHZ ==EOR :
+                            FHY =EWO 
+                        if FHZ ==EPH :
+                            FHY =EOU 
+                        if FHY ==EJZ :
+                            FIA =EMT 
+                            if not EIW .EIX (FHW ):
+                                FIA =ELJ 
+                            else :
+                                FIA =EZW 
+                            if FIA ==ENR :
+                                if EJV (EIH ,FHX ):
+                                    FIA =EOC 
+                                else :
+                                    FIA =ENA 
+                            if FIA ==ESI :
+                                FHY =ETD 
+                            if FIA ==ELJ :
+                                FHY =ESX 
+                        if FHY ==EJN :
+                            EIF +=EYH 
+                        if FHY ==EWL :
+                            pass 
+            if FIN ==ETU :
+                pass 
+    return EIF 
 
+def CU (movie_seats :list )->int :
+    return FHP (movie_seats )
 
+def FIX (FIY ,FIZ ,FJA ):
+    FJD =EQP 
+    FJE =EXF 
+    if not EYJ :
+        FJE =EKK 
+    else :
+        FJE =EZL 
+    if FJE ==FFV :
+        if not ER (movie_seats =FIY ,x_pointer =FIZ ,y_pointer =FJA ):
+            FJE =EYH 
+        else :
+            FJE =EOS 
+    if FJE ==EOI :
+        FJD =ERC 
+    if FJE ==ELM :
+        FJD =EKO 
+    if FJD ==FAI :
+        FJF =ETI 
+        if not EWI (EQE ,FJB ):
+            FJF =ESW 
+        else :
+            FJF =EME 
+        if FJF ==EOW :
+            if not EKG (FJC ):
+                FJF =ESW 
+            else :
+                FJF =FBB 
+        if FJF ==EJP :
+            FJD =ERH 
+        if FJF ==ERA :
+            FJD =EKQ 
+    if FJD ==EKQ :
+        pass 
+    if FJD ==EZN :
+        raise IndexError (f'x_axis:{FIZ } or y_axis:{FJA } is out of range of {FIY }!')
+    return FIY [len (FIY )-FJA ][FIZ -EVG ]
 
+def ES (movie_seats :list ,x_axis :int ,y_axis :int )->str :
+    return FIX (movie_seats ,x_axis ,y_axis )
 
+def FJG (FJH ,FJI ,FJJ ):
+    EII :list =[]
+    EII .append (FJJ )
+    for EIJ in range (EVE ,FJI -EVG ):
+        FJO =FBH 
+        FJP =ENU 
+        if not EJQ :
+            FJP =ETH 
+        else :
+            FJP =ESF 
+        if FJP ==EKN :
+            FJQ =ERM 
+            FJR =ESC 
+            FJS =FAV 
+            if EMB (FCO ,EXZ ):
+                FJS =FEA 
+            else :
+                FJS =EOU 
+            if FJS ==EJZ :
+                if not EVG :
+                    FJS =EJU 
+                else :
+                    FJS =EPQ 
+            if FJS ==EPS :
+                FJR =EYH 
+            if FJS ==EXE :
+                FJR =EUG 
+            if FJR ==EVG :
+                FJT =FJK 
+                if not EPA :
+                    FJT =EPT 
+                else :
+                    FJT =EKY 
+                if FJT ==EPT :
+                    if EJV (EZR ,EXG ):
+                        FJT =ETS 
+                    else :
+                        FJT =EMS 
+                if FJT ==ELJ :
+                    FJR =EOK 
+                if FJT ==ETS :
+                    FJR =EUG 
+            if FJR ==ENV :
+                FJQ =EOO 
+            if FJR ==EJO :
+                FJQ =EJM 
+            if FJQ ==EOO :
+                FJU =EUP 
+                FJV =EJU 
+                if not ETD :
+                    FJV =EJO 
+                else :
+                    FJV =ELJ 
+                if FJV ==EJO :
+                    if EJV (ETK ,ETS ):
+                        FJV =ERA 
+                    else :
+                        FJV =EKY 
+                if FJV ==EWN :
+                    FJU =EMV 
+                if FJV ==EST :
+                    FJU =EYS 
+                if FJU ==FAG :
+                    FJW =EOW 
+                    if EJV (FFR ,FJK ):
+                        FJW =ESX 
+                    else :
+                        FJW =EXK 
+                    if FJW ==EWL :
+                        if ENE (FJL ,EOJ ):
+                            FJW =EVU 
+                        else :
+                            FJW =EQV 
+                    if FJW ==EVC :
+                        FJU =EKB 
+                    if FJW ==EMR :
+                        FJU =EMN 
+                if FJU ==FDI :
+                    FJQ =EOK 
+                if FJU ==EUW :
+                    FJQ =EUV 
+            if FJQ ==ENV :
+                FJP =EYG 
+            if FJQ ==EJM :
+                FJP =EZL 
+        if FJP ==FAI :
+            FJO =EZP 
+        if FJP ==ETL :
+            FJO =EVM 
+        if FJO ==ESD :
+            FJX =EZB 
+            if not EIW .EIX (FJM ):
+                FJX =EKQ 
+            else :
+                FJX =EPK 
+            if FJX ==FBY :
+                if EJV (FJN ,ESO ):
+                    FJX =EMU 
+                else :
+                    FJX =EOA 
+            if FJX ==EOA :
+                FJO =EUL 
+            if FJX ==EKR :
+                FJO =EXX 
+        if FJO ==EUL :
+            EII .append (FJH )
+        if FJO ==EZP :
+            pass 
+    return EII 
 
+def DL (header_text :str ,movie_seats_length :int ,append_thing :str )->list :
+    return FJG (append_thing ,movie_seats_length ,header_text )
 
+def FJY (FJZ ,FKA ):
+    try :
+        ET (movie_seats_list =FKA )
+    except ValueError as e :
+        raise ValueError (f'Fill Movie Seats Failed! Movie Seat List ERROR! {e }')
+    while ((not EKD (FKB )or EUG ==FES )or (EZB or not EQR ))or ((not EOP or FEQ >EMF )or (not EIW .EIX (FKC )or not EKD (EZK ))):
+        for EIK in range (EXP ,len (FKA )):
+            FKS =ENZ 
+            FKT =EWN 
+            if not EWI (EQA ,FKD ):
+                FKT =EYO 
+            else :
+                FKT =EPS 
+            if FKT ==ERA :
+                if not EMB (EWO ,FBX ):
+                    FKT =ETF 
+                else :
+                    FKT =EUO 
+            if FKT ==ETF :
+                FKS =EVN 
+            if FKT ==EUN :
+                FKS =EKB 
+            if FKS ==EVN :
+                FKU =ENT 
+                FKV =ENA 
+                FKW =EVW 
+                FKX =EJU 
+                if not EWI (EQJ ,FJB ):
+                    FKX =EME 
+                else :
+                    FKX =ERX 
+                if FKX ==FAI :
+                    if not EQM :
+                        FKX =EME 
+                    else :
+                        FKX =ENT 
+                if FKX ==EOW :
+                    FKW =EJK 
+                if FKX ==EOA :
+                    FKW =EZO 
+                if FKW ==EJK :
+                    FKY =EPB 
+                    if not EIW .EIX (FGQ ):
+                        FKY =EOB 
+                    else :
+                        FKY =ERN 
+                    if FKY ==EXX :
+                        if not ESE :
+                            FKY =FEA 
+                        else :
+                            FKY =ETX 
+                    if FKY ==EKW :
+                        FKW =EZN 
+                    if FKY ==EJU :
+                        FKW =EUO 
+                if FKW ==EUN :
+                    FKV =EOX 
+                if FKW ==FAE :
+                    FKV =ERW 
+                if FKV ==ETW :
+                    FKZ =EOA 
+                    FLA =EMQ 
+                    if not EJV (EYP ,ETV ):
+                        FLA =EQR 
+                    else :
+                        FLA =ERM 
+                    if FLA ==ETW :
+                        if not EWI (FCP ,EOO ):
+                            FLA =EQR 
+                        else :
+                            FLA =ENT 
+                    if FLA ==EYZ :
+                        FKZ =EOB 
+                    if FLA ==ESK :
+                        FKZ =EKB 
+                    if FKZ ==EMG :
+                        FLB =ENI 
+                        if not ESP (ESB ,FKE ):
+                            FLB =EXE 
+                        else :
+                            FLB =ENN 
+                        if FLB ==EXV :
+                            if not EIW .EIX (EZN ):
+                                FLB =EOO 
+                            else :
+                                FLB =EZQ 
+                        if FLB ==EYS :
+                            FKZ =EZP 
+                        if FLB ==EXE :
+                            FKZ =EJL 
+                    if FKZ ==EJN :
+                        FKV =ELU 
+                    if FKZ ==EXX :
+                        FKV =ETE 
+                if FKV ==ERW :
+                    FKU =EPL 
+                if FKV ==ESO :
+                    FKU =EQY 
+                if FKU ==EMW :
+                    if not ELD (EQT ,FFF ):
+                        FKU =ESJ 
+                    else :
+                        FKU =ENM 
+                if FKU ==FLC :
+                    FKS =FCJ 
+                if FKU ==EPH :
+                    FKS =EKB 
+            if FKS ==EZH :
+                for EIL in range (FAQ ,len (FKA [EVE ])):
+                    FKH =EZK 
+                    FKI =FKQ 
+                    FKJ =EPO 
+                    FKK =EQF 
+                    FKL =EOI 
+                    if not EIW .EIX (EJT ):
+                        FKL =EYU 
+                    else :
+                        FKL =EYJ 
+                    if FKL ==EOM :
+                        if not ETV :
+                            FKL =ERC 
+                        else :
+                            FKL =ERN 
+                    if FKL ==FEA :
+                        FKK =EJL 
+                    if FKL ==ERT :
+                        FKK =ERK 
+                    if FKK ==ERW :
+                        FKM =EOO 
+                        if not EKD (EJU ):
+                            FKM =FAX 
+                        else :
+                            FKM =FBF 
+                        if FKM ==EXV :
+                            if not FBB :
+                                FKM =FDL 
+                            else :
+                                FKM =EYT 
+                        if FKM ==EMT :
+                            FKK =EWV 
+                        if FKM ==EOW :
+                            FKK =ENW 
+                    if FKK ==ENW :
+                        FKJ =EKY 
+                    if FKK ==EWV :
+                        FKJ =EML 
+                    if FKJ ==EOI :
+                        FKN =EMF 
+                        FKO =ELX 
+                        if EJV (FDU ,EQM ):
+                            FKO =EWH 
+                        else :
+                            FKO =EJU 
+                        if FKO ==EMV :
+                            if ENE (FKF ,ELJ ):
+                                FKO =EKW 
+                            else :
+                                FKO =EJU 
+                        if FKO ==EXE :
+                            FKN =ESH 
+                        if FKO ==EWM :
+                            FKN =ETS 
+                        if FKN ==EJU :
+                            FKP =ETE 
+                            if EJV (EZP ,EOB ):
+                                FKP =ENJ 
+                            else :
+                                FKP =EWC 
+                            if FKP ==EWC :
+                                if not EIW .EIX (EYA ):
+                                    FKP =ENJ 
+                                else :
+                                    FKP =FGG 
+                            if FKP ==FGG :
+                                FKN =ELH 
+                            if FKP ==EVM :
+                                FKN =ENM 
+                        if FKN ==ELH :
+                            FKJ =EOW 
+                        if FKN ==ETQ :
+                            FKJ =EWN 
+                    if FKJ ==EME :
+                        FKI =EQJ 
+                    if FKJ ==ELJ :
+                        FKI =FBL 
+                    if FKI ==EQJ :
+                        if not EKG (EXG ):
+                            FKI =FIH 
+                        else :
+                            FKI =FBA 
+                    if FKI ==EQP :
+                        FKH =ERC 
+                    if FKI ==ERK :
+                        FKH =EZQ 
+                    if FKH ==ERT :
+                        FKR =EUN 
+                        if ELD (ESG ,FKG ):
+                            FKR =FAE 
+                        else :
+                            FKR =EZK 
+                        if FKR ==ERJ :
+                            if not EIW .EIX (EJA ):
+                                FKR =EMR 
+                            else :
+                                FKR =EJZ 
+                        if FKR ==EJT :
+                            FKH =ETS 
+                        if FKR ==EVU :
+                            FKH =EZQ 
+                    if FKH ==FEA :
+                        pass 
+                    if FKH ==EVN :
+                        FKA [EIK ][EIL ]=str (FJZ )
+            if FKS ==EWH :
+                pass 
+        break 
 
-##############################################################################################################################################################
-def get_capacity(movie_seats: list) -> int:
-    movie_seats_valid_check(movie_seats_list= movie_seats)
-    capacity = 0
-    for row in movie_seats:
-        for element in row:
-            if element == "0": capacity += 1
-    return capacity
+def CG (movie_seat_list :list ,fill_number :int )->None :
+    return FJY (fill_number ,movie_seat_list )
 
+def FLD (FLE ,FLF ,FLG ,FLH ):
+    try :
+        ET (movie_seats_list =FLG )
+    except ValueError as e :
+        raise ValueError (f'Modify Movie Seats Failed! Movie Seat List ERROR! {e }')
+    FLK =EWC 
+    FLL =ENM 
+    if not ELD (FLI ,ELI ):
+        FLL =EJP 
+    else :
+        FLL =FCJ 
+    if FLL ==EKV :
+        if not EKG (FKE ):
+            FLL =EOZ 
+        else :
+            FLL =ERN 
+    if FLL ==EJU :
+        FLK =EZB 
+    if FLL ==EZH :
+        FLK =EXE 
+    if FLK ==EQW :
+        FLM =FDL 
+        if not FLG :
+            FLM =EWC 
+        else :
+            FLM =EKB 
+        if FLM ==EMG :
+            if not EKD (ENJ ):
+                FLM =FBA 
+            else :
+                FLM =EPQ 
+        if FLM ==EPS :
+            FLK =ERN 
+        if FLM ==EQP :
+            FLK =ELP 
+    if FLK ==ELP :
+        raise IndexError (FLJ )
+    if FLK ==ESH :
+        pass 
+    FLN =EOW 
+    FLO =ETL 
+    if not EOP :
+        FLO =EUO 
+    else :
+        FLO =EOS 
+    if FLO ==EKK :
+        FLP =EOB 
+        if not ENE (FLH ,ELO ):
+            FLP =ERN 
+        else :
+            FLP =EOA 
+        if FLP ==EYZ :
+            if not ESP (FLH ,len (FLG [ELS ])):
+                FLP =EXE 
+            else :
+                FLP =ETV 
+        if FLP ==FEA :
+            FLO =EPQ 
+        if FLP ==ETV :
+            FLO =ESX 
+    if FLO ==EMF :
+        FLN =EPK 
+    if FLO ==EUN :
+        FLN =EJU 
+    if FLN ==EOA :
+        FLQ =EKP 
+        if not EJV (EZD ,FAD ):
+            FLQ =EKV 
+        else :
+            FLQ =ELP 
+        if FLQ ==ERZ :
+            if not EMB (EQN ,FBE ):
+                FLQ =EJF 
+            else :
+                FLQ =FAU 
+        if FLQ ==EPX :
+            FLN =EQR 
+        if FLQ ==ESW :
+            FLN =FEA 
+    if FLN ==EZQ :
+        raise IndexError (f'x_axis should be between 1 and {len (FLG [0 ])}\nYour x_axis is {FLH }')
+    if FLN ==EQM :
+        pass 
+    FLS =EOD 
+    FLT =EMJ 
+    if not EKG (EOZ ):
+        FLT =FCO 
+    else :
+        FLT =ELR 
+    if FLT ==ELR :
+        FLU =EJK 
+        if ENE (FLE ,EVG ):
+            FLU =ERW 
+        else :
+            FLU =EUO 
+        if FLU ==EJN :
+            if ESP (FLE ,len (FLG )):
+                FLU =EPT 
+            else :
+                FLU =EPS 
+        if FLU ==EPT :
+            FLT =EOB 
+        if FLU ==EUN :
+            FLT =EZW 
+    if FLT ==EXX :
+        FLS =EQX 
+    if FLT ==ENR :
+        FLS =EYK 
+    if FLS ==ELR :
+        FLV =EPA 
+        if ELD (ETY ,FLR ):
+            FLV =EZE 
+        else :
+            FLV =EUO 
+        if FLV ==EUO :
+            if EJV (FEQ ,FAQ ):
+                FLV =EZE 
+            else :
+                FLV =EPH 
+        if FLV ==ETS :
+            FLS =EKQ 
+        if FLV ==EPK :
+            FLS =EVP 
+    if FLS ==EVP :
+        pass 
+    if FLS ==EYJ :
+        raise IndexError (f'y_axis should be between 1 and {len (FLG )}\nYour y_axis is {FLE }')
+    FLG [len (FLG )-FLE ][FLH -ELM ]=str (FLF )
 
+def EH (movie_seat_list :list ,x_axis :int ,y_axis :int ,target_number :int )->None :
+    return FLD (y_axis ,target_number ,movie_seat_list ,x_axis )
 
-def movie_seats_specify_value(movie_seats: list,x_axis: int,y_axis: int) -> str:
-    if not movie_seats_pointer_valid_check(
-            movie_seats= movie_seats,
-            x_pointer= x_axis,
-            y_pointer= y_axis
-    ):
-        raise IndexError(f"x_axis:{x_axis} or y_axis:{y_axis} is out of range of {movie_seats}!")
-    return movie_seats[len(movie_seats) - y_axis][x_axis - 1]
+def FLW (FLX ):
+    FLZ =EZL 
+    FMA =EJG 
+    if not EIW .EIX (ESZ ):
+        FMA =ENI 
+    else :
+        FMA =ERB 
+    if FMA ==ERK :
+        if not FLX :
+            FMA =EWC 
+        else :
+            FMA =ESF 
+    if FMA ==ESF :
+        FLZ =EVB 
+    if FMA ==FBA :
+        FLZ =EOZ 
+    if FLZ ==FCJ :
+        FMB =EJL 
+        if ESP (FLY ,ENL ):
+            FMB =EWV 
+        else :
+            FMB =ENW 
+        if FMB ==FBL :
+            if not EZW :
+                FMB =ENJ 
+            else :
+                FMB =EVW 
+        if FMB ==ESD :
+            FLZ =EOW 
+        if FMB ==EMM :
+            FLZ =EQS 
+    if FLZ ==EOW :
+        raise ValueError (f'{FLX } is empty!')
+    if FLZ ==EUP :
+        pass 
+    EIM :list =[]
+    EIN :int =FEQ 
+    for EIO in FLX :
+        FMH =EJK 
+        FMI =EKA 
+        if not FCJ :
+            FMI =ELP 
+        else :
+            FMI =FAI 
+        if FMI ==EMO :
+            if not EIW .EIX (FER ):
+                FMI =EKO 
+            else :
+                FMI =EUW 
+        if FMI ==EZL :
+            FMH =EOP 
+        if FMI ==EMN :
+            FMH =FBH 
+        if FMH ==EOK :
+            FMJ =EMF 
+            if not EKD (EVG ):
+                FMJ =EJJ 
+            else :
+                FMJ =EOR 
+            if FMJ ==FAW :
+                FMK =ENP 
+                FML =EYZ 
+                FMM =EKJ 
+                if not EIW .EIX (FMC ):
+                    FMM =ELO 
+                else :
+                    FMM =FBF 
+                if FMM ==FBE :
+                    if not EJV (ELJ ,FMD ):
+                        FMM =EYD 
+                    else :
+                        FMM =EOM 
+                if FMM ==EYH :
+                    FML =FAG 
+                if FMM ==EOQ :
+                    FML =EPN 
+                if FML ==EPJ :
+                    FMN =EWF 
+                    if not EKG (ESF ):
+                        FMN =EJJ 
+                    else :
+                        FMN =EYD 
+                    if FMN ==EYH :
+                        if not EKD (EUV ):
+                            FMN =ESB 
+                        else :
+                            FMN =ERW 
+                    if FMN ==EJB :
+                        FML =ENI 
+                    if FMN ==EJN :
+                        FML =EYU 
+                if FML ==FCK :
+                    FMK =EPR 
+                if FML ==FAG :
+                    FMK =FIH 
+                if FMK ==ERK :
+                    FMO =EZQ 
+                    FMP =ETS 
+                    if not EYS :
+                        FMP =ENU 
+                    else :
+                        FMP =ERW 
+                    if FMP ==ETE :
+                        if not FBB :
+                            FMP =ENL 
+                        else :
+                            FMP =EQJ 
+                    if FMP ==EQL :
+                        FMO =EZJ 
+                    if FMP ==ERO :
+                        FMO =ETJ 
+                    if FMO ==FCJ :
+                        FMQ =FHS 
+                        if not ELX :
+                            FMQ =EQF 
+                        else :
+                            FMQ =EMF 
+                        if FMQ ==EWL :
+                            if not EKD (EOA ):
+                                FMQ =EOT 
+                            else :
+                                FMQ =ETX 
+                        if FMQ ==EPC :
+                            FMO =ESD 
+                        if FMQ ==EOJ :
+                            FMO =ERO 
+                    if FMO ==ENJ :
+                        FMK =EKW 
+                    if FMO ==FAV :
+                        FMK =EKN 
+                if FMK ==EXH :
+                    FMJ =EJJ 
+                if FMK ==EPO :
+                    FMJ =ETX 
+            if FMJ ==EJJ :
+                FMH =EST 
+            if FMJ ==EPC :
+                FMH =EQR 
+        if FMH ==FDU :
+            pass 
+        if FMH ==FBH :
+            EIP :int =len (EIO )
+            FME =EVG 
+            FMF =EKB 
+            if not EKD (EKA ):
+                FMF =EUO 
+            else :
+                FMF =FAW 
+            if FMF ==EPX :
+                if not EIW .EIX (EXX ):
+                    FMF =EZL 
+                else :
+                    FMF =EUV 
+            if FMF ==EKO :
+                FME =EOZ 
+            if FMF ==EUN :
+                FME =FCR 
+            if FME ==FCR :
+                FMG =ELK 
+                if not ESP (EIP ,EIN ):
+                    FMG =EVP 
+                else :
+                    FMG =EMM 
+                if FMG ==FBP :
+                    if not EKD (ERY ):
+                        FMG =EUG 
+                    else :
+                        FMG =EPH 
+                if FMG ==ETQ :
+                    FME =ELH 
+                if FMG ==EVR :
+                    FME =FDM 
+            if FME ==EKM :
+                EIN =EIP 
+                EIM =EIO 
+            if FME ==EZH :
+                pass 
+    return EIM 
 
-
-
-def header_create (header_text: str, movie_seats_length: int, append_thing:str) -> list:
-    header: list = []
-    header.append(header_text)                  #Add header text
-    for i in range(0,movie_seats_length - 1):   #Fill remaining columns
-        header.append(append_thing)
-    return header
-
-#Fill all seats in the seat list with a specified value
-def fill_movie_seats_list (movie_seat_list: list, fill_number: int) -> None:
-    try:
-        movie_seats_valid_check(movie_seats_list=movie_seat_list)
-    except ValueError as e:
-        raise ValueError (f"Fill Movie Seats Failed! Movie Seat List ERROR! {e}")
-    for i in range (0,len(movie_seat_list)):
-        for j in range (0,len(movie_seat_list[0])):
-            movie_seat_list[i][j] = str(fill_number)
-
-#Modify the state of a specific seat
-def modify_movie_seats_list(movie_seat_list: list, x_axis: int, y_axis: int, target_number: int) -> None:
-    try:
-        movie_seats_valid_check(movie_seats_list=movie_seat_list)
-    except ValueError as e:
-        raise ValueError (f"Modify Movie Seats Failed! Movie Seat List ERROR! {e}")
-    if not movie_seat_list:                                 #Check if list is empty
-        raise IndexError("Your Movie Seat List is Empty!")
-    if x_axis < 1 or x_axis > len(movie_seat_list[0]):      #Validate x_axis
-        raise IndexError(
-            f"x_axis should be between 1 and {len(movie_seat_list[0])}\n"
-            f"Your x_axis is {x_axis}"
-        )
-    if y_axis < 1 or y_axis > len(movie_seat_list):         #Validate y_axis
-        raise IndexError(
-            f"y_axis should be between 1 and {len(movie_seat_list)}\n"
-            f"Your y_axis is {y_axis}"
-        )
-    movie_seat_list[len(movie_seat_list) - y_axis][x_axis - 1] = str(target_number)     #Modify specified seat
-
-
-def find_longest_list(nested_list: list) -> list:
-    if not nested_list: raise ValueError(f"{nested_list} is empty!")
-    longest_list: list = []
-    largest_element_count: int = 0
-    for row in nested_list:
-        element_count: int = len(row)
-        if element_count > largest_element_count:
-            largest_element_count = element_count
-            longest_list = row
-    return longest_list
-
-    #作为library时不会被启用，仅有亲自运行此文件才会运行（用来测试用）
-if __name__ == '__main__':
-    movie_seats: list = []
-    read_movie_seats_csv(movie_seats_csv= "movie_seat.csv",movie_seats= movie_seats,movie_code="001")
-    fill_movie_seats_list(movie_seat_list= movie_seats,fill_number= 0)
-    update_movie_seats_csv(movie_seats_csv="movie_seat.csv",movie_seats= movie_seats,movie_code="001")
+def CH (nested_list :list )->list :
+    return FLW (nested_list )
+FMX =EMW 
+FMY =ELP 
+if not EMB (EUJ ,FMR ):
+    FMY =EOB 
+else :
+    FMY =ENW 
+if FMY ==FCY :
+    if not EWI (EPU ,FMS ):
+        FMY =FBH 
+    else :
+        FMY =EVS 
+if FMY ==ENW :
+    FMX =EJQ 
+if FMY ==EKJ :
+    FMX =EUJ 
+if FMX ==EUJ :
+    FMZ =ESI 
+    if not EJV (__name__ ,FMT ):
+        FMZ =FFV 
+    else :
+        FMZ =EPC 
+    if FMZ ==EVV :
+        if not EMV :
+            FMZ =EWM 
+        else :
+            FMZ =FAU 
+    if FMZ ==EPC :
+        FMX =FDI 
+    if FMZ ==EOR :
+        FMX =EJL 
+if FMX ==EMV :
+    pass 
+if FMX ==EJL :
+    movie_seats :list =[]
+    FF (movie_seats_csv =FMU ,movie_seats =movie_seats ,movie_code =FMV )
+    CG (movie_seat_list =movie_seats ,fill_number =ELS )
+    GI (movie_seats_csv =FMU ,movie_seats =movie_seats ,movie_code =FMW )
