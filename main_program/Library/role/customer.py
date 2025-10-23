@@ -282,6 +282,9 @@ def cancel_booking_operation(user_id : str, booking_data_dict : dict,customer_da
         return_booking_code= True
     )
     while True:
+        if not booking_code_range:
+            print ("You haven't bought any ticket")
+            return
         booking_code_cancel : str = fu.element_input(
             element_name= 'code that you want to cancel',
             input_range= booking_code_range
