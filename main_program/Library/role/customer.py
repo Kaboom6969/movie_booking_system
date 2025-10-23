@@ -177,6 +177,7 @@ def book_movie_system(
                     y_seat= str(y_pointer),
                     price= str(book_price),source= "online"
                 )
+                print("Booking successful!")
                 ccsf.list_dictionary_update(dictionary= booking_data_dict,list_to_add= booking_data_list)
 
             else: try_again = True
@@ -207,7 +208,6 @@ def book_movie_buy(seats_value : str)-> bool:
         if seats_value == "0":
             user_input = str(input("This seat is available. Are you (S)ure to book? or (C)ancel? "))
             if user_input.lower() == 's':
-                print("Booking successful!")
                 return True
             elif user_input.lower() == 'c':
                 print("Booking cancelled.")
