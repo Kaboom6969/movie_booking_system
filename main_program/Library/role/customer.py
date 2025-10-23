@@ -355,7 +355,11 @@ def customer(customer_id : str,
             case "3":
                 break
         fu.empty_input("Press Enter to continue...")
-        cnsv.sync_all()
+        try:
+            cnsv.sync_all()
+        except ValueError as e:
+            if "schedule" in e.args[0] or "Sort" in e.args[0]:
+                pass
 
 
 

@@ -544,7 +544,11 @@ def clerk(user_id):
         elif choice == '3':
             checking_movie(input_movie_code=input_movie_code)
             input('Press enter to continue')
-        cnsv.sync_all()
+        try:
+            cnsv.sync_all()
+        except ValueError as e:
+            if "schedule" in e.args[0] or "Sort" in e.args[0]:
+                pass
 
 def user_id_start_with_c(user_id:str) -> bool:
     return bool(user_id.startswith('C') and user_id[1:].isdigit())

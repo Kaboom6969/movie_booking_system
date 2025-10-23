@@ -6,7 +6,7 @@ from main_program.Library.cache_framework import data_dictionary_framework as dd
 from main_program.Library.data_communication_framework import cache_csv_sync_framework as ccsf
 from main_program.Library.movie_booking_framework import cinema_services as cnsv
 
-#这个是利用movie_booking框架的例子，（请将后续的函数都修改至适配此框架）
+
 def view_upcoming_movies(movie_list_dict: dict):
     movie_list: list = ccsf.read_list_from_cache(dictionary_cache= movie_list_dict)     #get all rows data
     movie_list_filtered: list = []      # container for future shows
