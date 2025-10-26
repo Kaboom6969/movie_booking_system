@@ -31,6 +31,6 @@ def get_price(movie_list_dict: dict,code : str) -> int:
     movie_price_location = movie_header_location_dict["original price"]
     movie_discount_location = movie_header_location_dict["discount"]
     movie_original_price : int = int(movie_list_specify[movie_price_location])
-    movie_discount : float = float(movie_list_specify[movie_discount_location].strip("%"))
+    movie_discount : float = float(movie_list_specify[movie_discount_location])
     movie_real_price : float = movie_original_price * (1 - movie_discount/100)
     return round(movie_real_price)

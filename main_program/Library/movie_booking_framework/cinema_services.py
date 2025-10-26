@@ -467,6 +467,7 @@ def conflict_check_light (minuteAEND : int, minuteBSTART: int) -> bool:
 
 
 def schedule_auto_sort(schedule_conflict_list : list,movie_list_dict:dict = None) -> tuple[bool,list]:
+    if movie_list_dict is None:movie_list_dict = ddf.MOVIE_LIST_DICTIONARY
     header_location_dict : dict = fu.header_location_get(ccsf.read_list_from_cache(
         dictionary_cache=movie_list_dict,
         code="header",header_insert=False)
@@ -525,8 +526,6 @@ def conflict_data_auto_sort(conflict_minute_dict : dict, schedule_list_strip : l
                     minuteAEND=conflict_minute_dict_copy[conflict_row[i]][1],
                     minuteBSTART=conflict_minute_dict_copy[conflict_row[i + 1]][0]
             ):
-                #i alr forgot how the code work (only god can know)
-                #at least now it can run
                 time_interval = conflict_minute_dict_copy[conflict_row[i + 1]][1] - conflict_minute_dict_copy[conflict_row[i + 1]][0]
                 conflict_minute_dict_copy[conflict_row[i + 1]][0] = conflict_minute_dict_copy[conflict_row[i]][1]
                 conflict_minute_dict_copy[conflict_row[i + 1]][1] = conflict_minute_dict_copy[conflict_row[i]][1] + time_interval
