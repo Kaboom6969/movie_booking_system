@@ -33,6 +33,8 @@ def get_biggest_number_of_code (
         #get the biggest number from the number_list
         biggest_number = _get_biggest_number_of_list(number_list= number_list)
         #return the biggest number
+        if biggest_number is None or biggest_number == 0:
+            return 1
         return biggest_number
     #if python got any error
     except Exception as e:
@@ -74,6 +76,7 @@ def prefix_catcher (code_list: list,code_location: int,number_of_prefix: int) ->
 #[1,2,3,4,5,6,7,8] -> 8
 def _get_biggest_number_of_list (number_list: list) -> int:
     biggest_number: int = 0
+    if not number_list: return 0
     try:
         for row in number_list:
             if row > biggest_number:
